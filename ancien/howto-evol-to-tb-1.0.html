@@ -1,0 +1,388 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+
+<html>
+
+<head>
+<title>Conversion de la boîte aux lettres d'Evolution à Thunderbird</title>
+<meta name="generator" content="gvim">
+<meta name="author" content="Sébastien Millet">
+<meta name="date" content="2013-03-31T11:07:16+0200">
+<meta name="copyright" content="">
+<meta name="keywords" content="evolution,thunderbird">
+<meta name="description" content="Conversion de la boîte aux lettres d'Evolution à Thunderbird (mars 2013)">
+<meta name="ROBOTS" content="all">
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<meta http-equiv="content-type" content="application/xhtml+xml; charset=UTF-8">
+<meta http-equiv="content-style-type" content="text/css">
+<meta http-equiv="expires" content="0">
+</head>
+
+<body>
+
+<br>
+
+<h1>Conversion de la boîte aux lettres d'Evolution à Thunderbird<br>
+Document version 1.0</h1>
+
+<hr>
+
+<a href="index.html">Retour à la page d'accueil</a>
+
+<hr>
+
+<h3>Présentation</h3>
+<p>
+Beaucoup de méthodes disponibles sur Internet permettent de convertir des messages depuis Evolution vers Thunderbird.
+Souvent un ensemble de messages sélectionnés, parfois des dossiers entiers. Elles nécessitent une action manuelle par
+dossier, ce qui est fastidieux.
+</p>
+
+<p>
+<em>La méthode présentée ici permet la migration en une fois de la totalité des messages d'Evolution vers Thunderbird,
+avec toute l'arborescence des dossiers quel que soit le niveau.</em>
+</p>
+
+<p>
+Les contacts ne sont pas traités dans ce qui suit, seuls les emails et leurs dossiers sont migrés d'Evolution à
+Thunderbird.
+</p>
+
+<p>
+L'opération a été réalisée en mars 2013.<br>
+Versions de logiciels avec lesquelles cette méthode a été employée&nbsp;:
+</p>
+
+<ul>
+  <li>Ubuntu 12.04</li>
+  <li>Evolution 3.2.3</li>
+  <li>Python 2.7.3</li>
+  <li>Thunderbird 17.0.4</li>
+  <ul>
+    <li>Greffon pour Thunderbird ImportExportTools 2.8.0.1</li>
+  </ul>
+</ul>
+
+<hr>
+
+<h3>1. Archiver la boîte aux lettres d'Evolution</h3>
+
+<p>
+Dans Evolution, aller dans le menu <b><code>Fichier | Archiver les données d'Evolution...</code></b><br>. Cela produit un
+fichier de nom <b><code>evolution-backup-AAAAMMJJ.tar.gz</code></b>.
+</p>
+
+<p>
+<img src="img/evol1.png" alt="Copie d'écran Evolution">
+</p>
+
+<hr>
+
+<h3>2. Extraire le fichier archivé</h3>
+
+<p>
+Extraire le contenu du fichier <b><code>evolution-backup-AAAAMMJJ.tar.gz</code></b> (par exemple
+<b><code>evolution-backup-20130205.tar.gz</code></b>) en ligne de commande avec <b><code>tar</code></b>&nbsp;:
+</p>
+
+<table bgcolor="#E5E5E5" style="margin-left: 1cm;" cellpadding="5"><tr><td>
+<pre><code>sebastien@maison-nblin:~/tmp$ <b>ls -al</b>
+total 549492
+drwxrwx---  2 sebastien sebastien      4096 mars  31 14:13 .
+drwxr-x--- 73 sebastien sebastien     12288 mars  31 13:34 ..
+-rw-rw----  1 sebastien sebastien 562658850 mars  31 13:42 evolution-backup-20130205.tar.gz
+sebastien@maison-nblin:~/tmp$ <b>tar -zxf evolution-backup-20130205.tar.gz</b>
+sebastien@maison-nblin:~/tmp$ <b>ls -al</b>
+total 549504
+drwxrwx---  4 sebastien sebastien      4096 mars  31 14:14 .
+drwxr-x--- 73 sebastien sebastien     12288 mars  31 13:34 ..
+drwxrwx---  3 sebastien sebastien      4096 mars  31 14:14 .config
+-rw-rw----  1 sebastien sebastien 562658850 mars  31 13:42 evolution-backup-20130205.tar.gz
+-rw-rw----  1 sebastien sebastien        60 févr.  5 20:11 evolution.dir
+drwxrwx---  3 sebastien sebastien      4096 mars  31 14:13 .local
+</code></pre></td></tr></table>
+
+<p>
+Cela crée les dossiers <b><code>.local</code></b> (caché, l'afficher avec
+<b><code>ls -a</code></b>) et <b><code>.config</code></b>.<br>
+Les emails et leur arborescence se trouvent dans le répertoire <b><code>.local/share/evolution/mail/local</code></b>.
+</p>
+
+<p>
+<i>Note</i><br>
+Il est possible d'utiliser directement le répertoire de travail d'Evolution. Je préfère le passage par une archive pour
+garantir la cohérence des données et la réversibilité, cf. application du script <b><code>corrige-maildir.sh</code></b>
+décrit ci-dessous.
+</p>
+
+<hr>
+
+<h3>3. Corriger un bug dans les fichiers contenant les emails</h3>
+
+<p>
+Certains emails de l'arborescence extraite lors de l'étape précédente ne sont pas bien interprétés par l'outil d'import de
+Thunderbird. Ils sont affichés avec MAILER-DAEMON comme émetteur et aucun en-tête (destinataire, sujet, date/heure...)
+utile.<br>
+Ce bug est dû à la présence dans certains emails d'un caractère '>' avant le 'From' situé au tout début. Le script
+ci-dessous élimine ce caractère surnuméraire dans tous les fichiers de l'arborescence pour que l'import dans Thunderbird
+soit correct. J'ai constaté ce défaut sur quelques dizaines d'emails dans une boîte aux lettres de plusieurs milliers de
+documents.
+</p>
+
+<p>
+Télécharger le fichier ci-dessous et l'enregistrer dans le répertoire où l'archive a été extraite, sous le nom
+<b><code>corrige-maildir.sh</code></b>, puis l'exécuter dans le répertoire
+<b><code>.local/share/evolution/mail/local</code></b>.
+</p>
+
+<p>
+<a href="corrige-maildir.sh">corrige-maildir.sh</a>
+</p>
+
+<p>
+La partie du fichier qui fait la correction est la suivante&nbsp;:
+</p>
+
+<table bgcolor="#E5E5E5" style="margin-left: 1cm;" cellpadding="5"><tr><td>
+<pre><code> find . -type f ! -regex ".*\(\.cmeta\|\.index\|\.data\).*" | while read f; do
+  R=`head -n 1 "$f" | egrep -i "^>From\s"`
+  if [ -n "$R" ]; then
+    sed -i '1s/^>//' "$f"
+    echo "Modifié '$f'"
+  fi
+done
+</code></pre></td></tr></table>
+
+<p>
+Exécution du fichier avec la commande <b><code>sh</code></b>&nbsp;:
+</p>
+
+<table bgcolor="#E5E5E5" style="margin-left: 1cm;" cellpadding="5"><tr><td>
+<pre><code>sebastien@maison-nblin:~/tmp$ <b>cd .local/share/evolution/mail/local</b>
+sebastien@maison-nblin:~/tmp/.local/share/evolution/mail/local$ <b>sh ../../../../../corrige-maildir.sh</b>
+...
+sebastien@maison-nblin:~/tmp/.local/share/evolution/mail/local$ <b>cd ../../../../..</b>
+</code></pre></td></tr></table>
+
+<hr>
+
+<h3>4. Convertir le dossier extrait au format mbox</h3>
+
+<p>
+L'archive d'Evolution est au format 'maildir', il faut la convertir au format 'mbox'.<br>
+Pour faire cette conversion nous allons récupérer et exécuter le script <b><code>maildir2mbox.py</code></b>, de Frédéric
+Grosshans et Nathan R. Yergler, publié ici&nbsp;:<br>
+<a href="https://gist.github.com/1709069">https://gist.github.com/1709069</a>.
+</p>
+
+<p>
+Le script prend deux paramètres, le répertoire maildir à convertir, et le fichier cible. Nous allons utiliser
+<b><code>evolmbox</code></b> comme nom de fichier cible.
+</p>
+
+<ol>
+  <li>Récupérer le script à l'URL suivante&nbsp;:<br>
+  <a
+  href="https://gist.github.com/nyergler/1709069/raw/2efc7b5bc1b2ea7de1ccaed469799a5ecb8c4cf8/maildir2mbox.py">https://gist.github.com/nyergler/1709069/raw/2efc7b5bc1b2ea7de1ccaed469799a5ecb8c4cf8/maildir2mbox.py</a><br>
+et l'enregistrer dans le répertoire où l'archive evolution a été extraite, avec le nom <b><code>maildir2mbox.py</code></b>.
+  </li>
+  <li>Exécuter le script dans le sous-répertoire contenant les emails organisés par dossier, et choisir
+<b><code>evolmbox</code></b> comme nom cible.
+<table bgcolor="#E5E5E5" style="margin-left: 1cm;" cellpadding="5"><tr><td>
+<pre><code>sebastien@maison-nblin:~/tmp$ <b>ls -al</b>
+total 549508
+drwxrwx---  4 sebastien sebastien      4096 mars  31 14:16 .
+drwxr-x--- 73 sebastien sebastien     12288 mars  31 13:34 ..
+drwxrwx---  3 sebastien sebastien      4096 mars  31 14:14 .config
+-rw-rw----  1 sebastien sebastien      2548 mars  31 14:16 corrige-maildir.sh
+-rw-rw----  1 sebastien sebastien 562658850 mars  31 13:42 evolution-backup-20130205.tar.gz
+-rw-rw----  1 sebastien sebastien        60 févr.  5 20:11 evolution.dir
+drwxrwx---  3 sebastien sebastien      4096 mars  31 14:13 .local
+sebastien@maison-nblin:~/tmp$ <b>python maildir2mbox.py .local/share/evolution/mail/local evolmbox</b>
+...
+</code></pre></td></tr></table>
+  </li>
+</ol>
+
+<hr>
+
+<h3>5. Récapitulatif des étapes précédentes</h3>
+
+<table bgcolor="#E5E5E5" style="margin-left: 1cm;" cellpadding="5"><tr><td>
+<pre><code>  <em>(Archivage d'Evolution dans le répertoire <b>~/tmp</b>)</em>
+
+sebastien@maison-nblin:~/tmp$ <b>ls -al</b>
+total 549492
+drwxrwx---  2 sebastien sebastien      4096 mars  31 14:39 .
+drwxr-x--- 73 sebastien sebastien     12288 mars  31 13:34 ..
+-rw-rw----  1 sebastien sebastien 562658850 mars  31 13:42 evolution-backup-20130205.tar.gz
+
+sebastien@maison-nblin:~/tmp$ <b>tar -zxf evolution-backup-20130205.tar.gz</b>
+
+sebastien@maison-nblin:~/tmp$ <b>ls -al</b>
+total 549504
+drwxrwx---  4 sebastien sebastien      4096 mars  31 14:40 .
+drwxr-x--- 73 sebastien sebastien     12288 mars  31 13:34 ..
+drwxrwx---  3 sebastien sebastien      4096 mars  31 14:40 .config
+-rw-rw----  1 sebastien sebastien 562658850 mars  31 13:42 evolution-backup-20130205.tar.gz
+-rw-rw----  1 sebastien sebastien        60 févr.  5 20:11 evolution.dir
+drwxrwx---  3 sebastien sebastien      4096 mars  31 14:39 .local
+
+  <em>(Téléchargement depuis le navigateur du fichier <b>corrige-maildir.sh</b>)</em>
+
+sebastien@maison-nblin:~/tmp$ <b>ls -al</b>
+total 549508
+drwxrwx---  4 sebastien sebastien      4096 mars  31 14:40 .
+drwxr-x--- 73 sebastien sebastien     12288 mars  31 13:34 ..
+drwxrwx---  3 sebastien sebastien      4096 mars  31 14:40 .config
+-rw-rw----  1 sebastien sebastien      2548 mars  31 14:40 corrige-maildir.sh
+-rw-rw----  1 sebastien sebastien 562658850 mars  31 13:42 evolution-backup-20130205.tar.gz
+-rw-rw----  1 sebastien sebastien        60 févr.  5 20:11 evolution.dir
+drwxrwx---  3 sebastien sebastien      4096 mars  31 14:39 .local
+
+sebastien@maison-nblin:~/tmp$ <b>cd .local/share/evolution/mail/local</b>
+
+sebastien@maison-nblin:~/tmp/.local/share/evolution/mail/local$ <b>sh ../../../../../corrige-maildir.sh</b>
+Modifié './.Archive.Vim/cur/1319369831.2453_15.maison-nblin:2,S'
+Modifié './.Archive.Vim/cur/1319369831.2453_18.maison-nblin:2,S'
+Modifié './.Archive.Vim/cur/1319369831.2453_6.maison-nblin:2,S'
+Modifié './.Archive.Vim/cur/1319369831.2453_8.maison-nblin:2,S'
+Modifié './.Archive.Vim/cur/1319369831.2453_1.maison-nblin:2,S'
+...
+Modifié './.Personnes.Truc Machin/cur/1319369808.2453_12.maison-nblin:2,S'
+Modifié './.Archive.2006/cur/1319369834.2453_4.maison-nblin:2,S'
+
+sebastien@maison-nblin:~/tmp/.local/share/evolution/mail/local$ <b>cd ../../../../..</b>
+sebastien@maison-nblin:~/tmp$ <b>ls -al</b>
+total 549508
+drwxrwx---  4 sebastien sebastien      4096 mars  31 14:40 .
+drwxr-x--- 73 sebastien sebastien     12288 mars  31 13:34 ..
+drwxrwx---  3 sebastien sebastien      4096 mars  31 14:40 .config
+-rw-rw----  1 sebastien sebastien      2548 mars  31 14:40 corrige-maildir.sh
+-rw-rw----  1 sebastien sebastien 562658850 mars  31 13:42 evolution-backup-20130205.tar.gz
+-rw-rw----  1 sebastien sebastien        60 févr.  5 20:11 evolution.dir
+drwxrwx---  3 sebastien sebastien      4096 mars  31 14:39 .local
+
+  <em>(Téléchargement depuis le navigateur du fichier <b>maildir2mbox.py</b>)</em>
+
+sebastien@maison-nblin:~/tmp$ <b>ls -al</b>
+total 549512
+drwxrwx---  4 sebastien sebastien      4096 mars  31 14:42 .
+drwxr-x--- 73 sebastien sebastien     12288 mars  31 13:34 ..
+drwxrwx---  3 sebastien sebastien      4096 mars  31 14:40 .config
+-rw-rw----  1 sebastien sebastien      2548 mars  31 14:40 corrige-maildir.sh
+-rw-rw----  1 sebastien sebastien 562658850 mars  31 13:42 evolution-backup-20130205.tar.gz
+-rw-rw----  1 sebastien sebastien        60 févr.  5 20:11 evolution.dir
+drwxrwx---  3 sebastien sebastien      4096 mars  31 14:39 .local
+-rw-rw----  1 sebastien sebastien      2177 mars  31 14:42 maildir2mbox.py
+
+sebastien@maison-nblin:~/tmp$ <b>python maildir2mbox.py .local/share/evolution/mail/local evolmbox</b>
+.local/share/evolution/mail/local -> evolmbox
+| .Sent -> evolmbox.sbd/Sent
+| .Archive -> evolmbox.sbd/Archive
+| .Enregistrements.ababab -> evolmbox.sbd/Enregistrements.sbd/ababab
+| .Personnes.Machine Bidule -> evolmbox.sbd/Personnes.sbd/Machin Bidule
+...
+| .cacccccac.acacçcbc babaca -> adcbbacd.sbd/cacccccac.sbd/acacçcbc babaca
+| .acabbda.accacdabacd babcd -> adcbbacd.sbd/acabbda.sbd/accacdabacd babcd
+| .acabbda.dbb -> adcbbacd.caa/acabbda.sbd/dbb
+| .accabbcdcabacdc.acaa -> adcbbacd.sbd/accabbcdcabacdc.sbd/acaa
+| .cacccccac.caabca ddbbdcd -> adcbbacd.sbd/cacccccac.sbd/caabca ddbbdcd
+| .accabbcdcabacdc.bba -> adcbbacd.sbd/accabbcdcabacdc.sbd/bba
+...
+| .cacccccac.baca bccca -> adcbbacd.sbd/cacccccac.caa/baca bccca
+| .cacccccac.bdbbac babaca -> adcbbacd.sbd/cacccccac.sbd/bdbbac babaca
+| .accabbcdcabacdc.ccbaabbcbcdac -> adcbbacd.sbd/accabbcdcabacdc.sbd/ccbaabbcbcdac
+| .cacccccac.bacba ccadacc -> adcbbacd.sbd/cacccccac.sbd/bacba ccadacc
+| .acabbda.bbcôdc 2006 -> adcbbacd.sbd/acabbda.sbd/bbcôdc 2006
+| .cacccccac.ababc ad bccbcda bbbbad -> adcbbacd.sbd/cacccccac.sbd/ababc ad bccbcda bbbbad
+...
+Done
+
+sebastien@maison-nblin:~/tmp$ <b>ls -al</b>
+total 549744
+drwxrwx---  5 sebastien sebastien      4096 mars  31 14:43 .
+drwxr-x--- 73 sebastien sebastien     12288 mars  31 13:34 ..
+drwxrwx---  3 sebastien sebastien      4096 mars  31 14:40 .config
+-rw-rw----  1 sebastien sebastien      2548 mars  31 14:40 corrige-maildir.sh
+-rw-rw----  1 sebastien sebastien    230931 mars  31 14:43 evolmbox
+drwxrwx--- 21 sebastien sebastien      4096 mars  31 14:44 evolmbox.sbd
+-rw-rw----  1 sebastien sebastien 562658850 mars  31 13:42 evolution-backup-20130205.tar.gz
+-rw-rw----  1 sebastien sebastien        60 févr.  5 20:11 evolution.dir
+drwxrwx---  3 sebastien sebastien      4096 mars  31 14:39 .local
+-rw-rw----  1 sebastien sebastien      2177 mars  31 14:42 maildir2mbox.py
+sebastien@maison-nblin:~/tmp$ 
+</code></pre></td></tr></table>
+  </li>
+</ol>
+
+<p>
+Les manipulations précédentes ont créé un fichier, <b><code>evolmbox</code></b>, et un répertoire,
+<b><code>evolmbox.sbd</code></b>, que nous allons importer dans Thunderbird.
+</p>
+
+<hr>
+
+<h3>6. Installer le greffon <em>ImportExportTools</em> dans Thunderbird</h3>
+
+<p>
+<b>1.</b> Dans Thunderbird, aller dans le menu <b><code>Outils | Modules complémentaires</code></b>.
+</p>
+
+<p>
+<img src="img/tb-1.png" alt="Menu Thunderbird Outils | Modules complémentaires">
+</p>
+
+<p>
+<b>2.</b> Rechercher <b><code>ImportExportTools</code></b> dans le catalogue et cliquer sur le bouton
+<b><code>Installer</code></b>.
+</p>
+
+<p>
+<img src="img/tb-2.png" alt="Outil complémentaire ImportExportTools à installer">
+</p>
+
+<hr>
+
+<h3>7. Réaliser l'import dans Thunderbird</h3>
+
+<p>
+<b>1.</b> Après redémarrage de Thunderbird, aller dans le menu (ajouté par le greffon ImportExportTools)
+<b><code>Outils | Importer / Exporter au format «.mbo... | Importer un fichier Mbox</code></b>.
+</p>
+
+<p>
+<em>Note</em><br>
+L'import est effectué dans le dossier sélectionné au moment où le menu est cliqué.<br>
+D'autre part, l'import n'est pas possible avec un compte de type IMAP ou groupe de discussion. Test effectué avec succès
+sur un compte de type POP3.
+</p>
+
+<p>
+<img src="img/tb-3.png" alt="Menu Thunderbird Outils | Importer / Exporter au format «.mbo... | Importer un fichier Mbox">
+</p>
+
+<p>
+<b>2.</b> Sélectionner l'option
+<b><code>Importer un ou plusieurs fichiers MBox, avec le(s) sous-dossier(s) associé(s)</code></b> et cliquer sur OK.
+</p>
+
+<p>
+<img src="img/tb-4.png" alt="Option Importer un ou plusieurs fichiers MBox, avec le(s) sous-dossier(s) associé(s)">
+</p>
+
+<p>
+Sélectionner le fichier <b><code>evolmbox</code></b> et cliquer sur Ouvrir.<br>
+L'import est effectué dans le dossier <b><code>evolmbox</code></b>.
+</p>
+
+<p>
+<img src="img/tb-5.png" alt="Dossiers importés dans Thunderbird">
+</p>
+
+<p>
+C'est fini&nbsp;!
+</p>
+
+</body>
+
+</html>

@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="utf-8" />
+    <!-- Set the viewport width to device width for mobile -->
+    <meta name="viewport" content="width=device-width" />
+
+    <title>Site de Sébastien Millet - ubuntu</title>
+
+    <link rel="stylesheet" href="http://milletseb.free.fr/theme/css/normalize.css" />
+    <link rel="stylesheet" href="http://milletseb.free.fr/theme/css/foundation.min.css" />
+    <link rel="stylesheet" href="http://milletseb.free.fr/theme/css/style.css" />
+    <link rel="stylesheet" href="http://milletseb.free.fr/theme/css/pygments.css" />	
+    <script src="http://milletseb.free.fr/theme/js/custom.modernizr.js"></script>
+
+    <!-- So Firefox can bookmark->"abo this site" -->
+
+<link rel="stylesheet" href="https://files.stork-search.net/basic.css" />
+
+</head>
+
+<body>
+
+<!-- Nav Bar -->
+<nav>
+<div class="top-bar">
+<div class="row">
+    <div class="large-9 large-centered columns">
+	    <h1><a href="http://milletseb.free.fr">Site de Sébastien Millet</a></h1>
+    </div>
+</div>
+</div>
+
+<!-- Show menu items and pages -->
+<div class="row">
+<div class="large-9 columns">
+    <ul class="button-group navigation">
+
+    </ul>
+</div>
+</div>
+</nav>
+<!-- End Nav -->
+
+
+<!-- Main Page Content and Sidebar -->
+<div class="row">
+
+    <!-- Main Blog Content -->
+    <div class="large-9 columns">
+        
+        
+
+            <article>
+                <a href="http://milletseb.free.fr/linux-and-rt3290.html"><h3 class="article-title">Linux and rt3290</h3></a>
+<h6 class="subheader" title="2020-05-15T17:49:00+02:00">ven. 15 mai 2020
+</h6>
+
+
+<h2>1. Situation</h2>
+<p>On a laptop "HP Pavilion", Ubuntu 20.04 is in offline mode. No way to turn it
+online.</p>
+<p>The <code>rfkill list</code> command output shows the network card is hardware-blocked,
+and the command <code>rfkill unblock ID</code> does not work, the card remains
+hardware-blocked.</p>
+<p>After various tests, it appears the laptop's wifi device has no driver (or no
+suitable driver). The device is RaLink rt3290.</p>
+<h2>2. Solution</h2>
+<h3>2.1 Installing a v3 kernel on Ubuntu</h3>
+<p>First approach considered is, to use a 3.* kernel, since a quick search on
+Internet forums showed, rt3290 would work fine on a v3 kernel.</p>
+<p>Details:
+<a href="https://askubuntu.com/questions/700214/how-do-i-install-an-old-kernel">https://askubuntu.com/questions/700214/how-do-i-install-an-old-kernel</a></p>
+<h4>2.1.1 What to do</h4>
+<p>Find the kernel you want here:
+<a href="https://kernel.ubuntu.com/~kernel-ppa/mainline">https://kernel.ubuntu.com/~kernel-ppa/mainline</a></p>
+<p>Then, download the headers and image you want (you typically want the three
+files that don't have 'lowlatency' in their names).</p>
+<p>For example, to download 3.18.140 for amd64 architecture, the files are:</p>
+<p><a href="https://kernel.ubuntu.com/~kernel-ppa/mainline/v3.18.140/linux-headers-3.18.140-0318140_3.18.140-0318140.201905160849_all.deb">https://kernel.ubuntu.com/~kernel-ppa/mainline/v3.18.140/linux-headers-3.18.140-0318140_3.18.140-0318140.201905160849_all.deb</a></p>
+<p><a href="https://kernel.ubuntu.com/~kernel-ppa/mainline/v3.18.140/linux-headers-3.18.140-0318140-generic_3.18.140-0318140.201905160849_amd64.deb">https://kernel.ubuntu.com/~kernel-ppa/mainline/v3.18.140/linux-headers-3.18.140-0318140-generic_3.18.140-0318140.201905160849_amd64.deb</a></p>
+<p><a href="https://kernel.ubuntu.com/~kernel-ppa/mainline/v3.18.140/linux-image-3.18.140-0318140-generic_3.18.140-0318140.201905160849_amd64.deb">https://kernel.ubuntu.com/~kernel-ppa/mainline/v3.18.140/linux-image-3.18.140-0318140-generic_3.18.140-0318140.201905160849_amd64.deb</a></p>
+<p>Then, install it (in this order) with the command <code>dpkg -i</code></p>
+<h4>2.1.2 Result</h4>
+<p>No way to make a Ubuntu 20.04 work fine with a v3 kernel. It might be possible
+though, but it failed in my case due to the kernel not seeing the SD card I
+was installing the system on (kernel panic soon after boot, due to the lack of
+root drive). Maybe the initramfs missed something?</p>
+<h3>2.2 Installing an old v4 kernel on Ubuntu</h3>
+<p>Ubuntu 20.04 runs correctly (at first sight ; no comprehensive tests done) with
+a 4.2 kernel.</p>
+<p>I decided to have Ubuntu run on 4.2.8-wily kernel and compile rt3290 driver on
+it. I chose 4.2.8-wily arbitrarily.</p>
+<h4>2.2.1 v4.2.8 kernel</h4>
+<p>As is logical, you'll get the packages here:</p>
+<p><a href="https://kernel.ubuntu.com/~kernel-ppa/mainline/v4.2.8-wily">https://kernel.ubuntu.com/~kernel-ppa/mainline/v4.2.8-wily</a></p>
+<h4>2.2.2 rt3290 sources</h4>
+<p>The below URL gives interesting information as to how to add rt3290 driver to
+Ubuntu.</p>
+<p><a href="https://askubuntu.com/questions/253632/how-do-i-get-a-ralink-rt3290-wireless-card-working">https://askubuntu.com/questions/253632/how-do-i-get-a-ralink-rt3290-wireless-card-working</a></p>
+<p>and:</p>
+<p><a href="https://forum.ubuntuusers.de/topic/nach-update-kein-wlan-mehr-433/2/#post-5561332">https://forum.ubuntuusers.de/topic/nach-update-kein-wlan-mehr-433/2/#post-5561332</a></p>
+<p>Driver sources:</p>
+<p><a href="https://github.com/the-dagger/RaLink-RT3290-Drivers-Ubuntu">https://github.com/the-dagger/RaLink-RT3290-Drivers-Ubuntu</a></p>
+<p><a href="https://drive.google.com/file/d/0Bw6He1mvtZ9GSHRMYjhSeVhUMWc/view">https://drive.google.com/file/d/0Bw6He1mvtZ9GSHRMYjhSeVhUMWc/view</a></p>
+<p><a href="http://download853.mediafire.com/rla4e0xxxwfg/l3zoch2y1hbcali/RT3290.tar.gz">http://download853.mediafire.com/rla4e0xxxwfg/l3zoch2y1hbcali/RT3290.tar.gz</a></p>
+<h4>2.2.3 Result</h4>
+<p>Compilation does not work because the source is not PIC-friendly, whereas 4.2.8
+kernel source is PIC enabled by default.</p>
+<p>You can see it by updating linux source Makefile, tricking rt3290 source into
+believing the kernel is not PIC-enabled.</p>
+<p>The patch is here:
+<a href="https://lists.ubuntu.com/archives/kernel-team/2016-May/077178.html">https://lists.ubuntu.com/archives/kernel-team/2016-May/077178.html</a></p>
+<p>Compilation works fine and produces rt3290sta.ko, but of course there is no way
+to load it (it produces an error "bad format") as module is not fit for a
+PIC-enabled kernel. But this test is interesting, as it shows rt3290 <em>compiles
+successfully</em> with 4.2.8 headers.</p>
+<h3>2.3 Recompiling the Linux kernel</h3>
+<p>Following the result of paragraph 2.2, I then decided to recompile Linux kernel
+with PIC disabled, so that rt3290 driver could fit.</p>
+<h4>2.3.1 Downloading and preparing the source</h4>
+<p>As written on top of the page to download v4.2.8 given above, the source is
+available here:</p>
+<p><a href="git://git.launchpad.net/~ubuntu-kernel-test/ubuntu/+source/linux/+git/mainline-crack">git://git.launchpad.net/~ubuntu-kernel-test/ubuntu/+source/linux/+git/mainline-crack</a></p>
+<p>The page gives you the commit ref to pull the kernel from, for 4.2.8-wily, it
+is 5f5c1db041b45cb74da1c842e13866afcb33975c. But you can instead pull the
+commit by its tag name, that is <code>v4.2.8</code>.</p>
+<p>You also have patches to apply (there are 3 for 4.2.8-wily), that have to be
+applied to the kernel source as per usual process, using the <code>patch</code> command.</p>
+<h4>2.3.2 Compiling the source</h4>
+<p>Ideally, instead of compiling the source "as is", it is best to use some
+Ubuntu-specific commands, so that eventually the compiled kernel is available
+as a package.</p>
+<p>Useful explanations to compile (and package) the kernel inside Ubuntu:</p>
+<p><a href="https://wiki.ubuntu.com/Kernel/BuildYourOwnKernel">https://wiki.ubuntu.com/Kernel/BuildYourOwnKernel</a></p>
+<p>and:</p>
+<p><a href="https://ahelpme.com/linux/ubuntu/build-your-own-kernel-under-ubuntu-using-mainline-latest-kernel">https://ahelpme.com/linux/ubuntu/build-your-own-kernel-under-ubuntu-using-mainline-latest-kernel</a></p>
+<p>and also:</p>
+<p><a href="https://ubuntuforums.org/showthread.php?t=2261375">https://ubuntuforums.org/showthread.php?t=2261375</a></p>
+<p>To resume it very briefly, you have two commands to execute:</p>
+<div class="highlight"><pre><span></span><code>fakeroot debian/rules clean
+fakeroot debian/rules binary-headers binary-generic binary-perarch
+</code></pre></div>
+
+<h4>2.3.3 Result</h4>
+<p>Compiling the kernel 4.2.8 from a Ubuntu 20.04 produced "retpoline" errors. I
+could not resolve these.</p>
+<h3>2.4 Using an old Ubuntu with its default kernel</h3>
+<p>I finally decided to use a kernel as recent as possible, but old enough so that
+rt3290 would compile on it. Looking round, I found out that Ubuntu 16.04
+(xenial) uses 4.15 kernel.</p>
+<p>rt3290 driver, as downloaded from the URLs above, would NOT compile successfully
+on it.</p>
+<p>But, there is an updated driver version that compiles successfully on 4.15
+kernel, available here:</p>
+<p><a href="https://github.com/maurizak/RaLink-RT3290-Drivers-Ubuntu">https://github.com/maurizak/RaLink-RT3290-Drivers-Ubuntu</a></p>
+<p>Some explanations here:</p>
+<p><a href="https://github.com/the-dagger/RaLink-RT3290-Drivers-Ubuntu/issues/1">https://github.com/the-dagger/RaLink-RT3290-Drivers-Ubuntu/issues/1</a></p>
+<p><strong>And, here we go! Driver compiles well, it produces a .ko file.</strong></p>
+<h3>2.5 Simple solution inside Fedora</h3>
+<p>Under Fedora, this URL,
+<a href="https://bugzilla.redhat.com/show_bug.cgi?id=1190467#c7">https://bugzilla.redhat.com/show_bug.cgi?id=1190467#c7</a>,
+says that solving the issue is as simple as blacklisting some kernel modules.</p>
+<p>That is, add the following lines to <code>/etc/modprobe.d/blacklist</code>:</p>
+<div class="highlight"><pre><span></span><code>blacklist rt2800pci
+blacklist rt2800usb
+blacklist rt2800lib
+</code></pre></div>
+
+<p>and then execute the following commands:</p>
+<div class="highlight"><pre><span></span><code>modprobe rt2x00usb
+modprobe rt2x00lib
+modprobe rt2x00pci
+</code></pre></div>
+
+<p>Mentionned in 2015 with <em>rhe 7.1</em>.</p>
+<p>Not tested though.</p>
+<h2>3. Creating a custom Ubuntu ISO file</h2>
+<p>Explanations:</p>
+<p><a href="https://help.ubuntu.com/community/LiveCDCustomization">https://help.ubuntu.com/community/LiveCDCustomization</a></p>
+<p>The below one documents in the end the use of <code>xorriso</code>, that seems the best to
+build a bootable USB for UEFI. It'll indeed create an ISO containing a
+partition table and two volumes, one main volume for the main content, the
+other one of type <em>EFI</em> that contains a .efi file to make UEFI startable.</p>
+<p><a href="https://help.ubuntu.com/community/InstallCDCustomization">https://help.ubuntu.com/community/InstallCDCustomization</a></p>
+<p>In french:</p>
+<p><a href="https://doc.ubuntu-fr.org/personnaliser_livecd">https://doc.ubuntu-fr.org/personnaliser_livecd</a></p>
+<p>Documentation about <em>isohybrid</em>:</p>
+<p><a href="https://wiki.syslinux.org/wiki/index.php?title=Isohybrid">https://wiki.syslinux.org/wiki/index.php?title=Isohybrid</a></p>
+<h3>3.2 Script to launch <code>xorriso</code></h3>
+<div class="highlight"><pre><span></span><code><span class="ch">#!/usr/bin/bash</span>
+
+<span class="c1"># From the below URL:</span>
+<span class="c1">#   https://wiki.syslinux.org/wiki/index.php?title=Isohybrid</span>
+
+<span class="nb">set</span> -euo pipefail
+
+xorriso -as mkisofs <span class="se">\</span>
+  -o output.iso <span class="se">\</span>
+  -isohybrid-mbr /usr/lib/syslinux/bios/isohdpfx.bin <span class="se">\</span>
+  -c isolinux/boot.cat <span class="se">\</span>
+  -b isolinux/isolinux.bin <span class="se">\</span>
+  -no-emul-boot <span class="se">\</span>
+  -boot-load-size <span class="m">4</span> <span class="se">\</span>
+  -boot-info-table <span class="se">\</span>
+  -eltorito-alt-boot <span class="se">\</span>
+  -e boot/grub/efi.img <span class="se">\</span>
+  -no-emul-boot <span class="se">\</span>
+  -isohybrid-gpt-basdat <span class="se">\</span>
+  extract-cd
+</code></pre></div><p class="subheader">Category: <a href="http://milletseb.free.fr/category/ti.html">TI</a>
+
+    Tagged: 
+    <a href="http://milletseb.free.fr/tag/sysadmin.html">sysadmin </a>
+    <a href="http://milletseb.free.fr/tag/ubuntu.html">ubuntu </a>
+    <a href="http://milletseb.free.fr/tag/kernel.html">kernel </a>
+</p>
+
+
+
+            </article>
+
+<div class="pagination-centered">
+<h6 class="subheader">Page 1 of 1</h6>
+
+<p>
+
+</p>
+</div>
+
+
+
+            <!-- /#posts-list -->
+
+    </div>
+    <!-- End Main Content -->
+
+    <!-- Sidebar -->
+    <aside class="large-3 columns">
+        <h5 class="sidebar-title">Site</h5>
+        <ul class="side-nav">
+            <li><a href="http://milletseb.free.fr/archives.html">Archives</a>
+            <li><a href="http://milletseb.free.fr/tags.html">Tags</a>
+
+
+        </ul>
+
+		
+        <h5 class="sidebar-title">Categories</h5>
+        <ul class="side-nav">
+            <li><a href="http://milletseb.free.fr/category/lectures.html">Lectures</a></li>
+            <li><a href="http://milletseb.free.fr/category/origine.html">Origine</a></li>
+            <li><a href="http://milletseb.free.fr/category/partage.html">Partage</a></li>
+            <li><a href="http://milletseb.free.fr/category/programmes.html">Programmes</a></li>
+            <li><a href="http://milletseb.free.fr/category/recettes.html">Recettes</a></li>
+            <li><a href="http://milletseb.free.fr/category/ti.html">TI</a></li>
+   
+        </ul>
+
+        <h5 class="sidebar-title">Links</h5>
+        <ul class="side-nav">
+            <li><a href="http://milletseb.free.fr/ancien/index.html">Ancien Site</a></li>
+            <li><a href="http://getpelican.com/">Pelican</a></li>
+            <li><a href="http://python.org/">Python.org</a></li>
+            <li><a href="http://jinja.pocoo.org/">Jinja2</a></li>
+
+Search: <input data-stork="sitesearch" />
+<div data-stork="sitesearch-output"></div>
+
+        </ul>
+		
+
+    </aside> <!-- End Sidebar -->
+
+</div> <!-- End Main Content and Sidebar -->
+
+
+<!-- Footer -->
+<footer class="row">
+    <div class="large-12 columns">
+        <hr />
+        <div class="row">
+            <div class="large-6 columns">
+                <p>Site de Sébastien Millet by Sébastien Millet</p>
+            </div>
+            </div>
+    </div>
+</footer>
+
+<script src="https://files.stork-search.net/releases/v1.5.0/stork.js"></script>
+<script>
+    stork.register("sitesearch", "http://milletseb.free.fr/search-index.st")
+</script>

@@ -1,0 +1,805 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="utf-8" />
+    <!-- Set the viewport width to device width for mobile -->
+    <meta name="viewport" content="width=device-width" />
+
+    <title>About UEFI and Secure Boot</title>
+
+    <link rel="stylesheet" href="http://milletseb.free.fr/theme/css/normalize.css" />
+    <link rel="stylesheet" href="http://milletseb.free.fr/theme/css/foundation.min.css" />
+    <link rel="stylesheet" href="http://milletseb.free.fr/theme/css/style.css" />
+    <link rel="stylesheet" href="http://milletseb.free.fr/theme/css/pygments.css" />	
+    <script src="http://milletseb.free.fr/theme/js/custom.modernizr.js"></script>
+
+    <!-- So Firefox can bookmark->"abo this site" -->
+
+<link rel="stylesheet" href="https://files.stork-search.net/basic.css" />
+
+</head>
+
+<body>
+
+<!-- Nav Bar -->
+<nav>
+<div class="top-bar">
+<div class="row">
+    <div class="large-9 large-centered columns">
+	    <h1><a href="http://milletseb.free.fr">Site de Sébastien Millet</a></h1>
+    </div>
+</div>
+</div>
+
+<!-- Show menu items and pages -->
+<div class="row">
+<div class="large-9 columns">
+    <ul class="button-group navigation">
+
+    </ul>
+</div>
+</div>
+</nav>
+<!-- End Nav -->
+
+
+<!-- Main Page Content and Sidebar -->
+<div class="row">
+
+    <!-- Main Blog Content -->
+    <div class="large-9 columns">
+<article>
+    <header>
+        <h3 class="article-title"><a href="http://milletseb.free.fr/about-uefi-and-secure-boot.html" rel="bookmark"
+        title="Permalink to About UEFI and Secure Boot">About UEFI and Secure Boot</a></h3>
+    </header>
+
+<h6 class="subheader" title="2017-12-29T00:00:00+01:00">ven. 29 décembre 2017
+</h6>
+
+
+    <h1>Part 1: UEFI</h1>
+<hr>
+<h2>1. UEFI documentation</h2>
+<ul>
+<li>
+<p>You can find UEFI specifications here:</p>
+<p><a href="http://www.uefi.org/specifications">http://www.uefi.org/specifications</a></p>
+<p>As of this writing, the current version is 2.7.</p>
+</li>
+<li>
+<p>The following page gives a thorough description of UEFI, in particular, its
+history, limits and conflicts that UEFI adoption triggered:</p>
+<p><a href="http://www.popflock.com/learn?s=UEFI">http://www.popflock.com/learn?s=UEFI</a></p>
+</li>
+<li>
+<p>Ubuntu page about UEFI:</p>
+<p><a href="https://help.ubuntu.com/community/UEFIBooting">https://help.ubuntu.com/community/UEFIBooting</a></p>
+</li>
+</ul>
+<hr>
+<h2>2. Displaying UEFI boot configuration</h2>
+<p>UEFI comes with a NVRAM (Non Volatile RAM) to store its configuration.</p>
+<p>This boot configuration can be tuned from two places:</p>
+<ol>
+<li>
+<p>Entering UEFI setup.</p>
+<p>UEFI setup was formerly called BIOS configuration or BIOS setup, but note
+UEFI is totally different from the BIOS.</p>
+<p>As this UEFI setup depends on the hardware, there is not much common
+information applicable to all cases that can be written here.</p>
+</li>
+<li>
+<p>Using OS-level administration tools.</p>
+<ul>
+<li>In Linux, running the command<div class="highlight"><pre><span></span><code><span class="err">efibootmgr -v</span>
+</code></pre></div>
+
+</li>
+</ul>
+<p>outputs detailed boot configuration, as found in the computer's NVRAM.</p>
+<ul>
+<li>In Windows, running the command<div class="highlight"><pre><span></span><code><span class="n">bcdedit</span> <span class="o">/</span><span class="k">enum</span> <span class="n">firmware</span>
+</code></pre></div>
+
+</li>
+</ul>
+<p>outputs detailed boot configuration, as found in the computer's NVRAM.</p>
+</li>
+</ol>
+<hr>
+<h2>3. How UEFI boots the computer</h2>
+<p>The way UEFI boots a computer is shown in depth here:</p>
+<p><a href="https://blog.uncooperative.org/blog/2014/02/06/the-efi-system-partition/">https://blog.uncooperative.org/blog/2014/02/06/the-efi-system-partition/</a></p>
+<p>Quick abstract of the page above. Below, the term 'variable' refers to
+NVRAM-stored variables.</p>
+<ul>
+<li><em>BootOrder</em> variable</li>
+</ul>
+<p>The system examines the <em>BootOrder</em> variable. This variable contains a
+comma-separated list of 4-digit hexadecimal numbers. For each of these numbers,
+the system reads the variable <em>Boot####</em>, where <em>####</em> is the 4-digit number of
+the BootOrder variable. This variable contains three things, a label
+(human-friendly readable), a path to a EFI-executable format file and optional
+data to pass to the file.</p>
+<p>The "path to a file" contains data to locate the file not only on a file system
+but also across controllers, devices and partitions, therefore the whole string
+can be far from eye-friendly.</p>
+<p>If the file is found and is found to be executable in the context (must be in
+EFI-executable format and possibly needs to pass SecureBoot checks, this point
+is discussed later), it is launched.
+Otherwise, the next variable (referred to in the <em>BootOrder</em> variable) is
+examined, and so on.</p>
+<p>Example on my Acer swift 3 laptop with dual-boot between Kubuntu and Windows 10.
+The three-dot sequences (...) in the beginning or end of lines were added to see
+lines up to the end.</p>
+<div class="highlight"><pre><span></span><code><span class="err">sebastien@maison-nblin:~/SecureBoot$ efibootmgr -v</span>
+<span class="c">BootCurrent: 0001</span>
+<span class="c">Timeout: 0 seconds</span>
+<span class="c">BootOrder: 0001,0005,0002,2001,2002,2003</span>
+<span class="err">Boot0000* Unknown Device:       HD(1,GPT,3f0f2672-851a-4ef7-82f2-61de04d2...</span>
+<span class="err">        ...3794,0x800,0x32000)/File(\EFI\ubuntu\shimx64.efi)RC</span>
+<span class="err">Boot0001* rEFInd        PciRoot(0x0)/Pci(0x1c,0x4)/Pci(0x0,0x0)/NVMe(0x1,...</span>
+<span class="err">        ...00-00-00-00-00-00-00-00)/HD(1,GPT,3f0f2672-851a-4ef7-82f2-61de...</span>
+<span class="err">        ...04d23794,0x800,0x32000)/File(\EFI\refind\refind_x64.efi)A01 ..</span>
+<span class="err">Boot0002* fwupx64       PciRoot(0x0)/Pci(0x1c,0x4)/Pci(0x0,0x0)/NVMe(0x1,...</span>
+<span class="err">        ...00-00-00-00-00-00-00-00)/HD(1,GPT,3f0f2672-851a-4ef7-82f2-61de...</span>
+<span class="err">        ...04d23794,0x800,0x32000)/File(\EFI\ubuntu\fwupx64.efi)A01 ..</span>
+<span class="err">Boot0003* Unknown Device:       HD(1,GPT,3f0f2672-851a-4ef7-82f2-61de04d2...</span>
+<span class="err">        ...3794,0x800,0x32000)/File(\EFI\ubuntu\shimx64.efi)RC</span>
+<span class="err">Boot0005* Windows Boot Manager  HD(1,GPT,3f0f2672-851a-4ef7-82f2-61de04d2...</span>
+<span class="err">        ...3794,0x800,0x32000)/File(\EFI\Microsoft\Boot\bootmgfw.efi)WIND...</span>
+<span class="err">        ...OWS.........x...B.C.D.O.B.J.E.C.T.=.{.9.d.e.a.8.6.2.c.-.5.c.d....</span>
+<span class="err">        ...d.-.4.e.7.0.-.a.c.c.1.-.f.3.2.b.3.4.4.d.4.7.9.5.}................</span>
+<span class="err">        ..........</span>
+<span class="err">Boot2001* EFI USB Device        RC</span>
+<span class="err">Boot2002* EFI DVD/CDROM RC</span>
+<span class="err">Boot2003* EFI Network   RC</span>
+<span class="err">sebastien@maison-nblin:~/SecureBoot$</span>
+</code></pre></div>
+
+<p>It is worth noting that not all variables <em>Boot####</em> are listed in <em>BootOrder</em>,
+meaning, some <em>Boot####</em> variables are ignored at start-up.</p>
+<ul>
+<li>The Default Boot Behavior</li>
+</ul>
+<p>If the above fails (<em>Boot...</em> variables don't allow UEFI to find a good
+candidate to start the system), UEFI is said to look for an ESP (more to come on
+that) partition and if it finds one, it looks for a file
+<em>\EFI\BOOT\BOOT{arch}.EFI</em>, where <em>{arch}</em> depends on the machine
+architecture.</p>
+<p>Examples for a few architectures:</p>
+<div class="highlight"><pre><span></span><code><span class="c">x86-64: \EFI\BOOT\BOOTX64.EFI</span>
+<span class="c">x86-32: \EFI\BOOT\BOOTIA32.EFI</span>
+<span class="c">Itanium: \EFI\BOOT\BOOTIA64.EFI</span>
+<span class="err">ARM 32-bit: \EFI\BOOT\BOOTARM.EFI</span>
+<span class="err">ARM 64-bit: \EFI\BOOT\BOOTAA64.EFI</span>
+</code></pre></div>
+
+<p>Source:</p>
+<p><a href="https://www.happyassassin.net/2014/01/25/uefi-boot-how-does-that-actually-work-then/">https://www.happyassassin.net/2014/01/25/uefi-boot-how-does-that-actually-work-then/</a></p>
+<ul>
+<li>On what volume(s) is the ESP being searched for?</li>
+</ul>
+<p>It should be searched first on removable medias, then on fixed medias, but I got
+to check further if it is a recommendation or a rule. I presume it depends
+anyway on the configuration (whether or not you asked UEFI to start from a
+removable media).</p>
+<ul>
+<li>The ESP</li>
+</ul>
+<p>ESP stands for <em>EFI System Partition</em>.</p>
+<p>A partition is identified as being ESP by its <em>type</em> in the partition table.
+Although a disk can hold multiple partitions that are of type "ESP", it is
+strongly recommended a disk holds not more than one.</p>
+<p>UEFI specifications call for a GPT partitioning system (UEFI uses the term
+<em>layout</em>). However, the specs document also says the following (extract of
+version 2.7 page 125):</p>
+<p>MBR is explained later in this document, in paragraph 4.1.1.</p>
+<blockquote>
+<p>A legacy MBR may be located at LBA 0 (i.e., the first logical block) of the
+disk if it is not using the GPT disk layout (i.e., if it is using the MBR disk
+layout). The boot code on the MBR is not executed by UEFI firmware.</p>
+</blockquote>
+<p>Most documentation ties UEFI with GPT, and it is true it is the natural layout
+of UEFI, but it ain't a rule. Indeed, page 126 of the UEFI specs document
+mentions the code 0xEF that must be taken into account when encountered on a MBR
+layout partition. This code corresponds to the type 'EFI (FAT-12/16/32)' as
+reported by fdisk on a MBR layout (note: fdisk does not speak about a <em>MBR
+layout</em>, instead, its terminology is <em>dos disklabel</em> versus <em>gpt disklabel</em>).</p>
+<p>The UEFI standard requests the ESP to be formatted with FAT. In some specific
+cases the FAT size matters but it seems rather rare. The UEFI specs say a fixed
+disk must have FAT32 while FAT12 and FAT16 are also possible (in addition to
+FAT32) for removable disks.</p>
+<p>The following site gives numerous useful details about UEFI and I recommend
+reading it entirely. About the FAT size topic, this page in particular gives
+some details:</p>
+<p><a href="https://www.rodsbooks.com/efi-bootloaders/principles.html">https://www.rodsbooks.com/efi-bootloaders/principles.html</a></p>
+<p>If you don't know what to do: go for FAT32.</p>
+<p>The partition size is subject to several rules and recommendations, so there is
+no short instruction "choose size NNN and you'll be happy".</p>
+<p>You want one simple instruction? OK, here we go: choose 200 MB. I said nothing.</p>
+<hr>
+<h2>4. BIOS versus UEFI</h2>
+<p>UEFI is 100% different from BIOS and you're going to have a hard time if
+thinking of UEFI as just a more recent BIOS version.</p>
+<p>I wrote below some remarks of what to keep in mind when learning UEFI with BIOS
+habits.</p>
+<h3>4.1. Booting on a media</h3>
+<h4>4.1.1. Reminder about BIOS</h4>
+<p>BIOS can start a PC from a disk only <sup id="fnref:1"><a class="footnote-ref" href="#fn:1">1</a></sup> by executing the code found on the MBR
+(<em>Master Boot Record</em>). The MBR is the first sector of the disk, it is 512 bytes
+in length.</p>
+<p>Given a media, either the BIOS can boot it (the media is said "bootable"), or,
+it cannot. That is to say, you can't ask the BIOS to start one <em>partition</em> on a
+media versus another, nor can you ask to start a given file.</p>
+<p>For disks, the mark "is bootable" is a specific two-byte sequence written at the
+end of the MBR, so that the BIOS knows it is possible to load and execute it.</p>
+<p>This way of working has some black magic inside: the Operating System to load
+(or the Boot Manager to load) is found on files inside a file system. The MBR is
+too small to contain all needed code to manage a file system. To resolve this
+chicken-and-egg situation, some <em>early</em> loaded code is made available out of any
+file system, that is, out of disk partitions, right after the MBR.</p>
+<p>If you want more about this topic, in the case of GRUB (GRUB is a popular Boot
+Manager), this in-between code is called stage1.5 code. Stage1 code is MBR's
+while stage2 is regular GRUB software, loaded from files. See this URL that has
+a very interesting diagram about GRUB stages:</p>
+<p><a href="https://unix.stackexchange.com/questions/259143/how-does-grub-stage1-exactly-access-load-stage-2">https://unix.stackexchange.com/questions/259143/how-does-grub-stage1-exactly-access-load-stage-2</a></p>
+<p>This is fairly "hack-ish", and UEFI approach of a dedicated ESP (more to come
+about ESP) using a file system guaranteed to be understood by UEFI, is
+conceptually much cleaner. As explained below, UEFI implementations found in the
+real world seem to ignore the fact that a given partition is marked of type
+'ESP', but that is another story.</p>
+<ul>
+<li>
+<p>The troll note</p>
+<p>This document aims to give details about UEFI. It is not in favor of UEFI, nor
+is it against UEFI. UEFI may have numerous pluses and minuses in its conception
+or in its implementations. Nevertheless for the author of this document, it is
+beyond doubt that UEFI is <em>conceptually</em> far better than BIOS.</p>
+</li>
+</ul>
+<h4>4.1.2. UEFI</h4>
+<p>UEFI, via the <em>Boot...</em> NVRAM variables, can be instructed to boot from
+different disks, different volumes <sup id="fnref:2"><a class="footnote-ref" href="#fn:2">2</a></sup> on a disk, and on different files on a
+volume.  UEFI can even pass parameters to the loaded file, giving a lot of
+flexibility to the boot process.</p>
+<p>Still, UEFI needs a way to start "from scratch", in the case NVRAM is not yet
+configured or got wrongly updated, if something goes wrong, or most often, if
+you just want to boot from a removable media that is not configured whatsoever
+in your UEFI. Either way, this is what we called above the <em>Default Boot
+Behavior</em>.</p>
+<h4>4.1.3. Table of BIOS versus UEFI criteria to see a media as bootable</h4>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>BIOS</th>
+<th>UEFI</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Criteria for being a bootable disk</td>
+<td>Has a MBR marked as bootable</td>
+<td>Has a partition readable by UEFI <sup id="fnref:3"><a class="footnote-ref" href="#fn:3">3</a></sup> that contains a file named <em>\EFI\BOOT\bootx64.efi</em> <sup id="fnref:4"><a class="footnote-ref" href="#fn:4">4</a></sup></td>
+</tr>
+</tbody>
+</table>
+<h4>4.1.4. Tests done</h4>
+<p>Tests done on an Acer Swift 3.</p>
+<ul>
+<li>
+<p>Ask the PC to display the boot device selection menu (F12 on my Acer,
+generally different on other manufacturers).</p>
+</li>
+<li>
+<p>If a plugged USB would contain a partition that matches both of the following
+criteria ...</p>
+<ul>
+<li>Formatted with FAT (any size is fine, from 12 to 32)</li>
+<li>Contains a file \EFI\BOOT\BOOTX64.EFI (my PC is an x64 architecture)</li>
+</ul>
+</li>
+<li>
+<p>... then, UEFI would include "HDD on USB" in the boot device list. Let me
+insist: if <em>any</em> of the criteria above was not met, the "HDD on USB" entry would
+<em>not</em> be displayed. It is to be noted that during these tests, the partition
+type was never taken into account - I could mark a partition as being "Microsoft
+basic data" or even "Linux filesystem" (!), it would be fine. Tests done with a
+GPT partition layout and with a MBR layout.</p>
+</li>
+<li>
+<p>Conclusion: under no circumstance did I find a case where marking a partition
+as 'ESP' would influence UEFI behavior. Obviously, this result applies to the
+particular UEFI implementation tested, but it matches numerous feedbacks and
+documents on Internet reporting similar results. Keep in mind marking a
+partition as <em>ESP</em> is likely to have no influence on UEFI behavior. It is
+important, still, to use the <em>ESP</em> type. It makes things clearer, and I presume
+(but I haven't tested it), it'll also help OS installers.</p>
+</li>
+</ul>
+<h3>4.2. BIOS and UEFI together</h3>
+<p>Most UEFIs can manage old boot system, as if being BIOS. Note it is a
+generality, not a rule. The popflock.com URL given above mentions Intel
+announcement that by 2020, BIOS support would be removed from their products.</p>
+<p>Conversely, being able to deal with an MBR layout is mandatory in UEFI
+specifications.</p>
+<p>Switching UEFI to behaving as if being BIOS is called CSM, <em>Compatibility
+Support Module</em>, or <em>Legacy</em> mode, also sometimes simply <em>BIOS mode</em>. You
+normally change it manually in UEFI configuration. popflock.com reports that
+certain UEFI implementations turn on CSM automatically if they encounter an MBR
+layout.</p>
+<p>Because MBR and GPT do not reside in the same areas of the disk, they can
+coexist peacefully. Before I study UEFI, my dual-boot computer would need <em>UEFI
+mode</em> to start Windows 10, and the <em>BIOS mode</em> (called <em>Legacy mode</em> on my
+laptop) to start Linux. But, switching from one OS to the other would need, to
+enter UEFI settings (did I say BIOS screen?) and switch mode between "UEFI" and
+"Legacy". Yes, believe me, life is sometimes difficult.</p>
+<p>Because of this duality of the partition table, there are tools to synchronize
+between MBR layout and GPT layout partition tables. Under Ubuntu, one tool to do
+it is <em>gptsync</em>.</p>
+<h3>4.3 Turning a BIOS installed Linux system into UEFI, and vice versa</h3>
+<p>This URL gives a lot of useful instructions to switch, and more:</p>
+<p><a href="https://help.ubuntu.com/community/UEFI">https://help.ubuntu.com/community/UEFI</a></p>
+<p><strong>Note</strong></p>
+<p>During all the tests I did, the original start mode was kept during any further
+action. That is, when starting Ubuntu installer in BIOS mode, target
+installation could start only in BIOS mode, and the same for UEFI.
+Once you start and install in a given mode, you keep it forever.</p>
+<p>This is an important point and it also applies to <em>Boot-Repair</em>.
+Boot-Repair is recommended by the site above.</p>
+<p>But, as it turns out, just copying Boot-Repair on a USB (for example with <em>dd</em>)
+won't make it UEFI-bootable, as it'll lack a FAT partition containing a proper
+.efi file. Read carefully Boot-Repair site instructions to manage a PC that
+starts in UEFI.</p>
+<p>Conversely, Ubuntu installer ISO (checked on Ubuntu 17.10 desktop x64) has an
+included minimalistic FAT partition with proper .efi file, making it compatible
+with both legacy and UEFI modes. It is to be noted the partition layout on the
+ISO is <em>MBR</em>. I was expecting <em>GPT</em> but <em>MBR</em> has a logic of its own: it must
+work on a recent machine (as per UEFI standard) but will also make older
+machines happy.</p>
+<hr>
+<h2>5. More reading</h2>
+<p>Links given below are just partial - they correspond to the topics I am
+personally interested in...</p>
+<h3>5.1. rEFInd</h3>
+<p>rEFInd is a <em>Boot Manager</em>, as opposed to a <em>Boot Loader</em>, although it can start
+an OS directly. This document contains other places that point to rEFInd website
+pages. rEFInd home page:</p>
+<p><a href="http://www.rodsbooks.com/refind">http://www.rodsbooks.com/refind</a></p>
+<p>rEFInd has great qualities:</p>
+<ol>
+<li>
+<p>It can manage multiple OSes gracefully, with a nice interface.</p>
+</li>
+<li>
+<p>It is easy to launch certain EFI utilities from rEFInd, like <em>KeyTool</em>.
+<em>KeyTool</em> allows to control <em>PK</em>, <em>KEK</em>, <em>db</em>, <em>dbx</em> and <em>MokList</em> SecureBoot
+UEFI variables.</p>
+</li>
+<li>
+<p>When you learn how to install and use rEFInd, you happen to learn what UEFI
+is. Same with Secure Boot.</p>
+</li>
+</ol>
+<p><strong>rEFInd is really <em>the site to read</em> when learning <em>UEFI</em> and when learning
+<em>UEFI Secure Boot</em>. It is very well documented.</strong></p>
+<h3>5.2. GRUB</h3>
+<p>The following URL describes how to boot different ISO images with proper GRUB
+configuration. It is a way to increase one's skills in GRUB rather than UEFI
+itself, but still, it is interesting to see how you can play with GRUB in UEFI
+mode:</p>
+<p><a href="https://ubuntuforums.org/showthread.php?t=2276498">https://ubuntuforums.org/showthread.php?t=2276498</a></p>
+<h3>5.3. tianocore</h3>
+<p>tianocore is an open source implementation of UEFI.</p>
+<p><a href="http://www.tianocore.org/">http://www.tianocore.org/</a></p>
+<h3>5.4. EFI shell</h3>
+<p>One page of Rod Smith's site gives the place where to download EFI shell from.</p>
+<p>The page is:</p>
+<p><a href="https://www.rodsbooks.com/efi-programming/hello.html">https://www.rodsbooks.com/efi-programming/hello.html</a></p>
+<p>The links referred to by this page are:</p>
+<ul>
+<li>x86-64</li>
+</ul>
+<p><a href="https://edk2.svn.sourceforge.net/svnroot/edk2/trunk/edk2/EdkShellBinPkg/FullShell/X64/Shell_Full.efi">https://edk2.svn.sourceforge.net/svnroot/edk2/trunk/edk2/EdkShellBinPkg/FullShell/X64/Shell_Full.efi</a></p>
+<ul>
+<li>x86</li>
+</ul>
+<p><a href="https://edk2.svn.sourceforge.net/svnroot/edk2/trunk/edk2/EdkShellBinPkg/FullShell/Ia32/Shell_Full.efi">https://edk2.svn.sourceforge.net/svnroot/edk2/trunk/edk2/EdkShellBinPkg/FullShell/Ia32/Shell_Full.efi</a></p>
+<hr>
+<h1>Part 2: Secure Boot</h1>
+<p>Secure Boot is an UEFI <em>feature</em>. You can have UEFI without Secure Boot, but not
+Secure Boot without UEFI.</p>
+<hr>
+<h2>1. Secure Boot modes</h2>
+<p>A machine that has the Secure Boot feature can be in three modes:</p>
+<ol>
+<li>
+<p>Setup mode (it implies, Secure Boot is off)</p>
+</li>
+<li>
+<p>User mode, Secure Boot off</p>
+</li>
+<li>
+<p>User mode, Secure Boot on</p>
+</li>
+</ol>
+<p><em>Note</em></p>
+<p>It seems the so-called <em>Setup Mode</em> is sometimes referred to as <em>Custom Mode</em>,
+on some documents found on Internet, and on some UEFI firmwares. The <em>User Mode</em>
+versus <em>Setup Mode</em> is in itself, very poorly documented. So is the <em>Custom
+Mode</em>. The author of this document <em>does think</em> <em>Custom Mode</em> and <em>Setup Mode</em>
+are one unique thing, but even this point is not so clear.</p>
+<p>Numerous documentations mention these two different states without a clear
+definition of what it means and how you move from one to another.</p>
+<hr>
+<h2>2. Secure Boot checks</h2>
+<p>Secure Boot will check if a binary is allowed before executing it. The check
+will be done only in mode 3, that is, <em>User mode, Secure Boot on</em>.</p>
+<p>The check is one of:</p>
+<ul>
+<li>
+<p>Verify if the file is authorized. It is managed with SHA256 hash lists.</p>
+<p>or</p>
+</li>
+<li>
+<p>If the file is signed, verify if the signature allows to execute it. It is
+mostly managed with RSA keys of 2048 bits found in X509 certificates. The
+signature is part of the EFI file itself. That means, either an EFI file is
+signed, or, it is not (I haven't found mention of detached signature files in
+this standard).</p>
+</li>
+</ul>
+<hr>
+<h2>3. How the checks are done</h2>
+<p>The machine' NVRAM contains Secure Boot related variables. They are:</p>
+<ul>
+<li>
+<p><em>db</em>: contains SHA256 hash of authorized files and certificates that, when
+signing a file <sup id="fnref:5"><a class="footnote-ref" href="#fn:5">5</a></sup>, will allow its execution. That means, <em>db</em> contains two
+different types of entries, <em>authorized certificates</em> and <em>authorized hashes</em>.</p>
+</li>
+<li>
+<p><em>dbx</em>: contains SHA256 hash of disallowed files and certificates that, when
+signing a file, will disallow its execution. In case a file is matched by both
+db and dbx, dbx wins and the file is not allowed to be executed. As for <em>db</em>,
+<em>dbx</em> contains two different types of entries, <em>forbidden certificates</em> and
+<em>forbidden hashes</em>.</p>
+</li>
+<li>
+<p><em>KEK</em>: Key-Exchange Keys. When a change is to be made on <em>db</em> or <em>dbx</em>, it
+must be signed with a certificate listed in <em>KEK</em> variable. Also, signed code
+can be signed by a <em>KEK</em> certificate directly, instead of a <em>db</em> one.</p>
+</li>
+<li>
+<p><em>PK</em>: Platform Key. As opposed to other variables, it is one unique entry,
+made of a certificate. When a change is to be made on <em>KEK</em>, it must be signed
+by this certificate.</p>
+</li>
+<li>
+<p><em>MokList</em>: Machine-Owner Key. Actually this is not part of UEFI specifications
+and is not managed by UEFI. MOKs are managed by Linux standard loaders like
+<em>shim</em>. According to rodsbooks.com site (see URL below), MOKs are easier to
+install. Rod Smith mentions the Linux utility <em>efi-readvar</em> would not show MOKs
+of his machine, and it is the same for me.</p>
+</li>
+</ul>
+<hr>
+<h2>4. About <em>Setup Mode</em> and <em>User Mode</em></h2>
+<p>When in <em>Setup Mode</em>, you can update the <em>PK</em>, <em>KEK</em>, <em>db</em> and <em>dbx</em> variables
+to your convenience.</p>
+<p>It is worth noting that entering UEFI <em>Setup Mode</em> is "poorly documented" to say
+the least. Very little Internet documentation is available about it.</p>
+<p>On my Acer Swift 3, I have to enter UEFI configuration screen and reset Secure
+Boot. It sets variables to their factory initial values. There is no mention of
+the fact that it switches the machine to <em>Setup Mode</em>.</p>
+<p>After doing it, the machine is in <em>Setup Mode</em>, until the <em>PK</em> variable is set.
+When <em>PK</em> is set, it immediately switches the mode from <em>Setup</em> to <em>User</em>, and
+no further update can be done. As said earlier, <em>db</em> updates (signed with <em>KEK</em>
+certificate) or <em>KEK</em> updates (signed with <em>PK</em>) could never be done.</p>
+<p><strong>
+<em>efi-updatevar</em> (<em>efitools</em> debian/ubuntu package) would always produce an
+error. Same result with <em>KeyTool</em>.
+</strong></p>
+<p>In the end, all this system of <em>PK -&gt; KEK -&gt; (db, dbx)</em> update hierarchy is just
+useless. I lastly left <em>PK</em> and <em>KEK</em> to their default values, and added my own
+certificate to <em>db</em>, so that I can sign whichever binary I want to sign to make
+it executable while Secure Boot is on. While putting my own keys in <em>PK</em> and
+<em>KEK</em> would look like a satisfying situation for the ego, it would serve no
+purpose at all.</p>
+<p>The below link is one of the few that gives details about <em>Setup Mode</em> and <em>User
+Mode</em>:</p>
+<p><a href="https://docs.microsoft.com/en-us/windows-hardware/manufacture/desktop/windows-secure-boot-key-creation-and-management-guidance">https://docs.microsoft.com/en-us/windows-hardware/manufacture/desktop/windows-secure-boot-key-creation-and-management-guidance</a></p>
+<hr>
+<h2>5. Updating Secure Boot variables</h2>
+<h3>5.1. rodsbook site</h3>
+<p>The URL below explains how to customize your Secure Boot, that is, how to modify
+<em>PK</em>, <em>KEK</em>, <em>db</em> and <em>dbx</em> to your convenience. It gives the steps to follow
+(and it even provides scripts) to create proper certificates and shows how to
+create the intermediate files to update UEFI Secure Boot variables, the <em>.esl</em>
+and <em>.auth</em> files.</p>
+<p>It also explains the update hierarchy: <em>PK</em> signature to update <em>KEK</em>, <em>KEK</em>
+signature to update <em>db</em> or <em>dbx</em>.</p>
+<p><a href="https://www.rodsbooks.com/efi-bootloaders/controlling-sb.html">https://www.rodsbooks.com/efi-bootloaders/controlling-sb.html</a></p>
+<p>In my case though, I could never update <em>db</em> or <em>dbx</em> using a <em>KEK</em>-signed
+update file (.auth), nor could I update <em>KEK</em> list with a <em>PK</em>-signed update
+file. In the end, I don't see the point of all this mechanism: whenever I would
+need to update anything in <em>db</em> or <em>dbx</em>, I got to enter UEFI <em>Setup Mode</em> and
+to rewrite completely the variables <em>PK</em>, <em>KEK</em> and <em>db</em>.</p>
+<h3>5.2. gentoo site</h3>
+<p>To customize Secure Boot keys, in addition to Rod Smith link, you may have a
+look at the page below. Commands are not 100% the same as on Rod Smith's site (a
+<em>-a</em> option shows up), besides, it is another point of view of the same actions.</p>
+<p><a href="https://wiki.gentoo.org/wiki/Sakaki%27s_EFI_Install_Guide/Configuring_Secure_Boot">https://wiki.gentoo.org/wiki/Sakaki%27s_EFI_Install_Guide/Configuring_Secure_Boot</a></p>
+<hr>
+<h2>6. Hashes</h2>
+<p>The <em>db</em> and <em>dbx</em> variables can contain both certificates and hashes. This
+allows to whitelist (<em>db</em>) or blacklist (<em>dbx</em>) directly a given file, without
+considering its signature.</p>
+<p>Here comes the tricky point: the <em>EFI executable</em> hash does not correspond to
+the file hash, as one would expect. Maybe it is related to some code alignment
+matters? Anyway, if one wishes to confirm what a given file hash corresponds to,
+it is not possible "as is".</p>
+<p>The below shows how to recompile <em>sbsign</em> executable, adding <em>--hash</em> option.
+<em>--hash</em> will just print out the EFI file hash (SHA256) and quit.</p>
+<h3>6.1. Get the source of <em>sbsigntool</em></h3>
+<p>The source is available here:
+<a href="git://kernel.ubuntu.com/jk/sbsigntool.git">git://kernel.ubuntu.com/jk/sbsigntool.git</a></p>
+<p>If using a packaged Linux distribution, you had better rely on the package
+manager. On Ubuntu, you got to execute the command below:</p>
+<div class="highlight"><pre><span></span><code><span class="n">apt</span><span class="o">-</span><span class="n">get</span> <span class="n">source</span> <span class="n">sbsigntool</span>
+</code></pre></div>
+
+<h3>6.2. Apply the patch</h3>
+<p>Apply the patch below to sbsigntool' source.</p>
+<p><strong>File sbsigntool-0.6-patch.txt:</strong></p>
+<div class="highlight"><pre><span></span><code><span class="gh">diff -Naur sbsigntool-0.6/src/sbsign.c sbsigntool-0.6-hash/src/sbsign.c</span>
+<span class="gd">--- sbsigntool-0.6/src/sbsign.c 2017-12-16 10:18:36.000000000 +0100</span>
+<span class="gi">+++ sbsigntool-0.6-hash/src/sbsign.c    2017-12-16 10:31:34.781884149 +0100</span>
+<span class="gu">@@ -57,6 +57,8 @@</span>
+
+ static const char *toolname = &quot;sbsign&quot;;
+
+<span class="gi">+static int only_print_hash = 0;</span>
+<span class="gi">+</span>
+ struct sign_context {
+    struct image *image;
+    const char *infilename;
+<span class="gu">@@ -70,6 +72,7 @@</span>
+    { &quot;cert&quot;, required_argument, NULL, &#39;c&#39; },
+    { &quot;key&quot;, required_argument, NULL, &#39;k&#39; },
+    { &quot;detached&quot;, no_argument, NULL, &#39;d&#39; },
+<span class="gi">+   { &quot;hash&quot;, no_argument, NULL, &#39;H&#39; },</span>
+    { &quot;verbose&quot;, no_argument, NULL, &#39;v&#39; },
+    { &quot;help&quot;, no_argument, NULL, &#39;h&#39; },
+    { &quot;version&quot;, no_argument, NULL, &#39;V&#39; },
+<span class="gu">@@ -90,7 +93,9 @@</span>
+        &quot;\t--output &lt;file&gt;    write signed data to &lt;file&gt;\n&quot;
+        &quot;\t                    (default &lt;efi-boot-image&gt;.signed,\n&quot;
+        &quot;\t                    or &lt;efi-boot-image&gt;.pk7 for detached\n&quot;
+<span class="gd">-       &quot;\t                    signatures)\n&quot;,</span>
+<span class="gi">+       &quot;\t                    signatures)\n&quot;</span>
+<span class="gi">+       &quot;\t--hash             output the SHA256 sum that would be signed\n&quot;</span>
+<span class="gi">+        &quot;\t                    and exit (don&#39;t sign)\n&quot;,</span>
+        toolname);
+ }
+
+<span class="gu">@@ -123,7 +128,7 @@</span>
+
+    for (;;) {
+        int idx;
+<span class="gd">-       c = getopt_long(argc, argv, &quot;o:c:k:dvVh&quot;, options, &amp;idx);</span>
+<span class="gi">+       c = getopt_long(argc, argv, &quot;o:c:k:dvVhH&quot;, options, &amp;idx);</span>
+        if (c == -1)
+            break;
+
+<span class="gu">@@ -140,6 +145,9 @@</span>
+        case &#39;d&#39;:
+            ctx-&gt;detached = 1;
+            break;
+<span class="gi">+       case &#39;H&#39;:</span>
+<span class="gi">+           only_print_hash = 1;</span>
+<span class="gi">+           break;</span>
+        case &#39;v&#39;:
+            ctx-&gt;verbose = 1;
+            break;
+<span class="gu">@@ -161,13 +169,13 @@</span>
+    if (!ctx-&gt;outfilename)
+        set_default_outfilename(ctx);
+
+<span class="gd">-   if (!certfilename) {</span>
+<span class="gi">+   if (!only_print_hash &amp;&amp; !certfilename) {</span>
+        fprintf(stderr,
+            &quot;error: No certificate specified (with --cert)\n&quot;);
+        usage();
+        return EXIT_FAILURE;
+    }
+<span class="gd">-   if (!keyfilename) {</span>
+<span class="gi">+   if (!only_print_hash &amp;&amp; !keyfilename) {</span>
+        fprintf(stderr,
+            &quot;error: No key specified (with --key)\n&quot;);
+        usage();
+<span class="gu">@@ -184,6 +192,16 @@</span>
+    OpenSSL_add_all_digests();
+    OpenSSL_add_all_ciphers();
+
+<span class="gi">+    if (only_print_hash) {</span>
+<span class="gi">+        uint8_t sha[SHA256_DIGEST_LENGTH];</span>
+<span class="gi">+        image_hash_sha256(ctx-&gt;image, sha);</span>
+<span class="gi">+        for (int i = 0; i &lt; SHA256_DIGEST_LENGTH; i++) {</span>
+<span class="gi">+            printf(&quot;%02x&quot;, sha[i]);</span>
+<span class="gi">+        }</span>
+<span class="gi">+        printf(&quot;\n&quot;);</span>
+<span class="gi">+        return EXIT_SUCCESS;</span>
+<span class="gi">+    }</span>
+<span class="gi">+</span>
+    EVP_PKEY *pkey = fileio_read_pkey(keyfilename);
+    if (!pkey)
+        return EXIT_FAILURE;
+</code></pre></div>
+
+<p><strong>cd to the source directory and apply the patch like this:</strong></p>
+<div class="highlight"><pre><span></span><code><span class="o">&gt;</span> <span class="n">patch</span> <span class="o">-</span><span class="n">p</span> <span class="mi">1</span> <span class="o">&lt;</span> <span class="n">sbsigntool</span><span class="o">-</span><span class="mf">0.6</span><span class="o">-</span><span class="n">patch</span><span class="o">.</span><span class="n">txt</span>
+<span class="n">patching</span> <span class="n">file</span> <span class="n">src</span><span class="o">/</span><span class="n">sbsign</span><span class="o">.</span><span class="n">c</span>
+<span class="o">&gt;</span>
+</code></pre></div>
+
+<p>Then, generate binaries as usual. Only <em>sbsign</em> binary is different from
+original source.</p>
+<p>Using the modified <em>sbsign</em> allows to match a given hash with a file, example:</p>
+<div class="highlight"><pre><span></span><code><span class="n">sebastien</span><span class="err">@</span><span class="n">maison</span><span class="o">-</span><span class="n">nblin</span><span class="p">:</span><span class="o">~/</span><span class="n">sbsigntool</span><span class="o">$</span> <span class="n">efi</span><span class="o">-</span><span class="n">readvar</span> <span class="o">-</span><span class="n">v</span> <span class="n">db</span>                            
+<span class="n">Variable</span> <span class="n">db</span><span class="p">,</span> <span class="n">length</span> <span class="mi">6924</span>
+<span class="n">db</span><span class="p">:</span> <span class="n">List</span> <span class="mi">0</span><span class="p">,</span> <span class="n">type</span> <span class="n">X509</span>
+    <span class="n">Signature</span> <span class="mi">0</span><span class="p">,</span> <span class="n">size</span> <span class="mi">1515</span><span class="p">,</span> <span class="n">owner</span> <span class="mi">77</span><span class="n">fa9abd</span><span class="o">-</span><span class="mi">0359</span><span class="o">-</span><span class="mi">4</span><span class="n">d32</span><span class="o">-</span><span class="n">bd60</span><span class="o">-</span><span class="mi">28</span><span class="n">f4e78f784b</span>
+        <span class="n">Subject</span><span class="p">:</span>
+            <span class="n">C</span><span class="o">=</span><span class="n">US</span><span class="p">,</span> <span class="n">ST</span><span class="o">=</span><span class="n">Washington</span><span class="p">,</span> <span class="n">L</span><span class="o">=</span><span class="n">Redmond</span><span class="p">,</span> <span class="n">O</span><span class="o">=</span><span class="n">Microsoft</span> <span class="n">Corporation</span><span class="p">,</span> <span class="n">CN</span><span class="o">=</span><span class="n">Microsoft</span> <span class="n">Windows</span> <span class="n">Production</span> <span class="n">PCA</span> <span class="mi">2011</span>
+        <span class="n">Issuer</span><span class="p">:</span>
+            <span class="n">C</span><span class="o">=</span><span class="n">US</span><span class="p">,</span> <span class="n">ST</span><span class="o">=</span><span class="n">Washington</span><span class="p">,</span> <span class="n">L</span><span class="o">=</span><span class="n">Redmond</span><span class="p">,</span> <span class="n">O</span><span class="o">=</span><span class="n">Microsoft</span> <span class="n">Corporation</span><span class="p">,</span> <span class="n">CN</span><span class="o">=</span><span class="n">Microsoft</span> <span class="n">Root</span> <span class="n">Certificate</span> <span class="n">Authority</span> <span class="mi">2010</span>
+<span class="n">db</span><span class="p">:</span> <span class="n">List</span> <span class="mi">1</span><span class="p">,</span> <span class="n">type</span> <span class="n">X509</span>
+    <span class="n">Signature</span> <span class="mi">0</span><span class="p">,</span> <span class="n">size</span> <span class="mi">1572</span><span class="p">,</span> <span class="n">owner</span> <span class="mi">77</span><span class="n">fa9abd</span><span class="o">-</span><span class="mi">0359</span><span class="o">-</span><span class="mi">4</span><span class="n">d32</span><span class="o">-</span><span class="n">bd60</span><span class="o">-</span><span class="mi">28</span><span class="n">f4e78f784b</span>
+        <span class="n">Subject</span><span class="p">:</span>
+            <span class="n">C</span><span class="o">=</span><span class="n">US</span><span class="p">,</span> <span class="n">ST</span><span class="o">=</span><span class="n">Washington</span><span class="p">,</span> <span class="n">L</span><span class="o">=</span><span class="n">Redmond</span><span class="p">,</span> <span class="n">O</span><span class="o">=</span><span class="n">Microsoft</span> <span class="n">Corporation</span><span class="p">,</span> <span class="n">CN</span><span class="o">=</span><span class="n">Microsoft</span> <span class="n">Corporation</span> <span class="n">UEFI</span> <span class="n">CA</span> <span class="mi">2011</span>
+        <span class="n">Issuer</span><span class="p">:</span>
+            <span class="n">C</span><span class="o">=</span><span class="n">US</span><span class="p">,</span> <span class="n">ST</span><span class="o">=</span><span class="n">Washington</span><span class="p">,</span> <span class="n">L</span><span class="o">=</span><span class="n">Redmond</span><span class="p">,</span> <span class="n">O</span><span class="o">=</span><span class="n">Microsoft</span> <span class="n">Corporation</span><span class="p">,</span> <span class="n">CN</span><span class="o">=</span><span class="n">Microsoft</span> <span class="n">Corporation</span> <span class="n">Third</span> <span class="n">Party</span> <span class="n">Marketplace</span> <span class="n">Root</span>
+<span class="n">db</span><span class="p">:</span> <span class="n">List</span> <span class="mi">2</span><span class="p">,</span> <span class="n">type</span> <span class="n">X509</span>
+    <span class="n">Signature</span> <span class="mi">0</span><span class="p">,</span> <span class="n">size</span> <span class="mi">923</span><span class="p">,</span> <span class="n">owner</span> <span class="mi">92</span><span class="n">fcafcd</span><span class="o">-</span><span class="n">c861</span><span class="o">-</span><span class="mi">4</span><span class="n">b8b</span><span class="o">-</span><span class="n">aff2</span><span class="o">-</span><span class="n">a3d5a3e093f8</span>
+        <span class="n">Subject</span><span class="p">:</span>
+            <span class="n">C</span><span class="o">=</span><span class="n">Taiwan</span><span class="p">,</span> <span class="n">ST</span><span class="o">=</span><span class="n">TW</span><span class="p">,</span> <span class="n">L</span><span class="o">=</span><span class="n">Taipei</span><span class="p">,</span> <span class="n">O</span><span class="o">=</span><span class="n">Acer</span><span class="p">,</span> <span class="n">CN</span><span class="o">=</span><span class="n">Acer</span> <span class="n">Database</span>
+        <span class="n">Issuer</span><span class="p">:</span>
+            <span class="n">C</span><span class="o">=</span><span class="n">Taiwan</span><span class="p">,</span> <span class="n">ST</span><span class="o">=</span><span class="n">TW</span><span class="p">,</span> <span class="n">L</span><span class="o">=</span><span class="n">Taipei</span><span class="p">,</span> <span class="n">O</span><span class="o">=</span><span class="n">Acer</span><span class="p">,</span> <span class="n">CN</span><span class="o">=</span><span class="n">Acer</span> <span class="n">Root</span> <span class="n">CA</span>
+<span class="n">db</span><span class="p">:</span> <span class="n">List</span> <span class="mi">3</span><span class="p">,</span> <span class="n">type</span> <span class="n">X509</span>
+    <span class="n">Signature</span> <span class="mi">0</span><span class="p">,</span> <span class="n">size</span> <span class="mi">797</span><span class="p">,</span> <span class="n">owner</span> <span class="mi">92</span><span class="n">fcafcd</span><span class="o">-</span><span class="n">c861</span><span class="o">-</span><span class="mi">4</span><span class="n">b8b</span><span class="o">-</span><span class="n">aff2</span><span class="o">-</span><span class="n">a3d5a3e093f8</span>
+        <span class="n">Subject</span><span class="p">:</span>
+            <span class="n">CN</span><span class="o">=</span><span class="n">PEGA</span><span class="o">-</span><span class="n">SW2</span>
+        <span class="n">Issuer</span><span class="p">:</span>
+            <span class="n">CN</span><span class="o">=</span><span class="n">PEGA</span><span class="o">-</span><span class="n">SW2</span>
+<span class="n">db</span><span class="p">:</span> <span class="n">List</span> <span class="mi">4</span><span class="p">,</span> <span class="n">type</span> <span class="n">X509</span>
+    <span class="n">Signature</span> <span class="mi">0</span><span class="p">,</span> <span class="n">size</span> <span class="mi">1096</span><span class="p">,</span> <span class="n">owner</span> <span class="mf">685984e3</span><span class="o">-</span><span class="mi">5</span><span class="n">d0f</span><span class="o">-</span><span class="mi">4682</span><span class="o">-</span><span class="mi">94</span><span class="n">c1</span><span class="o">-</span><span class="mi">0</span><span class="n">f85ecb55d34</span>
+        <span class="n">Subject</span><span class="p">:</span>
+            <span class="n">C</span><span class="o">=</span><span class="n">GB</span><span class="p">,</span> <span class="n">ST</span><span class="o">=</span><span class="n">Isle</span> <span class="n">of</span> <span class="n">Man</span><span class="p">,</span> <span class="n">L</span><span class="o">=</span><span class="n">Douglas</span><span class="p">,</span> <span class="n">O</span><span class="o">=</span><span class="n">Canonical</span> <span class="n">Ltd</span><span class="o">.</span><span class="p">,</span> <span class="n">CN</span><span class="o">=</span><span class="n">Canonical</span> <span class="n">Ltd</span><span class="o">.</span> <span class="n">Master</span> <span class="n">Certificate</span> <span class="n">Authority</span>
+        <span class="n">Issuer</span><span class="p">:</span>
+            <span class="n">C</span><span class="o">=</span><span class="n">GB</span><span class="p">,</span> <span class="n">ST</span><span class="o">=</span><span class="n">Isle</span> <span class="n">of</span> <span class="n">Man</span><span class="p">,</span> <span class="n">L</span><span class="o">=</span><span class="n">Douglas</span><span class="p">,</span> <span class="n">O</span><span class="o">=</span><span class="n">Canonical</span> <span class="n">Ltd</span><span class="o">.</span><span class="p">,</span> <span class="n">CN</span><span class="o">=</span><span class="n">Canonical</span> <span class="n">Ltd</span><span class="o">.</span> <span class="n">Master</span> <span class="n">Certificate</span> <span class="n">Authority</span>
+<span class="n">db</span><span class="p">:</span> <span class="n">List</span> <span class="mi">5</span><span class="p">,</span> <span class="n">type</span> <span class="n">X509</span>
+    <span class="n">Signature</span> <span class="mi">0</span><span class="p">,</span> <span class="n">size</span> <span class="mi">777</span><span class="p">,</span> <span class="n">owner</span> <span class="n">eee29bf3</span><span class="o">-</span><span class="n">fbc6</span><span class="o">-</span><span class="mi">4</span><span class="n">c38</span><span class="o">-</span><span class="mi">96</span><span class="n">df</span><span class="o">-</span><span class="n">bfe181770f39</span>
+        <span class="n">Subject</span><span class="p">:</span>
+            <span class="n">CN</span><span class="o">=</span><span class="n">SMT</span> <span class="n">db</span>
+        <span class="n">Issuer</span><span class="p">:</span>
+            <span class="n">CN</span><span class="o">=</span><span class="n">SMT</span> <span class="n">db</span>
+<span class="n">db</span><span class="p">:</span> <span class="n">List</span> <span class="mi">6</span><span class="p">,</span> <span class="n">type</span> <span class="n">SHA256</span>
+    <span class="n">Signature</span> <span class="mi">0</span><span class="p">,</span> <span class="n">size</span> <span class="mi">48</span><span class="p">,</span> <span class="n">owner</span> <span class="mi">00000000</span><span class="o">-</span><span class="mi">0000</span><span class="o">-</span><span class="mi">0000</span><span class="o">-</span><span class="mi">0000</span><span class="o">-</span><span class="mi">000000000000</span>
+        <span class="n">Hash</span><span class="p">:</span><span class="n">a220f1b4305d04f59565e5c08ad35fcdda3540e4841d412e31d97ae780b6f66d</span>
+<span class="n">sebastien</span><span class="err">@</span><span class="n">maison</span><span class="o">-</span><span class="n">nblin</span><span class="p">:</span><span class="o">~/</span><span class="n">sbsigntool</span><span class="o">$</span> <span class="o">./</span><span class="n">sbsign</span> <span class="o">--</span><span class="nb">hash</span> <span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">fwupdate</span><span class="o">/</span><span class="n">fwupx64</span><span class="o">.</span><span class="n">efi</span>
+<span class="n">warning</span><span class="p">:</span> <span class="n">data</span> <span class="n">remaining</span><span class="p">[</span><span class="mi">57344</span> <span class="n">vs</span> <span class="mi">65261</span><span class="p">]:</span> <span class="n">gaps</span> <span class="n">between</span> <span class="n">PE</span><span class="o">/</span><span class="n">COFF</span> <span class="n">sections</span><span class="err">?</span>
+<span class="n">warning</span><span class="p">:</span> <span class="n">data</span> <span class="n">remaining</span><span class="p">[</span><span class="mi">57344</span> <span class="n">vs</span> <span class="mi">65264</span><span class="p">]:</span> <span class="n">gaps</span> <span class="n">between</span> <span class="n">PE</span><span class="o">/</span><span class="n">COFF</span> <span class="n">sections</span><span class="err">?</span>
+<span class="n">a220f1b4305d04f59565e5c08ad35fcdda3540e4841d412e31d97ae780b6f66d</span>
+<span class="n">sebastien</span><span class="err">@</span><span class="n">maison</span><span class="o">-</span><span class="n">nblin</span><span class="p">:</span><span class="o">~/</span><span class="n">sbsigntool</span><span class="o">$</span> 
+</code></pre></div>
+
+<hr>
+<h2>7. More reading</h2>
+<h3>7.1. Microsoft</h3>
+<p>The following site (already mentioned above) gives interesting schemas about
+UEFI, and is rather precise around Secure Boot.</p>
+<p><a href="https://docs.microsoft.com/en-us/windows-hardware/manufacture/desktop/windows-secure-boot-key-creation-and-management-guidance">https://docs.microsoft.com/en-us/windows-hardware/manufacture/desktop/windows-secure-boot-key-creation-and-management-guidance</a></p>
+<h3>7.2. OS DEV</h3>
+<p><a href="http://wiki.osdev.org/UEFI">http://wiki.osdev.org/UEFI</a></p>
+<div class="footnote">
+<hr>
+<ol>
+<li id="fn:1">
+<p>PXE (booting from network) actually will not execute code found on the
+MBR, but we are speaking here about starting from a storage media.&#160;<a class="footnote-backref" href="#fnref:1" title="Jump back to footnote 1 in the text">&#8617;</a></p>
+</li>
+<li id="fn:2">
+<p>In this document, <em>volume</em> and <em>partition</em> are used interchangeably.&#160;<a class="footnote-backref" href="#fnref:2" title="Jump back to footnote 2 in the text">&#8617;</a></p>
+</li>
+<li id="fn:3">
+<p>It is typically a FAT partition of type "EFI System", making the disk's
+ESP, the <em>EFI System Partition</em>. As highlighted by
+<a href="https://blog.uncooperative.org/blog/2014/02/06/the-efi-system-partition/">https://blog.uncooperative.org/blog/2014/02/06/the-efi-system-partition/</a>
+marking a partition as <em>ESP</em> is not mandatory. Having a partition marked ESP on
+a disk brings a lot of robustness and clarity, in particular when compared to
+BIOS craziness. But given the flexibility of UEFI in practice, the <em>ESP</em> type
+should be regarded as a mark to help humans more than machines. Well, humans and
+OS installers (no, don't ask me. I didn't check the behavior of Kubuntu when
+installing in UEFI mode on a disk that has no ESP).&#160;<a class="footnote-backref" href="#fnref:3" title="Jump back to footnote 3 in the text">&#8617;</a></p>
+</li>
+<li id="fn:4">
+<p>bootx64.efi is for the case of an x64 architecture. See list earlier in
+this document, for other architectures.&#160;<a class="footnote-backref" href="#fnref:4" title="Jump back to footnote 4 in the text">&#8617;</a></p>
+</li>
+<li id="fn:5">
+<p>I write that <em>certificates sign a file</em> to keep it simple. Strictly
+speaking, the certificate is associated to a private and public key pair (the
+certificate file contains the public part of the key pair), and a signature is
+done with the private key.&#160;<a class="footnote-backref" href="#fnref:5" title="Jump back to footnote 5 in the text">&#8617;</a></p>
+</li>
+</ol>
+</div>
+<p class="subheader">Category: <a href="http://milletseb.free.fr/category/ti.html">TI</a>
+
+</p>
+
+
+
+
+</article>
+    </div>
+    <!-- End Main Content -->
+
+    <!-- Sidebar -->
+    <aside class="large-3 columns">
+        <h5 class="sidebar-title">Site</h5>
+        <ul class="side-nav">
+            <li><a href="http://milletseb.free.fr/archives.html">Archives</a>
+            <li><a href="http://milletseb.free.fr/tags.html">Tags</a>
+
+
+        </ul>
+
+		
+        <h5 class="sidebar-title">Categories</h5>
+        <ul class="side-nav">
+            <li><a href="http://milletseb.free.fr/category/lectures.html">Lectures</a></li>
+            <li><a href="http://milletseb.free.fr/category/origine.html">Origine</a></li>
+            <li><a href="http://milletseb.free.fr/category/partage.html">Partage</a></li>
+            <li><a href="http://milletseb.free.fr/category/programmes.html">Programmes</a></li>
+            <li><a href="http://milletseb.free.fr/category/recettes.html">Recettes</a></li>
+            <li><a href="http://milletseb.free.fr/category/ti.html">TI</a></li>
+   
+        </ul>
+
+        <h5 class="sidebar-title">Links</h5>
+        <ul class="side-nav">
+            <li><a href="http://milletseb.free.fr/ancien/index.html">Ancien Site</a></li>
+            <li><a href="http://getpelican.com/">Pelican</a></li>
+            <li><a href="http://python.org/">Python.org</a></li>
+            <li><a href="http://jinja.pocoo.org/">Jinja2</a></li>
+
+Search: <input data-stork="sitesearch" />
+<div data-stork="sitesearch-output"></div>
+
+        </ul>
+		
+
+    </aside> <!-- End Sidebar -->
+
+</div> <!-- End Main Content and Sidebar -->
+
+
+<!-- Footer -->
+<footer class="row">
+    <div class="large-12 columns">
+        <hr />
+        <div class="row">
+            <div class="large-6 columns">
+                <p>Site de Sébastien Millet by Sébastien Millet</p>
+            </div>
+            </div>
+    </div>
+</footer>
+
+<script src="https://files.stork-search.net/releases/v1.5.0/stork.js"></script>
+<script>
+    stork.register("sitesearch", "http://milletseb.free.fr/search-index.st")
+</script>

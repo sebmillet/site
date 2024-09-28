@@ -1,0 +1,1925 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="Docutils 0.14: http://docutils.sourceforge.net/" />
+<title>all.tmp</title>
+<style type="text/css">
+
+/*
+:Author: David Goodger (goodger@python.org)
+:Id: $Id: html4css1.css 7952 2016-07-26 18:15:59Z milde $
+:Copyright: This stylesheet has been placed in the public domain.
+
+Default cascading style sheet for the HTML output of Docutils.
+
+See http://docutils.sf.net/docs/howto/html-stylesheets.html for how to
+customize this style sheet.
+*/
+
+/* used to remove borders from tables and images */
+.borderless, table.borderless td, table.borderless th {
+  border: 0 }
+
+table.borderless td, table.borderless th {
+  /* Override padding for "table.docutils td" with "! important".
+     The right padding separates the table cells. */
+  padding: 0 0.5em 0 0 ! important }
+
+.first {
+  /* Override more specific margin styles with "! important". */
+  margin-top: 0 ! important }
+
+.last, .with-subtitle {
+  margin-bottom: 0 ! important }
+
+.hidden {
+  display: none }
+
+.subscript {
+  vertical-align: sub;
+  font-size: smaller }
+
+.superscript {
+  vertical-align: super;
+  font-size: smaller }
+
+a.toc-backref {
+  text-decoration: none ;
+  color: black }
+
+blockquote.epigraph {
+  margin: 2em 5em ; }
+
+dl.docutils dd {
+  margin-bottom: 0.5em }
+
+object[type="image/svg+xml"], object[type="application/x-shockwave-flash"] {
+  overflow: hidden;
+}
+
+/* Uncomment (and remove this text!) to get bold-faced definition list terms
+dl.docutils dt {
+  font-weight: bold }
+*/
+
+div.abstract {
+  margin: 2em 5em }
+
+div.abstract p.topic-title {
+  font-weight: bold ;
+  text-align: center }
+
+div.admonition, div.attention, div.caution, div.danger, div.error,
+div.hint, div.important, div.note, div.tip, div.warning {
+  margin: 2em ;
+  border: medium outset ;
+  padding: 1em }
+
+div.admonition p.admonition-title, div.hint p.admonition-title,
+div.important p.admonition-title, div.note p.admonition-title,
+div.tip p.admonition-title {
+  font-weight: bold ;
+  font-family: sans-serif }
+
+div.attention p.admonition-title, div.caution p.admonition-title,
+div.danger p.admonition-title, div.error p.admonition-title,
+div.warning p.admonition-title, .code .error {
+  color: red ;
+  font-weight: bold ;
+  font-family: sans-serif }
+
+/* Uncomment (and remove this text!) to get reduced vertical space in
+   compound paragraphs.
+div.compound .compound-first, div.compound .compound-middle {
+  margin-bottom: 0.5em }
+
+div.compound .compound-last, div.compound .compound-middle {
+  margin-top: 0.5em }
+*/
+
+div.dedication {
+  margin: 2em 5em ;
+  text-align: center ;
+  font-style: italic }
+
+div.dedication p.topic-title {
+  font-weight: bold ;
+  font-style: normal }
+
+div.figure {
+  margin-left: 2em ;
+  margin-right: 2em }
+
+div.footer, div.header {
+  clear: both;
+  font-size: smaller }
+
+div.line-block {
+  display: block ;
+  margin-top: 1em ;
+  margin-bottom: 1em }
+
+div.line-block div.line-block {
+  margin-top: 0 ;
+  margin-bottom: 0 ;
+  margin-left: 1.5em }
+
+div.sidebar {
+  margin: 0 0 0.5em 1em ;
+  border: medium outset ;
+  padding: 1em ;
+  background-color: #ffffee ;
+  width: 40% ;
+  float: right ;
+  clear: right }
+
+div.sidebar p.rubric {
+  font-family: sans-serif ;
+  font-size: medium }
+
+div.system-messages {
+  margin: 5em }
+
+div.system-messages h1 {
+  color: red }
+
+div.system-message {
+  border: medium outset ;
+  padding: 1em }
+
+div.system-message p.system-message-title {
+  color: red ;
+  font-weight: bold }
+
+div.topic {
+  margin: 2em }
+
+h1.section-subtitle, h2.section-subtitle, h3.section-subtitle,
+h4.section-subtitle, h5.section-subtitle, h6.section-subtitle {
+  margin-top: 0.4em }
+
+h1.title {
+  text-align: center }
+
+h2.subtitle {
+  text-align: center }
+
+hr.docutils {
+  width: 75% }
+
+img.align-left, .figure.align-left, object.align-left, table.align-left {
+  clear: left ;
+  float: left ;
+  margin-right: 1em }
+
+img.align-right, .figure.align-right, object.align-right, table.align-right {
+  clear: right ;
+  float: right ;
+  margin-left: 1em }
+
+img.align-center, .figure.align-center, object.align-center {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+table.align-center {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.align-left {
+  text-align: left }
+
+.align-center {
+  clear: both ;
+  text-align: center }
+
+.align-right {
+  text-align: right }
+
+/* reset inner alignment in figures */
+div.align-right {
+  text-align: inherit }
+
+/* div.align-center * { */
+/*   text-align: left } */
+
+.align-top    {
+  vertical-align: top }
+
+.align-middle {
+  vertical-align: middle }
+
+.align-bottom {
+  vertical-align: bottom }
+
+ol.simple, ul.simple {
+  margin-bottom: 1em }
+
+ol.arabic {
+  list-style: decimal }
+
+ol.loweralpha {
+  list-style: lower-alpha }
+
+ol.upperalpha {
+  list-style: upper-alpha }
+
+ol.lowerroman {
+  list-style: lower-roman }
+
+ol.upperroman {
+  list-style: upper-roman }
+
+p.attribution {
+  text-align: right ;
+  margin-left: 50% }
+
+p.caption {
+  font-style: italic }
+
+p.credits {
+  font-style: italic ;
+  font-size: smaller }
+
+p.label {
+  white-space: nowrap }
+
+p.rubric {
+  font-weight: bold ;
+  font-size: larger ;
+  color: maroon ;
+  text-align: center }
+
+p.sidebar-title {
+  font-family: sans-serif ;
+  font-weight: bold ;
+  font-size: larger }
+
+p.sidebar-subtitle {
+  font-family: sans-serif ;
+  font-weight: bold }
+
+p.topic-title {
+  font-weight: bold }
+
+pre.address {
+  margin-bottom: 0 ;
+  margin-top: 0 ;
+  font: inherit }
+
+pre.literal-block, pre.doctest-block, pre.math, pre.code {
+  margin-left: 2em ;
+  margin-right: 2em }
+
+pre.code .ln { color: grey; } /* line numbers */
+pre.code, code { background-color: #eeeeee }
+pre.code .comment, code .comment { color: #5C6576 }
+pre.code .keyword, code .keyword { color: #3B0D06; font-weight: bold }
+pre.code .literal.string, code .literal.string { color: #0C5404 }
+pre.code .name.builtin, code .name.builtin { color: #352B84 }
+pre.code .deleted, code .deleted { background-color: #DEB0A1}
+pre.code .inserted, code .inserted { background-color: #A3D289}
+
+span.classifier {
+  font-family: sans-serif ;
+  font-style: oblique }
+
+span.classifier-delimiter {
+  font-family: sans-serif ;
+  font-weight: bold }
+
+span.interpreted {
+  font-family: sans-serif }
+
+span.option {
+  white-space: nowrap }
+
+span.pre {
+  white-space: pre }
+
+span.problematic {
+  color: red }
+
+span.section-subtitle {
+  /* font-size relative to parent (h1..h6 element) */
+  font-size: 80% }
+
+table.citation {
+  border-left: solid 1px gray;
+  margin-left: 1px }
+
+table.docinfo {
+  margin: 2em 4em }
+
+table.docutils {
+  margin-top: 0.5em ;
+  margin-bottom: 0.5em }
+
+table.footnote {
+  border-left: solid 1px black;
+  margin-left: 1px }
+
+table.docutils td, table.docutils th,
+table.docinfo td, table.docinfo th {
+  padding-left: 0.5em ;
+  padding-right: 0.5em ;
+  vertical-align: top }
+
+table.docutils th.field-name, table.docinfo th.docinfo-name {
+  font-weight: bold ;
+  text-align: left ;
+  white-space: nowrap ;
+  padding-left: 0 }
+
+/* "booktabs" style (no vertical lines) */
+table.docutils.booktabs {
+  border: 0px;
+  border-top: 2px solid;
+  border-bottom: 2px solid;
+  border-collapse: collapse;
+}
+table.docutils.booktabs * {
+  border: 0px;
+}
+table.docutils.booktabs th {
+  border-bottom: thin solid;
+  text-align: left;
+}
+
+h1 tt.docutils, h2 tt.docutils, h3 tt.docutils,
+h4 tt.docutils, h5 tt.docutils, h6 tt.docutils {
+  font-size: 100% }
+
+ul.auto-toc {
+  list-style-type: none }
+
+</style>
+</head>
+<body>
+<div class="document">
+
+
+<div class="section" id="recettes-de-cuisine-tout-sur-une-seule-page">
+<h1><a class="toc-backref" href="#id13">Recettes de cuisine (tout sur une seule page)</a></h1>
+<div class="line-block">
+<div class="line"><a class="reference external" href="../index.html">Retour à la page d'accueil</a></div>
+<div class="line"><a class="reference external" href="index.html">Recettes de cuisine (une page par recette)</a></div>
+</div>
+<hr class="docutils" />
+<div class="contents topic" id="recettes">
+<p class="topic-title first">Recettes</p>
+<ul class="simple">
+<li><a class="reference internal" href="#recettes-de-cuisine-tout-sur-une-seule-page" id="id13">Recettes de cuisine (tout sur une seule page)</a></li>
+<li><a class="reference internal" href="#aubergine-gratinee-a-la-bolognaise" id="id14">Aubergine gratinée à la Bolognaise</a></li>
+<li><a class="reference internal" href="#bouillon-asiatique-aux-vermicelles-et-boeuf" id="id15">Bouillon asiatique aux vermicelles et bœuf</a></li>
+<li><a class="reference internal" href="#bricks-de-chevre" id="id16">Bricks de chèvre</a></li>
+<li><a class="reference internal" href="#buche-aux-marrons-glaces" id="id17">Bûche aux marrons glacés</a></li>
+<li><a class="reference internal" href="#buche-de-noel" id="id18">Bûche de Noël</a><ul>
+<li><a class="reference internal" href="#ingredients" id="id19">Ingrédients</a></li>
+<li><a class="reference internal" href="#recette" id="id20">Recette</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#cake-au-citron" id="id21">Cake au citron</a><ul>
+<li><a class="reference internal" href="#id1" id="id22">Ingrédients</a></li>
+<li><a class="reference internal" href="#id2" id="id23">Recette</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#choux-fleurs-a-la-creme" id="id24">Choux-fleurs à la crème</a></li>
+<li><a class="reference internal" href="#choux-rouge-aux-chataignes" id="id25">Choux rouge aux châtaignes</a></li>
+<li><a class="reference internal" href="#choux" id="id26">Choux</a></li>
+<li><a class="reference internal" href="#chutney-d-oignons" id="id27">Chutney d'oignons</a><ul>
+<li><a class="reference internal" href="#id3" id="id28">Ingrédients</a></li>
+<li><a class="reference internal" href="#id4" id="id29">Recette</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#clafoutis-de-jambon-et-courgette" id="id30">Clafoutis de jambon et courgette</a></li>
+<li><a class="reference internal" href="#concombre-au-fromage-blanc" id="id31">Concombre au fromage blanc</a></li>
+<li><a class="reference internal" href="#crevettes-kung-pao-aux-cajous" id="id32">Crevettes Kung Pao aux cajous</a></li>
+<li><a class="reference internal" href="#croque-monsieur" id="id33">Croque-monsieur</a></li>
+<li><a class="reference internal" href="#crumble-de-potiron-au-comte-et-bacon" id="id34">Crumble de potiron au Comté et bacon</a></li>
+<li><a class="reference internal" href="#domes-de-saumon-fume" id="id35">Dômes de saumon fumé</a></li>
+<li><a class="reference internal" href="#flan-noix-de-coco" id="id36">Flan noix de coco</a></li>
+<li><a class="reference internal" href="#galette-des-rois" id="id37">Galette des rois</a></li>
+<li><a class="reference internal" href="#gateau-a-la-creme-de-marron" id="id38">Gâteau à la crème de marron</a></li>
+<li><a class="reference internal" href="#gateau-au-chocolat-creme-de-marron" id="id39">Gâteau au chocolat crème de marron</a></li>
+<li><a class="reference internal" href="#gateau-marbre" id="id40">Gâteau marbré</a><ul>
+<li><a class="reference internal" href="#id5" id="id41">Ingrédients</a></li>
+<li><a class="reference internal" href="#id6" id="id42">Recette</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#goulache" id="id43">Goulache</a></li>
+<li><a class="reference internal" href="#gratin-dauphinois" id="id44">Gratin Dauphinois</a></li>
+<li><a class="reference internal" href="#gratin-de-cotes-de-blettes" id="id45">Gratin de côtes de blettes</a></li>
+<li><a class="reference internal" href="#lasagnes" id="id46">Lasagnes</a></li>
+<li><a class="reference internal" href="#lentilles-saucisses" id="id47">Lentilles saucisses</a></li>
+<li><a class="reference internal" href="#lotte-a-l-armoricaine" id="id48">Lotte à l'armoricaine</a><ul>
+<li><a class="reference internal" href="#etapes" id="id49">Étapes</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#meringues" id="id50">Meringues</a></li>
+<li><a class="reference internal" href="#mini-clafoutis-au-camembert" id="id51">Mini clafoutis au camembert</a></li>
+<li><a class="reference internal" href="#oeufs-a-la-neige" id="id52">Œufs à la neige</a></li>
+<li><a class="reference internal" href="#osso-bucco-au-fenouil" id="id53">Osso-Bucco au fenouil</a></li>
+<li><a class="reference internal" href="#panna-cotta" id="id54">Panna cotta</a></li>
+<li><a class="reference internal" href="#paprikas-krumpli" id="id55">Paprikás krumpli</a></li>
+<li><a class="reference internal" href="#pommes-de-terre-jambon-feta" id="id56">Pommes de terre jambon feta</a></li>
+<li><a class="reference internal" href="#pommes-de-terre-saumon" id="id57">Pommes de terre saumon</a></li>
+<li><a class="reference internal" href="#porc-a-la-noix-de-coco" id="id58">Porc à la noix de coco</a></li>
+<li><a class="reference internal" href="#poulet-au-citron-et-aux-olives" id="id59">Poulet au citron et aux olives</a></li>
+<li><a class="reference internal" href="#poulet-legumes" id="id60">Poulet légumes</a></li>
+<li><a class="reference internal" href="#riz-aux-crevettes-et-noix-de-petoncle" id="id61">Riz aux crevettes et noix de pétoncle</a></li>
+<li><a class="reference internal" href="#riz-aux-oignons-cuisson-pilaf" id="id62">Riz aux oignons (cuisson pilaf)</a></li>
+<li><a class="reference internal" href="#roti-de-magrets-de-canard-au-potimarron-et-aux-marrons" id="id63">Rôti de magrets de canard au potimarron et aux marrons</a><ul>
+<li><a class="reference internal" href="#id7" id="id64">Ingrédients</a></li>
+<li><a class="reference internal" href="#id8" id="id65">Recette</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#sauce-bechamel" id="id66">Sauce béchamel</a><ul>
+<li><a class="reference internal" href="#sauce-classique" id="id67">Sauce classique</a></li>
+<li><a class="reference internal" href="#sauce-legere" id="id68">Sauce légère</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#saute-de-porc-a-la-creme-de-moutarde" id="id69">Sauté de porc à la crème de moutarde</a></li>
+<li><a class="reference internal" href="#souffle-au-citron" id="id70">Soufflé au citron</a></li>
+<li><a class="reference internal" href="#spaghetti-a-la-carbonara" id="id71">Spaghetti à la Carbonara</a></li>
+<li><a class="reference internal" href="#spaghetti-bolognaise" id="id72">Spaghetti bolognaise</a></li>
+<li><a class="reference internal" href="#taboule" id="id73">Taboulé</a></li>
+<li><a class="reference internal" href="#tarte-au-citron-meringuee" id="id74">Tarte au citron meringuée</a></li>
+<li><a class="reference internal" href="#tarte-aux-champignons-mozzarella" id="id75">Tarte aux champignons mozzarella</a></li>
+<li><a class="reference internal" href="#tarte-fine-au-boudin-blanc-et-chutney-de-mangue" id="id76">Tarte fine au boudin blanc et chutney de mangue</a><ul>
+<li><a class="reference internal" href="#id9" id="id77">Ingrédients</a></li>
+<li><a class="reference internal" href="#id10" id="id78">Recette</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#tartiflette" id="id79">Tartiflette</a></li>
+<li><a class="reference internal" href="#tatins-de-navets" id="id80">Tatins de navets</a></li>
+<li><a class="reference internal" href="#tiramisu-au-saumon-fume-avocat-et-pamplemousse-rose" id="id81">Tiramisu au saumon fumé, avocat et pamplemousse rose</a><ul>
+<li><a class="reference internal" href="#id11" id="id82">Ingrédients</a></li>
+<li><a class="reference internal" href="#id12" id="id83">Recette</a></li>
+<li><a class="reference internal" href="#puree-d-avocat" id="id84">Purée d'avocat</a></li>
+<li><a class="reference internal" href="#pamplemousses" id="id85">Pamplemousses</a></li>
+<li><a class="reference internal" href="#creme-au-mascarpone" id="id86">Crème au mascarpone</a></li>
+<li><a class="reference internal" href="#montage-des-verrines" id="id87">Montage des verrines</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#tiramisu" id="id88">Tiramisu</a></li>
+</ul>
+</div>
+</div>
+<hr class="docutils" />
+<div class="section" id="aubergine-gratinee-a-la-bolognaise">
+<h1><a class="toc-backref" href="#id14">Aubergine gratinée à la Bolognaise</a></h1>
+<p><em>Pour 1 personne</em></p>
+<p>(Fait en avril 2014)</p>
+<ol class="arabic simple">
+<li>Faire revenir dans une poêle recouverte d'une feuille de cuisson 1 aubergine coupée en fines lamelles, jusqu'à ce qu'elle devienne tendre (7 minutes).</li>
+<li>Réserver l'aubergine.</li>
+<li>Faire fondre 1 oignon dans la poêle, saisir 1 steak haché émietté, ajouter 1/2 boîte de tomates en dés, 1 c. à s. de concentré de tomates, 1 c. à s. de vin blanc, 1/2 gousse d'ail haché et 1 bouquet garni. Ajouter un peu d'eau si nécessaire.</li>
+<li>Saler et poivrer.</li>
+<li>Laisser mijoter 20 minutes.</li>
+<li>Mélanger 30 g de ricotta et 2 c. à s. de crème fraîche.</li>
+<li>Disposer l'aubergine dans un plat à gratin, ajouter la viande, puis ajouter le mélange à la ricotta, enfin napper de gruyère râpé (15 g).</li>
+<li>Faire gratiner au four à 180 °C pendant 20 minutes.</li>
+<li>Servir chaud.</li>
+</ol>
+</div>
+<hr class="docutils" />
+<div class="section" id="bouillon-asiatique-aux-vermicelles-et-boeuf">
+<h1><a class="toc-backref" href="#id15">Bouillon asiatique aux vermicelles et bœuf</a></h1>
+<p><em>Pour 2 personnes</em></p>
+<p>(Fait en mai 2014)</p>
+<ol class="arabic">
+<li><p class="first">Émincer 80 g de rumsteck de bœuf en très fines lanières et les faire mariner avec les 4 épices (1 c. à c.) et 1 c. à s. de sauce soja, réserver.</p>
+<blockquote>
+<p>Possible aussi avec des aiguillettes de canard.</p>
+</blockquote>
+</li>
+<li><p class="first">Mettre dans une casserole le gingembre émincé (1 morceau de 2 cm, frais), l'ail haché (2 gousses) et 1 poivron rouge coupé en petits morceaux.</p>
+</li>
+<li><p class="first">Verser 70 cl d'eau, 2 c. à s. de sauce soja, 2 étoiles de badiane et 3 c. à c. de graines de coriandre concassées.</p>
+</li>
+<li><p class="first">Ajouter du bouillon.</p>
+</li>
+<li><p class="first">Ajouter des brins de ciboules (3) émincés.</p>
+</li>
+<li><p class="first">Ajouter le bouquet garni.</p>
+</li>
+<li><p class="first">Laisser frémir.</p>
+</li>
+<li><p class="first">Faire cuire les vermicelles de riz crus (60 g) en les recouvrant d'eau chaude pendant 5 minutes.</p>
+</li>
+<li><p class="first">Quand les vermicelles sont presque cuits, ôter la casseroles du feu, enlever le bouquet garni, ajouter le bœuf, mélanger et couvrir pendant 2 minutes.</p>
+</li>
+<li><p class="first">Égoutter les vermicelles, y ajouter la soupe, servir.</p>
+</li>
+</ol>
+</div>
+<hr class="docutils" />
+<div class="section" id="bricks-de-chevre">
+<h1><a class="toc-backref" href="#id16">Bricks de chèvre</a></h1>
+<p><em>Pour 4 personnes</em></p>
+<p>(Fait début 2014)</p>
+<ol class="arabic simple">
+<li>Découper le fromage de chèvre frais (120 g) en 8 rondelles</li>
+<li>Déposer chaque rondelle de fromage de chèvre dans une demi feuille de brick (il faut donc 4 feuilles de brick)</li>
+<li>Ajouter du basilic ciselé et un peu de poivre</li>
+<li>Replier la feuille de brick</li>
+<li>Badigeonner chaque brick d'huile d'olive</li>
+<li>Faire dorer les bricks au four à 180 °C pendant environ 5 minutes (surveiller)</li>
+<li>Servir avec une salade</li>
+</ol>
+</div>
+<hr class="docutils" />
+<div class="section" id="buche-aux-marrons-glaces">
+<h1><a class="toc-backref" href="#id17">Bûche aux marrons glacés</a></h1>
+<p><em>Pour 6 personnes</em></p>
+<p>(Fait en décembre 2019)</p>
+<ol class="arabic simple">
+<li>Portez à ébullition 10 cl d'eau avec 50 g de sucre. Ajouter 2 c. à s. de whisky dans ce sirop.</li>
+<li>Fouettez 4 jaunes d'œufs avec 150 g de sucre.</li>
+<li>Ajoutez 100 g de farine.</li>
+<li>Montez en neige les blancs des 4 œufs, les ajouter au mélange.</li>
+<li>Cuisez 10 min. sur du papier sulfurisé beurré, à 180 °C. Le mélange doit être étalé sous forme d'un rectangle, aussi long que le moule à cake et trois fois plus large.</li>
+<li>Une fois retourné sur un linge, taillez le biscuit et découpez-le en trois, aux dimensions du moule à cake.</li>
+<li>Imbibez le biscuit de sirop de whisky.</li>
+<li>Faites fondre 6 g de gélatine en feuilles (préalablement hydratée et essorée) avec 3 c. à s. de mascarpone sur feu doux.</li>
+<li>Fouettez 250 g de mascarpone (un peu moins : les 3 c. à s. en ont été prélevées) avec 250 g de crème de marrons.</li>
+<li>Ajoutez la gélatine.</li>
+<li>Faites monter en chantilly 15 cl de crème liquide et ajoutez au mélange.</li>
+<li>Tapissez le moule d'un film.</li>
+<li>Placez un rectangle de biscuit puis du mélange, et ajoutez des brisures de marrons. Au total, il faut 100 g de brisures de marrons glacés.</li>
+<li>Recommencez à deux reprises, terminez par du biscuit.</li>
+<li>Réfrigérez au moins 6h.</li>
+</ol>
+<ul class="simple">
+<li>Pour le glaçage</li>
+</ul>
+<ol class="arabic simple" start="16">
+<li>Démoulez la bûche et placez-la sur une grille.</li>
+<li>Faites chauffer 12 cl de crème liquide.</li>
+<li>Ajoutez 120 g de chocolat noir haché.</li>
+<li>Ajoutez 30 g de beurre.</li>
+<li>Étalez sur la bûche.</li>
+<li>Décorez avec des marrons glacés.</li>
+<li>Conservez au réfrigérateur.</li>
+</ol>
+</div>
+<hr class="docutils" />
+<div class="section" id="buche-de-noel">
+<h1><a class="toc-backref" href="#id18">Bûche de Noël</a></h1>
+<p>D'après <a class="reference external" href="http://www.iletaitunefoislapatisserie.com/2016/12/buche-noel-roulee-chocolat-facile-rapide.html">http://www.iletaitunefoislapatisserie.com/2016/12/buche-noel-roulee-chocolat-facile-rapide.html</a></p>
+<p><em>Pour 10 personnes</em></p>
+<div class="section" id="ingredients">
+<h2><a class="toc-backref" href="#id19">Ingrédients</a></h2>
+<p><em>Pour le biscuit roulé</em></p>
+<ul class="simple">
+<li>4 œufs</li>
+<li>120 g de sucre</li>
+<li>80 g de farine</li>
+<li>40 g de poudre de noisette</li>
+</ul>
+<p><em>Pour la ganache</em></p>
+<ul class="simple">
+<li>250 g de chocolat noir</li>
+<li>250 g de crème liquide (de la crème entière est meilleure)</li>
+<li>50 g de beurre</li>
+</ul>
+</div>
+<div class="section" id="recette">
+<h2><a class="toc-backref" href="#id20">Recette</a></h2>
+<p><em>Ganache</em></p>
+<ol class="arabic simple">
+<li>Faire fondre 250 g de chocolat noir au micro-ondes ou au bain-marie. En parallèle, faire chauffer la crème liquide.</li>
+<li>Verser 250 g de crème liquide bouillante sur le chocolat fondu en trois fois, en mélangeant bien entre chaque ajout.</li>
+<li>Ajouter 50 g de beurre en morceaux et mélanger pour le faire fondre.</li>
+<li>Laisser refroidir et mettre au réfrigérateur. Pour éviter que la partie supérieure ne forme une croute, poser un film transparent dessus.</li>
+</ol>
+<p><em>Biscuit roulé</em></p>
+<ol class="arabic simple" start="5">
+<li>Séparer le blanc des jaunes de 4 œufs.</li>
+<li>Faire blanchir les jaunes avec 120 g de sucre.</li>
+<li>Faire monter les blancs.</li>
+<li>Ajouter les blancs à la préparation, délicatement.</li>
+<li>Ajouter délicatement 80 g de farine.</li>
+<li>Ajouter délicatement 40 g de poudre de noisette. La recette originale insiste sur le fait que la poudre de noisette doit être tamisée. Personnellement, j'ai fait cette recette avec de la poudre de noisette faite à partir de noisettes entières (donc, assez grossière) et cela n'a pas posé de problème.</li>
+<li>Verser la pâte sur une plaque de cuisson rectangulaire, <em>sur du papier cuisson</em>. Lisser avec une spatule.</li>
+<li>Faire cuire 10 min au four, à 180 °C.</li>
+<li>Comme indique le site : &quot;Le biscuit est cuit quand il est coloré et que le dessus ne colle plus au doigt&quot;. Il est important de ne pas trop faire cuire, pour que le biscuit ne casse pas durant le roulage.</li>
+<li>Dès la sortie du four, retourner la plaque sur un torchon humide. Pour avoir un torchon humide : passer un torchon sous l'eau et l'essorer.</li>
+<li>Rouler <em>tout de suite</em> le gâteau avec le torchon.</li>
+<li>Laisser refroidir une dizaine de minutes.</li>
+</ol>
+<p><em>Montage</em></p>
+<ol class="arabic simple" start="17">
+<li>Quand la ganache a bien refroidi : étaler la ganache sur le biscuit préalablement déroulé. Garder de la ganache pour en recouvrir ensuite la bûche.</li>
+<li>Rouler de nouveau.</li>
+<li>Couper un bout de biscuit de 2 cm environ, et le poser sur la bûche.</li>
+<li>Recouvrir la bûche de ganache.</li>
+<li>Strier la ganache avec une fourchette.</li>
+<li>Laisser au réfrigérateur au moins 1 h avant de servir (peut aussi être fait la veille).</li>
+<li>Il est possible de décorer la bûche avec du sucre glace.</li>
+</ol>
+</div>
+</div>
+<hr class="docutils" />
+<div class="section" id="cake-au-citron">
+<h1><a class="toc-backref" href="#id21">Cake au citron</a></h1>
+<p>D'après <a class="reference external" href="http://cuisine.journaldesfemmes.com/recette/311322-cake-au-citron">http://cuisine.journaldesfemmes.com/recette/311322-cake-au-citron</a></p>
+<p><em>Pour 8 personnes</em></p>
+<div class="section" id="id1">
+<h2><a class="toc-backref" href="#id22">Ingrédients</a></h2>
+<ul class="simple">
+<li>200 g de farine</li>
+<li>150 g de sucre</li>
+<li>1/2 sachet de levure chimique</li>
+<li>4 œufs</li>
+<li>100 g de beurre</li>
+<li>1 citron, non traité de préférence</li>
+</ul>
+</div>
+<div class="section" id="id2">
+<h2><a class="toc-backref" href="#id23">Recette</a></h2>
+<ol class="arabic simple">
+<li>Faire fondre 100 g de beurre au micro-ondes ou au bain-marie.</li>
+<li>Râper le citron et le presser, récupérer le jus.</li>
+<li>Mélanger 200 g de farine, 150 g de sucre, 1/2 sachet de levure chimique.</li>
+<li>Ajouter au mélange 4 œufs un par un.</li>
+<li>Ajouter au mélange le beurre fondu.</li>
+<li>Ajouter au mélange le zeste et le jus de citron.</li>
+<li>Verser le mélange dans un moule à cake d'environ 30 cm, beurré et fariné.</li>
+<li>Faire cuire au four à 180 °C, pendant 40 min.</li>
+<li>Dès que le cake est démoulé, le mettre sur le plat de service.</li>
+</ol>
+</div>
+</div>
+<hr class="docutils" />
+<div class="section" id="choux-fleurs-a-la-creme">
+<h1><a class="toc-backref" href="#id24">Choux-fleurs à la crème</a></h1>
+<p><em>Pour 4 à 6 personnes</em></p>
+<ol class="arabic simple">
+<li>Faire bouillir de l'eau dans une marmite.</li>
+<li>Découper un gros choux-fleur (enlever les parties blanches près du cœur) et laver les parties découpées.</li>
+<li>Une fois que l'eau bout, y verser le choux-fleur, couper le feu, attendre entre 5 et 10 minutes (plus près de 10), puis égoutter.</li>
+<li>Mettre une brique de crème dans une marmite (20 cl), ajouter un bouillon, faire chauffer doucement.</li>
+<li>Verser le choux-fleur, laisser à feu doux quelques minutes.</li>
+</ol>
+</div>
+<hr class="docutils" />
+<div class="section" id="choux-rouge-aux-chataignes">
+<h1><a class="toc-backref" href="#id25">Choux rouge aux châtaignes</a></h1>
+<p><em>Pour 6 ou 8 personnes</em></p>
+<ol class="arabic simple">
+<li>Préparer 500 g de châtaignes en les ébouillantant 5 à 10 minutes puis en les épluchant - il faut enlever les 2 peaux.</li>
+<li>Découper un gros choux rouge et le mettre dans de l'eau bouillante.</li>
+<li>Quand l'eau bout à nouveau, couper le feu, mettre un couvercle et laisser 30 minutes.</li>
+<li>Faire fondre (<em>pas dorer</em>) un oignon dans de l'huile chaude.</li>
+<li>Découper 2 grosses pommes en 4 chacune.</li>
+<li>Mettre la moitié du choux dans le plat où les oignons viennent de fondre, mettre les châtaignes et les pommes, mettre le reste du choux.</li>
+<li>Saler, poivrer et ajouter 1 c. à c. de sucre.</li>
+<li>Arroser d'1 c. à s. de vinaigre.</li>
+<li>Mettre 30 cl de vin rouge (recette originale). Moi je mets du vin blanc, ça fonctionne aussi.</li>
+<li>Mettre 1 verre d'eau.</li>
+<li>Laisser mijoter 2h à 3h.</li>
+</ol>
+</div>
+<hr class="docutils" />
+<div class="section" id="choux">
+<h1><a class="toc-backref" href="#id26">Choux</a></h1>
+<p><em>Pour 20 choux environ</em></p>
+<ol class="arabic simple">
+<li>Verser dans 1 casserole 25 cl d'eau, 60 g de beurre coupé en morceaux, 1/2 cuillère à café de sel et 1 cuillère à soupe de sucre.</li>
+<li>Porter à ébullition.</li>
+<li><dl class="first docutils">
+<dt>Lorsque l'eau bout, verser 150 g de farine tamisée et remuer énergiquement avec une spatule. Une boule de pâte se forme en se détachant de la casserole.</dt>
+<dd>Si cela ne se produit pas, remuer sur feu très doux puis sécher la pâte jusqu'à ce qu'elle se détache des parois.</dd>
+</dl>
+</li>
+<li>Hors du feu, incorporer 4 œufs entiers, l'un après l'autre. Mélanger parfaitement chaque œuf, avant le suivant. Ce point est très important.</li>
+<li>Si la pâte est trop sèche, ajouter 1/2 jaune d'œuf.</li>
+<li><dl class="first docutils">
+<dt>Faire les choux, avec deux cuillères à soupe pour former une boule.</dt>
+<dd>Espacer les choux suffisamment sachant qu'ils gonflent un peu à la cuisson.</dd>
+</dl>
+</li>
+<li>Cuisson : 210 °C pendant 20 minutes, variable selon la taille des choux.</li>
+</ol>
+</div>
+<hr class="docutils" />
+<div class="section" id="chutney-d-oignons">
+<h1><a class="toc-backref" href="#id27">Chutney d'oignons</a></h1>
+<p>D'après <a class="reference external" href="http://www.evacuisine.fr/archives/2011/11/23/22690660.html">http://www.evacuisine.fr/archives/2011/11/23/22690660.html</a></p>
+<p><em>Pour 1 pot de confiture</em></p>
+<div class="section" id="id3">
+<h2><a class="toc-backref" href="#id28">Ingrédients</a></h2>
+<ul class="simple">
+<li>6 gros oignons</li>
+<li>100 g de sucre en poudre</li>
+<li>4 c. à s. de vinaigre balsamique</li>
+<li>1 c. à s. d'huile d'olive.</li>
+</ul>
+</div>
+<div class="section" id="id4">
+<h2><a class="toc-backref" href="#id29">Recette</a></h2>
+<ol class="arabic simple">
+<li>Éplucher 6 gros oignons et les émincer finement.</li>
+<li>Faire revenir les oignons dans 1 c. à s. d'huile d'olive jusqu'à ce qu'ils deviennent translucides.</li>
+<li>Saupoudrer avec 100 g de sucre en poudre.</li>
+<li>Verser 4 c. à s. de vinaigre balsamique.</li>
+<li>Remuer et laisser cuire 10 min à feu vif jusqu'à ce que le vinaigre s'évapore.</li>
+<li>Couvrir la casserole et laisser cuire à feu très doux pendant 1 h. Remuer de temps en temps.</li>
+<li>Verser le confit d'oignons bouillant dans un pot à confiture.</li>
+<li>D'après le site, il est possible de le préparer 1 mois à l'avance, car il se conserve très bien.</li>
+</ol>
+</div>
+</div>
+<hr class="docutils" />
+<div class="section" id="clafoutis-de-jambon-et-courgette">
+<h1><a class="toc-backref" href="#id30">Clafoutis de jambon et courgette</a></h1>
+<p><em>Pour 6 personnes</em></p>
+<ol class="arabic simple">
+<li>Couper des courgettes non épluchées (500 g) en bâtonnets</li>
+<li>Dans une poêle, faire chauffer de l'huile et y verser les courgettes, du thym et 1 gousse d'ail haché</li>
+<li>Cuire pas trop vite, une fois que c'est cuit, saler et poivrer</li>
+<li>Battre 4 œufs en omelette, y verser 120 g de farine, saler et poivrer</li>
+<li>Verser 20 cl de lait lentement, tout en mélangeant au fouet</li>
+<li>Ajouter 12 olives noires dénoyautées coupées en 2</li>
+<li>Ajouter du basilic ciselé</li>
+<li>Étaler les courgettes dans une tourtière, y verser la préparation, ajouter 8 fines tranches de jambon de Bayonne (160 g)</li>
+<li>Faire cuire au four 40 minutes à 210 °C</li>
+<li>Servir tiède ou froid</li>
+</ol>
+</div>
+<hr class="docutils" />
+<div class="section" id="concombre-au-fromage-blanc">
+<h1><a class="toc-backref" href="#id31">Concombre au fromage blanc</a></h1>
+<p><em>Pour 2 ou 3 personnes</em></p>
+<ol class="arabic simple">
+<li>Couper une gousse d'ail très fin, et de la ciboulette.</li>
+<li>Mettre un fromage blanc de 100 g dans le plat de service, y ajouter l'ail et la ciboulette.</li>
+<li>Y couper un concombre en petits morceaux. Au besoin, ôter du concombre la partie centrale (pleine de pépins.)</li>
+<li>Saler, poivrer.</li>
+</ol>
+</div>
+<hr class="docutils" />
+<div class="section" id="crevettes-kung-pao-aux-cajous">
+<h1><a class="toc-backref" href="#id32">Crevettes Kung Pao aux cajous</a></h1>
+<p><em>Pour 6 personnes</em></p>
+<ol class="arabic simple">
+<li><dl class="first docutils">
+<dt>Mélanger les ingrédients suivants.</dt>
+<dd><ul class="first last">
+<li>Gingembre, 1/2 c. à c. haché</li>
+<li>Ail, 1 c. à c. haché</li>
+<li>Maïzena, 1,5 c. à s.</li>
+<li>Bicarbonate de soude, 1/4 de c. à c.</li>
+<li>Sel</li>
+<li>Poivre</li>
+<li>Sucre, 1/4 de c. à c.</li>
+</ul>
+</dd>
+</dl>
+</li>
+<li>Mélanger avec les crevettes fraîches, 450 g.</li>
+<li>Laisser reposer 20 minutes.</li>
+<li>Faire chauffer de l'huile dans un wok, y faire sauter les crevettes pendant 1 minute, à feu vif, ou jusqu'à ce qu'elles changent de couleur. Verser dans une assiette.</li>
+<li>Mettre un petit oignon coupé en dés dans le wok, faire cuire 1 minute.</li>
+<li>Y ajouter (dans le wok) des courgettes, 1 grosse ou bien 2 petites, coupée(s) en cubes et un poivron rouge coupé en cubes. Prolonger la cuisson 30 secondes.</li>
+<li><dl class="first docutils">
+<dt>Mélanger les ingrédients suivants pour faire une sauce, dans un récipient à part.</dt>
+<dd><ul class="first last">
+<li>20 cl de bouillon de volaille</li>
+<li>1 c. à s. de maïzena</li>
+<li>2 c. à c. de sauce chili (Tabasco)</li>
+<li>2 c. à c. de pâte de haricots (facultatif)</li>
+<li>2 c. à c. d'huile de sésame</li>
+<li>1 c. à s. de Xérès ou alcool de riz</li>
+</ul>
+</dd>
+</dl>
+</li>
+<li>Verser cette sauce dans le wok</li>
+<li>Faire épaissir légèrement, en remuant constamment</li>
+<li>Ajouter les crevettes</li>
+<li>Ajouter les noix de cajou, 60 g, et faire réchauffer complètement</li>
+</ol>
+<p>Accompagner avec un riz blanc ou frit.</p>
+<p>J'ai fait cette recette sans bicarbonate de soude ni pâte de haricots ni Xérès ni alcool de riz ni huile de sésame, et ça fonctionne.</p>
+</div>
+<hr class="docutils" />
+<div class="section" id="croque-monsieur">
+<h1><a class="toc-backref" href="#id33">Croque-monsieur</a></h1>
+<p><em>Deux sandwiches par personne</em></p>
+<p>L'idéal est de les faire dorer avec un appareil à gaufres, mais le four est aussi une solution.</p>
+<ol class="arabic">
+<li><p class="first">Beurrer sur la partie extérieure deux tranches de pain de mie.</p>
+</li>
+<li><p class="first">A l'intérieur, mettre au choix :</p>
+<blockquote>
+<ul class="simple">
+<li>Du jambon et du gruyère.</li>
+<li>De la moutarde et des saucisses (type knack.)</li>
+</ul>
+</blockquote>
+</li>
+<li><p class="first">Passer dans l'appareil à gaufre jusqu'à ce que l'extérieur soit doré, sinon passer au four très chaud.</p>
+</li>
+</ol>
+</div>
+<hr class="docutils" />
+<div class="section" id="crumble-de-potiron-au-comte-et-bacon">
+<h1><a class="toc-backref" href="#id34">Crumble de potiron au Comté et bacon</a></h1>
+<p><em>Pour 6 personnes</em></p>
+<p>(Fait en décembre 2014)</p>
+<ol class="arabic simple">
+<li>Éplucher un potiron d'1 kg et le découper en gros morceaux.</li>
+<li>Faire cuire les morceaux de potiron à la vapeur 10 à 15 minutes. Le potiron doit pouvoir être écrasé avec une fourchette.</li>
+<li>Émincer 2 feuilles de sauge.</li>
+<li>Émincer finement 2 oignons et les faire revenir longuement (en y ajoutant la sauge ?)</li>
+<li><dl class="first docutils">
+<dt>Pour le crumble</dt>
+<dd><ul class="first last">
+<li>Mélanger grossièrement 150 g de farine et 80 g de beurre pommade.</li>
+<li>Saler.</li>
+<li>Mélanger avec 80 g de Comté râpé.</li>
+</ul>
+</dd>
+</dl>
+</li>
+<li>Ciseler 100 g de bacon en fines lanières.</li>
+<li><dl class="first docutils">
+<dt>Verser dans un plat, dans cet ordre :</dt>
+<dd><ul class="first last">
+<li>Les oignons</li>
+<li>Ajouter la sauge (ou bien l'ajouter à l'oignon pendant sa cuisson ?)</li>
+<li>Les morceaux de potiron écrasés grossièrement avec une fourchette</li>
+<li>Le bacon</li>
+<li>1 c. à s. de crème fraîche épaisse</li>
+<li>100 g de Comté râpé</li>
+<li>Le crumble</li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt>Faire cuire au four</dt>
+<dd><ul class="first last">
+<li>20 minutes</li>
+<li>180 °C</li>
+</ul>
+</dd>
+</dl>
+</li>
+</ol>
+<p>Dans la recette originale, les potirons sont cuits au four pendant 30 à 40 minutes ou plus (jusqu'à 1 h si nécessaire), avec les oignons et la sauge.</p>
+</div>
+<hr class="docutils" />
+<div class="section" id="domes-de-saumon-fume">
+<h1><a class="toc-backref" href="#id35">Dômes de saumon fumé</a></h1>
+<p><em>Pour 6 dômes</em></p>
+<p>Fait en décembre 2015</p>
+<ol class="arabic simple">
+<li>Dans un saladier, écraser 2 barquettes de fromage de chèvre frais (style Chavroux) mélangé à 1 c. à s. de crème fraîche.</li>
+<li>Ajouter 1 échalote finement ciselée.</li>
+<li>Ajouter 3 c. à s. de ciboulette hachée.</li>
+<li>Saler, poivrer et ajouter quelques baies roses préalablement écrasées.</li>
+<li>Réserver au frais.</li>
+<li>Couper un gros poivron rouge en tous petits dés.</li>
+<li>Faire chauffer de l'huile d'olive dans une sauteuse et y faire compoter le poivron pendant une dizaine de minutes (recette originale), dans la pratique cela m'a pris plutôt 20 minutes.</li>
+<li>Saler, poivrer, égoutter puis laisser refroidir les poivrons.</li>
+<li><dl class="first docutils">
+<dt>Déposer les saumons fumés (6 tranches) dans 6 alvéoles &quot;demi-sphère&quot;.</dt>
+<dd><ul class="first last">
+<li>Au besoin, prendre des coupelles ou ramequins et recouvrir de cellophane.</li>
+</ul>
+</dd>
+</dl>
+</li>
+<li>Répartir le fromage frais dans les alvéoles puis ajouter les poivrons.</li>
+<li>Replier les tranches de saumon sur le dessus de façon à recouvrir la farce au fromage.</li>
+<li><dl class="first docutils">
+<dt>La recette originale recommande de mettre 1h au congélateur pour faciliter le démoulage.</dt>
+<dd><ul class="first last">
+<li>Ce que j'ai fait : utilisation systématique de cellophane, stockage dans le réfrigérateur et &quot;démoulage&quot; au moment du dressage.</li>
+</ul>
+</dd>
+</dl>
+</li>
+<li>Décorer sur le dessus avec du persil ou de la ciboulette.</li>
+</ol>
+</div>
+<hr class="docutils" />
+<div class="section" id="flan-noix-de-coco">
+<h1><a class="toc-backref" href="#id36">Flan noix de coco</a></h1>
+<p>Il s'agit du flan à la noix de coco de Béa...</p>
+<p><em>Pour 4 à 6 personnes</em></p>
+<p>(Refait en décembre 2014)</p>
+<ol class="arabic simple">
+<li><dl class="first docutils">
+<dt>Mélanger :</dt>
+<dd><ul class="first last">
+<li>397 g de lait concentré sucré</li>
+<li>125 g de noix de coco râpée</li>
+<li>4 œufs</li>
+<li>300 ml de lait frais</li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt>Faire cuire au four</dt>
+<dd><ul class="first last">
+<li>45/50 minutes</li>
+<li>180 °C</li>
+</ul>
+</dd>
+</dl>
+</li>
+</ol>
+</div>
+<hr class="docutils" />
+<div class="section" id="galette-des-rois">
+<h1><a class="toc-backref" href="#id37">Galette des rois</a></h1>
+<p><em>Pour 6 personnes</em></p>
+<p>La galette des rois est constituée de deux pâtes feuilletées, et d'une crème d'amende pour fourrer entre les deux.</p>
+<ul class="simple">
+<li>Crème d'amende</li>
+</ul>
+<p>La crème d'amende ci-dessous remplira la galette.
+Certaines recettes mélangent une crème d'amende avec de la crème pâtissière pour obtenir une frangipane classique.
+Je trouve que la crème d'amende seule est suffisante.</p>
+<ol class="arabic simple">
+<li>Prendre 125 g de beurre à température ambiante et le faire blanchir avec 125 g de sucre en poudre.</li>
+<li>Y ajouter 125 g de poudre d'amende et mélanger tranquillement, pas trop fort, pas trop longtemps.</li>
+<li>Y verser 125 g d'œufs (blanc et jaune) en mélangeant après chaque œuf. 125 g d'œufs correspondent à deux œufs.</li>
+<li>Ajouter 30 g de farine.</li>
+<li>Ajouter un peu d'alcool, du rhum par exemple. La dernière fois j'ai mis une cuillère à soupe de rhum et ce n'était pas suffisant =&gt; ajouter deux ou trois cuillères à soupe d'alcool. Mélanger.</li>
+</ol>
+<p>On peut aussi ajouter un peu d'extrait d'amende amère.
+Si ce n'est pas pour une utilisation immédiate, recouvrir de film plastique et mettre au réfrigérateur.</p>
+<ul class="simple">
+<li>Recette pour 1 pâte feuilletée</li>
+</ul>
+<ol class="arabic simple">
+<li>Prendre 200 g de farine, y faire un puits, y mettre une pincée de sel, éventuellement deux ou trois cuillères à soupe de sucre, y verser 10cl d'eau pas trop froide, mélanger, mettre le pâton au réfrigérateur pendant 2h.</li>
+<li>Prendre 150 g de beurre à température ambiante (d'après une autre recette : la moitié du poids du pâton), l'entourer de film plastique et le battre très fort avec le rouleau à pâtisserie pour le ramollir.</li>
+<li>Étaler le pâton, y poser le beurre au milieu, replier la pâte dessus en collant bord à bord pour que le beurre soit complètement recouvert.</li>
+<li>Étaler pour obtenir une bande trois fois plus haute que large, replier le tiers du bas vers le haut, et recouvrir le tiers du haut sur le tout, bien souder les bords, tourner de 90°.</li>
+<li>Recommencer cette opération : étaler pour obtenir une bande trois fois plus haute que large, replier le tiers du bas et recouvrir en repliant le tiers du haut.</li>
+<li>À ce moment, 2 tours ont été faits. Il faut en faire 6. Les tours se font 2 par 2, séparés par au moins 20 minutes au réfrigérateur. Tourner de 90° entre chaque tour, toujours dans le même sens.</li>
+</ol>
+<p>Si on résume :
+Après avoir &quot;refermé&quot; le pâton sur le beurre, on fait 2 tours, puis on met au réfrigérateur 20 minutes, puis deux tours, réfrigérateur 20 minutes, et enfin les deux derniers tours, la pâte feuilletée est prête à être étalée. Le temps de réfrigération entre les paires de tours peut être bien plus long (plusieurs heures.)</p>
+<ul class="simple">
+<li>Galette</li>
+</ul>
+<ol class="arabic simple">
+<li>Étaler la première pâte feuilletée, verser la crème d'amende dessus, sans trop se rapprocher des bords.</li>
+<li>Mettre la fève, plutôt près du bord.</li>
+<li>Mettre la deuxième pâte (préalablement étalée) dessus, bien coller les bords.</li>
+<li>Faire des entailles à la pointe du couteau sur tout le pourtour de la galette.</li>
+<li>Faire des petits trous sur le dessus.</li>
+<li>Dessiner des motifs sur la galette, au couteau.</li>
+<li>Badigeonner de jaune d'œuf mélangé avec un peu d'eau (une goutte de lait dans certaines recettes.)</li>
+</ol>
+<p>Cuisson : 30 minutes à 200°C.</p>
+</div>
+<hr class="docutils" />
+<div class="section" id="gateau-a-la-creme-de-marron">
+<h1><a class="toc-backref" href="#id38">Gâteau à la crème de marron</a></h1>
+<p><em>Pour 4 ou 6 personnes</em></p>
+<ol class="arabic simple">
+<li>Faire fondre sur feu doux, 100 g de beurre et 500 g de crème de marron.</li>
+<li>Bien travailler l'appareil, ensuite ajouter 3 œufs, un par un, en mélangeant bien après chaque œuf.</li>
+<li>Verser dans un moule à génoise beurré.</li>
+<li>Cuisson : entre 30 et 40 minutes à 160 °C.</li>
+</ol>
+<p>À essayer (non testé)</p>
+<blockquote>
+<ul class="simple">
+<li>Ajouter 20 g ou 30 g de farine ?</li>
+<li>Mettre un peu moins de crème de marron (400 g.)</li>
+</ul>
+</blockquote>
+<p>À servir avec une crème anglaise et/ou une boule de glace, quand on mange le gâteau seul on a l'impression de manger de la crème de marron.</p>
+</div>
+<hr class="docutils" />
+<div class="section" id="gateau-au-chocolat-creme-de-marron">
+<h1><a class="toc-backref" href="#id39">Gâteau au chocolat crème de marron</a></h1>
+<p><em>Pour 4 ou 6 personnes</em></p>
+<p>(Fait plusieurs fois en 2014, dernière fois en février 2015)</p>
+<ol class="arabic simple">
+<li>Faire fondre 100 g de chocolat noir et 100 g de beurre.</li>
+<li>Mélanger 3 œufs et les ajouter au mélange beurre chocolat.</li>
+<li>Ajouter 1 c. à s. de farine, mélanger.</li>
+<li>Ajouter 1 c. à s. de Maïzena, mélanger.</li>
+<li>Ajouter 1/2 c. à c. de levure chimique, mélanger.</li>
+<li>Ajouter 500 g de crème de marrons.</li>
+<li>Ajouter le zeste d'1 orange bio.</li>
+<li>Optionnel : ajouter 1/2 c. à c. de poivre de Sichuan.</li>
+<li>Beurrer et fariner un plat.</li>
+<li>Faire cuire le gâteau. 20 à 30 minutes à 180 °C.</li>
+</ol>
+</div>
+<hr class="docutils" />
+<div class="section" id="gateau-marbre">
+<h1><a class="toc-backref" href="#id40">Gâteau marbré</a></h1>
+<p>D'après
+<a class="reference external" href="http://www.marmiton.org/recettes/recette_gateau-marbre-recette-de-grand-mere_57729.aspx">http://www.marmiton.org/recettes/recette_gateau-marbre-recette-de-grand-mere_57729.aspx</a></p>
+<div class="section" id="id5">
+<h2><a class="toc-backref" href="#id41">Ingrédients</a></h2>
+<ul class="simple">
+<li>130 g de beurre</li>
+<li>200 g de sucre</li>
+<li>3 œufs</li>
+<li>6 c. à s. de lait</li>
+<li>200 g de farine</li>
+<li>1 paquet de levure chimique</li>
+<li>1 paquet de sucre vanillé</li>
+<li>25 g de chocolat en poudre</li>
+</ul>
+</div>
+<div class="section" id="id6">
+<h2><a class="toc-backref" href="#id42">Recette</a></h2>
+<ol class="arabic simple">
+<li>Faire blanchir 130 g de beurre avec 200 g de sucre.</li>
+<li>Séparer les blancs des jaunes de 3 œufs.</li>
+<li>Ajouter au mélange : les 3 jaunes, 6 c. à s. de lait, 200 g de farine et 1 paquet de levure chimique.</li>
+<li>Faire monter les blancs en neige.</li>
+<li>Ajouter les blancs montés en neige au mélange.</li>
+<li>Séparer la pâte en deux parties. Parfumer l'une à la vanille et l'autre au chocolat.</li>
+<li>Beurrer et fariner un moule à cake.</li>
+<li>Verser les deux préparations en alternance dans le moule.</li>
+<li>Faire cuire au four à 120-150 °C pendant 40 min.</li>
+</ol>
+</div>
+</div>
+<hr class="docutils" />
+<div class="section" id="goulache">
+<h1><a class="toc-backref" href="#id43">Goulache</a></h1>
+<p><em>Pour 4 personnes</em></p>
+<p>S'écrit aussi &quot;goulash&quot;</p>
+<ul>
+<li><p class="first">Ingrédients</p>
+<blockquote>
+<ul class="simple">
+<li><dl class="first docutils">
+<dt>800 g de bœuf</dt>
+<dd>Pour que la viande ne soit pas trop sèche, prendre une partie grasse, macreuse ou paleron.</dd>
+</dl>
+</li>
+<li>300 g d'oignons (4 oignons)</li>
+<li>1 kg de pommes de terre</li>
+<li>1 poivron vert</li>
+<li>20 g de paprika (4 c. à c.)</li>
+<li>80 g de saindoux (sinon, huile d'olive)</li>
+<li>1 tomate fraîche</li>
+<li>40 cl de bouillon de bœuf</li>
+<li>4 c. à s. de concentrée de tomates</li>
+<li>2 c. à c. de fécule (maïzena ou sauceline)</li>
+</ul>
+</blockquote>
+</li>
+<li><p class="first">Recette</p>
+</li>
+</ul>
+<ol class="arabic">
+<li><p class="first">Couper la viande en dés de 2 à 5 centimètres.</p>
+</li>
+<li><p class="first">Couper les oignons et les faire blondir (pas dorer) dans le saindoux, dans une cocotte. Pour ma part je mets deux cuillères à soupe d'huile d'olive à la place du saindoux.</p>
+</li>
+<li><p class="first">Ajouter la viande.</p>
+</li>
+<li><p class="first">Lorsque la viande est dorée, ajouter le bouillon de bœuf, saler, poivrer.</p>
+</li>
+<li><p class="first">Porter lentement à ébullition.</p>
+</li>
+<li><p class="first">Pendant ce temps, mélanger dans un bol :</p>
+<blockquote>
+<ul class="simple">
+<li>4 c.à s. de concentré de tomates</li>
+<li>4 c.à c. de paprika</li>
+<li>2 c.à c. de fécule (maïzena ou sauceline)</li>
+</ul>
+</blockquote>
+</li>
+<li><p class="first">Délayer le mélange avec quelques cuillères à soupe de bouillon prélevé dans la cocotte.</p>
+</li>
+<li><p class="first">Verser le mélange dans la cocotte et bien mélanger.</p>
+<blockquote>
+<ul class="simple">
+<li>Recette originale : couvrir et baisser le feu, laisser mijoter 1h45.</li>
+<li>Ce qu'il vaut mieux faire : fermer la cocotte et faire cuire à la vapeur au moins 20 minutes, puis laisser mijoter.</li>
+</ul>
+</blockquote>
+</li>
+<li><p class="first">Éplucher et couper les pommes de terre en morceaux, pas trop petits.</p>
+</li>
+<li><p class="first">Couper le poivron et la tomate</p>
+</li>
+<li><p class="first">Au moins une demi-heure avant de servir, verser les pommes de terre, la tomate et le poivron dans la cocotte.</p>
+</li>
+</ol>
+</div>
+<hr class="docutils" />
+<div class="section" id="gratin-dauphinois">
+<h1><a class="toc-backref" href="#id44">Gratin Dauphinois</a></h1>
+<p><em>Pour 6 personnes</em></p>
+<p>(fait en décembre 2016)</p>
+<dl class="docutils">
+<dt>Cette recette vient principalement du site</dt>
+<dd><a class="reference external" href="https://www.legratindauphinois.fr/">https://www.legratindauphinois.fr/</a></dd>
+</dl>
+<ol class="arabic simple">
+<li>Éplucher et couper en fines rondelles 800 g de pommes de terre.</li>
+<li>Éplucher une gousse d'ail et la frotter contre le bord du plat de cuisson.</li>
+<li>Beurrer le plat de cuisson.</li>
+<li>Déposer les pommes de terre dans le plat et régulièrement, alterner avec une couche de crème. Chaque couche doit être assaisonnée (sel, poivre, noix de muscade). 25 cl de crème au total.</li>
+<li>Ajouter 50 cl de lait.</li>
+<li>Cuisson : 2h30 à 3:00 à 150 °C.</li>
+</ol>
+<p>Précisions :</p>
+<ul class="simple">
+<li>Cuisson : pour gagner du temps, le faire cuire 1h30 à 220 °C. Mais plus la gratin cuit longtemps, meilleur il est.</li>
+<li>Le liquide doit arriver à peu près à la moitié de la hauteur du plat. Au-delà, risque de débordement.</li>
+<li>Ail : j'ai tendance à en mettre aussi à la fin de chaque couche (à l'intérieur, pas seulement frotté sur les côtés), et au final, j'utilise 2 ou 3 gousses d'ail pour 1 kg de pommes de terre, en moyenne.</li>
+</ul>
+</div>
+<hr class="docutils" />
+<div class="section" id="gratin-de-cotes-de-blettes">
+<h1><a class="toc-backref" href="#id45">Gratin de côtes de blettes</a></h1>
+<p><em>Pour 4 personnes</em></p>
+<ol class="arabic simple">
+<li>Prendre une certaine quantité de côtes de blettes.</li>
+<li>Faire cuire 10 minutes au fait-tout.</li>
+<li>Préparer une béchamel avec 30 à 50 cl de lait, autant de cuillères à soupe de Maïzena que de dl (4 cuillères pour 40 cl).</li>
+<li>Mélanger le tout dans un plat beurré.</li>
+<li>Cuisson au four 30 à 45 minutes à 200 °C.</li>
+</ol>
+</div>
+<hr class="docutils" />
+<div class="section" id="lasagnes">
+<h1><a class="toc-backref" href="#id46">Lasagnes</a></h1>
+<ol class="arabic simple">
+<li>Préparer une bolognaise <em>liquide</em> avec 600 g de viande hachée. Lien vers la recette de la sauce bolognaise : <a class="reference external" href="Spaghetti_bolognaise.html">Lien1</a>.</li>
+<li>Dans la bolognaise, verser 1 petite boîte de concentré de tomates (70 g) dilué dans un verre d'eau.</li>
+<li>Préparer une sauce béchamel avec 75 cl de lait. Lien vers la recette de la sauce béchamel : <a class="reference external" href="Sauce_Béchamel.html">Lien2</a>.</li>
+<li>Mettre le tout dans un grand plat beurré (plutôt carré ou rectangulaire), dans cet ordre et de bas en haut :</li>
+</ol>
+<pre class="literal-block">
+P, V, B, P, V, B, P, V (P = pâtes, V = viande, B = béchamel)
+
+Donc si vous avez bien suivi, on a dans le plat :
+  V
+  P
+  B
+  V
+  P
+  B
+  V
+  P
+</pre>
+<ol class="arabic simple" start="5">
+<li>Il est possible d'ajouter du gruyère râpé en cours de route, et à la fin pour gratiner un peu.</li>
+<li>Cuisson : au four pendant 45 minutes à 225 °C, vérifier à partir de 30 minutes.</li>
+</ol>
+<p>Précision :</p>
+<ul class="simple">
+<li>Il faut s'arrêter à 1 cm du haut du plat pour éviter que cela ne déborde.</li>
+</ul>
+</div>
+<hr class="docutils" />
+<div class="section" id="lentilles-saucisses">
+<h1><a class="toc-backref" href="#id47">Lentilles saucisses</a></h1>
+<p><em>Pour 4 à 6 personnes</em></p>
+<ol class="arabic simple">
+<li>Faire revenir 4 saucisses</li>
+<li>Une fois doré, y mettre un gros oignon.</li>
+<li>Une fois l'oignon devenu transparent, verser les lentilles, 400 g.</li>
+<li>Aussitôt verser de l'eau pour recouvrir. &quot;Une certaine quantité&quot;.</li>
+<li>Assaisonner avec sel et poivre.</li>
+<li>Laisser cuire doucement pendant 30 à 45 minutes.</li>
+<li>Surveiller et remuer régulièrement, ajouter de l'eau si nécessaire</li>
+</ol>
+</div>
+<hr class="docutils" />
+<div class="section" id="lotte-a-l-armoricaine">
+<h1><a class="toc-backref" href="#id48">Lotte à l'armoricaine</a></h1>
+<p>D'après <a class="reference external" href="http://www.marieclaire.fr/cuisine/lotte-a-l-armoricaine,1246675.asp">http://www.marieclaire.fr/cuisine/lotte-a-l-armoricaine,1246675.asp</a></p>
+<p><em>Pour 6 personnes</em>
+<em>Temps de préparation : 30 minutes</em></p>
+<ul class="simple">
+<li>800 g de queue de lotte coupé en tronçons de 5 cm</li>
+<li>1 boîte de tomates concassées de 500 g</li>
+<li>1 boîte de bisque de homard de 300 g</li>
+<li>2 échalotes</li>
+<li>2 gousses d'ail</li>
+<li>Le zeste d'une orange bio</li>
+<li>2 cuil. à soupe de farine</li>
+<li>20 cl de vin blanc sec</li>
+<li>6 cuil. à soupe d'huile d'olive</li>
+<li>3 cl de cognac</li>
+<li>1 bouquet garni</li>
+<li>Sel et poivre</li>
+</ul>
+<div class="section" id="etapes">
+<h2><a class="toc-backref" href="#id49">Étapes</a></h2>
+<ol class="arabic simple">
+<li>Épluchez et hachez les échalotes et l'ail. Dans une grande casserole, faites chauffer la moitié de l'huile d'olive. Faites-y revenir l'oignon et l'ail 3 min. Ajoutez le cognac et flambez.</li>
+<li>Ajoutez le vin blanc et laissez réduire aux 2/3. Versez les tomates concassées, la bisque, le bouquet garni, le zeste d'orange, un peu de sel et poivre. Laissez mijoter 20 min à feu doux.</li>
+<li>Faites chauffer le reste d'huile dans une poêle. Farinez les morceaux de lotte sur toutes les faces puis faites-les dorer dans la poêle 3 min environ jusqu'à ce que le poisson colore.</li>
+<li>Placez les morceaux de poisson dans la sauce armoricaine et laissez mijoter à petits bouillons durant 10 min. Servez bien chaud.</li>
+</ol>
+<p>Accompagnez ce plat d'un mélange de riz sauvage ou de pommes de terre vapeur.</p>
+</div>
+</div>
+<hr class="docutils" />
+<div class="section" id="meringues">
+<h1><a class="toc-backref" href="#id50">Meringues</a></h1>
+<p><em>4 œufs pour un grand saladier de meringues</em></p>
+<ol class="arabic">
+<li><p class="first">Prendre un certain nombre d'œufs.</p>
+<blockquote>
+<p>En général j'en prends 4, ça fait un grand saladier de meringues. 4 œufs ça passe tout juste avec une plaque de cuisson aux dimensions d'un four standard.</p>
+</blockquote>
+</li>
+<li><p class="first">Séparer le blanc des jaunes.</p>
+<blockquote>
+<ul class="simple">
+<li>Les jaunes ne serviront pas. Penser à faire des spaghetti a la Carbonara !</li>
+<li>Sinon j'ai dans mes cartons une recette de crème au chocolat blanc qui utilise 4 jaunes d'œuf...</li>
+</ul>
+</blockquote>
+</li>
+<li><p class="first">Mesurer le sucre en poudre en comptant 60 grammes par blanc d'œuf.</p>
+<blockquote>
+<p>C'est du sucre normal, pas besoin de sucre glace.</p>
+</blockquote>
+</li>
+<li><p class="first">Mettre une pincée de sel dans les blancs.</p>
+</li>
+<li><p class="first">Mettre tout le sucre dans les blancs.</p>
+</li>
+<li><p class="first">Battre les blancs en neige avec un batteur électrique.</p>
+<blockquote>
+<ul class="simple">
+<li>Le sucre rend la neige pâteuse et lourde, très légèrement coulante, et satinée.</li>
+<li>On peut faire l'inverse, commencer par monter les blancs et quand ils deviennent fermes, voire à la fin, verser le sucre assez vite tout en continuant à battre.</li>
+<li>Au final ça ne change pas grand chose.</li>
+</ul>
+</blockquote>
+</li>
+<li><p class="first">Avec une poire de pâtissier, mettre en forme les meringues sur une plaque de cuisson.</p>
+<blockquote>
+<ul class="simple">
+<li>Il faut une douille d'assez grande ouverture. Avec ou sans crénelage, selon le look que l'on souhaite (sans crénelage, les meringues seront lisses).</li>
+<li>Si vous n'avez pas de poire, prendre deux cuillères à soupe pour &quot;sculpter&quot; des morceaux oblongs réguliers.</li>
+<li>Plus les morceaux sont gros, plus ils auront tendance à être crémeux à l'intérieur, à l'inverse des petites meringues qui seront plus sèches.</li>
+<li>Plaque de cuisson : à huiler un peu, mais avec un rectangle souple en téflon posé sur la plaque, ce n'est pas nécessaire.</li>
+</ul>
+</blockquote>
+</li>
+<li><p class="first">Faire sécher au four 3h à 100 °C.</p>
+<blockquote>
+<p>Les meringues ne sont pas cuites elles sont plutôt séchées.</p>
+</blockquote>
+</li>
+</ol>
+<p><em>Précision importante</em></p>
+<blockquote>
+Entre le moment où l'on a fini de monter les blancs en neige avec le sucre, et le moment où le séchage démarre (dans le four), il ne faut pas perdre de temps. Si le délai est trop long, la pâte à meringue s'humidifie et se désagrège.</blockquote>
+</div>
+<hr class="docutils" />
+<div class="section" id="mini-clafoutis-au-camembert">
+<h1><a class="toc-backref" href="#id51">Mini clafoutis au camembert</a></h1>
+<p><em>Pour 4 personnes</em></p>
+<p>(Fait en Décembre 2014)</p>
+<ol class="arabic simple">
+<li>Faire cuire dans une poêle un poireau découpé en rondelles.</li>
+<li>Saler et poivrer.</li>
+<li>Mélanger 2 œufs avec 1 c. à s. de farine.</li>
+<li>Ajouter 20 cl de lait concentré non sucré à 4% et mélanger.</li>
+<li>Ajouter les poireaux fondus et mélanger.</li>
+<li>Couper 60 g de camembert en petits morceaux.</li>
+<li>Verser la préparation dans des ramequins (ou bien moule en silicone) et ajouter le camembert dessus.</li>
+<li>Faire cuire au four 20 minutes à 200 °C.</li>
+</ol>
+</div>
+<hr class="docutils" />
+<div class="section" id="oeufs-a-la-neige">
+<h1><a class="toc-backref" href="#id52">Œufs à la neige</a></h1>
+<p><em>Pour 4 à 6 personnes</em></p>
+<p>(Fait en Décembre 2014)</p>
+<ul class="simple">
+<li>Crème anglaise</li>
+</ul>
+<ol class="arabic simple">
+<li>Mélanger 150 g de sucre avec 5 jaunes d'œuf jusqu'à ce que ça blanchisse.</li>
+<li>Ajouter au mélange 1 sachet de sucre vanillé.</li>
+<li>Mélanger 1 c. à s. de Maïzena dans 75 cl de lait.</li>
+<li>Ajouter le mélange œufs-sucre dans le lait.</li>
+<li>Faire chauffer doucement jusqu'à ce que ça épaississe <em>un peu</em>. Attention lors du refroidissement le mélange épaissira encore un tout petit peu.</li>
+<li>Faire refroidir plusieurs heures au réfrigérateur.</li>
+</ol>
+<ul class="simple">
+<li>Œufs</li>
+</ul>
+<ol class="arabic simple">
+<li>Faire monter les blancs en neige avec 1 sachet de sucre vanillé.</li>
+<li>Faire chauffer les blancs au micro-ondes en observant attentivement. Au bout de quelques dizaines de secondes les blancs gonflent légèrement. Il faut arrêter le micro-ondes dès que les blancs ont fini de gonfler. Si les blancs ont trop chauffé ils deviennent caoutchouteux. Pour bien voir les blancs gonfler il faut les mettre dans un récipient à parois verticales.</li>
+</ol>
+<ul class="simple">
+<li>Dressage</li>
+</ul>
+<ol class="arabic simple">
+<li>Napper de caramel.</li>
+</ol>
+<p>Sucre : il est possible d'en mettre un peu moins, 120 g par exemple.</p>
+</div>
+<hr class="docutils" />
+<div class="section" id="osso-bucco-au-fenouil">
+<h1><a class="toc-backref" href="#id53">Osso-Bucco au fenouil</a></h1>
+<p><em>Pour 4 personnes</em></p>
+<p>(Fait en avril 2014)</p>
+<ol class="arabic simple">
+<li>Faire chauffer de l'huile d'olive (2 c. à c.) dans une cocotte minute, y faire dorer l'osso-bucco (600 g) 2 minutes, saupoudrer de fond de veau, ajouter un oignon émincé, remuer pendant 1 minute.</li>
+<li>Ajouter 12 cl de vin blanc sec, ajouter 10 cl d'eau, 4 tomates pelées coupées en dés, 2 gousses d'ail écrasé.</li>
+<li>Mélanger 2 minutes.</li>
+<li>Poivrer, ajouter les grains de coriandre (6), le bouquet garni et 6 petits fenouils coupés en 2 dont on a enlevé la partie centrale, dure.</li>
+<li>Faire cuire 20 minutes à la vapeur, à feu aussi doux que possible.</li>
+<li>Avant de servir, saler et enlever le bouquet garni.</li>
+</ol>
+<p>À accompagner de riz blanc.</p>
+</div>
+<hr class="docutils" />
+<div class="section" id="panna-cotta">
+<h1><a class="toc-backref" href="#id54">Panna cotta</a></h1>
+<p><em>Pour 4 personnes</em></p>
+<ol class="arabic simple">
+<li><dl class="first docutils">
+<dt>Mettre 2,5 feuilles de gélatine à refroidir dans un bol d'eau froide.</dt>
+<dd>En principe, 1 feuille de gélatine pèse 2g, il faut donc 5g de gélatine.</dd>
+</dl>
+</li>
+<li>Mélanger du lait (20 cl), de la crème liquide (20 cl), du sucre (30 g), 2 sachets de sucre vanillé et la vanille (1 gousse).</li>
+<li>Faire chauffer jusqu'à ébullition.</li>
+<li>Ajouter la gélatine essorée et mélanger.</li>
+<li>Verser dans des ramequins.</li>
+<li>Une fois refroidi, mettre au réfrigérateur, 3h minimum. Il est possible de le préparer la veille.</li>
+<li>Quand la panna cotta est prise, verser dessus du coulis de fruits rouges.</li>
+</ol>
+</div>
+<hr class="docutils" />
+<div class="section" id="paprikas-krumpli">
+<h1><a class="toc-backref" href="#id55">Paprikás krumpli</a></h1>
+<p><em>Pour un certain nombre de personnes</em></p>
+<ol class="arabic simple">
+<li>Faire revenir dans de l'huile et du beurre 2 oignons coupés fin.</li>
+<li>Pendant ce temps couper le saucisson à l'ail, fumé (important).</li>
+<li>Mettre dans les oignons.</li>
+<li>Assaisonner avec paprika, doux ou fort, du cumin (très important), du sel, du poivre.</li>
+<li>Ne pas couvrir (la viande frit), remuer régulièrement. Ne pas ajouter d'eau. Cette étape dure de 20 à 30 minutes.</li>
+<li>Éplucher les pommes de terre et couper en morceaux de même taille que la viande.</li>
+<li>Verser les pommes de terre et couvrir d'eau (il faut que ça dépasse un peu). Ne pas mettre trop d'eau, maximum 2 cm. S'il y a trop d'eau les épices sont diluées et ça n'a aucun goût.</li>
+<li>Recouvrir et laisser mijoter très lentement, de 20 à 30 minutes. Arrêter dès que les pommes de terre sont cuites.</li>
+<li>Le mieux est de le faire la veille.</li>
+</ol>
+</div>
+<hr class="docutils" />
+<div class="section" id="pommes-de-terre-jambon-feta">
+<h1><a class="toc-backref" href="#id56">Pommes de terre jambon feta</a></h1>
+<p><em>Pour 4 personnes</em></p>
+<p>Fait début 2014.</p>
+<ol class="arabic simple">
+<li>Faire cuire 800 g de pommes de terre</li>
+<li>Les couper en rondelles épaisses, en disposer la moitié dans un plat pour aller au four, assaisonner (poivre, herbes de Provence)</li>
+<li>Mettre 4 tranches de jambon (200 g)</li>
+<li>Mettre le reste de pommes de terre, assaisonner à nouveau (poivre, herbes de Provence)</li>
+<li>Verser une brique de crème (20 cl) et ajouter la feta émiettée</li>
+<li>Passer au four 20 minutes à 200 °C</li>
+</ol>
+</div>
+<hr class="docutils" />
+<div class="section" id="pommes-de-terre-saumon">
+<h1><a class="toc-backref" href="#id57">Pommes de terre saumon</a></h1>
+<p><em>Pour 4 personnes</em></p>
+<p>(Fait début 2014)</p>
+<ol class="arabic simple">
+<li>Éplucher les pommes de terre (200 g) et les faire cuire.</li>
+<li>Faire chauffer 1 minute de l'aneth ciselé (1 c. à s.) dans une brique de crème (20 cl)</li>
+<li>Sur chaque assiette, poser une feuille de salade, puis les pommes de terre coupées en 2, assaisonner (poivre et sel) et verser la crème</li>
+<li>Poser 1 tranche de saumon entre les moitiés de pommes de terre</li>
+<li>Ajouter un filet de citron</li>
+</ol>
+</div>
+<hr class="docutils" />
+<div class="section" id="porc-a-la-noix-de-coco">
+<h1><a class="toc-backref" href="#id58">Porc à la noix de coco</a></h1>
+<p><em>Pour 4 personnes</em></p>
+<p>(Fait en juin 2014)</p>
+<ol class="arabic simple">
+<li>Couper 500 g de porc (filet mignon) en dés et le faire revenir dans une cocotte avec un peu d'huile, pendant 5 minutes.</li>
+<li>Émincer 100 g d'oignon et 2 gousses d'ail et les ajouter, laisser cuire 5 minutes environ.</li>
+<li>Ajouter 10 cl de bouillon de bœuf.</li>
+<li>Ajouter 6 c. à c. de curry, 10 cl de lait de coco, 40 g de gingembre frais râpé, assaisonner.</li>
+<li>Couvrir et laisser mijoter 45 minutes.</li>
+</ol>
+<p><em>Facultatif</em></p>
+<ol class="arabic simple" start="6">
+<li>Préchauffer le four à 200 °C.</li>
+<li>Peler les 2 bananes et les couper en 2, poser 2 moitiés sur une feuille de papier sulfurisé.</li>
+<li>Arroser de jus de citron et refermer les papillotes.</li>
+<li>Mettre au fur 5 minutes.</li>
+</ol>
+</div>
+<hr class="docutils" />
+<div class="section" id="poulet-au-citron-et-aux-olives">
+<h1><a class="toc-backref" href="#id59">Poulet au citron et aux olives</a></h1>
+<p><em>Pour 6 personnes</em></p>
+<ol class="arabic simple">
+<li>Enlever la peau de 6 cuisses de poulet.</li>
+<li>Trancher finement 4 oignons rouges.</li>
+<li>Faire revenir les oignons rouges dans 1 c. à c. d'huile d'olive, pendant 5 à 10 minutes. Au besoin, ajouter un peu d'eau.</li>
+<li>Ajouter 8 gousses d'ail coupées en 2.</li>
+<li>Ajouter 1 c. à c. de gingembre frais râpé.</li>
+<li>Ajouter 1 piment rouge émincé.</li>
+<li>Ajouter 2 c. à s. de ras el hanout.</li>
+<li>Laisser cuire 2 minutes pas trop fort pour ne pas abîmer les épices.</li>
+<li>Verser 15 cl de bouillon de volaille.</li>
+<li>Ajouter 1/2 c. à c. de harissa.</li>
+<li>Déposer le poulet dans un plat et y ajouter le mélange.</li>
+<li><dl class="first docutils">
+<dt>Enfourner, four à 180 °C. Retourner le poulet toutes les 20 minutes.</dt>
+<dd><em>Facultatif</em>
+Pour éviter que ce ne soit trop sec, recouvrir le plat enfourné avec du papier aluminium.</dd>
+</dl>
+</li>
+<li>Au bout d'1h, ajouter l'écorce hachée de 2 ou 3 citrons confits au sel et ajouter 100 g d'olives vertes dénoyautées, hachées grossièrement.</li>
+<li>Laisser cuire encore 30 minutes.</li>
+<li>Ajouter de la coriandre fraîche hachée (8 c. à s.) avant de servir.</li>
+</ol>
+</div>
+<hr class="docutils" />
+<div class="section" id="poulet-legumes">
+<h1><a class="toc-backref" href="#id60">Poulet légumes</a></h1>
+<p><em>Pour 4 personnes</em></p>
+<p>(Fait début 2014)</p>
+<ol class="arabic simple">
+<li>Rincer les 4 shitakés (gros champignons noirs séchés) et les faire tremper dans de l'eau tiède pendant 30 minutes.</li>
+<li>Découper 500 g d'escalopes de poulet en fins bâtonnets.</li>
+<li>Les saupoudrer de &quot;4 épices&quot; (ou &quot;5 parfums à la chinoise&quot;).</li>
+<li>Faire chauffer de l'huile (2 c. à c.) dans une poêle, y faire dorer le poulet sans cesser de remuer (3 minutes) puis réserver.</li>
+<li>Couper en fins bâtonnets 1 poivron vert, 1 fenouil (enlever la partie centrale), 200 g de carottes.</li>
+<li>Émincer 4 oignons blancs ou 2 cives.</li>
+<li>Verser 5 cl d'eau froide dans un bol, y ajouter 1 c. à c. de Maïzena.</li>
+<li>Faire chauffer de l'huile (2 c. à c.) dans la poêle, y mettre les légumes et oignons ou cives, laisser cuire 3 minutes en mélangeant.</li>
+<li>Ajouter 1 c. à s. de sauce soja, 1 c. à s. de vinaigre de cidre, 1 c. à c. de gingembre frais râpé, 1 c. à c. d'ail haché, saupoudrer avec 1 c. à c. de sucre semoule.</li>
+<li>Bien remuer puis ajouter le poulet et les champignons.</li>
+<li>Ajouter 10 cl d'eau.</li>
+<li>Laisser mijoter 4 minutes.</li>
+<li>Verser la préparation à la Maïzena, mélanger.</li>
+<li>Laisser cuire 2 à 3 minutes tout en remuant (les légumes doivent rester croquants).</li>
+<li>Parsemer de coriandre et servir.</li>
+</ol>
+</div>
+<hr class="docutils" />
+<div class="section" id="riz-aux-crevettes-et-noix-de-petoncle">
+<h1><a class="toc-backref" href="#id61">Riz aux crevettes et noix de pétoncle</a></h1>
+<p><em>Pour 4 personnes</em></p>
+<ol class="arabic simple">
+<li>Faire dorer 150 g de crevettes roses et 200 g de noix de pétoncle avec un peu de beurre. Réserver.</li>
+<li>Dans la même poêle faire cuire un riz en cuisson pilaf. Prendre du riz pour 4 personnes soit 1,5 verre à whisky en volume. Prendre un fumet de poisson.</li>
+<li>Lorsque le riz est prêt, ajouter les crevettes et noix de pétoncle.</li>
+<li>Faire chauffer quelques minutes.</li>
+</ol>
+</div>
+<hr class="docutils" />
+<div class="section" id="riz-aux-oignons-cuisson-pilaf">
+<h1><a class="toc-backref" href="#id62">Riz aux oignons (cuisson pilaf)</a></h1>
+<p><em>Pour un certain nombre de personnes</em></p>
+<ol class="arabic simple">
+<li>Pour 4 personnes prendre 2 verres (verres à whisky) de riz et 2 petits oignons ou 1 gros. Prendre plutôt du riz blanc.</li>
+<li>Couper les oignons et les faire revenir dans 2 cuillères à soupe d'huile d'olive. Les faire seulement blanchir, pas dorer.</li>
+<li>Une fois les oignons blanchis, ajouter le riz. Bien le mélanger aux oignons, laisser 30 secondes.</li>
+<li>Ajouter en eau 2,5 fois le volume de riz.</li>
+<li>Laisser cuire à feu doux/intermédiaire.</li>
+<li>Bouillon cube : peut être dilué dans l'eau avant qu'elle ne soit versée dans la casserole contenant les oignons et le riz, ou bien, une fois l'eau versée, ajouter le bouillon dilué dans 1/2 ou 1 verre d'eau.</li>
+<li>Saler, poivrer, en fonction du bouillon versé dans le riz.</li>
+<li>La cuisson une quinzaine de minutes, il faut goûter le riz et arrêter quand il est sec sur le dessus.</li>
+</ol>
+</div>
+<hr class="docutils" />
+<div class="section" id="roti-de-magrets-de-canard-au-potimarron-et-aux-marrons">
+<h1><a class="toc-backref" href="#id63">Rôti de magrets de canard au potimarron et aux marrons</a></h1>
+<p><em>Pour 4 personnes</em></p>
+<div class="section" id="id7">
+<h2><a class="toc-backref" href="#id64">Ingrédients</a></h2>
+<ul class="simple">
+<li>2 magrets de canard</li>
+<li>100 g de marrons</li>
+<li>200 g de potimarron</li>
+<li>2 c. à s. de miel</li>
+<li>1 c. à café de moutarde</li>
+<li>1 c. à café de 5-épices</li>
+<li>4 c. à s. d'huile d'olive</li>
+<li>1 branche de romarin</li>
+<li>Sel, poivre</li>
+</ul>
+</div>
+<div class="section" id="id8">
+<h2><a class="toc-backref" href="#id65">Recette</a></h2>
+<ol class="arabic simple">
+<li>À l'aide d'un petit couteau très tranchant, striez le gras des magrets en prenant soin de ne pas atteindre la chair.</li>
+<li>Mélangez le miel, la moutarde, le 5-épices, l'huile d'olive et le romarin. Salez, poivrez. Badigeonnez les magrets avec la marinade.</li>
+<li>Laissez mariner 1 h au frais.</li>
+<li>Épluchez le potimarron. Détaillez-le en dés et cuisez-le 15 min à la vapeur.</li>
+<li>Émiettez les marrons.</li>
+<li>Égouttez les magrets et réservez la marinade. Dans une poêle, faites revenir les marrons et le potimarron dans la marinade restante, 5 min en mélangeant bien.</li>
+<li>Dans une poêle chaude, faites dorer les magrets 2 min de chaque côté.</li>
+<li>Réalisez le rôti de magret. Posez un magret, peau contre la planche. Recouvrez-le du mélange potimarron-marron. Posez le second magret (côté gras vers le haut) dessus. Ficelez le rôti ainsi obtenu en plusieurs endroits afin que la farce soit bien maintenue.</li>
+<li>Préchauffez le four à 200 °C. Déposez le magret dans une cocotte avec le romarin. Couvrez. Enfournez la cocotte 15 min pour une cuisson rosée.</li>
+<li>Servez avec le reste de la farce et les gnocchis, par exemple.</li>
+</ol>
+<p><em>Accompagnez d'un saint-émilion</em></p>
+<p><em>Important</em></p>
+<ul class="simple">
+<li>La durée de cuisson du canard est insuffisante. La dernière fois, il a fallu mettre le canard plus de 30 min au four pour qu'il soit suffisamment cuit.</li>
+<li>Ne pas faire trop cuire le potimarron. La dernière fois c'était de la purée de potimarron. Le faire cuire maximum 10 min à la vapeur.</li>
+</ul>
+</div>
+</div>
+<hr class="docutils" />
+<div class="section" id="sauce-bechamel">
+<h1><a class="toc-backref" href="#id66">Sauce béchamel</a></h1>
+<div class="section" id="sauce-classique">
+<h2><a class="toc-backref" href="#id67">Sauce classique</a></h2>
+<ol class="arabic simple">
+<li>Faire fondre 50 g de beurre dans une casserole.</li>
+<li>Verser 50 g de farine dessus et remuer vivement avec un fouet.</li>
+<li>Faire cuire sur feu doux 2 minutes en continuant à remuer.</li>
+<li>Verser doucement le lait tout en remuant.</li>
+<li>Laisser cuire doucement pendant 12 minutes.</li>
+<li>Saler, poivrer, muscader.</li>
+<li>Éviter toute ébullition.</li>
+</ol>
+</div>
+<div class="section" id="sauce-legere">
+<h2><a class="toc-backref" href="#id68">Sauce légère</a></h2>
+<ol class="arabic simple">
+<li>Mesurer 50 cl de lait et en verser un peu dans un bol, le reste dans une casserole.</li>
+<li>Dans le bol, verser 5 c. à s. de maïzena, bien remuer après chaque cuillère.</li>
+<li>Verser le bol dans la casserole et faire chauffer, jusqu'à ce que le mélange épaississe.</li>
+<li>Dès que le mélange a fini d'épaissir, sortir du feu.</li>
+<li>Saler, poivrer, muscader.</li>
+</ol>
+</div>
+</div>
+<hr class="docutils" />
+<div class="section" id="saute-de-porc-a-la-creme-de-moutarde">
+<h1><a class="toc-backref" href="#id69">Sauté de porc à la crème de moutarde</a></h1>
+<p><em>Pour 4 personnes</em></p>
+<p>(Fait en décembre 2015)</p>
+<ol class="arabic simple">
+<li>Dans une poêle, faire revenir 1 kg de sauté de porc avec 2 c. à s. d'huile d'olive.</li>
+<li>Éplucher 3 carottes et les couper en petites rondelles.</li>
+<li>Émincer 2 oignons et les faire revenir dans une cocotte minute. D'après la recette originale, les faire revenir dans 30 g de beurre (j'ai remplacé par un verre d'eau).</li>
+<li><dl class="first docutils">
+<dt>Une fois que les oignons commencent à dorer, y ajouter :</dt>
+<dd><ul class="first last">
+<li>25 cl de vin blanc</li>
+<li>25 cl d'eau (au moins)</li>
+</ul>
+</dd>
+</dl>
+</li>
+<li>Ajouter le sauté de porc.</li>
+<li>Faire cuire 25 minutes à la vapeur.</li>
+<li>Retirer le sauté de porc.</li>
+<li>Ajouter 2 c. à s. de moutarde (à l'ancienne de préférence).</li>
+<li>Ajouter 20 cl de crème fraîche épaisse.</li>
+<li>Ajouter doucement 2 c. à s. de farine et remuer pour faire épaissir la sauce.</li>
+<li>Remettre le sauté de porc et laisser couvert (sur le feu) 5 minutes.</li>
+</ol>
+</div>
+<hr class="docutils" />
+<div class="section" id="souffle-au-citron">
+<h1><a class="toc-backref" href="#id70">Soufflé au citron</a></h1>
+<p><em>Pour 4 personnes</em></p>
+<ol class="arabic simple">
+<li>Faire refroidir 4 ramequins au réfrigérateur.</li>
+<li>Les beurrer et saupoudrer de sucre en poudre sur les parois et le fond.</li>
+<li>Fouetter 3 jaunes d'œuf avec 50 g de sucre en poudre et les grains d'1 gousse de vanille jusqu'à ce que ça forme une sorte de ruban.</li>
+<li>Ajouter les zestes de 2 citrons (facultatif).</li>
+<li>Monter les 3 blancs en neige avec 1 pincée de sel et 10 g de sucre. Ajouter le jus des 2 citrons.</li>
+<li>Incorporer au mélange précédent.</li>
+<li>Mettre dans les ramequins, au four, 180 °C pendant 8 à 10 minutes.</li>
+<li>À la sortie du four, saupoudrer de sucre glace.</li>
+<li>Servir chaud.</li>
+</ol>
+<p>Forme des ramequins : il vaut mieux des parois verticales pour que le soufflé
+monte...</p>
+</div>
+<hr class="docutils" />
+<div class="section" id="spaghetti-a-la-carbonara">
+<h1><a class="toc-backref" href="#id71">Spaghetti à la Carbonara</a></h1>
+<p><em>Pour 4 personnes</em></p>
+<ol class="arabic simple">
+<li>Faire revenir 200 g de lard fumé sans huile et réserver.</li>
+<li>Faire cuire 250 g de spaghetti, sans les saler. Égoutter.</li>
+<li>Remettre les lardons dans la casserole.</li>
+<li>Ajouter 20 cl de crème.</li>
+<li>Ajouter 30 g de beurre.</li>
+<li>Poivrer.</li>
+<li>Laisser chauffer doucement.</li>
+<li>Verser 2 jaunes d'œuf dans le mélange, remuer doucement sans faire bouillir.</li>
+<li>Tout mélanger.</li>
+</ol>
+</div>
+<hr class="docutils" />
+<div class="section" id="spaghetti-bolognaise">
+<h1><a class="toc-backref" href="#id72">Spaghetti bolognaise</a></h1>
+<p><em>Pour 4 personnes</em></p>
+<p>Cette recette est l'une des premières que j'ai écrites.
+Je la retranscrits ici telle quelle, bien que le niveau de détail soit
+monstrueux, ce qui n'est pas très utile.</p>
+<ol class="arabic">
+<li><p class="first">Éplucher un gros oignon et le couper dans tous les sens.</p>
+</li>
+<li><p class="first">Faire chauffer de l'huile d'olive dans une poêle de grande taille.</p>
+</li>
+<li><p class="first">Quand l'huile est chaude (ce que l'on peut voir aux petites bulles qui apparaissent sur une cuillère en bois que l'on trempe dans l'huile), mettre les oignons dedans.</p>
+</li>
+<li><p class="first">Mettre à feu intermédiaire.</p>
+</li>
+<li><p class="first">Quand les oignons sont dorés (au bout de 10 minutes environ), mettre la viande hachée, environ 600 g.</p>
+</li>
+<li><p class="first">Quand la viande a changé de couleur, saler, poivrer, mettre des herbes de Provence, mélanger, mettre les tomates concassées de 400 g (poids net).</p>
+</li>
+<li><p class="first">Ajouter du concentrée de tomates, environ 1 cuillère à soupe diluée dans un demi verre d'eau.</p>
+<blockquote>
+<p>Ne pas hésiter à les faire très liquides, en particulier si c'est pour faire des lasagnes. Ajouter au besoin entre 1 demi et 1 verre d'eau.</p>
+</blockquote>
+</li>
+<li><p class="first">Mélanger régulièrement.</p>
+</li>
+<li><p class="first">Au bout d'un moment, mettre à feu doux.</p>
+</li>
+<li><p class="first">Cuisson : 30 minutes environ.</p>
+</li>
+<li><p class="first">Mélanger ensuite avec 250 g de spaghetti cuites séparément dans une grande quantité d'eau salée.</p>
+</li>
+</ol>
+</div>
+<hr class="docutils" />
+<div class="section" id="taboule">
+<h1><a class="toc-backref" href="#id73">Taboulé</a></h1>
+<p><em>Pour 6 personnes</em></p>
+<ol class="arabic simple">
+<li>Prendre 2 verres de taille moyenne de semoule, ou boulghour.</li>
+<li>Couper 3 tomates moyennes et un demi-concombre (épluché) en très petits morceaux.</li>
+<li>Mettre dans le taboulé le jus de 2 citrons, les tomates, le demi-concombre et 4 c. à s. d'huile d'olive.</li>
+<li>Il est possible d'y ajouter 1 poivron , des oignons blancs, des raisins de corinthe.</li>
+<li>Saler, poivrer.</li>
+<li>Ajouter un verre d'eau, le même que pour mesurer la semoule. Ne pas mettre trop d'eau, en cas de doute, mettre moins d'eau quitte à en ajouter par la suite.</li>
+<li>Bien remuer.</li>
+<li>Mettre au réfrigérateur pendant plusieurs heures.</li>
+<li>Remuer de temps à autre.</li>
+</ol>
+</div>
+<hr class="docutils" />
+<div class="section" id="tarte-au-citron-meringuee">
+<h1><a class="toc-backref" href="#id74">Tarte au citron meringuée</a></h1>
+<p><em>Pour 6 à 8 personnes</em></p>
+<p>(fait en novembre 2016)</p>
+<dl class="docutils">
+<dt>Cette recette vient de ma tante Monique, laquelle s'est fortement inspirée de la recette éponyme trouvée sur le site <em>MEILLEUR DU CHEF</em>, lien :</dt>
+<dd><a class="reference external" href="https://www.meilleurduchef.com/cgi/mdc/l/fr/recette/tarte-citron-meringuee.html">https://www.meilleurduchef.com/cgi/mdc/l/fr/recette/tarte-citron-meringuee.html</a></dd>
+</dl>
+<ul class="simple">
+<li>Pâte brisée</li>
+</ul>
+<ol class="arabic simple">
+<li>Mélanger du bout des doigts 100 g de beurre avec 250 g de farine. Attention à ne pas faire fondre le beurre. Certains mettent la farine et le beurre dans un robot, cela fonctionne aussi très bien.</li>
+<li>Faire un puits, y mettre un peu de sel.</li>
+<li>Ajouter un peu de sucre. Je ne mets pas 100 g de sucre glace (recette <em>MEILLEUR DU CHEF</em>), je mets du sucre normal et pas plus de 20 g.</li>
+<li>Ajouter un œuf entier et bien mélanger. Au besoin, ajouter un peu d'eau.</li>
+<li>Recouvrir de cellophane et mettre au moins 1 h au réfrigérateur.</li>
+<li>Abaisser la pâte et la faire cuire à blanc pendant 15 - 20 min, four à 200 °C.</li>
+</ol>
+<ul class="simple">
+<li>Appareil au citron</li>
+</ul>
+<ol class="arabic simple">
+<li><dl class="first docutils">
+<dt>Zester 6 citrons jaunes.</dt>
+<dd>Utiliser des citrons verts rend le résultat beaucoup plus fin, dans ce cas, n'en zester que 4.</dd>
+</dl>
+</li>
+<li>Presser les 6 citrons (jaunes ou verts).</li>
+<li>Mélanger dans une casserole les zestes, le jus de citron et 180 - 200 g de sucre en poudre (<em>MEILLEUR DU CHEF</em>: 250 g)</li>
+<li><dl class="first docutils">
+<dt>Ajouter 6 œufs et cuire à feu doux, tout en mélangeant <em>continuellement</em>. Il ne faut pas faire cuire les œufs (ne pas atteindre l'ébullition).</dt>
+<dd>Conseil de ma tante : faire chauffer au bain-marie pour un meilleur contrôle.</dd>
+</dl>
+</li>
+<li>Au bout de 15 min environ, le mélange épaissit, enlever du feu et ajouter 60 g de beurre, bien mélanger.</li>
+</ol>
+<ul class="simple">
+<li>Tarte</li>
+</ul>
+<ol class="arabic simple" start="6">
+<li>Verser la crème au citron sur la tarte cuite à blanc, et l'étaler uniformément.</li>
+<li>Faire cuire environ 15 min à 130 °C.</li>
+</ol>
+<ul class="simple">
+<li>Meringue</li>
+</ul>
+<ol class="arabic simple" start="8">
+<li>Monter 3 blancs d'œufs (<em>MEILLEUR DU CHEF</em> : 6) en neige.</li>
+<li>Quand ils sont bien fermes, y ajouter 120 g de sucre (<em>MEILLEUR DU CHEF</em> : 300 g pour 6 œufs).</li>
+<li>Bien mélanger au fouet électrique pendant plusieurs minutes.</li>
+<li>Étaler la meringue sur la tarte en faisant au mieux... Une solution est d'étaler la meringue et de l'égaliser au mieux avec une spatule plate. Avec une poche à douille le résultat est plus joli.</li>
+<li>Passer la tarte au four en position &quot;grill&quot;, et l'enlever quand la meringue commence à brunir. Il faut qu'elle ait un peu bruni, mais pas trop : il faut choisir d'interrompre l'opération au feeling, quand on trouve le résultat joli. Attention, ce brunissement va très, très vite : pendant l'opération, surveiller la tarte <em>en continu</em>.</li>
+</ol>
+<p>La tarte peut être faite bien avant d'être servie (le matin pour le soir), par contre il est recommandé de faire la meringue pas trop longtemps à l'avance.</p>
+<ul class="simple">
+<li>Image</li>
+</ul>
+<img alt="./Tarte_au_citron_meringuée-photo.jpg" src="./Tarte_au_citron_meringuée-photo.jpg" />
+</div>
+<hr class="docutils" />
+<div class="section" id="tarte-aux-champignons-mozzarella">
+<h1><a class="toc-backref" href="#id75">Tarte aux champignons mozzarella</a></h1>
+<p><em>Pour 4 personnes</em></p>
+<ol class="arabic simple">
+<li>Abaisser une pâte brisée</li>
+<li>Faire cuire des champignons avec un peu d'ail, les égoutter et verser sur la pâte.</li>
+<li>Ajouter de la mozzarella coupée en tranches.</li>
+<li>Verser une brique de 20 cl de crème.</li>
+<li>Faire cuire 40 minutes au four à 180 °C</li>
+<li>Mettre éventuellement un peu de semoule sur le fond de la pâte car les champignons rendent un peu d'eau.</li>
+</ol>
+</div>
+<hr class="docutils" />
+<div class="section" id="tarte-fine-au-boudin-blanc-et-chutney-de-mangue">
+<h1><a class="toc-backref" href="#id76">Tarte fine au boudin blanc et chutney de mangue</a></h1>
+<p><em>Pour 4 personnes</em></p>
+<p>Décembre 2017 : fait avec un chutney d'oignon à la place du chutney de mangue.</p>
+<div class="section" id="id9">
+<h2><a class="toc-backref" href="#id77">Ingrédients</a></h2>
+<ul class="simple">
+<li>4 boudins blancs</li>
+<li>200 g de pâte feuilletée</li>
+<li>4 c. à s. de chutney de mangue</li>
+<li>2 c. à s. d'huile de tournesol</li>
+<li>2 brins de cerfeuil</li>
+<li>Poivre</li>
+</ul>
+</div>
+<div class="section" id="id10">
+<h2><a class="toc-backref" href="#id78">Recette</a></h2>
+<ol class="arabic simple">
+<li>Préchauffez le four à 180 °C.</li>
+<li>Étalez la pâte feuilletée (200 g) sur 3 mm d'épaisseur environ. Coupez 4 ronds de pâte de 15 cm de diamètre environ. Déposez-les sur une plaque de four recouverte de papier cuisson.</li>
+<li>Étalez 1 c. à s. de chutney sur chaque rond de pâte en laissant 1 cm de bord de pâte, soit au total 4 c. à s. de chutney.</li>
+<li>Faites cuire les fonds de tarte 10 min au four.</li>
+<li>Faites dorer rapidement les 4 boudins blancs dans une poêle avec l'huile sur feu vif. Coupez chaque boudin en 6 tranches épaisses.</li>
+<li>Sortez les fonds de tarte du four. Déposez 6 tranches de boudin sur chaque, donnez quelques tours de moulin à poivre et remettez les tartes fines à cuire pendant 8 à 10 min au four.</li>
+<li>Sortez les tartes fines, décorez avec quelques brins de cerfeuil et servez.</li>
+</ol>
+<p><em>Accompagnez d'un saumur blanc</em></p>
+</div>
+</div>
+<hr class="docutils" />
+<div class="section" id="tartiflette">
+<h1><a class="toc-backref" href="#id79">Tartiflette</a></h1>
+<p><em>Pour 6 personnes</em></p>
+<ol class="arabic simple">
+<li>Éplucher et faire cuire 800 g de pommes de terre, soit une douzaine de taille moyenne.</li>
+<li>Faire revenir un gros oignon ou deux moyens.</li>
+<li>Faire cuire 300 g de lardons.</li>
+<li>Mettre les pommes de terre dans un plat.</li>
+<li>Verser dessus les oignons et les lardons.</li>
+<li>Ajouter dessus 300 g de fromage à raclette.</li>
+<li>Verser 50 cl de crème, semi-épaisse si possible.</li>
+<li>Faire cuire au four, 45 minutes à 210 °C.</li>
+</ol>
+</div>
+<hr class="docutils" />
+<div class="section" id="tatins-de-navets">
+<h1><a class="toc-backref" href="#id80">Tatins de navets</a></h1>
+<p><em>Un tatin par personne</em></p>
+<ol class="arabic simple">
+<li>Étaler du beurre en pommade en forme de rond de la taille des tatins sur une plaque. Variante : faire un grand rond pour présenter sous forme de tarte.</li>
+<li>Mettre un peu de sucre sur chaque rond de beurre.</li>
+<li>Découper les navets en rondelles fines avec une mandoline. Si vous n'utilisez pas de mandoline mais un autre ustensile, vous serez pardonnés. Qu'on se le dise.</li>
+<li>Poser les navets sur le rond, en démarrant au centre et en tournant autour de plus en plus large jusqu'au bord, décrivant ainsi une spirale.</li>
+<li>Saler.</li>
+<li>Poivrer (facultatif.)</li>
+<li>Découper la pâte feuilletée en forme de rond, de la taille des ronds. Avec un bol de la bonne taille c'est précis et rapide.</li>
+<li>Faire des trous sur les ronds de pâte feuilletée avec une fourchette, pour éviter que la pâte ne gondolât.</li>
+<li>Poser les ronds de pâte feuilletée sur les ronds de navets.</li>
+<li>Appuyer sur les bords des ronds pour que le contour des ronds de pâte soit collé à la plaque.</li>
+<li>Enfourner dans le four <em>chaud</em>.</li>
+<li>Cuisson : 10-15 minutes dans un four à 180-200°C.</li>
+<li>Après les avoir sorti du four, poser une grille sur la plaque et retourner.</li>
+</ol>
+</div>
+<hr class="docutils" />
+<div class="section" id="tiramisu-au-saumon-fume-avocat-et-pamplemousse-rose">
+<h1><a class="toc-backref" href="#id81">Tiramisu au saumon fumé, avocat et pamplemousse rose</a></h1>
+<p>D'après <a class="reference external" href="http://www.evacuisine.fr/archives/2017/01/02/index.html">http://www.evacuisine.fr/archives/2017/01/02/index.html</a></p>
+<p><em>Pour 12 verrines</em></p>
+<div class="section" id="id11">
+<h2><a class="toc-backref" href="#id82">Ingrédients</a></h2>
+<ul class="simple">
+<li>250 g de mascarpone</li>
+<li>2 œufs extra-frais</li>
+<li>3 tranches de saumon fumé</li>
+<li>2 pamplemousses roses</li>
+<li>3 avocats bien mûrs</li>
+<li>12 blinis</li>
+<li>1 c. à c. de paprika</li>
+<li>Ail en poudre</li>
+<li>1 citron</li>
+<li>10 cl de crème liquide</li>
+<li>Sel, poivre</li>
+</ul>
+</div>
+<div class="section" id="id12">
+<h2><a class="toc-backref" href="#id83">Recette</a></h2>
+</div>
+<div class="section" id="puree-d-avocat">
+<h2><a class="toc-backref" href="#id84">Purée d'avocat</a></h2>
+<ol class="arabic simple">
+<li>Épluchez 3 avocats bien mûrs, retirez les noyaux et écrasez la chair à l'aide d'une fourchette.</li>
+<li>Ajoutez le jus d'1 citron, 1 c. à c. de paprika, de l'ail en poudre, du sel, du poivre et 10 cl de crème liquide.</li>
+<li>Réservez.</li>
+</ol>
+</div>
+<div class="section" id="pamplemousses">
+<h2><a class="toc-backref" href="#id85">Pamplemousses</a></h2>
+<ol class="arabic simple" start="4">
+<li>Pelez à vif 2 pamplemousses roses et conservez le jus. Réservez.</li>
+</ol>
+<img alt="./Tiramisu_au_saumon_fumé_avocat_et_pamplemousse_rose-img1.jpg" src="./Tiramisu_au_saumon_fumé_avocat_et_pamplemousse_rose-img1.jpg" />
+</div>
+<div class="section" id="creme-au-mascarpone">
+<h2><a class="toc-backref" href="#id86">Crème au mascarpone</a></h2>
+<ol class="arabic simple" start="5">
+<li>Séparez les blancs des jaunes de 2 œufs extra-frais. Fouettez les jaunes avec 250 g de mascarpone, salez et poivrez.</li>
+<li>Montez les blancs en neige ferme et incorporez-les délicatement à la crème au mascarpone.</li>
+</ol>
+<img alt="./Tiramisu_au_saumon_fumé_avocat_et_pamplemousse_rose-img2.jpg" src="./Tiramisu_au_saumon_fumé_avocat_et_pamplemousse_rose-img2.jpg" />
+<ol class="arabic simple" start="7">
+<li>Coupez 3 tranches de saumon fumé en petits morceaux et incorporez-les dans la crème au mascarpone.</li>
+</ol>
+<img alt="./Tiramisu_au_saumon_fumé_avocat_et_pamplemousse_rose-img3.jpg" src="./Tiramisu_au_saumon_fumé_avocat_et_pamplemousse_rose-img3.jpg" />
+</div>
+<div class="section" id="montage-des-verrines">
+<h2><a class="toc-backref" href="#id87">Montage des verrines</a></h2>
+<p>Il y a 12 blinis.</p>
+<ol class="arabic simple" start="8">
+<li>Déposez un blinis dans le fond de chaque verrine.</li>
+<li>Versez un peu de jus de pamplemousse sur chaque blinis.</li>
+<li>Déposez une cuillerée de purée d'avocat sur les blinis et tassez avec le dos d'une cuillère.</li>
+<li>Puis déposez deux quartiers de pamplemousse pelés à vif et recouvrez avec deux grosses cuillerées de crème au mascarpone au saumon fumé.</li>
+</ol>
+<img alt="./Tiramisu_au_saumon_fumé_avocat_et_pamplemousse_rose-img4.jpg" src="./Tiramisu_au_saumon_fumé_avocat_et_pamplemousse_rose-img4.jpg" />
+<img alt="./Tiramisu_au_saumon_fumé_avocat_et_pamplemousse_rose-img5.jpg" src="./Tiramisu_au_saumon_fumé_avocat_et_pamplemousse_rose-img5.jpg" />
+<img alt="./Tiramisu_au_saumon_fumé_avocat_et_pamplemousse_rose-img6.jpg" src="./Tiramisu_au_saumon_fumé_avocat_et_pamplemousse_rose-img6.jpg" />
+<ol class="arabic simple" start="12">
+<li>Réservez les verrines au frais pendant 6 h avant de les servir.</li>
+</ol>
+<p><em>Vous pouvez préparer cette recette la veille. Poivrez les verrines avant de les servir.</em></p>
+<img alt="./Tiramisu_au_saumon_fumé_avocat_et_pamplemousse_rose-img7.jpg" src="./Tiramisu_au_saumon_fumé_avocat_et_pamplemousse_rose-img7.jpg" />
+<img alt="./Tiramisu_au_saumon_fumé_avocat_et_pamplemousse_rose-img8.jpg" src="./Tiramisu_au_saumon_fumé_avocat_et_pamplemousse_rose-img8.jpg" />
+<p><em>Important</em></p>
+<p>Pas terrible en fait.</p>
+</div>
+</div>
+<hr class="docutils" />
+<div class="section" id="tiramisu">
+<h1><a class="toc-backref" href="#id88">Tiramisu</a></h1>
+<p><em>Pour 6 à 8 personnes</em></p>
+<ol class="arabic simple">
+<li>Préparer 1/4 de l. de café, plutôt fort.</li>
+<li>Casser 5 œufs, séparer les blancs des jaunes.</li>
+<li>Monter les blancs en neige.</li>
+<li>Battre les jaunes avec 5 c. à s. de sucre, jusqu'à ce que le mélange devienne mousseux.</li>
+<li>Mélanger le mélange à base de jaune d'œufs avec le mascarpone (500 g).</li>
+<li>Incorporer à ce mélange les blancs montés en neige.</li>
+<li>Tremper les biscuits à la cuiller dans le café et les disposer dans le plat de service.</li>
+<li>Verser et étaler la moitié du mélange.</li>
+<li>Disposer une seconde couche de biscuits, toujours trempés dans le café.</li>
+<li>Poudrer le dessus avec du chocolat noir en poudre.</li>
+<li>Il est possible d'ajouter au mélange 1 ou 2 c. à c. d'Amaretto.</li>
+</ol>
+<p>À savoir : il ne faut pas mettre trop de café dans la couche inférieure (en mettre un peu plus dans la couche du milieu, pour que le résultat ne soit pas sec).</p>
+</div>
+</div>
+</body>
+</html>

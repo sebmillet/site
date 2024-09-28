@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="utf-8" />
+    <!-- Set the viewport width to device width for mobile -->
+    <meta name="viewport" content="width=device-width" />
+
+    <title>Site de Sébastien Millet - sysadmin</title>
+
+    <link rel="stylesheet" href="http://milletseb.free.fr/theme/css/normalize.css" />
+    <link rel="stylesheet" href="http://milletseb.free.fr/theme/css/foundation.min.css" />
+    <link rel="stylesheet" href="http://milletseb.free.fr/theme/css/style.css" />
+    <link rel="stylesheet" href="http://milletseb.free.fr/theme/css/pygments.css" />	
+    <script src="http://milletseb.free.fr/theme/js/custom.modernizr.js"></script>
+
+    <!-- So Firefox can bookmark->"abo this site" -->
+
+<link rel="stylesheet" href="https://files.stork-search.net/basic.css" />
+
+</head>
+
+<body>
+
+<!-- Nav Bar -->
+<nav>
+<div class="top-bar">
+<div class="row">
+    <div class="large-9 large-centered columns">
+	    <h1><a href="http://milletseb.free.fr">Site de Sébastien Millet</a></h1>
+    </div>
+</div>
+</div>
+
+<!-- Show menu items and pages -->
+<div class="row">
+<div class="large-9 columns">
+    <ul class="button-group navigation">
+
+    </ul>
+</div>
+</div>
+</nav>
+<!-- End Nav -->
+
+
+<!-- Main Page Content and Sidebar -->
+<div class="row">
+
+    <!-- Main Blog Content -->
+    <div class="large-9 columns">
+        
+        
+
+            <article>
+                <a href="http://milletseb.free.fr/quelques-commandes-systemd.html"><h3 class="article-title">Quelques commandes systemd</h3></a>
+<h6 class="subheader" title="2020-11-07T00:00:00+01:00">sam. 07 novembre 2020
+</h6>
+
+
+<!-- default-role rst directive described here: -->
+<!-- https://docutils.sourceforge.io/docs/ref/rst/directives.html#default-role -->
+<p>(D'après <em>Linux Reference numéro 7, juin - juillet - août 2020</em>)</p>
+<ul class="simple">
+<li>Détails sur le démarrage (durées de chargement) :</li>
+</ul>
+<div class="highlight"><pre><span></span>systemd-analyze
+</pre></div>
+<ul class="simple">
+<li>Lister les services lancés au démarrage :</li>
+</ul>
+<div class="highlight"><pre><span></span>systemctl list-unit-files --state<span class="o">=</span>enabled
+</pre></div>
+<ul class="simple">
+<li>Pour afficher les services qui ont pris le plus de temps à démarrer :</li>
+</ul>
+<div class="highlight"><pre><span></span>systemd-analyze blame
+</pre></div>
+<ul class="simple">
+<li>Pour lister les <em>timers</em> (exécutions périodiques) :</li>
+</ul>
+<div class="highlight"><pre><span></span>systemctl list-timers --all
+</pre></div>
+<p class="subheader">Category: <a href="http://milletseb.free.fr/category/ti.html">TI</a>
+
+    Tagged: 
+    <a href="http://milletseb.free.fr/tag/sysadmin.html">sysadmin </a>
+    <a href="http://milletseb.free.fr/tag/systemd.html">systemd </a>
+</p>
+
+
+
+            </article>
+
+
+                <hr  class="gradient"/>
+
+
+        
+
+
+            <article>
+                <a href="http://milletseb.free.fr/linux-and-rt3290.html"><h3 class="article-title">Linux and rt3290</h3></a>
+<h6 class="subheader" title="2020-05-15T17:49:00+02:00">ven. 15 mai 2020
+</h6>
+
+
+<p class="subheader">Category: <a href="http://milletseb.free.fr/category/ti.html">TI</a>
+
+    Tagged: 
+    <a href="http://milletseb.free.fr/tag/sysadmin.html">sysadmin </a>
+    <a href="http://milletseb.free.fr/tag/ubuntu.html">ubuntu </a>
+    <a href="http://milletseb.free.fr/tag/kernel.html">kernel </a>
+</p>
+
+
+
+                <a class="button radius secondary small right" href="http://milletseb.free.fr/linux-and-rt3290.html">Read More</a>
+                <hr  class="gradient"/>
+            </article>
+
+        
+
+
+            <article>
+                <a href="http://milletseb.free.fr/quelques-commandes-journalctl.html"><h3 class="article-title">Quelques commandes journalctl</h3></a>
+<h6 class="subheader" title="2020-02-29T00:00:00+01:00">sam. 29 février 2020
+</h6>
+
+
+<p class="subheader">Category: <a href="http://milletseb.free.fr/category/ti.html">TI</a>
+
+    Tagged: 
+    <a href="http://milletseb.free.fr/tag/sysadmin.html">sysadmin </a>
+    <a href="http://milletseb.free.fr/tag/journalctl.html">journalctl </a>
+</p>
+
+
+
+                <a class="button radius secondary small right" href="http://milletseb.free.fr/quelques-commandes-journalctl.html">Read More</a>
+                <hr  class="gradient"/>
+            </article>
+
+            <!-- /#posts-list -->
+<div class="pagination-centered">
+<h6 class="subheader">Page 1 of 1</h6>
+
+<p>
+
+</p>
+</div>
+
+    </div>
+    <!-- End Main Content -->
+
+    <!-- Sidebar -->
+    <aside class="large-3 columns">
+        <h5 class="sidebar-title">Site</h5>
+        <ul class="side-nav">
+            <li><a href="http://milletseb.free.fr/archives.html">Archives</a>
+            <li><a href="http://milletseb.free.fr/tags.html">Tags</a>
+
+
+        </ul>
+
+		
+        <h5 class="sidebar-title">Categories</h5>
+        <ul class="side-nav">
+            <li><a href="http://milletseb.free.fr/category/lectures.html">Lectures</a></li>
+            <li><a href="http://milletseb.free.fr/category/origine.html">Origine</a></li>
+            <li><a href="http://milletseb.free.fr/category/partage.html">Partage</a></li>
+            <li><a href="http://milletseb.free.fr/category/programmes.html">Programmes</a></li>
+            <li><a href="http://milletseb.free.fr/category/recettes.html">Recettes</a></li>
+            <li><a href="http://milletseb.free.fr/category/ti.html">TI</a></li>
+   
+        </ul>
+
+        <h5 class="sidebar-title">Links</h5>
+        <ul class="side-nav">
+            <li><a href="http://milletseb.free.fr/ancien/index.html">Ancien Site</a></li>
+            <li><a href="http://getpelican.com/">Pelican</a></li>
+            <li><a href="http://python.org/">Python.org</a></li>
+            <li><a href="http://jinja.pocoo.org/">Jinja2</a></li>
+
+Search: <input data-stork="sitesearch" />
+<div data-stork="sitesearch-output"></div>
+
+        </ul>
+		
+
+    </aside> <!-- End Sidebar -->
+
+</div> <!-- End Main Content and Sidebar -->
+
+
+<!-- Footer -->
+<footer class="row">
+    <div class="large-12 columns">
+        <hr />
+        <div class="row">
+            <div class="large-6 columns">
+                <p>Site de Sébastien Millet by Sébastien Millet</p>
+            </div>
+            </div>
+    </div>
+</footer>
+
+<script src="https://files.stork-search.net/releases/v1.5.0/stork.js"></script>
+<script>
+    stork.register("sitesearch", "http://milletseb.free.fr/search-index.st")
+</script>

@@ -1,0 +1,584 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+
+<html>
+
+<head>
+<title>Trucs et Astuces sur Ubuntu</title>
+<meta name="generator" content="Bluefish 1.0.7">
+<meta name="author" content="Sébastien Millet">
+<meta name="date" content="2009-04-07T10:20:47+0200">
+<meta name="copyright" content="">
+<meta name="keywords" content="linux,ubuntu,miscellaneous">
+<meta name="description" content="Trucs et Astuces sur Ubuntu (décembre 2008 - août 2009)">
+<meta name="ROBOTS" content="all">
+<meta http-equiv="content-type" content="text/html; charset=UTF-8" >
+<meta http-equiv="content-type" content="application/xhtml+xml; charset=UTF-8">
+<meta http-equiv="content-style-type" content="text/css">
+<meta http-equiv="expires" content="0">
+</head>
+
+<body>
+
+<br>
+
+<h1>Trucs et Astuces sur Ubuntu<br>
+Document version 1.0</h1>
+
+<hr>
+
+<a href="index.html">Retour à la page d'accueil</a>
+
+<hr>
+
+<h2>Table des matières</h2>
+
+<ul>
+	<li><a href="#introduction">1 Introduction</a></li>
+	<li><a href="#trucsastuces">2 Trucs et Astuces</a></li>
+	<ul>
+		<li><a href="#paquetages_utiles">2.1 Paquetages que j'ajoute à l'installation de base</a></li>
+		<li><a href="#ooo_tricks">2.2 OOo 3.0 et module import PDF</a></li>
+		<li><a href="#crypto">2.3 Chiffrement</a></li>
+		<li><a href="#ms_fonts">2.4 Utiliser les polices Microsoft dans OpenOffice</a></li>
+		<li><a href="#vbox_usb">2.5 USB dans VirtualBox</a></li>
+		<li><a href="#restrict_login_time">2.6 Restreindre les heures de login</a></li>
+		<li><a href="#parental_control">2.7 Contrôle parental</a></li>
+		<li><a href="#firefox_proxy_lock">2.8 Verrouiller la configuration de Firefox avec proxy</a></li>
+		<li><a href="#install_perltk">2.9 Installer PERL/Tk</a></li>
+		<li><a href="#install_mint">2.9 Installer l'interface MINT ou MGSE</a></li>
+		<li><a href="#trucs">2.98 Quelques trucs</a></li>
+		<li><a href="#quelques_url">2.99 Quelques URL utiles</a></li>
+	</ul>
+</ul>
+
+<hr>
+
+<h2><a name="introduction">1 Introduction</a></h2>
+
+<p>
+Cette rubrique liste quelques trucs et astuces avec ubuntu 8.10 (intrepid ibex.)<br>
+</p>
+
+<hr>
+
+<h2><a name="trucsastuces">2 Trucs et Astuces</a></h2>
+
+<h3><a name="paquetages_utiles">2.1 Paquetages que j'ajoute à l'installation de base</a></h3>
+
+<table cellpadding="2" cellspacing="1" border="1">
+	<tr>
+		<td>vim-gnome</td>
+		<td>Pour avoir gvim</td>
+	</tr>
+	<tr>
+		<td>tree</td>
+		<td>Liste les fichiers sous forme d'arborescence</td>
+	</tr>
+	<tr>
+		<td>imagemagick</td>
+		<td>Manipulation d'images en ligne de commande, entre autres commandes,
+<code><b>display</b></code>, <code><b>identify</b></code>, <code><b>import</b></code>,
+<code><b>convert</b></code>, <code><b>animate</b></code>, <code><b>montage</b></code>,
+<code><b>mogrify</b></code></td>
+	</tr>
+	<tr>
+		<td>ubuntu-restricted-extras</td>
+		<td>Pour installer d'un seul coup Flashplayer, Sun JRE, les polices Microsoft usuelles et quelques codecs</td>
+	</tr>
+	<tr>
+		<td>gnome-specimen</td>
+		<td>Pour afficher et comparer les polices de caractères</td>
+	</tr>
+	<tr>
+		<td>cairo-dock</td>
+		<td>Lanceur hyperbolique</td>
+	</tr>
+	<tr>
+		<td>simdock</td>
+		<td>Lanceur hyperbolique, plus simple que cairo-dock</td>
+	</tr>
+	<tr>
+		<td>terminator</td>
+		<td>Terminal graphique que l'on peut diviser en plusieurs fenêtres</td>
+	</tr>
+	<tr>
+		<td>vrms</td>
+		<td>"Virtual Richard M. Stallman", liste les paquets non libres sur la distribution et, si possible, donne la raison
+pour laquelle ils ne sont pas libres.</td>
+	</tr>
+	<tr>
+		<td>splitvt</td>
+		<td>Coupe un écran de terminal en deux pour exécuter un programme arbitraire (par défaut, un shell) dans
+chaque moitié séparément. Produit un résultat qui se rapproche de terminator
+	</td>
+	<tr>
+		<td>file-browser-applet</td>
+		<td>Pour afficher un menu répertoire dans la barre des menus GNOME</td>
+	</tr>
+	<tr>
+		<td>alltray</td>
+		<td>Mets n'importe quelle application dans le systray</td>
+	</tr>
+</table>
+
+<hr>
+
+<h3><a name="ooo_tricks">2.2 OOo 3.0 et module import PDF</a></h3>
+
+<p>
+- Pour l'installation, ajouter au fichier <code><b>/etc/apt/sources.list</b></code> les deux lignes suivantes&nbsp;:
+</p>
+
+<pre><code>	deb http://ppa.launchpad.net/openoffice-pkgs/ubuntu intrepid main
+	deb-src http://ppa.launchpad.net/openoffice-pkgs/ubuntu intrepid main</code></pre>
+<p>
+- Pour installer le module d'importation de PDF (version beta au 12 décembre 2008),
+l'extension doit être récupérée à cette adresse&nbsp;:
+<a href="http://extensions.services.openoffice.org/project/pdfimport">http://extensions.services.openoffice.org/project/pdfimport</a>
+<br>
+</p>
+
+<hr>
+
+<h3><a name="crypto">2.3 Chiffrement</a></h3>
+
+<p>
+D'après <em>Linux Pratique Essentiel numéro 5</em>, décembre 2008 - janvier 2009.
+</p>
+
+<ul>
+	<li><b>dm-crypt + Luks</b>&nbsp;: pour chiffrer des volumes entiers, cf.
+		<a href="howto-miscellaneous-1.0.html#chiffrement_homedir">2.4 Chiffrement de volume</a>. C'est le plus puissant et le plus adaptable car
+			il permet le montage automatique d'un volume chiffré au démarrage, le chiffrement total à partir de la racine,
+			le chiffrement intégral du <em>homedir</em>. Pour les amateurs de la ligne de commande.</li>
+	<li><b>Ecryptfs</b>&nbsp;: fonctionne en mode utilisateur avec une interface graphique. Les noms de fichiers et
+		leur taille approximative sont accessibles en clair.<br>
+		Installer le paquet <code><b>ecryptfs-utils</b></code> puis exécuter <code><b>ecryptfs-setup-private</b></code>.<br>
+		Ça fonctionne bien et c'est d'une grande simplicité.</li>
+	<li><b>Truecrypt</b>&nbsp;: pour chiffrer des volumes entiers et éventuellement, faire de la stéganographie.
+			Fonctionne aussi sous Windows.</li>
+</ul>
+
+<hr>
+
+<h3><a name="ms_fonts">2.4 Utiliser les polices Microsoft dans OpenOffice</a></h3>
+
+<p>
+Le paquetage <code>msttcorefonts</code> doit être installé. Exemple sur Ubuntu 8.04&nbsp;:
+</p>
+
+<table bgcolor="#E5E5E5" style="margin-left: 1cm;" cellpadding="5"><tr><td>
+<pre><code>sebastien@maison-2:~$ <b>dpkg -l mstt*</b>
+Desired=Unknown/Install/Remove/Purge/Hold
+| Status=Not/Installed/Config-f/Unpacked/Failed-cfg/Half-inst/t-aWait/T-pend
+|/ Err?=(none)/Hold/Reinst-required/X=both-problems (Status,Err: uppercase=bad)
+||/ Nom                      Version                  Description
++++-========================-========================-================================================================
+ii  msttcorefonts            2.4                      Installer for Microsoft TrueType core fonts
+
+sebastien@maison-2:~$ <b>dpkg -l x-tt*</b>
+Desired=Unknown/Install/Remove/Purge/Hold
+| Status=Not/Installed/Config-f/Unpacked/Failed-cfg/Half-inst/t-aWait/T-pend
+|/ Err?=(none)/Hold/Reinst-required/X=both-problems (Status,Err: uppercase=bad)
+||/ Nom                      Version                  Description
++++-========================-========================-================================================================
+ii  x-ttcidfont-conf         27                       TrueType and CID fonts configuration for X
+</code></pre></td></tr></table>
+
+<p>
+Sur Ubuntu 8.04, <code><b>x-ttcidfont-conf</b></code> était déjà installé.
+</p>
+
+<p>
+Note du 10/01/2010 : désormais le paquet s'appelle <code><b>ttf-mscorefonts-installer</b></code>
+</p>
+
+<hr>
+
+<h3><a name="vbox_usb">2.5 USB dans VirtualBox</a></h3>
+
+<p>
+<b>* Non testé *</b><br><br>
+- Ajouter au fichier <code>/etc/fstab</code> la ligne suivante&nbsp;:
+</p>
+
+<pre>	none	/proc/bus/usb	usbfs	devgid=<em>vboxusers_group_id</em>,devmode=644	0	0</pre>
+
+<p>
+- Recharger le fichier <code>/etc/fstab</code> en exécutant <code>sudo mount -a</code><br>
+- Ajouter au fichier <code>/etc/init.d/mountkernfs.sh</code> la ligne
+</p>
+<pre>	domount usbfs usbdevfs /proc/bus/usb -onoexec,nosuid,nodev,devgid=<em>vboxusers_group_id</em>,devmode=664</pre>
+
+<hr>
+
+<h3><a name="restrict_login_time">2.6 Restreindre les heures de login</a></h3>
+
+<h4>Étape 1</h4>
+<p>
+Dans le répertoire <code><b>etc/pam.d</b></code>, ajouter la ligne
+</p>
+<pre>	<code><b>account  requisite  pam_time.so</b></code><br></pre>
+<p>
+aux fichiers correspondant aux programmes de login utilisés. Dans mon cas il y a deux fichiers à modifier,
+<code><b>/etc/pam.d/login</b></code> et <code><b>/etc/pam.d/gdm</b></code>.<br>
+A noter que dans le fichier <code><b>login</b></code>, cette ligne est déjà présente mais commentée.
+</p>
+
+<p>Fichier <code><b>/etc/pam.d/login</b></code>&nbsp;:</p>
+<table bgcolor="#E5E5E5" style="margin-left: 1cm;" cellpadding="5"><tr><td>
+<pre><code>#
+# The PAM configuration file for the Shadow `login' service
+#
+
+# Outputs an issue file prior to each login prompt (Replaces the
+# ISSUE_FILE option from login.defs). Uncomment for use
+# auth       required   pam_issue.so issue=/etc/issue
+
+# Disallows root logins except on tty's listed in /etc/securetty
+# (Replaces the `CONSOLE' setting from login.defs)
+auth       requisite  pam_securetty.so
+
+# Disallows other than root logins when /etc/nologin exists
+# (Replaces the `NOLOGINS_FILE' option from login.defs)
+auth       requisite  pam_nologin.so
+
+# SELinux needs to be the first session rule. This ensures that any 
+# lingering context has been cleared. Without out this it is possible 
+# that a module could execute code in the wrong domain.  (When SELinux
+# is disabled, this returns success.)
+session    required   pam_selinux.so close
+
+# This module parses environment configuration file(s)
+# and also allows you to use an extended config
+# file /etc/security/pam_env.conf.
+# 
+# parsing /etc/environment needs "readenv=1"
+session       required   pam_env.so readenv=1
+# locale variables are also kept into /etc/default/locale in etch
+# reading this file *in addition to /etc/environment* does not hurt
+session       required   pam_env.so readenv=1 envfile=/etc/default/locale
+
+# Standard Un*x authentication.
+@include common-auth
+
+# This allows certain extra groups to be granted to a user
+# based on things like time of day, tty, service, and user.
+# Please edit /etc/security/group.conf to fit your needs
+# (Replaces the `CONSOLE_GROUPS' option in login.defs)
+auth       optional   pam_group.so
+
+# Uncomment and edit /etc/security/time.conf if you need to set
+# time restrainst on logins.
+# (Replaces the `PORTTIME_CHECKS_ENAB' option from login.defs
+# as well as /etc/porttime)
+<b>account    requisite  pam_time.so</b>
+
+# Uncomment and edit /etc/security/access.conf if you need to
+# set access limits.
+# (Replaces /etc/login.access file)
+# account  required       pam_access.so
+
+# Sets up user limits according to /etc/security/limits.conf
+# (Replaces the use of /etc/limits in old login)
+session    required   pam_limits.so
+
+# Prints the last login info upon succesful login
+# (Replaces the `LASTLOG_ENAB' option from login.defs)
+session    optional   pam_lastlog.so
+
+# Prints the motd upon succesful login
+# (Replaces the `MOTD_FILE' option in login.defs)
+session    optional   pam_motd.so
+
+# Prints the status of the user's mailbox upon succesful login
+# (Replaces the `MAIL_CHECK_ENAB' option from login.defs). 
+#
+# This also defines the MAIL environment variable
+# However, userdel also needs MAIL_DIR and MAIL_FILE variables
+# in /etc/login.defs to make sure that removing a user 
+# also removes the user's mail spool file.
+# See comments in /etc/login.defs
+session    optional   pam_mail.so standard
+
+# Standard Un*x account and session
+@include common-account
+@include common-session
+@include common-password
+
+# SELinux needs to intervene at login time to ensure that the process
+# starts in the proper default security context. Only sessions which are
+# intended to run in the user's context should be run after this.  (When
+# SELinux is disabled, this returns success.)
+session required pam_selinux.so open</code></pre></td></tr></table>
+
+<p>Fichier <code><b>/etc/pam.d/gdm</b></code>&nbsp;:</p>
+<table bgcolor="#E5E5E5" style="margin-left: 1cm;" cellpadding="5"><tr><td>
+<pre><code>#%PAM-1.0
+auth    requisite       pam_nologin.so
+auth    required        pam_env.so readenv=1
+auth    required        pam_env.so readenv=1 envfile=/etc/default/locale
+@include common-auth
+auth    optional        pam_gnome_keyring.so
+@include common-account
+<b>account requisite       pam_time.so</b>
+session required        pam_limits.so
+@include common-session
+session optional        pam_gnome_keyring.so auto_start
+@include common-password</code></pre></td></tr></table>
+
+<h4>Étape 2</h4>
+<p>
+Définir les restrictions dans le fichier <code><b>/etc/security/time.conf</b></code>. À noter que je n'ai pu
+configurer avec succès de restriction en utilisant le symbole |, d'où, l'utilisation de lignes multiples dans le fichier.
+</p>
+<p>Fichier <code><b>/etc/security/time.conf</b></code>&nbsp;:</p>
+<table bgcolor="#E5E5E5" style="margin-left: 1cm;" cellpadding="5"><tr><td>
+<pre><code># this is an example configuration file for the pam_time module. Its syntax 
+# was initially based heavily on that of the shadow package (shadow-960129).
+#
+# the syntax of the lines is as follows:
+#
+#       services;ttys;users;times
+#
+# white space is ignored and lines maybe extended with '\\n' (escaped
+# newlines). As should be clear from reading these comments,
+# text following a '#' is ignored to the end of the line.
+#
+# the combination of individual users/terminals etc is a logic list
+# namely individual tokens that are optionally prefixed with '!' (logical
+# not) and separated with '&amp;' (logical and) and '|' (logical or).
+#
+# services
+#	is a logic list of PAM service names that the rule applies to.
+#
+# ttys
+#	is a logic list of terminal names that this rule applies to.
+#
+# users
+#	is a logic list of users or a netgroup of users to whom this
+#	rule applies.
+#
+# NB. For these items the simple wildcard '*' may be used only once.
+#
+# times
+#	the format here is a logic list of day/time-range
+#	entries the days are specified by a sequence of two character
+#	entries, MoTuSa for example is Monday Tuesday and Saturday. Note
+#	that repeated days are unset MoMo = no day, and MoWk = all weekdays
+#	bar Monday. The two character combinations accepted are
+#
+#		Mo Tu We Th Fr Sa Su Wk Wd Al
+#
+#	the last two being week-end days and all 7 days of the week
+#	respectively. As a final example, AlFr means all days except Friday.
+#
+#	each day/time-range can be prefixed with a '!' to indicate "anything
+#	but"
+#
+#	The time-range part is two 24-hour times HHMM separated by a hyphen
+#	indicating the start and finish time (if the finish time is smaller
+#	than the start time it is deemed to apply on the following day).
+#
+# for a rule to be active, ALL of service+ttys+users must be satisfied
+# by the applying process.
+#
+
+#
+# Here is a simple example: running blank on tty* (any ttyXXX device),
+# the users 'you' and 'me' are denied service all of the time
+#
+
+#blank;tty* &amp; !ttyp*;you|me;!Al0000-2400
+
+# Another silly example, user 'root' is denied xsh access
+# from pseudo terminals at the weekend and on mondays.
+
+#xsh;ttyp*;root;!WdMo0000-2400
+
+#
+# End of example file.
+#
+
+<b>gdm;*;albert;Al0730-2100
+login;*;albert;Al0730-2100
+gdm;*;bernard;Al0730-2100
+login;*;bernard;Al0730-2100</b></code></pre></td></tr></table>
+
+<hr>
+
+<h3><a name="parental_control">2.7 Contrôle parental</a></h3>
+
+<h4>Paquets</h4>
+
+<p>
+Installer les paquets <b>dansguardian</b> et <b>squid</b>. À noter que <b>gadmin-squid</b>
+n'apporte pas grand chose. Squid est un programme de proxy, dansguardian réalise du filtrage de contenu + anti-virus,
+avec clamav par défaut. 
+</p>
+
+<table bgcolor="#E5E5E5" style="margin-left: 1cm;" cellpadding="5"><tr><td>
+<pre><code>sebastien@maison-2:~$ <b>dpkg -l dansguardian</b>
+Souhait=inconnU/Installé/suppRimé/Purgé/H=à garder
+| État=Non/Installé/fichier-Config/dépaqUeté/échec-conFig/H=semi-installé/W=attend-traitement-déclenchements
+|/ Err?=(aucune)/H=à garder/besoin Réinstallation/X=les deux (État,Err: majuscule=mauvais)
+||/ Nom                           Version                       Description
++++-=============================-=============================-==========================================================================
+ii  dansguardian                  2.9.9.7-2                     Web content filtering
+sebastien@maison-2:~$ <b>dpkg -l squid</b>
+Souhait=inconnU/Installé/suppRimé/Purgé/H=à garder
+| État=Non/Installé/fichier-Config/dépaqUeté/échec-conFig/H=semi-installé/W=attend-traitement-déclenchements
+|/ Err?=(aucune)/H=à garder/besoin Réinstallation/X=les deux (État,Err: majuscule=mauvais)
+||/ Nom                           Version                       Description
++++-=============================-=============================-==========================================================================
+ii  squid                         2.7.STABLE3-1ubuntu2          Internet object cache (WWW proxy cache)
+</code></pre></td></tr></table>
+
+<h4>Configuration de squid</h4>
+
+<ul>
+	<li>Modifier la ligne <code>visible_hostname</code>, le nom défini ici sera retourné dans les pages
+renvoyées par squid lui-même (en cas d'erreur)</li>
+	<li>Dé-commenter la ligne <code>dns_nameservers</code> et indiquer le ou les serveurs DNS à utiliser</li>
+</ul>
+
+<h4>Configuration de dansguardian</h4>
+
+<p>
+La configuration est faite dans le fichier <code><b>/etc/dansguardian/dansguardian.conf</b></code>
+</p>
+
+<ul>
+	<li>Commenter la ligne contenant <b>UNCONFIGURED</b></li>
+	<li>À la ligne language =, remplacer <b>ukenglish</b> par <b>french</b></li>
+</ul>
+
+<p>
+Pour autoriser un site bloqué par dansguardian, l'ajouter au fichier
+<code><b>/etc/dansguardian/lists/exceptionsitelist</b></code>.<br>
+Pour autoriser une extension de fichier bloquée, l'enlever du fichier
+<code><b>/etc/dansguardian/lists/bannedextensionlist</b></code>. Par défaut, les types d'archive
+tels que .zip et .gz sont interdits.
+</p>
+
+<p>
+À ce stade dansguardian doit fonctionner en écoute sur le port 8080 et connexion en local sur
+le port 3128, port par défaut de squid.
+</p>
+
+<hr>
+
+<h3><a name="firefox_proxy_lock">2.8 Verrouiller la configuration de Firefox avec proxy</a></h3>
+
+<p>
+Ajouter au fichier <code><b>/etc/firefox-3.0/pref/firefox.js</b></code> des lignes lockPref portant sur
+la configuration du proxy. Résultat&nbsp;:
+</p>
+
+<table bgcolor="#E5E5E5" style="margin-left: 1cm;" cellpadding="5"><tr><td>
+<pre><code>// This is the Debian specific preferences file for Mozilla Firefox
+// You can make any change in here, it is the purpose of this file.
+// You can, with this file and all files present in the
+// /etc/firefox/pref directory, override any preference that is
+// present in /usr/lib/firefox/defaults/pref directory.
+// While your changes will be kept on upgrade if you modify files in
+// /etc/firefox/pref, please note that they won't be kept if you
+// do them in /usr/lib/firefox/defaults/pref.
+
+pref("extensions.update.enabled", true);
+
+// Use LANG environment variable to choose locale
+pref("intl.locale.matchOS", true);
+
+// Disable default browser checking.
+pref("browser.shell.checkDefaultBrowser", false);
+
+// Prevent EULA dialog to popup on first run
+pref("browser.EULA.override", true);
+
+// identify ubuntu @ yahoo searchplugin
+pref("browser.search.param.yahoo-fr", "ubuntu");
+
+<b>lockPref("network.proxy.ftp", "localhost");
+lockPref("network.proxy.ftp_port", 8080);
+lockPref("network.proxy.gopher", "localhost");
+lockPref("network.proxy.gopher_port", 8080);
+lockPref("network.proxy.http", "localhost");
+lockPref("network.proxy.http_port", 8080);
+lockPref("network.proxy.no_proxies_on", "localhost, 127.0.0.1, 192.168.1.0/24");
+lockPref("network.proxy.share_proxy_settings", true);
+lockPref("network.proxy.socks", "localhost");
+lockPref("network.proxy.socks_port", 8080);
+lockPref("network.proxy.ssl", "localhost");
+lockPref("network.proxy.ssl_port", 8080);
+lockPref("network.proxy.type", 1);</b></code></pre></td></tr></table>
+
+<hr>
+
+<h3><a name="install_perltk">2.9 Installer PERL/Tk</a></h3>
+
+<ol>
+	<li>Installer la librairie <b>libx11-dev</b>, pour pouvoir compiler ensuite le module Tk</li>
+	<li>Exécuter <code><b>perl -MCPAN -e shell</b></code> puis <code><b>force install Tk</b></code></li>
+</ol>
+
+<hr>
+
+<h3><a name="install_mint">2.9 Installer l'interface MINT ou MGSE</a></h3>
+
+<p>
+Pour MINT, exécuter les commandes ci-dessous.
+</p>
+
+<table bgcolor="#E5E5E5" style="margin-left: 1cm;" cellpadding="5"><tr><td>
+<pre><code>sudo add-apt-repository ppa:gwendal-lebihan-dev/cinnamon-stable
+sudo apt-get update
+sudo apt-get install cinnamon muffin</code></pre></td></tr></table>
+<hr>
+
+<p>
+Pour MGSE, exécuter les commandes ci-dessous.
+</p>
+
+<table bgcolor="#E5E5E5" style="margin-left: 1cm;" cellpadding="5"><tr><td>
+<pre><code>sudo add-apt-repository ppa:webupd8team/gnome3
+sudo apt-get update
+sudo apt-get install mgse-bottompanel mgse-menu mgse-windowlist</code></pre></td></tr></table>
+<hr>
+
+<h3><a name="trucs">2.98 Quelques trucs</a></h3>
+
+<ul>
+	<li>Ubuntu Tweak, configuration fine d'Ubuntu</li>
+	<li>Devil's Pie (pour GNOME), pour automatiser certaines actions sur les fenêtres, par exemple,
+maximiser la fenêtre de Terminal que l'on ouvre.<br>
+Installer le paquetage <code><b>devilspie</b></code><br>
+Ajouter <code><b>/usr/bin/devilspie</b></code> dans les programmes démarrés automatiquement, en
+allant dans le menu <em>système | Préférences | Applications au démarrage.</em><br>
+Ensuite créer le répertoire <code><b>~/.devilspie</b></code>, et y créer des fichiers de configuration,
+par exemple <code><b>gnome_terminal.ds</b></code> qui contient la ligne<br>
+<code><b>(if (is (application_name) "Terminal") (maximize))</b></code></li>
+	<li>Fréquence de nettoyage du répertoire <code><b>/tmp</b></code>&nbsp;: modifier la ligne
+TMPTIME du fichier <code><b>/etc/default/rcS</b></code>. La fréquence est donnée en jours. 0 =
+nettoyage à chaque redémarrage, -1 = ne jamais nettoyer.</li>
+	<li>Pour parcourir ses dossiers personnels directement depuis la barre des tâches&nbsp;:
+installer le paquet <code>file-browser-applet</code>, puis clique droit sur le tableau de bord,
+menu <em>Ajouter au tableau de bord</em>, ajouter <em>File Browser</em>.</li>
+	<li>Paquet xwinwrap, pour afficher un fond d'écran animé, disponible sur
+<a href="http://tech.shantanugoel.com/projects/linux/shantz-xwinwrap">http://tech.shantanugoel.com/projects/linux/shantz-xwinwrap</a>.</li>
+	<li>Ubuntu One, permet de synchroniser 2GO de données avec un serveur Ubuntu</li>
+	<li>Wubi, pour installer Ubuntu sous Windows</li>
+</ul>
+
+<hr>
+
+<h3><a name="quelques_url">2.99 Quelques URL utiles</a></h3>
+
+<ul>
+	<li><a href="http://www.ubuntu-fr.org">http://www.ubuntu-fr.org</a></li>
+	<li><a href="http://www.ubuntugeek.com">http://www.ubuntugeek.com</a></li>
+	<li><a href="http://www.playdeb.net">http://www.playdeb.net</a></li>
+</ul>
+
+</body>
+</html>

@@ -1,0 +1,2137 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+
+<html>
+
+<head>
+<title>Configuration messagerie sur Debian Testing</title>
+<meta name="generator" content="Bluefish 1.0.7">
+<meta name="author" content="Sébastien Millet">
+<meta name="date" content="2009-04-07T10:21:16+0200">
+<meta name="copyright" content="">
+<meta name="keywords" content="sendmail,procmail,fetchmail,spamassassin">
+<meta name="description" content="Configuration messagerie sur Debian Testing (juin - décembre 2006)">
+<meta name="ROBOTS" content="all">
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<meta http-equiv="content-type" content="application/xhtml+xml; charset=UTF-8">
+<meta http-equiv="content-style-type" content="text/css">
+<meta http-equiv="expires" content="0">
+</head>
+
+<body>
+
+<br>
+
+<h1>Configuration messagerie sur Debian Testing<br>
+Document version 1.2</h1>
+
+<hr>
+
+<a href="index.html">Retour à la page d'accueil</a>
+
+<hr>
+
+<h2>Table des matières</h2>
+
+<ul>
+	<li><a href="#introduction">1 Introduction</a></li>
+	<ul>
+		<li><a href="#quand">1.1 Dans quel cas appliquer cette configuration</a></li>
+		<li><a href="#quoi">1.2 En quoi consiste cette configuration</a></li>
+		<li><a href="#pourquoi">1.3 Pourquoi appliquer cette configuration</a></li>
+	</ul>
+	<li><a href="#configuration">2 Configuration</a></li>
+	<ul>
+		<li><a href="#paramsys">2.1 Paramètres système</a></li>
+		<li><a href="#sendmail">2.2 Configuration de Sendmail</a></li>
+		<li><a href="#fetchmail">2.3 Configuration de Fetchmail</a></li>
+		<li><a href="#spamassassin">2.4 Configuration de SpamAssassin</a></li>
+		<li><a href="#uimail">2.5 Programme de mail (GUI)</a></li>
+	</ul>
+	<li><a href="#plus">3 Aller plus loin</a></li>
+	<ul>
+		<li><a href="#debug">3.1 Débogage</a></li>
+		<li><a href="#documentation">3.2 Documentation</a></li>
+	</ul>
+	<li><a href="#journalchangements">4 Journal des changements</a></li>
+	<ul>
+		<li><a href="#c12">1.2</a></li>
+		<li><a href="#c11">1.1</a></li>
+		<li><a href="#c10">1.0</a></li>
+	</ul>	
+</ul>
+
+<hr>
+
+<h2><a name="introduction">1 Introduction</a></h2>
+
+<h3><a name="quand">1.1 Dans quel cas appliquer cette configuration</a></h3>
+
+<ul>
+	<li>Vous utilisez Debian ; configuration testée sur Debian Testing fin 2006 (=> Debian Etch).</li>
+	<li>Vous êtes connecté à Internet en tant que client = votre Linux n'est
+	pas un serveur déclaré sur Internet.</li>
+	<li>Vous disposez d'un ou plusieurs comptes de messagerie sur Internet,
+	accessibles sur des serveurs en POP3 ou IMAP.</li>
+</ul>
+
+<h3><a name="quoi">1.2 En quoi consiste cette configuration</a></h3>
+
+<table cellpadding="2" cellspacing="1" border="1">
+	<tr>
+		<td><b>Fonction</b></td>
+		<td><b>Programme</b></td>
+	</tr>
+	<tr>
+		<td>Délivrement dans les bases courrier locales</td>
+		<td>procmail - c'est la situation par défaut</td>
+	</tr>
+	<tr>
+		<td>MTA &amp; MSA - gestionnaire de mail</td>
+		<td>sendmail</td>
+	</tr>
+	<tr>
+		<td>Récupération depuis un serveur (POP3 ou IMAP)</td>
+		<td>fetchmail</td>
+	</tr>
+	<tr>
+		<td>Anti-SPAM</td>
+		<td>SpamAssassin</td>
+	</tr>
+</table>
+
+<p>
+<b>Noms de domaine de messagerie</b><br>
+Comme votre Linux est supposé ne pas avoir de nom public, un problème se pose&nbsp;:
+quel nom de domaine de messagerie utiliser en local ?<br>
+Il faut utiliser un nom privé (qui n'existe pas sur Internet).
+Ainsi ma machine s'appelle maison-1.claix.perouses.fr, et le domaine de messagerie
+est le même, maison-1.claix.perouses.fr.
+Par défaut si vous n'avez configuré aucun nom, le nom est localhost.localdomain,
+qui ne pose pas de problème.
+</p>
+
+<p>
+Pour que les emails puissent sortir vers Internet avec les bonnes informations
+(notamment, une adresse d'émetteur connue sur Internet, et non pas privée),
+le nom de l'émetteur devra être translaté depuis l'adresse locale vers une adresse
+email réelle, connue sur Internet.<br>
+C'est pourquoi "genericstable" est configuré dans sendmail.
+</p>
+
+<h3><a name="pourquoi">1.3 Pourquoi appliquer cette configuration</a></h3>
+
+<ol>
+	<li>Votre messagerie est autonome&nbsp;: les emails internes (émis par et à destination
+d'utilisateurs locaux) ne quittent pas la machine.</li>
+	<li>L'interface utilisateur (KMail, evolution, ...) et le système de messagerie sont séparés.</li>
+	<li>Les programmes de mail évolués comme KMail ou Evolution bénéficient
+d'une interface très agréable, mais ils atteignent vite leurs limites
+pour gérer les tâches de bas niveau.<br>
+Lorsque la récupération des emails est interrompue, KMail recommence à zéro...
+et récupère les mêmes messages une deuxième fois, et ainsi de suite, jusqu'à ce que
+la totalité des messages soit récupérée avec succès, en une seule connexion.<br>
+Avec fetchmail, ce type d'inconvénient n'existe pas. Fetchmail mémorise
+les messages récupérés, et n'en récupère jamais un plusieurs fois, même en cas d'interruption.</li>
+	<li>Un programme en ligne de commande tel que "mail"
+fonctionne parfaitement, qu'il soit utilisé en envoi d'email ou pour consulter
+les emails reçus.<br>
+C'est une conséquence naturelle du fait que le système est
+configuré pour la messagerie.<br>
+Même si vous ne vous servez jamais de "mail" pour gérer votre correspondance,
+ce point n'est pas négligeable&nbsp;: l'envoi d'emails depuis des scripts est facilité.</li>
+</ol>
+
+<hr>
+
+<h2><a name="configuration">2 Configuration</a></h2>
+
+<h3><a name="paramsys">2.1 Paramètres système</a></h3>
+
+<p>
+Avant de configurer la messagerie elle-même, il faut s'assurer que le nom du
+système est convenablement défini, car la messagerie y est étroitement liée.<br>
+Fichiers à considérer&nbsp;:
+</p>
+
+<table cellpadding="2" cellspacing="1" border="1">
+	<tr>
+		<td><b>Fichier</b></td>
+		<td><b>Fonction</b></td>
+	</tr>
+	<tr>
+		<td><code>/etc/hostname</code></td>
+		<td>Nom de la machine</td>
+	</tr>
+	<tr>
+		<td><code>/etc/hosts</code></td>
+		<td>Correspondance entre noms et adresses IP, utile si le nom d'hôte est privé</td>
+	</tr>
+	<tr>
+		<td><code>/etc/host.conf</code></td>
+		<td>Rien à modifier ici si le contenu est standard</td>
+	</tr>
+	<tr>
+		<td><code>/etc/mailname</code></td>
+		<td>Nom de la machine pour la messagerie, identique par défaut à <code>/etc/hostname</code></td>	
+</table>
+
+<p>
+<b>Fichier <code>/etc/hostname</code></b>
+</p>
+<table bgcolor="#E5E5E5" style="margin-left: 1cm;" cellpadding="5"><tr><td>
+<pre><code>maison-1.perouses.claix.fr
+</code></pre></td></tr></table>
+
+<p>
+<b>Fichier <code>/etc/hosts</code></b><br>
+L'intérêt de la ligne 192.168.1.2 est de ne pas avoir un avertissement
+de sendmail au démarrage (exécution d'un gethostbyaddr).<br>
+Évidemment si votre adresse IP est dynamique (connexion par modem, DHCP avec votre boîtier ADSL, ...),
+cette ligne est inutile. 
+</p>
+<table bgcolor="#E5E5E5" style="margin-left: 1cm;" cellpadding="5"><tr><td>
+<pre><code># 127.0.0.1	localhost.localdomain	localhost	maison
+127.0.0.1	maison-1.perouses.claix.fr	localhost.perouses.claix.fr	maison-1	localhost
+192.168.1.2	maison-1.perouses.claix.fr	localhost.perouses.claix.fr	maison-1	localhost
+
+# The following lines are desirable for IPv6 capable hosts
+::1     ip6-localhost ip6-loopback
+fe00::0 ip6-localnet
+ff00::0 ip6-mcastprefix
+ff02::1 ip6-allnodes
+ff02::2 ip6-allrouters
+ff02::3 ip6-allhosts
+</code></pre></td></tr></table>
+
+<p>
+<b>Fichier <code>/etc/host.conf</code> (anciennes versions)</b>
+</p>
+
+<table bgcolor="#E5E5E5" style="margin-left: 1cm;" cellpadding="5"><tr><td>
+<pre><code>order hosts,bind
+multi on
+</code></pre></td></tr></table>
+
+<p>
+<b>Fichier <code>/etc/host.conf</code> (versions récentes)</b>
+</p>
+
+<table bgcolor="#E5E5E5" style="margin-left: 1cm;" cellpadding="5"><tr><td>
+<pre><code>multi on
+</code></pre></td></tr></table>
+
+<p>
+<b>Fichier <code>/etc/mailname</code></b><br>
+Ce fichier doit contenir le nom local du système tel que vu dans la messagerie.
+Il est pris en compte lors de la première configuration de sendmail.<br>
+Comme le nom de domaine est identique au nom de la machine, ce fichier
+est identique à <code>/etc/hostname</code>.
+</p>
+
+<table bgcolor="#E5E5E5" style="margin-left: 1cm;" cellpadding="5"><tr><td>
+<pre><code>maison-1.perouses.claix.fr
+</code></pre></td></tr></table>
+
+<h3><a name="sendmail">2.2 Configuration de Sendmail</a></h3>
+
+<p>
+Le paquetage à installer est sendmail. sendmail-doc apporte de la documentation
+utile, je conseille de l'installer également. Attention, installer sendmail nécessite
+d'enlever exim.<br>
+Exemple d'un dpkg-query pour vérifier les paquetages installés&nbsp;:
+</p>
+
+<table bgcolor="#E5E5E5" style="margin-left: 1cm;" cellpadding="5"><tr><td>
+<pre><code>sebastien@maison-1:~$ dpkg-query -l "sendmail*"
+Souhait=inconnU/Installé/suppRimé/Purgé/H=à garder
+| &Eacute;tat=Non/Installé/fichier-Config/dépaqUeté/échec-conFig/H=semi-installé
+|/ Err?=(aucune)/H=à garder/besoin Réinstallation/X=les deux (&Eacute;tat,Err: majuscule=mauvais)
+||/ Nom                                 Version                             Description
++++-===================================-===================================-======================================================================================
+ii  sendmail                            8.13.7-2                            powerful, efficient, and scalable Mail Transport Agent
+ii  sendmail-base                       8.13.7-2                            powerful, efficient, and scalable Mail Transport Agent
+ii  sendmail-bin                        8.13.7-2                            powerful, efficient, and scalable Mail Transport Agent
+ii  sendmail-cf                         8.13.7-2                            powerful, efficient, and scalable Mail Transport Agent
+ii  sendmail-doc                        8.13.7-2                            powerful, efficient, and scalable Mail Transport Agent
+un  sendmail-tls                        &lt;néant&gt;                             (aucune description n'est disponible)
+sebastien@maison-1:~$
+</code></pre></td></tr></table>
+
+<p>
+<b>Fichier <code>/etc/aliases</code></b><br>
+Ligne permettant de rediriger vers l'utilisateur de votre choix, les
+emails adressés à root - login_name est à remplacer par votre nom de login&nbsp;:
+</p>
+<table bgcolor="#E5E5E5" style="margin-left: 1cm;" cellpadding="5"><tr><td>
+<pre><code>root: login_name
+
+	<i>Exemple</i>
+
+[...]
+postmaster: root
+root: sebastien
+[...]
+mailer-daemon: postmaster
+[...]
+</code></pre></td></tr></table>
+
+<p>
+<b>Fichier <code>/etc/mail/sendmail.mc</code></b><br>
+- Mettre les lignes commençant par MAILER à la fin, pour éviter que sendmail
+ne proteste lors de la compilation <code>.mc</code> -&gt; <code>.cf</code>.<br>
+- A la ligne MASQUERADE_AS, préciser le nom de la machine, tel
+qu'indiqué dans <code>/etc/mailname</code>. En principe c'est déjà fait.<br>
+- Toujours dans <code>/etc/mail/sendmail.mc</code>, ajouter le paragraphe
+ci-dessous, avant les lignes MAILER.
+</p>
+
+<p>
+<b>Remarques</b>
+</p>
+
+<ol>
+	<li>Le fait d'écrire le <b>SMART_HOST</b> entre crochets [] indique à sendmail
+de résoudre le nom en type A (serveur) au lieu de type MX (Mail eXchanger).<br>
+Avec de nombreux fournisseurs c'est équivalent, toutefois j'ai constaté qu'avec club-internet,
+l'absence de crochets provoque la résolution vers un serveur différent,
+qui refuse tout relais vers Internet.</li>
+	<li>La ligne contenant <b>SMART_HOST</b> peut être commentée, auquel cas les envois sont
+faits "directement vers le domaine cible", sans passer par un relais du fournisseur d'accès.</li>
+	<li><b>accept_unresolvable_domains</b> et <b>accept_unqualified_senders</b>
+permettent d'être plus souple sur la réception. Notamment, si les emails
+sont récupérés par fetchmail, cela évite d'avoir des emails dont
+l'émetteur est incorrect qui traînent sur le compte POP3 par exemple.
+En effet fetchmail efface un message seulement après l'avoir envoyé
+avec succès au mailer local. En principe le fournisseur d'accès fait également
+des contrôles, mais j'ai eu ce cas pour un SPAM reçu, alors
+que le domaine émetteur n'existait plus.</li>
+	<li><b>confTO_QUEUEWARN</b> et <b>confTO_QUEUERETURN</b> règlent les délais
+d'avertissement et d'envoi d'erreur. Par défaut elles sont de 4h et 5 jours,
+pour un ordinateur personnel il vaut mieux avoir des durées beaucoup plus petites.
+Personnellement je mets respectivement 10 et 30 minutes.</li>
+	<li>L'option <b>nocanonify</b> permet de router avec succès les emails
+locaux même si le lien Internet est indisponible - sans cette option,
+tout envoi d'email même local provoque la résolution du domaine de l'émetteur
+par le DNS. Cette option rend le système de messagerie de la machine
+indépendant de la connectivité Internet pour gérer les emails locaux.<br>
+D'après le document <code>/usr/share/doc/sendmail/cf.README.gz</code>,
+la ligne <code>define(`confBIND_OPTS', `-DNSRCH -DEFNAMES')</code>
+fait la même chose.<br>
+Attention, sur un lien Internet non permanent, l'absence d'option
+<b>nocanonify</b> n'est pas un problème, car le fichier <code>/etc/resolv.conf</code> est modifié
+en fonction des connexions établies (il est vide en l'absence de connexion),
+et cela modifie le comportement de sendmail.</li>
+</ol>
+
+<table bgcolor="#E5E5E5" style="margin-left: 1cm;" cellpadding="5"><tr><td>
+<pre><code>dnl # Added by me
+FEATURE(`nocanonify')dnl
+FEATURE(`genericstable')dnl
+GENERICS_DOMAIN(`maison-1.perouses.claix.fr')dnl
+define(`SMART_HOST', `[mail.club-internet.fr]')dnl
+define(`confTO_QUEUERETURN', `30m')dnl
+define(`confTO_QUEUEWARN', `10m')dnl
+FEATURE(`accept_unresolvable_domains')dnl
+FEATURE(`accept_unqualified_senders')dnl
+</code></pre></td></tr></table>
+
+<p>
+A noter que les lignes&nbsp;:
+</p>
+<table bgcolor="#E5E5E5" style="margin-left: 1cm;" cellpadding="5"><tr><td>
+<pre><code>include(`/etc/mail/m4/dialup.m4')dnl
+include(`/etc/mail/m4/provider.m4')dnl
+</code></pre></td></tr></table>
+<p>
+sont inutiles. Leur présence dépend des choix faits lors de la configuration de
+la messagerie, au tout début de l'installation de Debian.<br>
+Il faut les commenter ce qui donne&nbsp;:
+</p>
+<table bgcolor="#E5E5E5" style="margin-left: 1cm;" cellpadding="5"><tr><td>
+<pre><code>dnl # include(`/etc/mail/m4/dialup.m4')dnl
+dnl # include(`/etc/mail/m4/provider.m4')dnl
+</code></pre></td></tr></table>
+
+<p>
+Avec ces modifications, la fin de sendmail.mc doit ressembler à
+cela&nbsp;:
+</p>
+<table bgcolor="#E5E5E5" style="margin-left: 1cm;" cellpadding="5"><tr><td>
+<pre><code>[...]
+dnl #
+dnl # If you're on a dialup link, you should enable this - so sendmail
+dnl # will not bring up the link (it will queue mail for later)
+dnl define(`confCON_EXPENSIVE',`True')dnl
+dnl #
+dnl # Dialup/LAN connection overrides
+dnl #
+dnl # include(`/etc/mail/m4/dialup.m4')dnl
+dnl # include(`/etc/mail/m4/provider.m4')dnl
+dnl #
+
+dnl # Masquerading options
+FEATURE(`always_add_domain')dnl
+MASQUERADE_AS(`maison-1.perouses.claix.fr')dnl
+FEATURE(`allmasquerade')dnl
+FEATURE(`masquerade_envelope')dnl
+
+dnl # Added by me
+FEATURE(`nocanonify')dnl
+FEATURE(`genericstable')dnl
+GENERICS_DOMAIN(`maison-1.perouses.claix.fr')dnl
+define(`SMART_HOST', `[mail.club-internet.fr]')dnl
+define(`confTO_QUEUERETURN', `30m')dnl
+define(`confTO_QUEUEWARN', `10m')dnl
+FEATURE(`accept_unresolvable_domains')dnl
+FEATURE(`accept_unqualified_senders')dnl
+
+dnl # Default Mailer setup
+MAILER_DEFINITIONS
+MAILER(`local')dnl
+MAILER(`smtp')dnl
+</code></pre></td></tr></table>
+
+<p>
+Si vous êtes connecté à Internet par modem et que le lien met du temps à s'établir,
+il faut demander à sendmail d'attendre avant de renoncer. Cela dépend de la manière dont
+vous ouvrez le lien Internet. L'option est dial_delay, 1 minute est une bonne durée.
+Dans ce cas, ligne à ajouter au fichier <code>/etc/mail/sendmail.mc</code>&nbsp;:
+</p>
+
+<table bgcolor="#E5E5E5" style="margin-left: 1cm;" cellpadding="5"><tr><td>
+<pre><code>define(`confDIAL_DELAY', `60s')dnl
+</code></pre></td></tr></table>
+
+<p>
+<b>Fichier <code>/etc/mail/submit.mc</code></b><br>
+- Ajouter ces lignes pour avoir un comportement identique entre le MSA (port 587) et le MTA (port 25).<br>
+Le comportement du MSA est défini par submit.mc, le comportement du MTA
+est défini par sendmail.mc.
+</p>
+
+<table bgcolor="#E5E5E5" style="margin-left: 1cm;" cellpadding="5"><tr><td>
+<pre><code>[...]
+define(`confTO_QUEUERETURN', `30m')dnl
+define(`confTO_QUEUEWARN', `10m')dnl
+</code></pre></td></tr></table>
+
+<p>
+<b>Fichier <code>/etc/mail/genericstable</code></b><br>
+- Créer le fichier <code>/etc/mail/genericstable</code> (alias d'émetteurs).<br>
+Droits = 644, propriétaire = root.smmsp.
+</p>
+
+<p>
+<b>Remarque</b>
+</p>
+
+<p>
+On peut définir le même alias pour le super-utilisateur, mais je préfère
+"aliasser" mon nom uniquement - je n'ai pas de cas où un email émis par root
+doit quitter ma machine.
+</p>
+
+<table bgcolor="#E5E5E5" style="margin-left: 1cm;" cellpadding="5"><tr><td>
+<pre><code># /etc/mail/genericstable
+login_name	Internet_email_address
+[...]
+
+	<i>Exemple</i>
+
+# /etc/mail/genericstable
+sebastien	sebastien.millet1@club-internet.fr
+</code></pre></td></tr></table>
+
+<p>
+<b>Compilation des fichiers .mc et mise à jour des tables (.db)</b><br>
+- Aller dans <code>/etc/mail</code> et exécuter <code>make</code>&nbsp;:
+</p>
+
+<table bgcolor="#E5E5E5" style="margin-left: 1cm;" cellpadding="5"><tr><td>
+<pre><code>cd /etc/mail
+make
+</code></pre></td></tr></table>
+
+<p>
+Cela crée le fichier <code>/etc/mail/genericstable.db</code>. Pour mettre
+à jour ce fichier en particulier sans exécuter "make", utiliser makemap (utilitaire fourni avec sendmail) ainsi&nbsp;:
+</p>
+
+<table bgcolor="#E5E5E5" style="margin-left: 1cm;" cellpadding="5"><tr><td>
+<pre><code>cd /etc/mail
+makemap hash genericstable < genericstable
+</code></pre></td></tr></table>
+
+<p>
+Il semble que <code>make</code> doive être exécuté deux fois de suite pour que le fichier
+<code>genericstable.db</code> soit créé. 
+</p>
+
+<p>
+<b>Fichier <code>/etc/mail/sendmail.conf</code></b><br>
+Ici se trouvent les paramètres de sendmail en tant que service (à la mode Debian),
+notamment la période de parcours des queues de messages.
+Personnellement je les mets à 5 minutes chacune.</p>
+
+<p>
+Il faut également contrôler que les démons sont exécutés dans le mode qui
+vous convient. Mais encore ? Par défaut, le MTA (port 25) fonctionne en mode démon,
+alors que le MSP (port 587) fonctionne avec "cron". Dans ce cas le MSP n'est pas un démon
+au sens système du terme, c'est un processus à exécution unique qui est
+lancé régulièrement par cron. Cela revient au même, mais personnellement,
+je préfère que les deux processus soient de véritables démons. Pourquoi ?<br>
+Est-ce que j'en pose, moi, des questions ? Je préfère, c'est tout. Qu'on se le dise.<br>
+En bref, il faut s'assurer que les valeurs de QUEUE_MODE et MSP_MODE sont
+"daemon" et non pas "none" ou "cron".<br>
+Dans l'extrait ci-dessous, QUEUE_MODE est à la bonne valeur car plus haut dans
+le fichier, la variable DAEMON_MODE est définie à "Daemon". 
+</p>
+
+<p>
+Lignes après modification&nbsp;:
+</p>
+
+<table bgcolor="#E5E5E5" style="margin-left: 1cm;" cellpadding="5"><tr><td>
+<pre><code>[...]
+QUEUE_MODE="${DAEMON_MODE}";
+[...]
+QUEUE_INTERVAL="5m";
+[...]
+MSP_MODE="daemon";
+[...]
+MSP_INTERVAL="5m";
+[...]
+</code></pre></td></tr></table>
+
+<p>
+<b>Redémarrage de sendmail</b><br>
+Une fois la configuration modifiée, et make exécuté, lancer&nbsp;:
+</p>
+
+<table bgcolor="#E5E5E5" style="margin-left: 1cm;" cellpadding="5"><tr><td>
+<pre><code>/etc/init.d sendmail reload
+</code></pre></td></tr></table>
+
+<p>
+<b>Re-configuration complète de sendmail</b><br>
+Si le type de fonctionnement de sendmail change - modification
+du mode d'exécution du démon ou du queue runner, par exemple
+exécution par CRON au lieu de queue runner "démon" (autonome) - il
+faut exécuter la commande&nbsp;:
+</p>
+
+<table bgcolor="#E5E5E5" style="margin-left: 1cm;" cellpadding="5"><tr><td>
+<pre><code>sendmailconf (anciennes versions)
+	ou
+sendmailconfig (versions plus récentes)
+</code></pre></td></tr></table>
+
+<h3><a name="fetchmail">2.3 Configuration de Fetchmail</a></h3>
+
+<p>
+Le paquetage à installer est fetchmail. Exemple d'un dpkg-query pour vérifier le paquetage installé&nbsp;:
+</p>
+
+<table bgcolor="#E5E5E5" style="margin-left: 1cm;" cellpadding="5"><tr><td>
+<pre><code>sebastien@maison-1:~$ dpkg-query -l fetchmail
+Souhait=inconnU/Installé/suppRimé/Purgé/H=à garder
+| &Eacute;tat=Non/Installé/fichier-Config/dépaqUeté/échec-conFig/H=semi-installé
+|/ Err?=(aucune)/H=à garder/besoin Réinstallation/X=les deux (&Eacute;tat,Err: majuscule=mauvais)
+||/ Nom                                 Version                             Description
++++-===================================-===================================-======================================================================================
+ii  fetchmail                           6.3.4-3                             SSL enabled POP3, APOP, IMAP mail gatherer/forwarder
+sebastien@maison-1:~$
+</code></pre></td></tr></table>
+
+<h4>2.3.1 Cas avec une connexion Internet permanente</h4>
+
+<p>
+Avec l'ADSL la connexion est le plus souvent permanente (activée au démarrage),
+et le plus simple est de lancer fetchmail en tant que démon système, lors
+du démarrage. Cela suppose de l'activer en tant que service, et de créer un
+fichier <code>/etc/fetchmailrc</code>.
+</p>
+
+<p>
+<b>Activation de fetchmail en tant que service</b><br>
+- Installer le paquetage Debian rcconf. Ce programme est une
+interface au programme update-rc.d, qui permet de régler
+les services démarrés automatiquement en fonction du runlevel.<br>
+Exemple d'un dpkg-query pour vérifier le paquetage installé&nbsp;:
+</p>
+
+<table bgcolor="#E5E5E5" style="margin-left: 1cm;" cellpadding="5"><tr><td>
+<pre><code>sebastien@maison-1:~$ dpkg-query -l rcconf
+Souhait=inconnU/Installé/suppRimé/Purgé/H=à garder
+| &Eacute;tat=Non/Installé/fichier-Config/dépaqUeté/échec-conFig/H=semi-installé
+|/ Err?=(aucune)/H=à garder/besoin Réinstallation/X=les deux (&Eacute;tat,Err: majuscule=mauvais)
+||/ Nom                                 Version                             Description
++++-===================================-===================================-======================================================================================
+ii  rcconf                              1.19                                Debian Runlevel configuration tool
+sebastien@maison-1:~$
+</code></pre></td></tr></table>
+
+<p>
+- Une fois installé, invoquer rcconf avec la commande... <code>rcconf</code>, tout simplement.<br>
+- Dans l'interface de rcconf, cocher fetchmail.
+</p>
+
+<p>
+Activer le démon fetchmail au démarrage en modifiant le
+fichier <code>/etc/default/fetchmail</code>.<br>
+Contenu du fichier après modification&nbsp;:
+</p>
+
+<table bgcolor="#E5E5E5" style="margin-left: 1cm;" cellpadding="5"><tr><td>
+<pre><code># This file will be used to declare some vars for fetchmail
+
+# Declare here if we want to start fetchmail. 'yes' or 'no'
+START_DAEMON=yes
+</code></pre></td></tr></table>
+
+<p>
+<b>Configuration du service fetchmail</b><br>
+Créer le fichier <code>/etc/fetchmailrc</code> avec des lignes "poll" pour chaque
+compte à récupérer localement.<br>
+Droits = 600, propriétaire = fetchmail.root.<br>
+Les droits sont très restreints car ce fichier contient toutes les informations
+(nom, mot de passe) pour récupérer les emails sur les serveurs.
+</p>
+
+<p>
+<b>Remarques</b>
+</p>
+
+<ol>
+	<li>Par défaut fetchmail enverra sa sortie vers le log (de type "mail" => fichiers <code>/var/log/mail.*</code>).<br>
+Ainsi la commande <code>set syslog</code> est facultative.
+Qui plus est elle pourrait empêcher de programmer
+un contrôle automatique de fetchmail avec CRON, voir plus loin.</li>
+	<li>L'option <b>fetchlimit</b> est facultative, elle permet de lisser un peu
+la réception au retour de vacances... ;-)</li>
+	<li>La ligne <code>set daemon 300</code> provoque un réveil du démon toutes les 5 minutes.</li>
+	<li>Il serait logique de faire envoyer par fetchmail les emails au MSA,
+port 587. Mais fetchmail (version 6.3.4+NTLM+SDPS+SSL+NLS) semble ignorer les paramètres tels que
+<code><b>smtphost localhost/587</b></code> ou bien <code><b>smtphost localhost/submission</b></code>.</li>
+	<li>Plutôt que d'invoquer sendmail en loopback, il est possible
+de l'invoquer directement. Cela permet de désactiver le démon sendmail
+à l'écoute des ports 25 et 587, et de ne laisser qu'un queue runner sur le système -
+seulement si vous êtes parano.</li>
+	<li>Auparavant, l'option <b>flush</b> était sensée éviter que des emails déjà récupérés,
+mais non supprimés pour une raison quelconque (par exemple lors d'une déconnexion du serveur
+intempestive), ne restassent indéfiniment sur le serveur - c'est le comportement de
+fetchmail par défaut !<br>
+Finalement suite à des tests effectués, il semble que cette option soit à éviter. Depuis la version 1.2
+de ce document, l'option <b>flush</b> n'est plus utilisée.<br>
+En revanche l'option <b>fetchall</b> a été ajoutée, pour éviter de laisser des emails indéfiniment
+sur le serveur POP3. Avec cette option il y a un risque de télécharger un même email
+plusieurs fois.</li>
+</ol>
+
+<p>
+Bref. Exemple avec mon fichier <code>/etc/fetchmailrc</code>&nbsp;:
+</p>
+
+<table bgcolor="#E5E5E5" style="margin-left: 1cm;" cellpadding="5"><tr><td>
+<pre><code># /etc/fetchmailrc
+
+# General settings
+set daemon 300
+
+# Poll commands
+poll pop.free.fr protocol pop3 uidl user sebastien.millet password mypwd fetchlimit 100 is sebastien here
+poll pop.libertysurf.fr protocol pop3 uidl user smil0014_1_lsurf password myotherpwd fetchlimit 100 is sebastien here
+poll pop3.club-internet.fr protocol pop3 uidl user sebastien.millet1 password yetanotherpwd fetchlimit 100 is sebastien here
+</code></pre></td></tr></table>
+
+<p>
+Exemple d'une ligne "poll" avec exécution de sendmail à la place d'une connection TCP locale&nbsp;:
+</p>
+
+<table bgcolor="#E5E5E5" style="margin-left: 1cm;" cellpadding="5"><tr><td>
+<pre><code>poll pop.free.fr protocol pop3 user sebastien.millet password guessit fetchlimit 30 mda "/usr/sbin/sendmail -i -f %F %T" fetchall is sebastien here
+</code></pre></td></tr></table>
+
+<p>
+<b>Test régulier de l'état des boîtes aux lettres sur les serveurs</b><br>
+Ce lancement d'un fetchmail de test à intervalle régulier contrôle s'il
+reste des emails bloqués sur un compte.<br>
+Par exemple, si l'émetteur a une mauvaise syntaxe, fetchmail
+échouera à chaque envoi vers le mailer local, et laissera le message indéfiniment
+sur le serveur.<br>
+La solution est d'exécuter fetchmail en mode "check" (option -c) avec CRON,
+en lui donnant <code>/etc/fetchmailrc</code> comme fichier de configuration, et en envoyant
+sa sortie dans un mail.<br>
+Attention, si ce fichier contient la ligne "set syslog",
+l'exécution de fetchmail, bien que de type "non démon" dans ce cas (puisque lancement
+par cron), enverra la sortie vers le LOG au lieu de la sortie standard. Cela provoquera
+l'envoi d'emails... vides !<br>
+Plus haut on a activé les options accept_unresolvable_domains et accept_unqualified_senders
+afin de diminuer le risque d'être confronté à des emails jamais enlevés des serveurs.
+</p>
+
+<p>
+- Se loguer en tant qu'utilisateur fetchmail - comme c'est un pseudo-utilisateur
+sans mot de passe, se loguer en tant que root et exécuter
+<code>su - fetchmail</code>.<br>
+- Éditer la crontab de l'utilisateur fetchmail avec la commande
+<code>crontab -e</code><br>
+- Saisir le contenu ci-dessous.
+</p>
+
+<p>
+<b>Remarques</b>
+</p>
+
+<ol>
+	<li>On n'utilise pas le mécanisme d'envoi de mail par défaut de CRON, afin de définir
+le sujet de l'email à notre convenance.</li>
+	<li>Dans l'exemple ci-dessous, l'exécution est faite chaque jour à 21:30.</li>
+	<li>Le "\" devant le "%" évite la collision avec CRON qui interprète ce caractère.</li>
+	<li>Dans mon cas, POSTMASTER est redirigé vers root, qui est redirigé vers sebastien.
+Ainsi j'aurais pu mettre directement sebastien comme destinataire.</li>
+	<li>L'option --pidfile n'apporte pas grand chose, je l'ai ajoutée pour faire joli. Et alors ?</li>
+	<li>Si le lien Internet est indisponible au moment de l'exécution de cette tâche,
+un fichier vide est émis.</li>
+</ol>
+
+<table bgcolor="#E5E5E5" style="margin-left: 1cm;" cellpadding="5"><tr><td>
+<pre><code># m h  dom mon dow   command
+MAILTO=""
+30 21 * * *	/usr/bin/fetchmail -c -f /etc/fetchmailrc --pidfile /var/run/fetchmail/fetchmail-check.pid | mail -s"Statut messagerie `date +\%D`" POSTMASTER
+</code></pre></td></tr></table>
+
+<p>
+Avec cette programmation dans CRON, je reçois chaque jour à 21:30 un email comme
+celui-ci&nbsp;:
+</p>
+
+<table bgcolor="#E5E5E5" style="margin-left: 1cm;" cellpadding="5"><tr><td>
+<pre><code>Statut messagerie 06/15/06
+(fetchmail@maison-1.perouses.claix.fr, Thu Jun 15 21:30:09 2006)
+
+fetchmail: Aucun message pour sebastien.millet dans pop.free.fr
+fetchmail: Aucun message pour smil0014_1_lsurf dans pop.libertysurf.fr
+fetchmail: Aucun message pour sebastien.millet1 dans pop3.club-internet.fr
+</code></pre></td></tr></table>
+
+<h4>2.3.2 Cas avec une connexion Internet non permanente</h4>
+
+<p>
+C'est en général le cas avec les connexions RTC (par modem, à travers la ligne
+téléphonique standard).<br>
+Fetchmail doit être démarré/arrêté soit manuellement (par script), soit au moment de la
+connexion/déconnexion du lien avec le fournisseur d'accès.
+</p>
+
+<p>
+Avant de se préoccuper de démarrer/arrêter Fetchmail, il faut d'abord le
+configurer. Contrairement au fichier <code>/etc/fetchmailrc</code> décrit plus haut, ici
+le fichier de configuration est spécifique à l'utilisateur qui actionne Fetchmail,
+ce qui change légèrement le contenu.
+</p>
+
+<p>
+<b>Exemple de fichier <code>~/fetchmailrc</code></b><br>
+<i>Remarquez qu'on ne précise plus ici l'utilisateur auquel envoyer les emails
+- si nécessaire, on démarrera fetchmail avec un <code>sudo</code> pour
+définir explicitement le propriétaire du processus.<br>
+De plus on a enlevé la commande <code>set daemon</code>, car
+on précisera la période de réveil du démon en paramètre de la ligne de commande
+qui lance fetchmail.</i>
+</p>
+
+<table bgcolor="#E5E5E5" style="margin-left: 1cm;" cellpadding="5"><tr><td>
+<pre><code># /home/sebastien/.fetchmailrc
+poll pop.free.fr protocol pop3 user sebastien.millet password mypwd fetchlimit 30
+</code></pre></td></tr></table>
+
+<p>
+<b>Solutions possibles pour démarrer/arrêter Fetchmail</b>
+</p>
+
+<ol>
+	<li>A la main, par un script.</li>
+	<li>Dans les pre et post job du programme d'ouverture de la connexion
+(kppp par exemple).<br>
+Cette solution est la plus simple, mais on perd le cloisonnement entre le système
+et l'interface utilisateur.</li>
+	<li>Pre et post job de l'interface réseau, ppp en général.
+C'est ma méthode préférée - 100% automatique et c'est *le* bon
+endroit pour placer ce code.</li>
+</ol>
+
+<h5>2.3.2.1 Démarrer/arrêter Fetchmail à la main, par un script</h5>
+
+<p>
+<i>Remarquez que les noms des scripts ne contiennent pas le mot "fetchmail" intégralement,
+pour éviter que la commande <code>pgrep</code> ne renvoie le PID du script d'arrêt de fetchmail,
+ce qui le rendrait inutilisable.<br>
+Ces scripts sont minimalistes et un peu sales, des scripts plus élaborés permettent de
+contrôler de manière parfaitement fiable l'arrêt/redémarrage d'un programme donné.
+A améliorer donc...
+</i>
+</p>
+
+<p>
+<b>Script de démarrage - start_fetchm</b><br>
+</p>
+
+<table bgcolor="#E5E5E5" style="margin-left: 1cm;" cellpadding="5"><tr><td>
+<pre><code>#!/bin/sh
+#
+# /home/sebastien/scripts/start_fetchm
+#
+# Start fetchmail daemon with:
+#   Retrieval every minute
+#   Output to syslog
+#
+
+# FIXME : il faudrait ici vérifier si fetchmail n'est pas déjà lancé.
+
+/usr/bin/fetchmail -d 60 --syslog
+sleep 1
+FPID=`pgrep -u sebastien fetchmail`
+if [ "$FPID" = "" ]; then
+	echo ERROR: failed to start fetchmail.
+else
+	echo Fetchmail running with pid $FPID.
+fi
+
+echo "Press [ENTER] key."
+read
+</code></pre></td></tr></table>
+
+<p>
+<b>Script d'arrêt - stop_fetchm</b><br>
+</p>
+
+<table bgcolor="#E5E5E5" style="margin-left: 1cm;" cellpadding="5"><tr><td>
+<pre><code>#!/bin/sh
+#
+# /home/sebastien/scripts/stop_fetchm
+#
+# Stop fetchmail daemon
+#
+
+FPID=`pgrep -u sebastien fetchmail`
+if [ "$FPID" = "" ]; then
+	echo ERROR: no fetchmail process currently running.
+else
+	kill $FPID
+	sleep 1
+	FPID=`pgrep -u sebastien fetchmail`
+	if [ "$FPID" = "" ]; then
+		echo Fetchmail stopped successfully.
+	else
+		echo ERROR: failed to stop fetchmail.
+	fi
+fi
+
+echo "Press [ENTER] key."
+read
+</code></pre></td></tr></table>
+
+<h5>2.3.2.2 Démarrer/arrêter Fetchmail dans les pre et post job du programme d'ouverture de la connexion</h5>
+
+<p>
+<b>Exemple avec kppp</b> 
+</p>
+
+<p>
+Dans les paramètres du compte de kppp, page <i>Exécution</i>, champ
+<i>Après la connexion</i>, écrire la commande suivante&nbsp;:
+</p>
+
+<table bgcolor="#E5E5E5" style="margin-left: 1cm;" cellpadding="5"><tr><td>
+<pre><code>/usr/bin/sudo -H -u sebastien /usr/bin/fetchmail -d 60 --syslog
+</code></pre></td></tr></table>
+
+<p>
+Dans le champ <i>Avant la déconnexion</i>, écrire&nbsp;:
+</p>
+
+<table bgcolor="#E5E5E5" style="margin-left: 1cm;" cellpadding="5"><tr><td>
+<pre><code>kill `pgrep -u login_name fetchmail`
+</code></pre></td></tr></table>
+
+<p>
+Ces scripts supposent que kppp fait un SUID root et lance les scripts en
+tant que root. Cela rend nécessaire l'invocation de fetchmail par <code>sudo</code>.
+Du coup root doit être autorisé à faire le <code>sudo</code> en question.
+Tout cela est un peu gruiiik.<br>
+Pour éviter de passer par sudo lorsque l'utilisateur qui invoque le script n'est pas le
+bon, vous pouvez aussi préciser à la fin des lignes <i>poll</i>
+l'utilisateur local (<i>is login_name here</i>), et démarrer fetchmail avec l'option
+-f pour indiquer quel fichier de configuration utiliser.<br>
+Enfin, une dernière solution pour éviter <code>sudo</code> est d'utiliser
+<code>su&nbsp;-c</code>.<br>
+<code>sudo</code> est configuré dans <code>/etc/sudoers</code>, semble-t-il aussi dans
+<code>/etc/pam.d/sudo</code>, mais par défaut ce dernier fichier ne contient aucun test.<br>
+La commande <code>visudo</code> est recommandée pour éditer <code>/etc/sudoers</code>.<br>
+<code>su</code> est configuré dans <code>/etc/pam.d/su</code>.<br>
+Naturellement, cela est vrai seulement si vous avez installé PAM, cf.
+<a href="howto-miscellaneous-1.0.html#remarque_PAM">Remarque au sujet de PAM</a>,
+dans le document <a href="howto-miscellaneous-1.0.html">Trucs et Astuces sur Debian Testing (janvier - février 2007)</a>
+</p>
+
+<h5>2.3.2.3 Démarrer/arrêter Fetchmail dans les pre et post job de l'interface réseau</h5>
+
+<p>
+On suppose ici que l'interface réseau est ppp, ce qui correspond à un modem sur
+une ligne téléphonique standard.<br>
+Pour d'autres interfaces l'emplacement sera différent de <code>/etc/ppp/ip-{up,down}.d</code>, mais
+le principe sera le même.
+</p>
+
+<p>
+<b>Démarrage de fetchmail</b><br>
+Créer le fichier <code>/etc/ppp/ip-up.d/90<em>login_name</em></code> ci-dessous.<br>
+Droits = 755, propriétaire = root.root.<br>
+</p>
+
+<p>
+Remarque&nbsp;: le <code>sudo</code> peut être évité, cf. plus haut. 
+</p>
+
+<table bgcolor="#E5E5E5" style="margin-left: 1cm;" cellpadding="5"><tr><td>
+<pre><code>#!/bin/sh
+#
+# /etc/ppp/ip-up.d/90sebastien
+# Script to launch retrieval of new mails for sebastien account
+# Needs sebastien' .fetchmailrc file (/home/sebastien/.fetchmailrc).
+
+/usr/bin/sudo -H -u sebastien /usr/bin/fetchmail -d 60 --syslog
+</code></pre></td></tr></table>
+
+<p>
+<b>Arrêt de fetchmail</b><br>
+Créer le fichier <code>/etc/ppp/ip-down.d/90<em>login_name</em></code> ci-dessous.<br>
+Droits = 755, propriétaire = root.root.<br>
+</p>
+
+<table bgcolor="#E5E5E5" style="margin-left: 1cm;" cellpadding="5"><tr><td>
+<pre><code>#!/bin/sh
+#
+# /etc/ppp/ip-down.d/90sebastien
+# Script to stop fetchmail of sebastien
+
+kill `pgrep -u sebastien fetchmail`
+</code></pre></td></tr></table>
+
+<p>
+<b>Attention</b><br>
+Le paquetage fetchmail installe des fichiers dans <code>/etc/ppp/ip-up.d/</code> et <code>/etc/ppp/ip-down.d/</code>,
+de nom fetchmail, lorsqu'il est activé en tant que service. Si c'est le cas, il faut faire
+attention à ce qu'il n'y ait pas de contradiction entre votre script et celui-là. Comme ces
+scripts font un peu la même chose, a priori, il est illogique qu'ils existent au même
+moment.<br>
+Cela étant s'il y a besoin d'un code spécifique pour intervenir sur le démarrage/arrêt
+de fetchmail, il faut dans la mesure du possible créer un fichier spécifique plutôt que de modifier
+<code>/etc/ppp/ip-{up, down}.d/fetchmail</code>. En effet ces fichiers font partie du paquetage
+fetchmail, et s'ils sont modifiés, <i>apt</i> vous demandera quoi faire à chaque
+migration de fetchmail (à vérifier).
+</p>
+
+<h3><a name="spamassassin">2.4 Configuration de SpamAssassin</a></h3>
+
+<h4>2.4.1 Installation de SpamAssassin</h4>
+
+<p>
+Le paquetage à installer est spamassassin. Exemple d'un dpkg-query pour vérifier le paquetage installé&nbsp;:
+</p>
+
+<table bgcolor="#E5E5E5" style="margin-left: 1cm;" cellpadding="5"><tr><td>
+<pre><code>sebastien@maison-1:~$ dpkg-query -l spamassassin
+Souhait=inconnU/Installé/suppRimé/Purgé/H=à garder
+| &Eacute;tat=Non/Installé/fichier-Config/dépaqUeté/échec-conFig/H=semi-installé
+|/ Err?=(aucune)/H=à garder/besoin Réinstallation/X=les deux (&Eacute;tat,Err: majuscule=mauvais)
+||/ Nom                                 Version                             Description
++++-===================================-===================================-======================================================================================
+ii  spamassassin                        3.1.1-1                             Perl-based spam filter using text analysis
+sebastien@maison-1:~$
+</code></pre></td></tr></table>
+
+<h4><a name="h242">2.4.2 Lancement de SpamAssassin au démarrage</a></h4>
+
+<p>
+SpamAssassin peut être utilisé de deux façons&nbsp;: avec la commande <code>spamassassin</code>,
+ou bien avec la commande <code>spamc</code>, qui travaille en duo avec le démon <code>spamd</code>.
+La première méthode a l'avantage de la simplicité&nbsp;-&nbsp;pas de démon
+à démarrer&nbsp;-&nbsp;la deuxième est plus performante.<br>
+L'URL <a href="http://svn.apache.org/repos/asf/spamassassin/branches/3.1/spamd/README">
+http://svn.apache.org/repos/asf/spamassassin/branches/3.1/spamd/README</a> donne des mesures
+faites pour comparer la performance de <code>spamassassin</code> et
+<code>spamc</code>/<code>spamd</code>, en version 3.1.x. La différence est impressionnante.<br>
+C'est la deuxième méthode (<code>spamc</code>/<code>spamd</code>) que nous employons ici.<br>
+Par défaut SpamAssassin utilise une base de données (dans <code>~/.spamassassin</code>) par utilisateur.
+Il est possible de le configurer pour avoir une seule base partagée par tous, mais
+les droits sur le répertoire contenant la base sont délicats à définir. MySQL permet
+de contourner la difficulté.<br>
+Ici nous utilisons SpamAssassin avec une base par utilisateur.<br>  
+</p>
+
+<p>
+Pour lancer SpamAssassin au démarrage, faire appel à rcconf (cf. plus haut) pour cocher spamassassin.
+Ensuite modifier le fichier <code>/etc/default/spamassassin</code>.<br>
+Extrait de ce fichier, après modification&nbsp;:
+</p>
+
+<table bgcolor="#E5E5E5" style="margin-left: 1cm;" cellpadding="5"><tr><td>
+<pre><code>[...]
+ENABLED=1
+[...]
+</code></pre></td></tr></table>
+
+<h4>2.4.3 Appel de SpamAssassin juste avant le délivrement des messages</h4>
+
+<p>
+Pour passer les mails de moins de 512 Ko à SpamAssassin, avant délivrement
+à l'utilisateur, créer le fichier <code>.procmailrc</code> approprié dans la racine de son
+répertoire personnel.<br>
+Plus loin, est également donné un exemple de fichier permettant de différencier,
+avec l'aide de procmail, les SPAMs certains ("SPAM-score" >= 10 par ex.) et probables.<br>
+Fichier <code>~/.procmailrc</code> à créer&nbsp;:
+</p>
+
+<table bgcolor="#E5E5E5" style="margin-left: 1cm;" cellpadding="5"><tr><td>
+<pre><code># Run Procmail as user
+DROPPRIV=yes
+
+:0 fw
+	* < 512000
+	| /usr/bin/spamc
+</code></pre></td></tr></table>
+
+<h4>2.4.4 Configuration de SpamAssassin</h4>
+
+<table cellpadding="5" cellspacing="0" border="1">
+	<tr>
+		<td><b>Fichier</b></td>		
+		<td><b>Configuration</b></td>
+		<td><b>Exemple</b></td>
+	</tr>
+	<tr>
+		<td><code>/etc/default/spamassassin</code></td>
+		<td>Démon spamd<br>
+<i>Uniquement si utilisation de <code>spamc</code>/<code>spamd</code>, cf. <a href="#h242">2.4.2</a></i></td>
+		<td>Nombre de threads, priorité du processus (nice)</td>
+	</tr>
+	<tr>
+		<td><code>/etc/mail/spamassassin/local.cf</code></td>
+		<td>Réglage du filtrage</td>		
+		<td>Ajout de *SPAM* au sujet, définition des scores pour certaines règles</td>
+	</tr>
+	<tr>
+		<td><code>~/.spamassassin/user_prefs</code></td>		
+		<td>Réglage du filtrage par utilisateur</td>
+		<td>Idem que <code>/etc/mail/spamassassin/local.cf</code>, mais par utilisateur</td>
+	</tr>
+</table>
+
+<ul>
+	<li><code>~/.spamassassin/user_prefs</code> est créé automatiquement s'il n'existe pas,
+avec les droits 666. Ce comportement par défaut peut être changé dans
+<code>/etc/mail/spamassassin/local.cf</code>.</li>
+	<li>En cas de réception massive d'emails (plus de mille d'un coup), des lignes<br>
+<code>[...] spamd[...]: prefork: server reached --max-children setting, consider raising it</code><br>
+apparaissaient dans le fichier <code>/var/log/mail.log</code>. Cette erreur était corrélée à une baisse
+de performance de SpamAssassin dans le taux de détection des SPAMs.<br>
+Pour passer le nombre de threads de 5 à 20, J'ai défini la ligne OPTIONS
+du fichier <code>/etc/default/spamassassin</code> ainsi&nbsp;:<br>
+<code>OPTIONS="--create-prefs --max-children 20 --helper-home-dir"</code></li>
+	<li>Pour augmenter la taille de la base de données, j'ai ajouté
+le paramètre suivant au fichier <code>~/.spamassassin/user_prefs</code>&nbsp;:<br>
+<code>bayes_expiry_max_db_size	500000</code>.</li>
+	<li>Avec l'option <b>required_score</b> à 4.0 et le test BAYES_99 défini à 4.0 de même,
+les emails BAYES_99 sont considérés à coup sûr comme des SPAMs.</li>
+	<li>SpamAssassin attend par défaut d'avoir eu 200 emails légitimes
+et 200 SPAMs avant de prendre en compte les tests baysiens. Pour modifier cette valeur,
+j'ai défini les paramètres <b>bayes_min_ham_num</b> et <b>bayes_min_spam_num</b>. Tant
+que le nombre n'est pas atteint, le log (en mode debug) indique des lignes telles que<br>
+<code>[...] spamd[...]: bayes: not available for scanning, only 164 ham(s) in bayes DB < 200</code></li>
+	<li>Pour lancer le démon en mode debug, ajouter l'option <b>-D</b> au paramètre OPTIONS, fichier
+<code>/etc/default/spamassassin</code>.</li>
+</ul>
+
+<p>
+<b>Mon fichier <code>/etc/default/spamassassin</code></b>
+</p>
+
+<table bgcolor="#E5E5E5" style="margin-left: 1cm;" cellpadding="5"><tr><td>
+<pre><code># /etc/default/spamassassin
+# Duncan Findlay
+
+# WARNING: please read README.spamd before using.
+# There may be security risks.
+
+# Change to one to enable spamd
+ENABLED=1
+
+# Options
+# See man spamd for possible options. The -d option is automatically added.
+
+# SpamAssassin uses a preforking model, so be careful! You need to
+# make sure --max-children is not set to anything higher than 5,
+# unless you know what you're doing.
+
+OPTIONS="--create-prefs --max-children 20 --helper-home-dir"
+
+# Pid file
+# Where should spamd write its PID to file? If you use the -u or
+# --username option above, this needs to be writable by that user.
+# Otherwise, the init script will not be able to shut spamd down.
+PIDFILE="/var/run/spamd.pid"
+
+# Set nice level of spamd
+#NICE="--nicelevel 15"
+</code></pre></td></tr></table>
+
+<p>
+<b>Mon fichier <code>/etc/mail/spamassassin/local.cf</code></b>
+</p>
+
+<table bgcolor="#E5E5E5" style="margin-left: 1cm;" cellpadding="5"><tr><td>
+<pre><code># This is the right place to customize your installation of SpamAssassin.
+#
+# See 'perldoc Mail::SpamAssassin::Conf' for details of what can be
+# tweaked.
+#
+# Only a small subset of options are listed below
+#
+###########################################################################
+
+#   Add *****SPAM***** to the Subject header of spam e-mails
+#
+# rewrite_header Subject *****SPAM*****
+
+
+#   Save spam messages as a message/rfc822 MIME attachment instead of
+#   modifying the original message (0: off, 2: use text/plain instead)
+#
+# report_safe 1
+
+
+#   Set which networks or hosts are considered 'trusted' by your mail
+#   server (i.e. not spammers)
+#
+# trusted_networks 212.17.35.
+
+
+#   Set file-locking method (flock is not safe over NFS, but is faster)
+#
+# lock_method flock
+
+
+#   Set the threshold at which a message is considered spam (default: 5.0)
+#
+required_score 4.0
+
+
+#   Use Bayesian classifier (default: 1)
+#
+use_bayes 1
+
+
+#   Bayesian classifier auto-learning (default: 1)
+#
+bayes_auto_learn 1
+
+
+#   Set headers which may provide inappropriate cues to the Bayesian
+#   classifier
+#
+bayes_ignore_header X-Bogosity
+bayes_ignore_header X-Spam-Flag
+bayes_ignore_header X-Spam-Status
+bayes_ignore_header X-Spam-Level
+bayes_ignore_header X-Spam-HighScore
+</code></pre></td></tr></table>
+
+<p>
+<b>Mon fichier <code>/home/sebastien/.spamassassin/user_prefs</code></b>
+</p>
+
+<table bgcolor="#E5E5E5" style="margin-left: 1cm;" cellpadding="5"><tr><td>
+<pre><code># SpamAssassin user preferences file.  See 'perldoc Mail::SpamAssassin::Conf'
+# for details of what can be tweaked.
+###########################################################################
+
+# Whitelist and blacklist addresses are now file-glob-style patterns, so
+# "friend@somewhere.com", "*@isp.com", or "*.domain.net" will all work.
+# whitelist_from	someone@somewhere.com
+
+# Add your own customised scores for some tests below.  The default scores are
+# read from the installed spamassassin rules files, but you can override them
+# here.  To see the list of tests and their default scores, go to
+# http://spamassassin.apache.org/tests.html .
+#
+# score SYMBOLIC_TEST_NAME n.nn
+
+# Speakers of Asian languages, like Chinese, Japanese and Korean, will almost
+# definitely want to uncomment the following lines.  They will switch off some
+# rules that detect 8-bit characters, which commonly trigger on mails using CJK
+# character sets, or that assume a western-style charset is in use. 
+# 
+# score HTML_COMMENT_8BITS	0
+# score UPPERCASE_25_50		0
+# score UPPERCASE_50_75		0
+# score UPPERCASE_75_100	0
+# score OBSCURED_EMAIL          0
+
+# Speakers of any language that uses non-English, accented characters may wish
+# to uncomment the following lines.   They turn off rules that fire on
+# misformatted messages generated by common mail apps in contravention of the
+# email RFCs.
+
+# score SUBJ_ILLEGAL_CHARS      0
+
+score BAYES_99	4.0
+
+bayes_expiry_max_db_size	500000
+
+bayes_min_ham_num	100
+bayes_min_spam_num	150
+</code></pre></td></tr></table>
+
+<p>
+<b>Problème avec SpamAssassin sur Testing 2007 (janvier - mars)</b><br>
+SpamAssassin ne se connecte pas au réseau.
+</p>
+
+<p>
+Il manque le module PERL <code>Net::DNS::Resolver</code>, cela est visible
+en activant le debug DNS (<b>-D dns</b> ajouté aux options de <code>spamd</code>).
+Dans le log on trouve cette ligne&nbsp;:<br>
+<code>[...] spamd[...]: dns: is Net::DNS::Resolver available? no</code><br>
+Pour corriger cela, installer le paquetage libnet-dns-perl.
+</p>
+
+<h4>2.4.5 Entraînement de SpamAssassin</h4>
+
+<p>
+Pour être efficace, l'algorithme baysien (BAYES) doit être nourri avec des emails
+légitimes (HAMs), et avec des pourriels (SPAMs). Avec cette base d'emails des deux
+types, l'algorithme calcule une probabilité pour qu'un email examiné soit du SPAM,
+en fonction de la "distance" aux HAMs et aux SPAMs. L'algorithme est fort complexe.<br>
+La commande <code>sa-learn</code> entraîne SpamAssassin.
+<code>sa-learn --ham</code> pour nourrir la base avec des emails légitimes,
+<code>sa-learn --spam</code> pour nourrir la base avec des SPAMs.<br>
+<code>sa-learn</code> peut être employé de deux manières.
+</p>
+
+<ol>
+	<li><b>Filtres</b><br>
+Les programmes de Mail évolués (KMail, evolution, ...) permettent de
+créer des filtres pour appliquer une commande donnée aux messages
+sélectionnés. Conseil&nbsp;: mieux vaut les premières fois envoyer le résultat
+de la commande dans un fichier journal (log), pour s'assurer que le
+filtre fait son travail. C'est énervant de découvrir au bout de 1 mois que
+l'apprentissage ne se fait pas, à cause d'un problème de droits sur
+le fichier des tokens (<code>~/.spamassassin/bayes_toks</code>). C'est du vécu ;-).
+	<ul>
+		<li><b>Avantages</b><br>
+- Une commande <code>sa-learn</code> est exécutée pour traiter un email,
+et un seul, envoyé sur l'entrée standard. Pas besoin de savoir quel format
+de base courrier le programme utilise.</li>
+		<li><b>Inconvénients</b><br>
+- Pas d'automatisme<br>
+- Performance faible.
+	</ul>
+	</li>
+	<li><b>Ligne de commande - script</b><br>
+Vous pouvez demander à <code>sa-learn</code> de lire directement votre base courrier.<br>
+<code>sa-learn</code> reconnaît les formats mbox et mbx ainsi que les formats
+"un fichier par email" tels que Maildir, cf. plus loin.<br>
+	<ul>
+		<li><b>Avantages</b><br>
+- Permet d'automatiser la prise en compte de toute la base courrier,
+avec un seul script.<br>
+- Bonne performance.</li>
+		<li><b>Inconvénient</b><br>
+- Dépend du format de base courrier.
+	</ul>
+	</li>
+</ol>
+
+<h5>2.4.5.1 Entraînement de SpamAssassin avec des filtres</h5>
+
+<p>
+Ci-dessous, commande <code>sa-learn</code> lancée par le filtre "Apprends HAM",
+créé dans KMail.
+</p>
+
+<table bgcolor="#E5E5E5" style="margin-left: 1cm;" cellpadding="5"><tr><td>
+<pre><code>echo "Learning HAM..." &gt;&gt; ~/sa-learn.debug ; /usr/bin/sa-learn --ham &gt;&gt; ~/sa-learn.debug 2&gt;&amp;1
+</code></pre></td></tr></table>
+
+<p>
+L'option <b>-D</b> (debug) produit une grande quantité d'informations (non utilisée ici).<br>
+Après application du filtre à un ensemble d'emails, le fichier
+<code>~/sa-learn.debug</code> contient le journal de <code>sa-learn</code>.<br>
+La redirection en mode ajout ("&gt;&gt;") permet de conserver tous les résultats,
+même si le filtre est appliqué à plusieurs emails simultanément.<br> 
+Pour l'apprentissage des SPAMs, remplacer <code>--ham</code> par
+<code>--spam</code>.
+</p>
+
+<h5>2.4.5.2 Entraînement de SpamAssassin en ligne de commande</h5>
+
+<p>
+Les commandes à exécuter dépendent du format de base courrier. Il existe de
+nombreux formats, et il n'est pas toujours facile de s'y retrouver.
+L'URL <a href="http://www.washington.edu/imap/documentation/formats.txt.html">
+http://www.washington.edu/imap/documentation/formats.txt.html</a> est datée
+(1999) mais donne des informations intéressantes sur les formats existants.</p>
+
+<p>
+Passons à un aperçu rapide (et non exhaustif) des formats que l'on rencontre.
+</p>
+
+<p>
+<b>Formats de base courrier</b>
+</p>
+
+<ul>
+	<li><b>Mbox</b><br>
+C'est le format historique sur UNIX, et c'est celui employé par
+le programme <code>mail</code>. Un seul fichier contient
+tous les emails. Documentation&nbsp;: <a href="http://en.wikipedia.org/wiki/Mbox">
+http://en.wikipedia.org/wiki/Mbox</a>.<br>
+<code>sa-learn</code> reconnaît ce format, avec l'option --mbox.</li>
+	<li><b>Mbx</b><br>
+C'est le format des programmes Eudora, pine, et bien d'autres.<br>
+<code>sa-learn</code> le reconnaît, avec l'option --mbx.
+	<li><b>Maildir</b><br>
+En général ce format contient un fichier par email, chaque dossier étant un répertoire.
+En fait un dossier peut être au format mbox, à l'intérieur d'une arborescence Maildir,
+ce qui complique les choses.
+Documentation&nbsp;: <a href="http://en.wikipedia.org/wiki/Maildir">
+http://en.wikipedia.org/wiki/Maildir</a>.<br>
+<code>sa-learn</code> reconnaît ce format (tant qu'il n'y a pas de dossier au format mbox
+dans l'arborescence), sans préciser d'option.</li>
+	<li><b>MH</b><br>
+D'après Wiki, ce format est conçu pour faciliter les traitements des emails par des
+petits programmes, dont des scripts. Documentation&nbsp;:
+<a href="http://en.wikipedia.org/wiki/MH_Message_Handling_System">
+http://en.wikipedia.org/wiki/MH_Message_Handling_System</a>.<br>
+<code>sa-learn</code> reconnaît ce format (non vérifié), sans option.</li>
+</ul>
+
+<p>
+<b>Exemple de script</b>
+</p>
+
+<p>
+Le script ci-dessous envoie quasiment toute la base courrier à <code>sa-learn</code>.<br>
+Les SPAMs doivent se trouver dans n'importe quel fichier ou sous-répertoire
+de <code>~/Mail/spam*</code>, les HAMs pris en compte sont n'importe où ailleurs,
+à l'exception de quelques dossiers spéciaux tels que Envoyés (sent),
+brouillons (drafts), etc., qui sont ignorés.
+</p>
+
+<table bgcolor="#E5E5E5" style="margin-left: 1cm;" cellpadding="5"><tr><td>
+<pre><code>#!/bin/sh
+#
+# ~/scripts/sal
+#
+# Learn SPAM and HAM emails of my email account, of type MAILDIR.
+#
+# This script assumes SPAM emails are located in any spam* folder (under $MAILDIR)
+# And it will consider all other folders except drafts, outbox, sent-mail and trash, as a
+# HAM email source.
+# Therefore any folder other than the above will be taken as a HAM reference, *INCLUDING THE inbox FOLDER*.
+# Names given above are case insensitive (egrep is invoked with -i option).
+# The root ($MAILDIR itself) is ignored.
+# Only directories ending by /cur are processed.
+#
+# Previous version did not manage directories containing space characters correctly.
+# Now it works fine.
+#
+
+MAILDIR="$HOME/Mail"
+
+# Remove comments below if you wish to sync your database before proceeding.
+# echo "Syncing database..."
+# sa-learn --sync
+
+cd $MAILDIR
+
+echo "Learning SPAM emails..."
+find . -type d | egrep -i "^\.\/\.?spam.*\/cur$" | while read d; do
+	echo SPAM:$d
+	sa-learn --showdots --spam "$d"
+done
+
+echo "Learning HAM emails..."
+find . -type d | egrep -iv "^\.(\/(drafts|outbox|sent-mail|trash|\.?spam[^/]*)(\/|$)|$)" | egrep "/cur$" | while read d; do
+	echo HAM:$d
+	sa-learn --showdots --ham "$d"
+done
+
+echo "Press [ENTER] key."
+read
+</code></pre></td></tr></table>
+
+<h4>2.4.6 Différencier plusieurs types de SPAM avec procmail</h4>
+
+<p>
+Avec SpamAssassin, lorsqu'un SPAM est détecté, le champ <b>X-Spam-Level</b>
+contient un nombre d'étoiles égal au score. Cela va permettre à procmail de
+déclencher des actions à partir d'un certain nombre d'étoiles.<br>
+Ci-dessous, un fichier <code>~/.procmailrc</code> pour ajouter "X-Spam-HighScore : YES"
+aux en-têtes des emails quand le "SPAM-score" est supérieur ou égal à 10.
+</p>
+
+<table bgcolor="#E5E5E5" style="margin-left: 1cm;" cellpadding="5"><tr><td>
+<pre><code># Run Procmail as user
+DROPPRIVS=yes
+
+# Limit above which to add "X-Spam-HighScore: YES" header to emails
+# Replace 10 by any suitable value.
+STARS=`s=""; for ((i=1; $i<=10; i++)); do s="\*"$s; done; echo $s`
+
+:0 fw
+	* < 512000
+	| /usr/bin/spamc
+
+:0 fHh
+	* $^X-Spam-Level *: *$STARS
+	| formail -A"X-Spam-HighScore: YES"
+</code></pre></td></tr></table>
+
+<p>
+Il pourrait sembler plus simple d'utiliser une expression telle que
+"*&nbsp;^X-Spam-Level&nbsp;*:&nbsp;*\*{10,}"
+pour détecter dix étoiles et plus (la virgule précédant l'accolade fermante est
+optionnelle, je vous laisse deviner pourquoi), mais ça ne fonctionne pas !
+Idem pour l'espace entourant le ":", que l'on devrait plutôt écrire
+[[:space:]], mais ça ne fonctionne pas non plus.<br>
+Si la méthode choisie vous défrise (elle est peu performante), vous
+pouvez remplacer la ligne<br>
+<table bgcolor="#E5E5E5" style="margin-left: 1cm;" cellpadding="5"><tr><td>
+<pre><code>	* $^X-Spam-Level *: *$STARS
+</code></pre></td></tr></table>
+par
+<table bgcolor="#E5E5E5" style="margin-left: 1cm;" cellpadding="5"><tr><td>
+<pre><code>	* ^X-Spam-Level *: *\*\*\*\*\*\*\*\*\*\*
+</code></pre></td></tr></table>
+
+<p>
+et bien sûr supprimer la ligne
+</p>
+
+<table bgcolor="#E5E5E5" style="margin-left: 1cm;" cellpadding="5"><tr><td>
+<pre><code>STARS=`s=""; for ((i=1; $i<=10; i++)); do s="\*"$s; done; echo $s`
+</code></pre></td></tr></table>
+
+<p>
+Remarquez que l'on a enlevé le $ qui précède l'expression. Il permet la
+substitution de $STARS en sa valeur.<br>
+Il ne reste plus qu'à différencier les emails possédant l'en-tête
+X-Spam-HighScore:&nbsp;YES, en les classant dans un dossier
+spam-highscore par exemple. Cette opération nécessite
+un filtre, cf. <a href="#uimail">2.5 Programme de mail (GUI)</a>
+</p>
+
+<p>
+Fichier <code>~/.procmailrc</code> pour supprimer les emails dont le score est supérieur ou égal
+à 10.<br>
+* Attention *<br>
+Cet exemple est à utiliser avec précaution, une erreur dans le test et des emails légitimes
+pourraient être supprimés.
+</p>
+
+<table bgcolor="#E5E5E5" style="margin-left: 1cm;" cellpadding="5"><tr><td>
+<pre><code># Run Procmail as user
+DROPPRIVS=yes
+
+# Limit above which to add "X-Spam-HighScore: YES" header to emails
+# Replace 10 by any suitable value.
+STARS=`s=""; for ((i=1; $i<=10; i++)); do s="\*"$s; done; echo $s`
+
+:0 fw
+	* < 512000
+	| /usr/bin/spamc
+
+:0 fHh
+	* $^X-Spam-Level *: *$STARS
+	/dev/null
+</code></pre></td></tr></table>
+
+<p>
+Pour plus de sécurité, vous pouvez aussi ajouter un test vérifiant que l'email
+a bien été détecté comme étant du SPAM - si par erreur le test comptant les étoiles
+de X-Spam-Level se révèle toujours "VRAI", seuls les SPAMs seront supprimés. Fichier&nbsp;:
+</p>
+
+<table bgcolor="#E5E5E5" style="margin-left: 1cm;" cellpadding="5"><tr><td>
+<pre><code># Run Procmail as user
+DROPPRIVS=yes
+
+# Limit above which to add "X-Spam-HighScore: YES" header to emails
+# Replace 10 by any suitable value.
+STARS=`s=""; for ((i=1; $i<=10; i++)); do s="\*"$s; done; echo $s`
+
+:0 fw
+	* < 512000
+	| /usr/bin/spamc
+
+:0 fHh
+	* $^X-Spam-Level *: *$STARS
+	* ^X-Spam-Flag *: *YES
+	/dev/null
+</code></pre></td></tr></table>
+
+<h4>2.4.7 Étudier les SPAMs</h4>
+
+<h5>Script sa-stats.pl</h5>
+
+<p>
+L'URL <a href="http://wiki.apache.org/spamassassin/StatsAndAnalyzers">
+http://wiki.apache.org/spamassassin/StatsAndAnalyzers</a>, accessible depuis la FAQ
+du site SpamAssassin, lien de nom <i>StatsAndAnalyzers</i>, donne de nombreux scripts
+d'analyse. En général, ils analysent les journaux (logs) du démon spamd.<br>
+Ce sont souvent des usines à gaz, adaptées à des serveurs traitant des volumes importants
+d'emails.<br>
+Pour un particulier, le script <code>sa-stats.pl</code> est simple et rapide. Attention, il en
+existe deux&nbsp;:
+</p>
+
+<ol>
+	<li>Le script mentionné comme faisant partie du paquetage SpamAssassin (mais il n'en fait
+pas partie sur ma distribution Debian Etch), accessible à l'URL
+<a href="http://spamassassin.apache.org/full/3.1.x/dist/tools/sa-stats.pl">
+http://spamassassin.apache.org/full/3.1.x/dist/tools/sa-stats.pl</a> (pour SpamAssassin
+version 3.1.x).<br>
+Ce script indique, heure par heure, le nombre de SPAMs reçus. Pour un particulier,
+il n'est pas très intéressant.</li>
+	<li>Le script "Dallas Engelken's version", accessible depuis la page <i>StatsAndAnalyzers</i>
+du site de SpamAssassin (FAQ), URL du script
+<a href="http://www.rulesemporium.com/programs/sa-stats.txt">
+http://www.rulesemporium.com/programs/sa-stats.txt</a> (enregistrer la cible sous le nom
+sa-stats.pl).<br>
+Ce script indique quelles règles interviennent dans l'identification de SPAM et de HAM, en les
+affichant par nombre d'occurrences décroissant.</li>
+</ol>
+
+<p>
+C'est le deuxième script ("Dallas Engelken") que nous allons employer.<br>
+Dans les exemples ci-dessous, nous supposons que les journaux se trouvent
+dans <code>/var/log/mail.log*</code>, et que logrotate les gzip régulièrement - c'est la
+configuration par défaut. Enfin, le script sa-stats.pl se situe dans le répertoire
+courant.
+</p>
+
+<table bgcolor="#E5E5E5" style="margin-left: 1cm;" cellpadding="5"><tr><td>
+<pre><code>	<i>Analyse le journal en cours</i>
+./sa-stats.pl -f mail.log
+
+	<i>Analyse tous les journaux disponibles</i>
+zcat /var/log/mail.log.*.gz > ~/tmplog
+cat /var/log/mail.log.0 /var/log/mail.log >> ~/tmplog
+./sa-stats.pl -l ~ -f tmplog
+
+	<i>Exemple avec résultat - analyse d'anciens journaux</i>
+maison-1:~# zcat /var/log/mail.log.*.gz > ~/tmplog
+maison-1:~# ./sa-stats.pl -n 5 -l ~ -f tmplog
+Email:     5016  Autolearn:  3104  AvgScore:  21.84  AvgScanTime:  3.03 sec
+Spam:      4643  Autolearn:  3035  AvgScore:  23.50  AvgScanTime:  3.14 sec
+Ham:        373  Autolearn:    69  AvgScore:   1.20  AvgScanTime:  1.62 sec
+
+Time Spent Running SA:         4.22 hours
+Time Spent Processing Spam:    4.05 hours
+Time Spent Processing Ham:     0.17 hours
+
+TOP SPAM RULES FIRED
+----------------------------------------------------------------------
+RANK    RULE NAME                       COUNT  %OFMAIL %OFSPAM  %OFHAM
+----------------------------------------------------------------------
+   1    HTML_MESSAGE                     3296    69.56   70.99   51.74
+   2    RCVD_IN_XBL                      2366    47.19   50.96    0.27
+   3    DNS_FROM_RFC_ABUSE               2237    46.35   48.18   23.59
+   4    SUBJ_ILLEGAL_CHARS               2125    42.36   45.77    0.00
+   5    MIME_HTML_ONLY                   1935    40.25   41.68   22.52
+----------------------------------------------------------------------
+
+TOP HAM RULES FIRED
+----------------------------------------------------------------------
+RANK    RULE NAME                       COUNT  %OFMAIL %OFSPAM  %OFHAM
+----------------------------------------------------------------------
+   1    HTML_MESSAGE                      193    69.56   70.99   51.74
+   2    AWL                               130     4.65    2.22   34.85
+   3    DNS_FROM_RFC_ABUSE                 88    46.35   48.18   23.59
+   4    MIME_HTML_ONLY                     84    40.25   41.68   22.52
+   5    ALL_TRUSTED                        47     0.96    0.02   12.60
+----------------------------------------------------------------------
+
+
+maison-1:~#
+
+	<i>Autre exemple avec résultats - uniquement journaux récents</i>
+maison-1:~# cat /var/log/mail.log.0 /var/log/mail.log > ~/tmplog
+maison-1:~# ./sa-stats.pl -n 5 -l ~ -f tmplog
+Email:     1805  Autolearn:  1198  AvgScore:  24.56  AvgScanTime:  5.26 sec
+Spam:      1733  Autolearn:  1153  AvgScore:  25.63  AvgScanTime:  5.25 sec
+Ham:         72  Autolearn:    45  AvgScore:  -1.29  AvgScanTime:  5.46 sec
+
+Time Spent Running SA:         2.64 hours
+Time Spent Processing Spam:    2.53 hours
+Time Spent Processing Ham:     0.11 hours
+
+TOP SPAM RULES FIRED
+----------------------------------------------------------------------
+RANK    RULE NAME                       COUNT  %OFMAIL %OFSPAM  %OFHAM
+----------------------------------------------------------------------
+   1    BAYES_99                         1683    93.63   97.11    9.72
+   2    HTML_MESSAGE                     1147    64.71   66.19   29.17
+   3    RCVD_IN_XBL                      1019    56.45   58.80    0.00
+   4    DNS_FROM_RFC_ABUSE                891    49.70   51.41    8.33
+   5    MIME_HTML_ONLY                    837    46.98   48.30   15.28
+----------------------------------------------------------------------
+
+TOP HAM RULES FIRED
+----------------------------------------------------------------------
+RANK    RULE NAME                       COUNT  %OFMAIL %OFSPAM  %OFHAM
+----------------------------------------------------------------------
+   1    BAYES_00                           57     3.16    0.00   79.17
+   2    AWL                                54     4.54    1.62   75.00
+   3    ALL_TRUSTED                        35     1.99    0.06   48.61
+   4    HTML_MESSAGE                       21    64.71   66.19   29.17
+   5    NO_REAL_NAME                       12    11.19   10.96   16.67
+----------------------------------------------------------------------
+
+
+maison-1:~#
+</code></pre></td></tr></table>
+
+<p>
+On voit dans ces deux exemples que l'apprentissage
+baysien (règles BAYES_nn) et l'auto-whitelist (AWL) monte en puissance
+avec le temps.<br>
+L'URL <a href="http://spamassassin.apache.org/tests.html">
+http://spamassassin.apache.org/tests.html</a> décrit tous les tests
+effectués par SpamAssassin, par défaut. 
+</p>
+
+<h5>Quel score BAYES en général ?</h5>
+
+<p>Exécuter la commande</p>
+<table bgcolor="#E5E5E5" style="margin-left: 1cm;" cellpadding="5"><tr><td>
+<pre><code>egrep "spamd.*result:.*\&lt;bayes=" /var/log/mail.log | sed 's/.*bayes=\([0-9.e-]\+\).*/\1/' | sed 's/.*e-.*/0/' | sort -nr | cat -n
+	<i>Ou bien, pour parcourir les LOGs gzippés</i>
+zcat /var/log/mail.log.*.gz | egrep "spamd.*result:.*\&lt;bayes=" | sed 's/.*bayes=\([0-9.e-]\+\).*/\1/' | sed 's/.*e-.*/0/' | sort -nr | cat -n
+</code></pre></td></tr></table>
+
+<p>
+J'ai pu voir avec cette commande que la plupart des SPAMs avaient un score proche de 1,
+ce qui confirme la pertinence du test baysien. Cela nous amène logiquement à la rubrique
+suivante.
+</p>
+
+<h5>SpamAssassin en mode local</h5>
+
+<p>
+Puisque BAYES et AWL font tout, autant aller jusqu'au bout de la logique et demander à SpamAssassin
+de ne plus faire appel aux tests réseau (RBL, razor, etc.) pour examiner un email. Les règles
+habituelles, ainsi que l'apprentissage BAYES, devraient suffire.<br>
+Lorsque le démon SpamAssassin (spamd) est invoqué avec l'option -L, aucune connexion réseau
+n'est faite. Pour passer ce paramètre au démon démarré en tant que service, modifier le
+fichier <code>/etc/default/spamassassin</code>. Remplacer la ligne<br>
+<code>OPTIONS="--create-prefs --max-children 20 --helper-home-dir"</code><br>
+par<br>
+<code>OPTIONS="--create-prefs --max-children 20 --helper-home-dir -L"</code>
+</p>
+
+<p>
+Ensuite, il est préférable de configurer l'affectation des scores en
+conséquence, dans le fichier <code>/etc/mail/spamassassin/local.cf</code>.<br>
+Dans l'exemple qui suit les scores sont tels qu'à partir de bayes=95%,
+un email est d'office classé SPAM, et à partir de bayes=80%, il suffit
+d'un rien pour le passer en SPAM.
+</p>
+
+<table bgcolor="#E5E5E5" style="margin-left: 1cm;" cellpadding="5"><tr><td>
+<pre><code>[...]
+required_score		4
+
+# Il m'arrive de recevoir des emails en hongrois ou en anglais
+ok_languages fr hu en
+
+score BAYES_00	-4.0
+score BAYES_05	-2.0
+score BAYES_20	-1.0
+score BAYES_40	-0.5
+score BAYES_50	0.001
+score BAYES_60	1.5
+score BAYES_80	3.9
+score BAYES_95	4.1
+score BAYES_99	5.0
+[...]
+</code></pre></td></tr></table>
+
+<p>
+L'absence de test réseau diminue la précision, et j'obtiens
+plus de faux négatifs (SPAMs non identifiés), de manière significative.<br>
+La durée moyenne de test d'un email par spamd passe de
+3,50 secondes à 0,77 secondes, avec un lien ADSL d'environ 1Mbps.<br>
+Le test baysien demeure efficace car je reçois des dizaines de SPAMs par jour.
+Pour un volume plus faible (quelques SPAMs par jour), je suppose que le test
+baysien est moins pertinent - c'est une hypothèse.<br>
+J'ai quand même remis en route les tests réseau, pour un meilleur taux de
+détection, et en particulier, une meilleure identification des SPAMs certains
+(score >= 10), que je n'examine pas. Mais configurer SpamAssassin pour
+une utilisation "isolée" est utile si la connexion Internet est poussive.
+</p>
+
+<h3><a name="uimail">2.5 Programme de mail (GUI)</a></h3>
+
+<p>
+<b>Configuration du programme de Mail (KMail, evolution, etc.)</b><br>
+</p>
+
+<p>
+<b>Réception d'emails</b><br>
+Indiquer un compte de type "boîte aux lettres locale",
+dont le dépôt se trouve typiquement dans <code>/var/spool/mail/<em>login_utilisateur</em></code>.<br>
+Pour la méthode de verrouillage, j'ai choisi FCNTL car... ça marche !
+</p>
+
+<p>procmail peut être configuré (dans <code>~/.procmailrc</code>) pour délivrer les emails
+directement au bon endroit, <code>~/Mail</code> par exemple. De plus si l'on en croit
+certains commentaires disponibles sur Internet, le format employé dans
+<code>/var/spool/mail</code>, qui stocke les emails dans un seul fichier par utilisateur,
+est mauvais en termes de sécurité.<br>
+Personnellement je préfère laisser le programme de Mail (KMail) gérer lui-même
+<code>~/Mail</code>, et ne pas laisser procmail mettre ses pattes dedans. Donc je laisse
+la configuration par défaut, et les emails passent par <code>/var/spool/mail</code>.
+</p>
+
+<p>
+<b>Envoi d'emails</b><br>
+Vous pouvez soit invoquer directement sendmail, soit
+faire l'envoi à sendmail par le MSA (mailer local, sur le port 587).<br>
+</p>
+
+<p>
+<b>Solution 1</b><br>
+Indiquer un envoi de type "sendmail". Attention, dans ce cas
+sendmail ajoutera un X-Authentication-Warning dans les en-têtes de chaque
+email émis, du fait de l'option -f utilisée par le programme à l'invocation de
+sendmail (pour définir l'émetteur de l'email).<br>
+Pour éviter cet avertissement, ajouter le nom des utilisateurs
+susceptibles d'invoquer sendmail directement dans le fichier
+<code>/etc/mail/trusted-users</code>.
+</p>
+
+<p>
+<b>Solution 2</b><br>
+Indiquer un envoi SMTP sur le serveur "localhost" (ou le nom d'hôte,
+ou encore 127.0.0.1, c'est la même chose), port 587.
+Le port 25 (MTA) fonctionne également mais le MSA est là pour ça.
+</p>
+
+<p>
+<b>Classement automatique dans le dossier spam</b><br>
+Pour envoyer dans le dossier spam tous les emails détectés comme SPAM,
+créer un filtre avec le critère&nbsp;:
+</p>
+<table bgcolor="#E5E5E5" style="margin-left: 1cm;" cellpadding="5"><tr><td>
+<pre><code>X-Spam-Flag=YES
+Action : classer dans le dossier spam.
+</code></pre></td></tr></table>
+
+<hr>
+
+<h2><a name="plus">3 Aller plus loin</a></h2>
+
+<h3><a name="debug">3.1 Débogage</a></h3>
+
+<h4>3.1.1 Logs messagerie</h4>
+
+<p>
+Le fonctionnement du système de log est paramétré dans
+<code>/etc/syslog.conf</code>.<br>
+Sendmail (sur Debian) est configuré par défaut pour renseigner les fichiers<br>
+<code>/var/log/mail.info</code>, <code>/var/log/mail.log</code>, <code>/var/log/mail.warn</code>
+et <code>/var/log/mail.err</code>.<br>
+<code>mail.log</code> et <code>mail.info</code> sont identiques.<br>
+Pour suivre ce qui se passe dans la messagerie, exécuter en tant que root&nbsp;:
+</p>
+
+<table bgcolor="#E5E5E5" style="margin-left: 1cm;" cellpadding="5"><tr><td>
+<pre><code>tail -f /var/log/mail.log
+	ou
+tail -f /var/log/mail.log | egrep -i sendmail\\\[[0-9]+\\\]
+	ou bien
+tail -f /var/log/mail.log | egrep -i sm-mta\\\[[0-9]+\\\]
+	ou encore
+tail -f /var/log/mail.log | egrep -i "(sendmail|sm-mta)\[[0-9]+\]"
+	et pour finir, une recherche dans plusieurs fichiers simultanément
+tail -f /var/log/mail.{log,err,warn} | egrep -i "(sendmail|sm-mta)\[[0-9]+\]"
+</code></pre></td></tr></table>
+
+<p>
+Faire de même pour suivre Fetchmail et SpamAssassin, en recherchant les occurrences
+de fetchmail et spamd, respectivement.<br>
+Pour tout loguer dans <code>/var/log/mail.log</code> indistinctement, modifier
+<code>/etc/syslog.conf</code> ainsi&nbsp;:
+</p>
+
+<table bgcolor="#E5E5E5" style="margin-left: 1cm;" cellpadding="5"><tr><td>
+<pre><code>[...]
+mail.*				-/var/log/mail.log
+[...]
+# mail.info			-/var/log/mail.info
+# mail.warn			-/var/log/mail.warn
+# mail.err			/var/log/mail.err
+[...]
+</code></pre></td></tr></table>
+
+<h4>3.1.2 Tests avec le programme "mail"</h4>
+
+<p>
+Pour envoyer un email depuis la ligne de commande, en tant qu'utilisateur standard
+(on ne sait jamais ; peut-être que certains problèmes apparaissent uniquement
+en l'absence des privilèges root), exécuter la commande
+<code>mail -v destinataire</code>.<br>
+Entrer le sujet, puis écrire le corps du message - terminer par un saut de ligne,
+un point, un saut de ligne. L'option -v affiche les informations de débogage de sendmail.
+L'envoi doit fonctionner aussi bien pour un utilisateur local que distant.<br>
+Dans l'exemple ci-dessous, l'envoi à POSTMASTER provoque le délivrement à l'utilisateur
+local sebastien, car POSTMASTER est redirigé vers root, lequel est redirigé vers sebastien.
+</p>
+
+<table bgcolor="#E5E5E5" style="margin-left: 1cm;" cellpadding="5"><tr><td>
+<pre><code>mail -v sebastien
+	ou bien
+mail -v machin@zedomaine.fr
+
+	<i>Exemple</i>
+
+sebastien@maison-1:~$ mail -v POSTMASTER
+Subject: Test 20060808141506
+Ceci est un email de test
+.
+Cc:
+POSTMASTER... Connecting to [127.0.0.1] port 587 via relay...
+220 maison-1.perouses.claix.fr ESMTP Sendmail 8.13.7/8.13.7/Debian-2; Mon, 14 Aug 2006 15:06:37 +0200; (No UCE/UBE) logging access from: maison-1.perouses.claix.fr(OK)-maison-1.perouses.claix.fr [127.0.0.1]
+>>> EHLO maison-1.perouses.claix.fr
+250-maison-1.perouses.claix.fr Hello maison-1.perouses.claix.fr [127.0.0.1], pleased to meet you
+250-ENHANCEDSTATUSCODES
+250-PIPELINING
+250-EXPN
+250-VERB
+250-8BITMIME
+250-SIZE
+250-DSN
+250-ETRN
+250-AUTH DIGEST-MD5 CRAM-MD5
+250-DELIVERBY
+250 HELP
+>>> VERB
+250 2.0.0 Verbose mode
+>>> MAIL From:&lt;sebastien@maison-1.perouses.claix.fr> SIZE=71 AUTH=sebastien@maison-1.perouses.claix.fr
+250 2.1.0 &lt;sebastien@maison-1.perouses.claix.fr>... Sender ok
+>>> RCPT To:&lt;POSTMASTER@maison-1.perouses.claix.fr>
+>>> DATA
+050 &lt;POSTMASTER@maison-1.perouses.claix.fr>... aliased to root
+050 root... aliased to sebastien
+250 2.1.5 &lt;POSTMASTER@maison-1.perouses.claix.fr>... Recipient ok
+354 Enter mail, end with "." on a line by itself
+>>> .
+050 sebastien... Connecting to local...
+050 sebastien... Sent
+250 2.0.0 k7ED6bhO013213 Message accepted for delivery
+POSTMASTER... Sent (k7ED6bhO013213 Message accepted for delivery)
+Closing connection to [127.0.0.1]
+>>> QUIT
+221 2.0.0 maison-1.perouses.claix.fr closing connection
+sebastien@maison-1:~$
+</code></pre></td></tr></table>
+
+<p>
+Si un email a été délivré en local, se loguer en tant qu'utilisateur qui en est
+destinataire, et exécuter
+<code>mail</code> sans option. 
+</p>
+
+<p>
+<b>Important</b><br>
+Un envoi interne - émis depuis la machine, vers un utilisateur de la machine - est traité
+directement en local, sans jamais quitter la machine - il ne passe pas par le fournisseur
+d'accès. En l'absence de toute connectivité Internet, le routage local fonctionnera quand
+même.<br>
+</p>
+
+<h4>3.1.3 Démon sendmail</h4>
+
+<p>
+Un telnet en local sur le port 25 démontre la disponibilité du démon
+sendmail. Mais cela n'indique pas les paramètres de sendmail (périodicité
+du queue runner). Pour savoir quelle est la période du queue runner,
+le plus simple est de regarder dans le log.
+</p>
+
+<table bgcolor="#E5E5E5" style="margin-left: 1cm;" cellpadding="5"><tr><td>
+<pre><code>egrep -i "(sendmail|sm-mta)\[[0-9]+\].*starting" /var/log/mail.log | tail -n 1
+	
+	<i>Ensuite, vérifier que l'exécutable dont le PID est donné entre crochets [],
+	est bien présent dans la liste des processus&nbsp;:</i>
+
+ps -elf ww | grep <i>numéro_pid</i>
+
+	<i>Exemple</i>
+
+maison-1:~# egrep -i "(sendmail|sm-mta)\[[0-9]+\].*starting" /var/log/mail.log | tail -n 1
+Aug 13 10:25:14 maison-1 sm-mta[4241]: starting daemon (8.13.7): SMTP+queueing@00:05:00
+maison-1:~# ps -elf ww | grep 4241
+5 S root      4241     1  0  76   0 -  2118 -      10:25 ?          0:00 sendmail: MTA: accepting connections  
+0 R root      7520  7040  0  75   0 -   546 -      10:59 pts/1      0:00 grep 4241
+maison-1:~# telnet maison-1 25
+Trying 127.0.0.1...
+Connected to maison-1.perouses.claix.fr.
+Escape character is '^]'.
+220 maison-1.perouses.claix.fr ESMTP Sendmail 8.13.7/8.13.7/Debian-2; Sun, 13 Aug 2006 10:59:40 +0200; (No UCE/UBE) logging access from: maison-1.perouses.claix.fr(OK)-maison-1.perouses.claix.fr [127.0.0.1]
+ehlo world
+250-maison-1.perouses.claix.fr Hello maison-1.perouses.claix.fr [127.0.0.1], pleased to meet you
+250-ENHANCEDSTATUSCODES
+250-PIPELINING
+250-EXPN
+250-VERB
+250-8BITMIME
+250-SIZE
+250-DSN
+250-ETRN
+250-AUTH DIGEST-MD5 CRAM-MD5
+250-DELIVERBY
+250 HELP
+quit
+221 2.0.0 maison-1.perouses.claix.fr closing connection
+Connection closed by foreign host.
+maison-1:~# telnet maison-1 587
+Trying 127.0.0.1...
+Connected to maison-1.perouses.claix.fr.
+Escape character is '^]'.
+220 maison-1.perouses.claix.fr ESMTP Sendmail 8.13.7/8.13.7/Debian-2; Sun, 13 Aug 2006 10:59:51 +0200; (No UCE/UBE) logging access from: maison-1.perouses.claix.fr(OK)-maison-1.perouses.claix.fr [127.0.0.1]
+ehlo world
+250-maison-1.perouses.claix.fr Hello maison-1.perouses.claix.fr [127.0.0.1], pleased to meet you
+250-ENHANCEDSTATUSCODES
+250-PIPELINING
+250-EXPN
+250-VERB
+250-8BITMIME
+250-SIZE
+250-DSN
+250-ETRN
+250-AUTH DIGEST-MD5 CRAM-MD5
+250-DELIVERBY
+250 HELP
+quit
+221 2.0.0 maison-1.perouses.claix.fr closing connection
+Connection closed by foreign host.
+maison-1:~#             
+</code></pre></td></tr></table>
+
+<h4>3.1.4 Files d'attente de sendmail</h4>
+
+<p>
+Par défaut les emails en attente dans sendmail se trouvent dans
+<code>/var/spool/mqueue-client</code> et <code>/var/spool/mqueue</code>,
+ce pour le MSA (port 587 et appel de l'exécutable sendmail) et le MTA (port 25),
+respectivement. Pour afficher ces queues, exécuter la commande
+<code>mailq</code> en tant que root, ou bien en tant qu'utilisateur appartenant
+au groupe wheel.<br>
+Exemple&nbsp;:
+</p>
+
+<table bgcolor="#E5E5E5" style="margin-left: 1cm;" cellpadding="5"><tr><td>
+<pre><code>sebastien@maison-1:~$ mailq
+MSP Queue status...
+                /var/spool/mqueue-client (1 request)
+-----Q-ID----- --Size-- -----Q-Time----- ------------Sender/Recipient-----------
+k7DIfR2u014729*      17 Sun Aug 13 20:41 sebastien
+                 (reply: read error from [127.0.0.1])
+                                         postmaster
+                Total requests: 1
+MTA Queue status...
+/var/spool/mqueue is empty
+                Total requests: 0
+sebastien@maison-1:~$	
+</code></pre></td></tr></table>
+
+<p>
+<b>Remarque</b>
+</p>
+
+<p>
+Pour avoir un email dans la file d'attente, j'ai commenté la ligne
+<code>FEATURE(`nocanonify')dnl</code> dans le fichier <code>/etc/mail/sendmail.mc</code>,
+puis provoqué la recompilation de <code>sendmail.mc</code> en <code>sendmail.cf</code> avec la commande
+<code>make</code>, ensuite redémarré le démon sendmail avec la commande
+<code>/etc/init.d/sendmail&nbsp;restart</code>, puis j'ai déconnecté physiquement
+mon câble Ethernet, et enfin, je me suis envoyé un email avec la commande
+<code>mail&nbsp;-v&nbsp;sebastien</code>. Voilà, c'est tout&nbsp;!<br>
+Suite à cela, j'ai reçu au bout de 10 minutes un avertissement, et au bout de 30
+minutes, un message d'erreur, émis par<br><code>
+Mail&nbsp;Delivery&nbsp;Subsystem&nbsp;&lt;MAILER-DAEMON@maison-1.perouses.claix.fr&gt;
+</code>.
+</p>
+
+<h3><a name="documentation">3.2 Documentation</a></h3>
+
+<table>
+	<tr>
+		<td><b>Syslog</b></td>
+	</tr>
+	<tr>
+		<td><code>man&nbsp;syslog.conf</code></td>
+		<td>Configuration des logs système dans <code>/etc/syslog.conf</code></td>
+	</tr>
+	<tr>
+		<td><b>Procmail</b></td>
+	</tr>
+	<tr>
+		<td><code>man&nbsp;procmail</code></td>
+		<td>Aide de procmail</td>
+	</tr>
+	<tr>
+		<td><code>man&nbsp;procmailrc</code></td>
+		<td>Configuration de procmail avec <code>~/.procmailrc</code></td>
+	</tr>
+	<tr>
+		<td><code>man&nbsp;procmailex</code></td>
+		<td>Exemples de configuration de procmail avec <code>~/.procmailrc</code></td>
+	</tr>
+	<tr>
+		<td><a href="http://www.procmail.org">http://www.procmail.org</a></td>
+		<td>Page d'accueil de procmail</td>
+	</tr>
+	<tr>
+		<td><b>Sendmail</b></td>
+	</tr>
+	<tr>
+		<td>sendmail,&nbsp;sendmail-doc</td>
+		<td>Noms des paquetages sendmail</td>
+	</tr>
+	<tr>
+		<td><code>/usr/sbin/sendmail&nbsp;-bt&nbsp;-d0.1&nbsp;<&nbsp;/dev/null</code></td>
+		<td>Indique la version de sendmail et ses options de compilation</td>
+	</tr>
+	<tr>
+		<td><code>/usr/share/doc/sendmail/cf.README.gz</code></td>
+		<td>Configuration de sendmail. C'est de loin le plus utile</td>
+		</tr>
+	<tr>
+		<td><code>/usr/share/doc/sendmail/op/op.*</code></td>
+		<td>Documentation générale de sendmail</td>
+	</tr>
+	<tr>
+		<td><a href="http://www.sendmail.org">http://www.sendmail.org</a></td>
+		<td>Page d'accueil de sendmail</td>
+	</tr>
+	<tr>
+		<td><b>SpamAssassin</b></td>
+	</tr>
+	<tr>
+		<td>spamassassin</td>
+		<td>Nom du paquetage SpamAssassin</td>
+	</tr>
+	<tr>
+		<td><code>/usr/sbin/spamd&nbsp;-h</code></td>
+		<td>Indique la version du démon (spamd) de SpamAssassin</td>
+	</tr>
+	<tr>
+		<td><code>spamc&nbsp;-V</code></td>
+		<td>Indique la version de la partie client (<code>spamc</code>) de SpamAssassin</td>
+	</tr>
+	<tr>
+		<td><code>sa-learn&nbsp;-V</code></td>
+		<td>Indique la version de la commande d'apprentissage de SpamAssassin</td>
+	</tr>
+	<tr>
+		<td><code>man&nbsp;Mail::Spamassassin::Conf</code></td>
+		<td>Configuration des fichiers <code>/etc/mail/spamassassin/local.cf</code> et
+<code>~/.spamassassin/user_prefs</code>, très utile</td>
+	</tr>
+	<tr>
+		<td><code>man&nbsp;spamassassin</code></td>
+		<td>Aide générale de SpamAssassin</td>
+	</tr>
+	<tr>
+		<td><a href="http://www.spamassassin.org">http://www.spamassassin.org</a></td>
+		<td>Page d'accueil de SpamAssassin</td>
+	</tr>
+	<tr>
+		<td><a href="http://spamassassin.apache.org/tests_3_1_x.html">http://spamassassin.apache.org/tests_3_1_x.html</a></td>
+		<td>Scores assignés aux tests effectués</td>
+	</tr>
+	<tr>
+		<td><b>Fetchmail</b></td>
+	</tr>
+	<tr>
+		<td>fetchmail</td>
+		<td>Nom du paquetage fetchmail</td>
+	</tr>
+	<tr>
+		<td><code>fetchmail&nbsp;-V</code></td>
+		<td>Indique la version de fetchmail et, si <code>~/.fetchmailrc</code> existe, affiche le détail
+des récupérations de courrier qui seraient effectuées si fetchmail avait été invoqué
+sans le paramètre -V</td>
+	</tr>
+	<tr>
+		<td><code>man&nbsp;fetchmail</code></td>
+		<td>Documentation générale sur fetchmail</td>
+	</tr>
+	<tr>
+		<td><a href="http://fetchmail.berlios.de">http://fetchmail.berlios.de</a></td>
+		<td>Page d'accueil de fetchmail</td>
+	</tr>
+</table>
+
+<hr>
+
+<h2><a name="journalchangements">4 Journal des changements</a></h2>
+
+<h3><a name="c12">1.2</a></h3>
+
+<ol>
+	<li>Correction d'une référence erronée au fichier <code>/etc/submit.mc</code> (=&gt;&nbsp;<code>/etc/mail/submit.mc</code>).<br>
+	<li>Correction de quelques erreurs mineures dans la rédaction HTML.</li>
+	<li>Modification du titre du document. Encore&nbsp;!</li>
+	<li>Enlèvement de l'option <b>flush</b> de la configuration de fetchmail.</li>
+	<li>Mises à jour mineures dans la configuration de SpamAssassin - <code>required_score 4.0</code> au lieu de
+5.0 et <code>score BAYES_99 4.0</code> dans <code>user_prefs</code>.</li>
+	<li>Enlèvement de l'option <code>-f</code> de <code>spamc</code>, qui n'existe plus.</li>
+	<li>Ajout de l'option <b>uidl</b> à fetchmail pour ne pas laisser des messages déjà vus indéfiniment
+sur le serveur.</li>	
+	<li>Noms de fichiers mis en forme avec &lt;code&gt;<code>nom_fichier</code>&lt;/code&gt;</li>
+	<li><code>sendmailconf</code> remplacé par <code>sendmailconfig</code>.</li>
+	<li>Mise à jour contenu fichier <code>/etc/host.conf</code>.</li>
+	<li>Ajout des options <b>bayes_min_ham_num</b> et <b>bayes_min_spam_num</b> à SpamAssassin.</li>
+	<li>Ajout de l'option <b>bayes_expiry_max_db_size</b> à SpamAssassin</li>
+</ol>
+
+<h3><a name="c11">1.1</a></h3>
+
+<ol>
+	<li>Correction du script d'apprentissage de SpamAssassin.<br>
+- Fonctionne désormais avec les noms de dossier contenant des espaces.<br>
+- Fonctionne avec les sous-dossiers.<br>
+- Ignore les dossiers ne se terminant pas par <code>/cur</code>.</li>
+	<li>Ajout d'une rubrique pour déterminer la nature du SPAM reçu avec <code>sa-stats.pl</code>.</li>
+	<li>Ajout d'explications sur les formats de base courrier, et ajout d'une partie sur
+l'apprentissage avec des filtres.</li>
+	<li>Ajout d'explications et d'un tableau dans le paragraphe 2.4.4 (configuration SpamAssassin).</li>
+	<li>Modification du titre du document.</li>
+</ol>
+
+<h3><a name="c10">1.0</a></h3>
+
+<ol>
+	<li>Création du document</li>
+</ol>
+
+</body>
+
+</html>

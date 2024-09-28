@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="utf-8" />
+    <!-- Set the viewport width to device width for mobile -->
+    <meta name="viewport" content="width=device-width" />
+
+    <title>Installer rtl8812au dans DKMS</title>
+
+    <link rel="stylesheet" href="http://milletseb.free.fr/theme/css/normalize.css" />
+    <link rel="stylesheet" href="http://milletseb.free.fr/theme/css/foundation.min.css" />
+    <link rel="stylesheet" href="http://milletseb.free.fr/theme/css/style.css" />
+    <link rel="stylesheet" href="http://milletseb.free.fr/theme/css/pygments.css" />	
+    <script src="http://milletseb.free.fr/theme/js/custom.modernizr.js"></script>
+
+    <!-- So Firefox can bookmark->"abo this site" -->
+
+<link rel="stylesheet" href="https://files.stork-search.net/basic.css" />
+
+</head>
+
+<body>
+
+<!-- Nav Bar -->
+<nav>
+<div class="top-bar">
+<div class="row">
+    <div class="large-9 large-centered columns">
+	    <h1><a href="http://milletseb.free.fr">Site de Sébastien Millet</a></h1>
+    </div>
+</div>
+</div>
+
+<!-- Show menu items and pages -->
+<div class="row">
+<div class="large-9 columns">
+    <ul class="button-group navigation">
+
+    </ul>
+</div>
+</div>
+</nav>
+<!-- End Nav -->
+
+
+<!-- Main Page Content and Sidebar -->
+<div class="row">
+
+    <!-- Main Blog Content -->
+    <div class="large-9 columns">
+<article>
+    <header>
+        <h3 class="article-title"><a href="http://milletseb.free.fr/installer-rtl8812au-dans-dkms.html" rel="bookmark"
+        title="Permalink to Installer rtl8812au dans DKMS">Installer rtl8812au dans DKMS</a></h3>
+    </header>
+
+<h6 class="subheader" title="2018-10-28T00:00:00+02:00">dim. 28 octobre 2018
+</h6>
+
+
+    <p>Il s'agit ici de la version 4.2.2 du driver de la clé WIFI USB Realtek.
+Sa version exacte (lsusb -v) est :</p>
+<div class="highlight"><pre><span></span><code><span class="err">Bus 001 Device 009: ID 0bda:0129 Realtek Semiconductor Corp. RTS5129 Card Reader Controller</span>
+</code></pre></div>
+
+<p>Fait sur Kubuntu 17.10.</p>
+<ul>
+<li>
+<p>Important</p>
+<p>Cette note s'attache, en plus d'activer DKMS pour ce driver, à automatiser la
+signature du driver pour un PC sur lequel SecureBoot est activé. Cela suppose
+d'avoir à disposition une paire (clé publique, clé privée), le certificat étant
+enregistré dans le SecureBoot.</p>
+</li>
+</ul>
+<p>C'est parti !</p>
+<h2>1. Copie des sources</h2>
+<p>Copier le contenu de rtl8812au-master dans <code>/usr/src/8812au-4.2.2</code>.</p>
+<p>rtl8812au-master est le répertoire du driver sur le mini-CD fourni avec la clé.</p>
+<p>DKMS fonctionne typiquement en repérant chaque module par son nom, et son
+numéro de version. Le nom de module de la clé étant <code>8812au.ko</code> et la version
+(mars 2018) étant 4.2.2, la source doit être nommée 8812au-4.2.2 pour suivre le
+standard DKMS.</p>
+<h2>2. Fichier <code>dmks.conf</code></h2>
+<p>Le driver 8812au contient un fichier dkms.conf qui est suffisant, pas besoin de
+le modifier. Pour information, voici ce fichier :</p>
+<div class="highlight"><pre><span></span><code><span class="n">PACKAGE_NAME</span><span class="o">=</span><span class="mi">8812</span><span class="n">au</span>
+<span class="n">PACKAGE_VERSION</span><span class="o">=</span><span class="mi">4</span><span class="p">.</span><span class="mi">2</span><span class="p">.</span><span class="mi">2</span>
+
+<span class="n">DEST_MODULE_LOCATION</span><span class="o">=/</span><span class="n">kernel</span><span class="o">/</span><span class="n">drivers</span><span class="o">/</span><span class="n">net</span><span class="o">/</span><span class="n">wireless</span>
+<span class="n">BUILT_MODULE_NAME</span><span class="o">=</span><span class="mi">8812</span><span class="n">au</span>
+
+<span class="n">MAKE</span><span class="o">=</span><span class="ss">&quot;&#39;make&#39;  all&quot;</span>
+<span class="n">CLEAN</span><span class="o">=</span><span class="ss">&quot;&#39;make&#39; clean&quot;</span>
+<span class="n">AUTOINSTALL</span><span class="o">=</span><span class="ss">&quot;yes&quot;</span>
+</code></pre></div>
+
+<h2>3. Installation dans DKMS</h2>
+<div class="highlight"><pre><span></span><code><span class="n">root</span> <span class="c1"># dkms add -m 8812au -v 4.2.2</span>
+
+<span class="n">Creating</span> <span class="n">symlink</span> <span class="o">/</span><span class="k">var</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">dkms</span><span class="o">/</span><span class="mi">8812</span><span class="n">au</span><span class="o">/</span><span class="mf">4.2</span><span class="o">.</span><span class="mi">2</span><span class="o">/</span><span class="n">source</span> <span class="o">-&gt;</span>
+                 <span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">src</span><span class="o">/</span><span class="mi">8812</span><span class="n">au</span><span class="o">-</span><span class="mf">4.2</span><span class="o">.</span><span class="mi">2</span>
+
+<span class="n">DKMS</span><span class="p">:</span> <span class="n">add</span> <span class="n">completed</span><span class="o">.</span>
+</code></pre></div>
+
+<h2>4. Compilation par DKMS</h2>
+<div class="highlight"><pre><span></span><code><span class="n">root</span> <span class="o">#</span> <span class="n">dkms</span> <span class="n">build</span> <span class="o">-</span><span class="n">m</span> <span class="mi">8812</span><span class="n">au</span> <span class="o">-</span><span class="n">v</span> <span class="mi">4</span><span class="p">.</span><span class="mi">2</span><span class="p">.</span><span class="mi">2</span>
+
+<span class="n">Kernel</span> <span class="n">preparation</span> <span class="n">unnecessary</span> <span class="k">for</span> <span class="n">this</span> <span class="n">kernel</span><span class="p">.</span>  <span class="n">Skipping</span><span class="p">...</span>
+
+<span class="n">Building</span> <span class="n">module</span><span class="p">:</span>
+<span class="n">cleaning</span> <span class="n">build</span> <span class="n">area</span><span class="p">...</span>
+<span class="s1">&#39;make&#39;</span> <span class="k">all</span><span class="p">.............</span>
+<span class="n">cleaning</span> <span class="n">build</span> <span class="n">area</span><span class="p">...</span>
+
+<span class="n">DKMS</span><span class="p">:</span> <span class="n">build</span> <span class="n">completed</span><span class="p">.</span>
+</code></pre></div>
+
+<h2>5. Installation par DKMS</h2>
+<p>À noter que si on lance l'installation du module alors qu'il n'est pas encore
+compilé, DKMS s'en charge.</p>
+<p>Mais dans ce document, j'ai préféré détailler ces étapes une par une.</p>
+<div class="highlight"><pre><span></span><code><span class="n">dkms</span> <span class="n">install</span> <span class="o">-</span><span class="n">m</span> <span class="mi">8812</span><span class="n">au</span> <span class="o">-</span><span class="n">v</span> <span class="mi">4</span><span class="p">.</span><span class="mi">2</span><span class="p">.</span><span class="mi">2</span>
+
+<span class="mi">8812</span><span class="n">au</span><span class="p">:</span>
+<span class="n">Running</span> <span class="n">module</span> <span class="k">version</span> <span class="n">sanity</span> <span class="k">check</span><span class="p">.</span>
+
+<span class="n">Good</span> <span class="n">news</span><span class="o">!</span> <span class="n">Module</span> <span class="k">version</span> <span class="n">v4</span><span class="p">.</span><span class="mi">2</span><span class="p">.</span><span class="mi">2</span><span class="n">_7502</span><span class="p">.</span><span class="mi">20130517</span> <span class="k">for</span> <span class="mi">8812</span><span class="n">au</span><span class="p">.</span><span class="n">ko</span>
+<span class="n">exactly</span> <span class="n">matches</span> <span class="n">what</span> <span class="k">is</span> <span class="n">already</span> <span class="k">found</span> <span class="k">in</span> <span class="n">kernel</span> <span class="mi">4</span><span class="p">.</span><span class="mi">13</span><span class="p">.</span><span class="mi">0</span><span class="o">-</span><span class="mi">37</span><span class="o">-</span><span class="n">generic</span><span class="p">.</span>
+<span class="n">DKMS</span> <span class="n">will</span> <span class="k">not</span> <span class="k">replace</span> <span class="n">this</span> <span class="n">module</span><span class="p">.</span>
+<span class="n">You</span> <span class="n">may</span> <span class="n">override</span> <span class="k">by</span> <span class="n">specifying</span> <span class="c1">--force.</span>
+
+<span class="n">depmod</span><span class="p">...</span>
+
+<span class="n">DKMS</span><span class="p">:</span> <span class="n">install</span> <span class="n">completed</span><span class="p">.</span>
+</code></pre></div>
+
+<h2>6. Faire signer le module par DKMS</h2>
+<p>Ici la difficulté est que l'exécution d'un script POST_BUILD, comme documenté
+sur Internet, ne fonctionne pas. Après exécution de POST_BUILD le module est
+"stripé", ce qui supprime la signature. Il faut le signer dans le script
+PRE_INSTALL.</p>
+<ul>
+<li>
+<p><strong>Note</strong></p>
+<p>Modifier le fichier Makefile du source pour y ajouter la signature du module ne
+fonctionne pas car :</p>
+<ul>
+<li>
+<p>Si l'on ajoute la signature après le build (cible 'modules' du Makefile),
+  le strip du module fait par DKMS élimine la signature.</p>
+</li>
+<li>
+<p>Si l'on ajoute la signature avant ou après l'installation (cible
+  'install' du Makefile), rien n'est changé : DKMS n'installe pas le module
+  en exécutant un make install avec le Makefile du source. DKMS utilise son
+  propre code.</p>
+</li>
+</ul>
+</li>
+</ul>
+<p>Cela étant précisé, la documentation sur Internet est bien pratique :
+<a href="https://computerlinguist.org/make-dkms-sign-kernel-modules-for-secure-boot-on-ubuntu-1604.html">https://computerlinguist.org/make-dkms-sign-kernel-modules-for-secure-boot-on-ubuntu-1604.html</a></p>
+<ul>
+<li><strong>Note (2)</strong></li>
+</ul>
+<p>Pour savoir si un module est signé, il faut en afficher le contenu binaire et
+regarder si la fin du fichier contient le texte <code>~Module signature appended~</code>.</p>
+<p>Exemples :</p>
+<div class="highlight"><pre><span></span><code><span class="o">##</span> <span class="n">Cas</span> <span class="mi">1</span> <span class="p">:</span> <span class="n">module</span> <span class="n">non</span> <span class="n">signé</span>
+<span class="o">#</span> <span class="n">hexdump</span> <span class="o">-</span><span class="k">C</span> <span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">modules</span><span class="o">/</span><span class="mi">4</span><span class="p">.</span><span class="mi">13</span><span class="p">.</span><span class="mi">0</span><span class="o">-</span><span class="mi">37</span><span class="o">-</span><span class="n">generic</span><span class="o">/</span><span class="n">updates</span><span class="o">/</span><span class="n">dkms</span><span class="o">/</span><span class="mi">8812</span><span class="n">au</span><span class="p">.</span><span class="n">ko</span> <span class="o">|</span> <span class="n">tail</span>
+<span class="mi">001</span><span class="n">b2a90</span>  <span class="mi">08</span> <span class="mi">00</span> <span class="mi">00</span> <span class="mi">00</span> <span class="mi">00</span> <span class="mi">00</span> <span class="mi">00</span> <span class="mi">00</span>  <span class="mi">18</span> <span class="mi">00</span> <span class="mi">00</span> <span class="mi">00</span> <span class="mi">00</span> <span class="mi">00</span> <span class="mi">00</span> <span class="mi">00</span>  <span class="o">|</span><span class="p">................</span><span class="o">|</span>
+<span class="mi">001</span><span class="n">b2aa0</span>  <span class="mi">09</span> <span class="mi">00</span> <span class="mi">00</span> <span class="mi">00</span> <span class="mi">03</span> <span class="mi">00</span> <span class="mi">00</span> <span class="mi">00</span>  <span class="mi">00</span> <span class="mi">00</span> <span class="mi">00</span> <span class="mi">00</span> <span class="mi">00</span> <span class="mi">00</span> <span class="mi">00</span> <span class="mi">00</span>  <span class="o">|</span><span class="p">................</span><span class="o">|</span>
+<span class="mi">001</span><span class="n">b2ab0</span>  <span class="mi">00</span> <span class="mi">00</span> <span class="mi">00</span> <span class="mi">00</span> <span class="mi">00</span> <span class="mi">00</span> <span class="mi">00</span> <span class="mi">00</span>  <span class="mi">78</span> <span class="mi">4</span><span class="n">b</span> <span class="mi">0</span><span class="n">e</span> <span class="mi">00</span> <span class="mi">00</span> <span class="mi">00</span> <span class="mi">00</span> <span class="mi">00</span>  <span class="o">|</span><span class="p">........</span><span class="n">xK</span><span class="p">......</span><span class="o">|</span>
+<span class="mi">001</span><span class="n">b2ac0</span>  <span class="mi">57</span> <span class="n">ce</span> <span class="mi">00</span> <span class="mi">00</span> <span class="mi">00</span> <span class="mi">00</span> <span class="mi">00</span> <span class="mi">00</span>  <span class="mi">00</span> <span class="mi">00</span> <span class="mi">00</span> <span class="mi">00</span> <span class="mi">00</span> <span class="mi">00</span> <span class="mi">00</span> <span class="mi">00</span>  <span class="o">|</span><span class="n">W</span><span class="p">...............</span><span class="o">|</span>
+<span class="mi">001</span><span class="n">b2ad0</span>  <span class="mi">01</span> <span class="mi">00</span> <span class="mi">00</span> <span class="mi">00</span> <span class="mi">00</span> <span class="mi">00</span> <span class="mi">00</span> <span class="mi">00</span>  <span class="mi">00</span> <span class="mi">00</span> <span class="mi">00</span> <span class="mi">00</span> <span class="mi">00</span> <span class="mi">00</span> <span class="mi">00</span> <span class="mi">00</span>  <span class="o">|</span><span class="p">................</span><span class="o">|</span>
+<span class="mi">001</span><span class="n">b2ae0</span>  <span class="mi">11</span> <span class="mi">00</span> <span class="mi">00</span> <span class="mi">00</span> <span class="mi">03</span> <span class="mi">00</span> <span class="mi">00</span> <span class="mi">00</span>  <span class="mi">00</span> <span class="mi">00</span> <span class="mi">00</span> <span class="mi">00</span> <span class="mi">00</span> <span class="mi">00</span> <span class="mi">00</span> <span class="mi">00</span>  <span class="o">|</span><span class="p">................</span><span class="o">|</span>
+<span class="mi">001</span><span class="n">b2af0</span>  <span class="mi">00</span> <span class="mi">00</span> <span class="mi">00</span> <span class="mi">00</span> <span class="mi">00</span> <span class="mi">00</span> <span class="mi">00</span> <span class="mi">00</span>  <span class="n">b0</span> <span class="mi">21</span> <span class="mi">1</span><span class="n">b</span> <span class="mi">00</span> <span class="mi">00</span> <span class="mi">00</span> <span class="mi">00</span> <span class="mi">00</span>  <span class="o">|</span><span class="p">.........</span><span class="o">!</span><span class="p">......</span><span class="o">|</span>
+<span class="mi">001</span><span class="n">b2b00</span>  <span class="mi">2</span><span class="k">c</span> <span class="mi">01</span> <span class="mi">00</span> <span class="mi">00</span> <span class="mi">00</span> <span class="mi">00</span> <span class="mi">00</span> <span class="mi">00</span>  <span class="mi">00</span> <span class="mi">00</span> <span class="mi">00</span> <span class="mi">00</span> <span class="mi">00</span> <span class="mi">00</span> <span class="mi">00</span> <span class="mi">00</span>  <span class="o">|</span><span class="p">,...............</span><span class="o">|</span>
+<span class="mi">001</span><span class="n">b2b10</span>  <span class="mi">01</span> <span class="mi">00</span> <span class="mi">00</span> <span class="mi">00</span> <span class="mi">00</span> <span class="mi">00</span> <span class="mi">00</span> <span class="mi">00</span>  <span class="mi">00</span> <span class="mi">00</span> <span class="mi">00</span> <span class="mi">00</span> <span class="mi">00</span> <span class="mi">00</span> <span class="mi">00</span> <span class="mi">00</span>  <span class="o">|</span><span class="p">................</span><span class="o">|</span>
+<span class="mi">001</span><span class="n">b2b20</span>
+
+<span class="o">##</span> <span class="n">Cas</span> <span class="mi">2</span> <span class="p">:</span> <span class="n">module</span> <span class="n">signé</span>
+<span class="o">#</span> <span class="n">hexdump</span> <span class="o">-</span><span class="k">C</span> <span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">modules</span><span class="o">/</span><span class="mi">4</span><span class="p">.</span><span class="mi">13</span><span class="p">.</span><span class="mi">0</span><span class="o">-</span><span class="mi">37</span><span class="o">-</span><span class="n">generic</span><span class="o">/</span><span class="n">updates</span><span class="o">/</span><span class="n">dkms</span><span class="o">/</span><span class="mi">8812</span><span class="n">au</span><span class="p">.</span><span class="n">ko</span> <span class="o">|</span> <span class="n">tail</span>
+<span class="mi">001</span><span class="n">b2c40</span>  <span class="n">bc</span> <span class="n">fb</span> <span class="n">c4</span> <span class="n">b6</span> <span class="mi">68</span> <span class="mi">34</span> <span class="n">c7</span> <span class="n">d3</span>  <span class="mi">8</span><span class="n">a</span> <span class="mi">20</span> <span class="mi">28</span> <span class="mi">47</span> <span class="n">ba</span> <span class="mi">87</span> <span class="n">a7</span> <span class="mi">4</span><span class="n">a</span>  <span class="o">|</span><span class="p">....</span><span class="n">h4</span><span class="p">...</span> <span class="p">(</span><span class="k">G</span><span class="p">...</span><span class="n">J</span><span class="o">|</span>
+<span class="mi">001</span><span class="n">b2c50</span>  <span class="mi">5</span><span class="n">d</span> <span class="n">c9</span> <span class="n">b1</span> <span class="mi">07</span> <span class="mi">16</span> <span class="n">fb</span> <span class="mi">95</span> <span class="mi">8</span><span class="n">a</span>  <span class="n">bc</span> <span class="n">f5</span> <span class="n">a0</span> <span class="n">fe</span> <span class="n">a0</span> <span class="mi">46</span> <span class="n">f3</span> <span class="n">d4</span>  <span class="o">|</span><span class="p">]............</span><span class="n">F</span><span class="p">..</span><span class="o">|</span>
+<span class="mi">001</span><span class="n">b2c60</span>  <span class="mi">2</span><span class="n">b</span> <span class="mi">4</span><span class="n">e</span> <span class="mi">29</span> <span class="mi">4</span><span class="n">b</span> <span class="mi">60</span> <span class="mi">5</span><span class="n">d</span> <span class="n">e8</span> <span class="mi">11</span>  <span class="n">cf</span> <span class="mi">19</span> <span class="n">cc</span> <span class="mi">69</span> <span class="n">af</span> <span class="n">f2</span> <span class="mi">7</span><span class="n">d</span> <span class="mi">3</span><span class="k">c</span>  <span class="o">|+</span><span class="n">N</span><span class="p">)</span><span class="n">K</span><span class="o">`</span><span class="p">].....</span><span class="n">i</span><span class="p">..</span><span class="err">}</span><span class="o">&lt;|</span>
+<span class="mi">001</span><span class="n">b2c70</span>  <span class="mi">21</span> <span class="mi">5</span><span class="n">b</span> <span class="mi">66</span> <span class="mi">3</span><span class="n">a</span> <span class="n">a6</span> <span class="mi">2</span><span class="k">c</span> <span class="n">eb</span> <span class="n">b2</span>  <span class="mi">46</span> <span class="n">fc</span> <span class="mi">03</span> <span class="n">d9</span> <span class="n">b9</span> <span class="mi">6</span><span class="n">e</span> <span class="mi">7</span><span class="n">a</span> <span class="mi">74</span>  <span class="o">|!</span><span class="p">[</span><span class="n">f</span><span class="p">:.,..</span><span class="n">F</span><span class="p">....</span><span class="n">nzt</span><span class="o">|</span>
+<span class="mi">001</span><span class="n">b2c80</span>  <span class="mi">24</span> <span class="n">ac</span> <span class="mi">5</span><span class="n">d</span> <span class="mi">79</span> <span class="mi">54</span> <span class="n">ad</span> <span class="mi">03</span> <span class="mi">1</span><span class="n">d</span>  <span class="mi">16</span> <span class="n">d8</span> <span class="n">fa</span> <span class="mi">0</span><span class="n">b</span> <span class="mi">93</span> <span class="mi">8</span><span class="k">c</span> <span class="n">ba</span> <span class="n">cc</span>  <span class="o">|</span><span class="err">$</span><span class="p">.]</span><span class="n">yT</span><span class="p">...........</span><span class="o">|</span>
+<span class="mi">001</span><span class="n">b2c90</span>  <span class="n">b5</span> <span class="mi">2</span><span class="n">d</span> <span class="mi">57</span> <span class="mi">43</span> <span class="mi">9</span><span class="n">f</span> <span class="n">d3</span> <span class="mi">44</span> <span class="n">b5</span>  <span class="mi">6</span><span class="n">f</span> <span class="n">c8</span> <span class="mi">86</span> <span class="mi">14</span> <span class="mi">8</span><span class="n">e</span> <span class="n">b8</span> <span class="n">c0</span> <span class="n">dc</span>  <span class="o">|</span><span class="p">.</span><span class="o">-</span><span class="n">WC</span><span class="p">..</span><span class="n">D</span><span class="p">.</span><span class="n">o</span><span class="p">.......</span><span class="o">|</span>
+<span class="mi">001</span><span class="n">b2ca0</span>  <span class="n">e4</span> <span class="mi">00</span> <span class="mi">00</span> <span class="mi">02</span> <span class="mi">00</span> <span class="mi">00</span> <span class="mi">00</span> <span class="mi">00</span>  <span class="mi">00</span> <span class="mi">00</span> <span class="mi">00</span> <span class="mi">01</span> <span class="mi">81</span> <span class="mi">7</span><span class="n">e</span> <span class="mi">4</span><span class="n">d</span> <span class="mi">6</span><span class="n">f</span>  <span class="o">|</span><span class="p">.............</span><span class="o">~</span><span class="n">Mo</span><span class="o">|</span>
+<span class="mi">001</span><span class="n">b2cb0</span>  <span class="mi">64</span> <span class="mi">75</span> <span class="mi">6</span><span class="k">c</span> <span class="mi">65</span> <span class="mi">20</span> <span class="mi">73</span> <span class="mi">69</span> <span class="mi">67</span>  <span class="mi">6</span><span class="n">e</span> <span class="mi">61</span> <span class="mi">74</span> <span class="mi">75</span> <span class="mi">72</span> <span class="mi">65</span> <span class="mi">20</span> <span class="mi">61</span>  <span class="o">|</span><span class="n">dule</span> <span class="n">signature</span> <span class="n">a</span><span class="o">|</span>
+<span class="mi">001</span><span class="n">b2cc0</span>  <span class="mi">70</span> <span class="mi">70</span> <span class="mi">65</span> <span class="mi">6</span><span class="n">e</span> <span class="mi">64</span> <span class="mi">65</span> <span class="mi">64</span> <span class="mi">7</span><span class="n">e</span>  <span class="mi">0</span><span class="n">a</span>                       <span class="o">|</span><span class="n">ppended</span><span class="o">~</span><span class="p">.</span><span class="o">|</span>
+<span class="mi">001</span><span class="n">b2cc9</span>
+</code></pre></div>
+
+<ul>
+<li><strong>Apparté sur les clés de signature</strong></li>
+</ul>
+<p>Cette solution suppose que la clé et le certificat pour signer le module se
+trouvent dans le répertoire <code>/root/efikeys</code>, et ont pour nom <code>db.key</code> et
+<code>db.cer</code>. En l'occurrence, le certificat est enregistré dans le variable EFI
+'db'.</p>
+<p>Voilà le contenu de 'db' et de la clé :</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># efi-readvar -v db</span>
+<span class="o">[</span>...<span class="o">]</span>
+db: List <span class="m">5</span>, <span class="nb">type</span> X509
+    Signature <span class="m">0</span>, size <span class="m">777</span>, owner eee29bf3-fbc6-4c38-96df-bfe181770f39
+        Subject:
+            <span class="nv">CN</span><span class="o">=</span>SMT db
+        Issuer:
+            <span class="nv">CN</span><span class="o">=</span>SMT db
+<span class="o">[</span>...<span class="o">]</span>
+<span class="c1"># openssl x509 -inform der -in /root/efikeys/db.cer -noout -text</span>
+Certificate:
+    Data:
+        Version: <span class="m">3</span> <span class="o">(</span>0x2<span class="o">)</span>
+        Serial Number: <span class="m">11380626299561560859</span> <span class="o">(</span>0x9df01b5282d5cb1b<span class="o">)</span>
+    Signature Algorithm: sha256WithRSAEncryption
+        Issuer: <span class="nv">CN</span><span class="o">=</span>SMT db
+        Validity
+            Not Before: Dec <span class="m">15</span> <span class="m">19</span>:30:46 <span class="m">2017</span> GMT
+            Not After : Dec <span class="m">13</span> <span class="m">19</span>:30:46 <span class="m">2027</span> GMT
+        Subject: <span class="nv">CN</span><span class="o">=</span>SMT db
+        Subject Public Key Info:
+            Public Key Algorithm: rsaEncryption
+                Public-Key: <span class="o">(</span><span class="m">2048</span> bit<span class="o">)</span>
+                Modulus:
+                    <span class="m">00</span>:a4:8a:15:5e:19:51:f3:f1:9e:61:bd:1e:89:55:
+                    <span class="o">[</span>...<span class="o">]</span>
+                    2c:1b
+                Exponent: <span class="m">65537</span> <span class="o">(</span>0x10001<span class="o">)</span>
+        X509v3 extensions:
+            X509v3 Subject Key Identifier: 
+                4B:E3:36:82:65:86:6F:8D:9D:36:99:7E:BF:69:C8:46:F8:D1:12:49
+            X509v3 Authority Key Identifier: 
+                keyid:4B:E3:36:82:65:86:6F:8D:9D:36:99:7E:BF:69:C8:46:F8:D1:12:49
+            X509v3 Basic Constraints: 
+                CA:TRUE
+    Signature Algorithm: sha256WithRSAEncryption
+         <span class="m">83</span>:3f:1e:c2:73:63:3c:4e:e9:79:d2:73:ef:67:a5:4d:2d:51:
+         <span class="o">[</span>...<span class="o">]</span>
+         6e:63:a4:2d
+</code></pre></div>
+
+<h3>1. Fichier <code>sign-module.sh</code></h3>
+<p>Le fichier sign-module.sh est à placer dans la racine des sources du module,
+dans notre cas, <code>/usr/src/8812au-4.2.2</code>.</p>
+<p>Il doit être exécutable.</p>
+<p>Fichier <code>sign-module.sh</code> :</p>
+<div class="highlight"><pre><span></span><code><span class="ch">#!/bin/sh</span>
+
+<span class="nb">cd</span> ../<span class="nv">$kernelver</span>/<span class="nv">$arch</span>/module
+<span class="nb">echo</span> Signing module
+kmodsign SHA256 /root/efikeys/db.key /root/efikeys/db.cer 8812au.ko
+</code></pre></div>
+
+<h3>2. Fichier <code>/etc/dkms/8812au.conf</code></h3>
+<p>Ce fichier indique à DKMS d'exécuter sign-module.sh juste avant d'installer le
+module. Comme indiqué précédemment, si on exécute le script dans le POST_BUILD,
+la signature est éliminée durant le strip.</p>
+<p><code>/etc/dkms/8812au.conf</code> :</p>
+<div class="highlight"><pre><span></span><code><span class="err">PRE_INSTALL=sign-module.sh</span>
+</code></pre></div>
+
+<h2>7. Modification de dkms</h2>
+<p>L'un des soucis quand on configure dkms est la difficulté à prendre en compte
+les répertoires relatifs. En effet dkms n'accepte pas de chemin absolu, et
+jongler avec les répertoires relatifs peut être ardu.</p>
+<p>Par défaut, si dkms ne peut pas exécuter le fichier de script, il affiche une
+erreur comme quoi le fichier n'est pas exécutable. Ce qui peut être le cas,
+l'ennui est que dkms affiche cette erreur y compris si le fichier n'est pas
+trouvé.</p>
+<p>Avec cette modification :</p>
+<ul>
+<li>
+<p>Si le fichier est trouvé mais n'est pas exécutable, le message d'erreur
+habituel est affiché.</p>
+</li>
+<li>
+<p>Si le fichier n'est pas trouvé, dkms le dit et donne le chemin du script.</p>
+</li>
+</ul>
+<p>Dans le fichier <code>/usr/sbin/dkms</code> version 2.2.1.0, chercher la ligne qui contient</p>
+<div class="highlight"><pre><span></span><code>warn $<span class="s2">&quot;The </span><span class="nv">$1</span><span class="s2"> script is not executable.&quot;</span>
+</code></pre></div>
+
+<p>Et écrire à la place :</p>
+<div class="highlight"><pre><span></span><code><span class="k">if</span> <span class="o">[[</span> -e <span class="si">${</span><span class="nv">run</span><span class="p">%% *</span><span class="si">}</span> <span class="o">]]</span><span class="p">;</span> <span class="k">then</span>
+    warn $<span class="s2">&quot;The </span><span class="nv">$1</span><span class="s2"> script is not executable.&quot;</span>
+<span class="k">else</span>
+    warn $<span class="s2">&quot;The </span><span class="nv">$1</span><span class="s2"> script is not found, file: </span><span class="nv">$run</span><span class="s2">&quot;</span>
+<span class="k">fi</span>
+</code></pre></div>
+
+<h2>8. Résumé</h2>
+<ul>
+<li>
+<p>Note</p>
+<p>À tout moment, il est possible de savoir où en est DKMS avec la commande
+<code>dkms status</code>.</p>
+</li>
+</ul>
+<p>Ci-dessous, on part d'un DKMS ne contenant pas le module pour la version de
+noyau en cours d'exécution. On commence par le compiler puis l'installer, et on
+termine avec un <code>modprobe</code> pour le charger.</p>
+<div class="highlight"><pre><span></span><code><span class="o">#</span> <span class="n">uname</span> <span class="o">-</span><span class="n">r</span> <span class="o">-</span><span class="n">i</span>
+<span class="mi">4</span><span class="p">.</span><span class="mi">13</span><span class="p">.</span><span class="mi">0</span><span class="o">-</span><span class="mi">37</span><span class="o">-</span><span class="n">generic</span> <span class="n">x86_64</span>
+<span class="o">#</span> <span class="n">dkms</span> <span class="n">status</span>
+<span class="mi">8812</span><span class="n">au</span><span class="p">,</span> <span class="mi">4</span><span class="p">.</span><span class="mi">2</span><span class="p">.</span><span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">.</span><span class="mi">13</span><span class="p">.</span><span class="mi">0</span><span class="o">-</span><span class="mi">36</span><span class="o">-</span><span class="n">generic</span><span class="p">,</span> <span class="n">x86_64</span><span class="p">:</span> <span class="n">installed</span>
+<span class="o">#</span> <span class="n">lsmod</span> <span class="o">|</span> <span class="n">grep</span> <span class="mi">8812</span><span class="n">au</span>
+<span class="o">#</span> <span class="n">dkms</span> <span class="n">build</span> <span class="o">-</span><span class="n">m</span> <span class="mi">8812</span><span class="n">au</span> <span class="o">-</span><span class="n">v</span> <span class="mi">4</span><span class="p">.</span><span class="mi">2</span><span class="p">.</span><span class="mi">2</span>
+
+<span class="n">Kernel</span> <span class="n">preparation</span> <span class="n">unnecessary</span> <span class="k">for</span> <span class="n">this</span> <span class="n">kernel</span><span class="p">.</span>  <span class="n">Skipping</span><span class="p">...</span>
+
+<span class="n">Building</span> <span class="n">module</span><span class="p">:</span>
+<span class="n">cleaning</span> <span class="n">build</span> <span class="n">area</span><span class="p">...</span>
+<span class="s1">&#39;make&#39;</span> <span class="k">all</span><span class="p">.............</span>
+<span class="n">cleaning</span> <span class="n">build</span> <span class="n">area</span><span class="p">...</span>
+
+<span class="n">DKMS</span><span class="p">:</span> <span class="n">build</span> <span class="n">completed</span><span class="p">.</span>
+<span class="o">#</span> <span class="n">dkms</span> <span class="n">status</span>
+<span class="mi">8812</span><span class="n">au</span><span class="p">,</span> <span class="mi">4</span><span class="p">.</span><span class="mi">2</span><span class="p">.</span><span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">.</span><span class="mi">13</span><span class="p">.</span><span class="mi">0</span><span class="o">-</span><span class="mi">36</span><span class="o">-</span><span class="n">generic</span><span class="p">,</span> <span class="n">x86_64</span><span class="p">:</span> <span class="n">installed</span>
+<span class="mi">8812</span><span class="n">au</span><span class="p">,</span> <span class="mi">4</span><span class="p">.</span><span class="mi">2</span><span class="p">.</span><span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">.</span><span class="mi">13</span><span class="p">.</span><span class="mi">0</span><span class="o">-</span><span class="mi">37</span><span class="o">-</span><span class="n">generic</span><span class="p">,</span> <span class="n">x86_64</span><span class="p">:</span> <span class="n">built</span>
+<span class="o">#</span> <span class="n">dkms</span> <span class="n">install</span> <span class="o">-</span><span class="n">m</span> <span class="mi">8812</span><span class="n">au</span> <span class="o">-</span><span class="n">v</span> <span class="mi">4</span><span class="p">.</span><span class="mi">2</span><span class="p">.</span><span class="mi">2</span>
+
+<span class="mi">8812</span><span class="n">au</span><span class="p">:</span>
+<span class="n">Running</span> <span class="n">module</span> <span class="k">version</span> <span class="n">sanity</span> <span class="k">check</span><span class="p">.</span>
+
+<span class="n">Running</span> <span class="n">the</span> <span class="n">pre_install</span> <span class="n">script</span><span class="p">:</span>
+<span class="n">Signing</span> <span class="n">module</span>
+ <span class="o">-</span> <span class="n">Original</span> <span class="n">module</span>
+   <span class="o">-</span> <span class="k">No</span> <span class="n">original</span> <span class="n">module</span> <span class="k">exists</span> <span class="n">within</span> <span class="n">this</span> <span class="n">kernel</span>
+ <span class="o">-</span> <span class="n">Installation</span>
+   <span class="o">-</span> <span class="n">Installing</span> <span class="k">to</span> <span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">modules</span><span class="o">/</span><span class="mi">4</span><span class="p">.</span><span class="mi">13</span><span class="p">.</span><span class="mi">0</span><span class="o">-</span><span class="mi">37</span><span class="o">-</span><span class="n">generic</span><span class="o">/</span><span class="n">updates</span><span class="o">/</span><span class="n">dkms</span><span class="o">/</span>
+
+<span class="n">depmod</span><span class="p">...</span>
+
+<span class="n">DKMS</span><span class="p">:</span> <span class="n">install</span> <span class="n">completed</span><span class="p">.</span>
+<span class="o">#</span> <span class="n">dkms</span> <span class="n">status</span>
+<span class="mi">8812</span><span class="n">au</span><span class="p">,</span> <span class="mi">4</span><span class="p">.</span><span class="mi">2</span><span class="p">.</span><span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">.</span><span class="mi">13</span><span class="p">.</span><span class="mi">0</span><span class="o">-</span><span class="mi">36</span><span class="o">-</span><span class="n">generic</span><span class="p">,</span> <span class="n">x86_64</span><span class="p">:</span> <span class="n">installed</span>
+<span class="mi">8812</span><span class="n">au</span><span class="p">,</span> <span class="mi">4</span><span class="p">.</span><span class="mi">2</span><span class="p">.</span><span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">.</span><span class="mi">13</span><span class="p">.</span><span class="mi">0</span><span class="o">-</span><span class="mi">37</span><span class="o">-</span><span class="n">generic</span><span class="p">,</span> <span class="n">x86_64</span><span class="p">:</span> <span class="n">installed</span>
+<span class="o">#</span> <span class="n">modprobe</span> <span class="mi">8812</span><span class="n">au</span>
+<span class="o">#</span> <span class="n">lsmod</span> <span class="o">|</span> <span class="n">grep</span> <span class="mi">8812</span><span class="n">au</span>
+<span class="mi">8812</span><span class="n">au</span>                <span class="mi">999424</span>  <span class="mi">0</span>
+</code></pre></div>
+
+<h2>9. Post Scriptum</h2>
+<p>La compilation suite à l'installation d'un nouveau noyau ne fonctionne pas.</p>
+<p>Erreur qui s'est produite :</p>
+<div class="highlight"><pre><span></span><code><span class="mi">8812</span><span class="n">au</span><span class="p">:</span> <span class="n">version</span> <span class="n">magic</span> <span class="s1">&#39;4.13.0-37-generic SMP mod_unload &#39;</span> <span class="n">should</span> <span class="n">be</span>
+    <span class="s1">&#39;4.13.0-38-generic SMP mod_unload &#39;</span>
+</code></pre></div>
+
+<p>Il semble donc que la compilation ait été faite en fonction du noyau actuel,
+alors qu'il fallait prendre en compte le noyau <em>à venir</em>.</p>
+<p>Le post suivant sur stackexchange donne une solution :</p>
+<p><a href="https://elementaryos.stackexchange.com/questions/4767/dkms-not-running-correctly-on-system-update">https://elementaryos.stackexchange.com/questions/4767/dkms-not-running-correctly-on-system-update</a></p>
+<p>Solution : modifier le Makefile dans le source du module.</p>
+<p>Avant :</p>
+<div class="highlight"><pre><span></span><code><span class="err">$(MAKE) KERNELRELEASE=$(kernelver) ARCH=$(ARCH) CROSS_COMPILE=$(CROSS_COMPILE) \</span>
+<span class="err">    -C $(KSRC) M=$(shell pwd)  modules</span>
+</code></pre></div>
+
+<p>Après :</p>
+<div class="highlight"><pre><span></span><code><span class="err">$(MAKE) ARCH=$(ARCH) CROSS_COMPILE=$(CROSS_COMPILE) \</span>
+<span class="err">    -C $(KSRC) M=$(shell pwd)  modules</span>
+</code></pre></div>
+
+<p>À suivre (non encore testé)...</p>
+<p class="subheader">Category: <a href="http://milletseb.free.fr/category/ti.html">TI</a>
+
+</p>
+
+
+
+
+</article>
+    </div>
+    <!-- End Main Content -->
+
+    <!-- Sidebar -->
+    <aside class="large-3 columns">
+        <h5 class="sidebar-title">Site</h5>
+        <ul class="side-nav">
+            <li><a href="http://milletseb.free.fr/archives.html">Archives</a>
+            <li><a href="http://milletseb.free.fr/tags.html">Tags</a>
+
+
+        </ul>
+
+		
+        <h5 class="sidebar-title">Categories</h5>
+        <ul class="side-nav">
+            <li><a href="http://milletseb.free.fr/category/lectures.html">Lectures</a></li>
+            <li><a href="http://milletseb.free.fr/category/origine.html">Origine</a></li>
+            <li><a href="http://milletseb.free.fr/category/partage.html">Partage</a></li>
+            <li><a href="http://milletseb.free.fr/category/programmes.html">Programmes</a></li>
+            <li><a href="http://milletseb.free.fr/category/recettes.html">Recettes</a></li>
+            <li><a href="http://milletseb.free.fr/category/ti.html">TI</a></li>
+   
+        </ul>
+
+        <h5 class="sidebar-title">Links</h5>
+        <ul class="side-nav">
+            <li><a href="http://milletseb.free.fr/ancien/index.html">Ancien Site</a></li>
+            <li><a href="http://getpelican.com/">Pelican</a></li>
+            <li><a href="http://python.org/">Python.org</a></li>
+            <li><a href="http://jinja.pocoo.org/">Jinja2</a></li>
+
+Search: <input data-stork="sitesearch" />
+<div data-stork="sitesearch-output"></div>
+
+        </ul>
+		
+
+    </aside> <!-- End Sidebar -->
+
+</div> <!-- End Main Content and Sidebar -->
+
+
+<!-- Footer -->
+<footer class="row">
+    <div class="large-12 columns">
+        <hr />
+        <div class="row">
+            <div class="large-6 columns">
+                <p>Site de Sébastien Millet by Sébastien Millet</p>
+            </div>
+            </div>
+    </div>
+</footer>
+
+<script src="https://files.stork-search.net/releases/v1.5.0/stork.js"></script>
+<script>
+    stork.register("sitesearch", "http://milletseb.free.fr/search-index.st")
+</script>

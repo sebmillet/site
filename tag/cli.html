@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="utf-8" />
+    <!-- Set the viewport width to device width for mobile -->
+    <meta name="viewport" content="width=device-width" />
+
+    <title>Site de Sébastien Millet - CLI</title>
+
+    <link rel="stylesheet" href="http://milletseb.free.fr/theme/css/normalize.css" />
+    <link rel="stylesheet" href="http://milletseb.free.fr/theme/css/foundation.min.css" />
+    <link rel="stylesheet" href="http://milletseb.free.fr/theme/css/style.css" />
+    <link rel="stylesheet" href="http://milletseb.free.fr/theme/css/pygments.css" />	
+    <script src="http://milletseb.free.fr/theme/js/custom.modernizr.js"></script>
+
+    <!-- So Firefox can bookmark->"abo this site" -->
+
+<link rel="stylesheet" href="https://files.stork-search.net/basic.css" />
+
+</head>
+
+<body>
+
+<!-- Nav Bar -->
+<nav>
+<div class="top-bar">
+<div class="row">
+    <div class="large-9 large-centered columns">
+	    <h1><a href="http://milletseb.free.fr">Site de Sébastien Millet</a></h1>
+    </div>
+</div>
+</div>
+
+<!-- Show menu items and pages -->
+<div class="row">
+<div class="large-9 columns">
+    <ul class="button-group navigation">
+
+    </ul>
+</div>
+</div>
+</nav>
+<!-- End Nav -->
+
+
+<!-- Main Page Content and Sidebar -->
+<div class="row">
+
+    <!-- Main Blog Content -->
+    <div class="large-9 columns">
+        
+        
+
+            <article>
+                <a href="http://milletseb.free.fr/ligne-de-commande.html"><h3 class="article-title">Ligne de commande ++</h3></a>
+<h6 class="subheader" title="2021-08-04T00:00:00+02:00">mer. 04 août 2021
+</h6>
+
+
+<!-- default-role rst directive described here: -->
+<!-- https://docutils.sourceforge.io/docs/ref/rst/directives.html#default-role -->
+<p>(D'après <em>Linux Pratique numéro 125, mai - juin 2021</em>)</p>
+<div class="section" id="kitty">
+<h2>kitty</h2>
+<p>Terminal X window, peut gérer différents onglets et fenêtres.</p>
+<p>en cas de souci avec les fontes, exécuter la commande
+<strong>kitty --debug-font-fallback</strong>.</p>
+</div>
+<div class="section" id="starship">
+<h2>starship</h2>
+<p>Gère des prompts évolués (notamment avec git), cela me rappelle Oh My Zsh !</p>
+<div class="highlight"><pre><span></span>curl -fsSL https://starship.rs/install.sh <span class="p">|</span> bash
+  <span class="c1"># Ensuite, pour l&#39;activer</span>
+<span class="nb">eval</span> <span class="s2">&quot;</span><span class="k">$(</span>starship init zsh<span class="k">)</span><span class="s2">&quot;</span>
+</pre></div>
+<p>La configuration par défaut est minimaliste.</p>
+<p>Cette adresse <a class="reference external" href="https://gist.github.com/ryo-ARAKI/48a11585299f9032fa4bda60c9bba593">https://gist.github.com/ryo-ARAKI/48a11585299f9032fa4bda60c9bba593</a>
+permet de télécharger un fichier de config beaucoup plus élaboré.</p>
+</div>
+<div class="section" id="nerd-fonts">
+<h2>Nerd Fonts</h2>
+<p>Attention, non testé.</p>
+<p>git clone <a class="reference external" href="https://github.com/ryanoasis/nerd-fonts.git">https://github.com/ryanoasis/nerd-fonts.git</a>
+cd nerd-fonts
+./install.sh JetBrainsMono</p>
+<p>Ensuite, contrôler la présence de la police souhaitée avec la commande
+<strong>fc-list</strong>.</p>
+</div>
+<div class="section" id="pywal">
+<h2>PyWal</h2>
+<p>Pour contrôler le thème couleurs (de kitty, entre autres).</p>
+<p>Exécuter les commandes :</p>
+<div class="highlight"><pre><span></span>pacman -S python-pipx
+pipx install pywal
+  <span class="c1"># Pour modifier le PATH (sinon, le faire à la main)</span>
+  <span class="c1"># Ajouter /home/sebastien/.local/bin au PATH.</span>
+pipx ensurepath
+</pre></div>
+<p>Exécuter <strong>wal --theme</strong> et <strong>wal --theme solarized</strong> (par exemple) pour activer
+un thème particulier.</p>
+<p>Le thème actuel est décrit dans <strong>~/.cache/wal</strong>.</p>
+<p>Pour atciver un thème donné automatiquement dans kitty, ajouter la ligne
+suivante au fichier <strong>~/.config/kitty/kitty.conf</strong> :</p>
+<div class="highlight"><pre><span></span>include ~/.cache/wal/colors-kitty.conf
+</pre></div>
+</div>
+<div class="section" id="direnv-asdf">
+<h2>direnv, asdf</h2>
+<p><strong>direnv</strong>, pour exporter dynamiquement des variables d'environnement.
+<strong>asdf</strong>, pour gérer différents outils de développement.</p>
+</div>
+<div class="section" id="viu">
+<h2>viu</h2>
+<p>Pour visualiser des images dans le terminal.</p>
+</div>
+<div class="section" id="mdcat">
+<h2>mdcat</h2>
+<p>Pour afficher un fichier Markdown dans le terminal.</p>
+</div>
+<div class="section" id="pdftotext">
+<h2>pdftotext</h2>
+<p>Pour afficher un fichier PDf dans le terminal.</p>
+</div>
+<div class="section" id="odt2txt">
+<h2>odt2txt</h2>
+<p>Pour afficher un document libreoffice dans le terminal.</p>
+</div>
+<div class="section" id="exa">
+<h2>exa</h2>
+<p>Alternative à ls.</p>
+</div>
+<div class="section" id="zoxide">
+<h2>zoxide</h2>
+<p>Pour gérer efficacement un ensemble de noms de dossiers fréquemment utilisés.</p>
+</div>
+<div class="section" id="broot">
+<h2>broot</h2>
+<p>Affichage de l'arborescence des répertoires.</p>
+<p>Permet (entre autres) d'afficher la taille des plus gros répertoires avec
+l'option <strong>-w</strong>.</p>
+</div>
+<div class="section" id="ranger">
+<h2>ranger</h2>
+<p>Très pratique, une sorte d'explorateur en mode CLI.</p>
+<p>Pour prévisualiser (avec kitty) les images, créer le fichier
+<strong>~/.config/ranger/rc.conf</strong> avec ces deux lignes :</p>
+<div class="highlight"><pre><span></span><span class="nb">set</span> preview_images <span class="nb">true</span>
+<span class="nb">set</span> preview_images_method kitty
+</pre></div>
+</div>
+<p class="subheader">Category: <a href="http://milletseb.free.fr/category/ti.html">TI</a>
+
+    Tagged: 
+    <a href="http://milletseb.free.fr/tag/cli.html">CLI </a>
+    <a href="http://milletseb.free.fr/tag/terminal.html">terminal </a>
+</p>
+
+
+
+            </article>
+
+<div class="pagination-centered">
+<h6 class="subheader">Page 1 of 1</h6>
+
+<p>
+
+</p>
+</div>
+
+
+
+            <!-- /#posts-list -->
+
+    </div>
+    <!-- End Main Content -->
+
+    <!-- Sidebar -->
+    <aside class="large-3 columns">
+        <h5 class="sidebar-title">Site</h5>
+        <ul class="side-nav">
+            <li><a href="http://milletseb.free.fr/archives.html">Archives</a>
+            <li><a href="http://milletseb.free.fr/tags.html">Tags</a>
+
+
+        </ul>
+
+		
+        <h5 class="sidebar-title">Categories</h5>
+        <ul class="side-nav">
+            <li><a href="http://milletseb.free.fr/category/lectures.html">Lectures</a></li>
+            <li><a href="http://milletseb.free.fr/category/origine.html">Origine</a></li>
+            <li><a href="http://milletseb.free.fr/category/partage.html">Partage</a></li>
+            <li><a href="http://milletseb.free.fr/category/programmes.html">Programmes</a></li>
+            <li><a href="http://milletseb.free.fr/category/recettes.html">Recettes</a></li>
+            <li><a href="http://milletseb.free.fr/category/ti.html">TI</a></li>
+   
+        </ul>
+
+        <h5 class="sidebar-title">Links</h5>
+        <ul class="side-nav">
+            <li><a href="http://milletseb.free.fr/ancien/index.html">Ancien Site</a></li>
+            <li><a href="http://getpelican.com/">Pelican</a></li>
+            <li><a href="http://python.org/">Python.org</a></li>
+            <li><a href="http://jinja.pocoo.org/">Jinja2</a></li>
+
+Search: <input data-stork="sitesearch" />
+<div data-stork="sitesearch-output"></div>
+
+        </ul>
+		
+
+    </aside> <!-- End Sidebar -->
+
+</div> <!-- End Main Content and Sidebar -->
+
+
+<!-- Footer -->
+<footer class="row">
+    <div class="large-12 columns">
+        <hr />
+        <div class="row">
+            <div class="large-6 columns">
+                <p>Site de Sébastien Millet by Sébastien Millet</p>
+            </div>
+            </div>
+    </div>
+</footer>
+
+<script src="https://files.stork-search.net/releases/v1.5.0/stork.js"></script>
+<script>
+    stork.register("sitesearch", "http://milletseb.free.fr/search-index.st")
+</script>

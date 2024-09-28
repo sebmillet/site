@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="utf-8" />
+    <!-- Set the viewport width to device width for mobile -->
+    <meta name="viewport" content="width=device-width" />
+
+    <title>GRUB sur usb</title>
+
+    <link rel="stylesheet" href="http://milletseb.free.fr/theme/css/normalize.css" />
+    <link rel="stylesheet" href="http://milletseb.free.fr/theme/css/foundation.min.css" />
+    <link rel="stylesheet" href="http://milletseb.free.fr/theme/css/style.css" />
+    <link rel="stylesheet" href="http://milletseb.free.fr/theme/css/pygments.css" />	
+    <script src="http://milletseb.free.fr/theme/js/custom.modernizr.js"></script>
+
+    <!-- So Firefox can bookmark->"abo this site" -->
+
+<link rel="stylesheet" href="https://files.stork-search.net/basic.css" />
+
+</head>
+
+<body>
+
+<!-- Nav Bar -->
+<nav>
+<div class="top-bar">
+<div class="row">
+    <div class="large-9 large-centered columns">
+	    <h1><a href="http://milletseb.free.fr">Site de Sébastien Millet</a></h1>
+    </div>
+</div>
+</div>
+
+<!-- Show menu items and pages -->
+<div class="row">
+<div class="large-9 columns">
+    <ul class="button-group navigation">
+
+    </ul>
+</div>
+</div>
+</nav>
+<!-- End Nav -->
+
+
+<!-- Main Page Content and Sidebar -->
+<div class="row">
+
+    <!-- Main Blog Content -->
+    <div class="large-9 columns">
+<article>
+    <header>
+        <h3 class="article-title"><a href="http://milletseb.free.fr/grub-sur-usb.html" rel="bookmark"
+        title="Permalink to GRUB sur usb">GRUB sur usb</a></h3>
+    </header>
+
+<h6 class="subheader" title="2017-12-10T00:00:00+01:00">dim. 10 décembre 2017
+</h6>
+
+
+    <p>Cette adresse était très utile :</p>
+<p><a href="https://www.pendrivelinux.com/boot-multiple-iso-from-usb-via-grub2-using-linux">https://www.pendrivelinux.com/boot-multiple-iso-from-usb-via-grub2-using-linux</a></p>
+<hr>
+<ol>
+<li>
+<p>Repartionner la clé USB, en y créant une partition <em>Linux</em> (type '83' dans la
+   table des partitions).</p>
+</li>
+<li>
+<p>Rendre la partition amorçable (fdisk : commande 'a')</p>
+</li>
+<li>
+<p>Exemple avec fdisk, pour une clé de 4 GO vierge sur <code>/dev/sdb</code> :</p>
+</li>
+</ol>
+<div class="highlight"><pre><span></span><code><span class="o">#</span> <span class="n">fdisk</span> <span class="o">/</span><span class="n">dev</span><span class="o">/</span><span class="n">sdb</span>
+<span class="p">[...]</span>
+<span class="n">Command</span> <span class="p">(</span><span class="n">m</span> <span class="k">for</span> <span class="n">help</span><span class="p">):</span> <span class="n">n</span>
+<span class="n">Partition</span> <span class="k">type</span>
+   <span class="n">p</span>   <span class="k">primary</span> <span class="p">(</span><span class="mi">0</span> <span class="k">primary</span><span class="p">,</span> <span class="mi">0</span> <span class="n">extended</span><span class="p">,</span> <span class="mi">4</span> <span class="k">free</span><span class="p">)</span>
+   <span class="n">e</span>   <span class="n">extended</span> <span class="p">(</span><span class="n">container</span> <span class="k">for</span> <span class="n">logical</span> <span class="n">partitions</span><span class="p">)</span>
+<span class="k">Select</span> <span class="p">(</span><span class="k">default</span> <span class="n">p</span><span class="p">):</span> <span class="n">p</span>
+<span class="n">Partition</span> <span class="nb">number</span> <span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="mi">4</span><span class="p">,</span> <span class="k">default</span> <span class="mi">1</span><span class="p">):</span> <span class="mi">1</span>
+<span class="k">First</span> <span class="n">sector</span> <span class="p">(</span><span class="mi">2048</span><span class="o">-</span><span class="mi">8058879</span><span class="p">,</span> <span class="k">default</span> <span class="mi">2048</span><span class="p">):</span> 
+<span class="k">Last</span> <span class="n">sector</span><span class="p">,</span> <span class="o">+</span><span class="n">sectors</span> <span class="k">or</span> <span class="o">+</span><span class="k">size</span><span class="err">{</span><span class="n">K</span><span class="p">,</span><span class="n">M</span><span class="p">,</span><span class="k">G</span><span class="p">,</span><span class="n">T</span><span class="p">,</span><span class="n">P</span><span class="err">}</span> <span class="p">(</span><span class="mi">2048</span><span class="o">-</span><span class="mi">8058879</span><span class="p">,</span> <span class="k">default</span> <span class="mi">8058879</span><span class="p">):</span> 
+
+<span class="n">Created</span> <span class="n">a</span> <span class="k">new</span> <span class="n">partition</span> <span class="mi">1</span> <span class="k">of</span> <span class="k">type</span> <span class="s1">&#39;Linux&#39;</span> <span class="k">and</span> <span class="k">of</span> <span class="k">size</span> <span class="mi">3</span><span class="p">.</span><span class="mi">9</span> <span class="n">GiB</span><span class="p">.</span>
+
+<span class="n">Command</span> <span class="p">(</span><span class="n">m</span> <span class="k">for</span> <span class="n">help</span><span class="p">):</span> <span class="n">a</span>
+<span class="n">Selected</span> <span class="n">partition</span> <span class="mi">1</span>
+<span class="n">The</span> <span class="n">bootable</span> <span class="n">flag</span> <span class="k">on</span> <span class="n">partition</span> <span class="mi">1</span> <span class="k">is</span> <span class="n">enabled</span> <span class="n">now</span><span class="p">.</span>
+
+<span class="n">Command</span> <span class="p">(</span><span class="n">m</span> <span class="k">for</span> <span class="n">help</span><span class="p">):</span> <span class="n">p</span>
+<span class="n">Disk</span> <span class="o">/</span><span class="n">dev</span><span class="o">/</span><span class="n">sdb</span><span class="p">:</span> <span class="mi">3</span><span class="p">.</span><span class="mi">9</span> <span class="n">GiB</span><span class="p">,</span> <span class="mi">4126146560</span> <span class="n">bytes</span><span class="p">,</span> <span class="mi">8058880</span> <span class="n">sectors</span>
+<span class="n">Units</span><span class="p">:</span> <span class="n">sectors</span> <span class="k">of</span> <span class="mi">1</span> <span class="o">*</span> <span class="mi">512</span> <span class="o">=</span> <span class="mi">512</span> <span class="n">bytes</span>
+<span class="n">Sector</span> <span class="k">size</span> <span class="p">(</span><span class="n">logical</span><span class="o">/</span><span class="n">physical</span><span class="p">):</span> <span class="mi">512</span> <span class="n">bytes</span> <span class="o">/</span> <span class="mi">512</span> <span class="n">bytes</span>
+<span class="n">I</span><span class="o">/</span><span class="n">O</span> <span class="k">size</span> <span class="p">(</span><span class="n">minimum</span><span class="o">/</span><span class="n">optimal</span><span class="p">):</span> <span class="mi">512</span> <span class="n">bytes</span> <span class="o">/</span> <span class="mi">512</span> <span class="n">bytes</span>
+<span class="n">Disklabel</span> <span class="k">type</span><span class="p">:</span> <span class="n">dos</span>
+<span class="n">Disk</span> <span class="n">identifier</span><span class="p">:</span> <span class="mi">0</span><span class="n">xafcd074d</span>
+
+<span class="n">Device</span>     <span class="n">Boot</span> <span class="k">Start</span>     <span class="k">End</span> <span class="n">Sectors</span>  <span class="k">Size</span> <span class="n">Id</span> <span class="k">Type</span>
+<span class="o">/</span><span class="n">dev</span><span class="o">/</span><span class="n">sdb1</span>  <span class="o">*</span>     <span class="mi">2048</span> <span class="mi">8058879</span> <span class="mi">8056832</span>  <span class="mi">3</span><span class="p">.</span><span class="mi">9</span><span class="k">G</span> <span class="mi">83</span> <span class="n">Linux</span>
+
+<span class="n">Command</span> <span class="p">(</span><span class="n">m</span> <span class="k">for</span> <span class="n">help</span><span class="p">):</span>
+</code></pre></div>
+
+<ol>
+<li>Formatter le volume en ext2. Exemple pour notre clé :</li>
+</ol>
+<div class="highlight"><pre><span></span><code><span class="err">mkfs.ext2 -L USBGRUB /dev/sdb1</span>
+</code></pre></div>
+
+<p><strong>Note</strong></p>
+<div class="highlight"><pre><span></span><code><span class="err">L&#39;URL donnée en haut fait formatter le volume en VFAT (type &#39;c&#39; dans la</span>
+<span class="err">table des partitions), cela fonctionne aussi. Je préfère ext2.</span>
+</code></pre></div>
+
+<ol>
+<li>Monter le volume. Exemple :</li>
+</ol>
+<div class="highlight"><pre><span></span><code><span class="err">mkdir /mnt/usbgrub</span>
+<span class="err">mount /dev/sdb1 /mnt/usbgrub</span>
+</code></pre></div>
+
+<ol>
+<li>Exécuter la commande</li>
+</ol>
+<div class="highlight"><pre><span></span><code><span class="err">grub-install --boot-directory=/mnt/usbgrub/boot /dev/sdb</span>
+</code></pre></div>
+
+<ol>
+<li>La clé contient grub et peut démarrer un PC.</li>
+</ol>
+<hr>
+<p><strong>Démarrage</strong></p>
+<p>Le point délicat est de trouver le numéro de disque et le numéro de partition. A
+priori, le disque principal du PC porte le numéro 1. Dans mon cas, la partition
+Linux étant la numéro 3 (Linux démarre sur <code>/dev/sda3</code>), le volume de démarrage
+pour Linux est <code>(hd1,3)</code>.</p>
+<p>Et le volume de démarrage pour Windows, qui démarre sur mon PC depuis la
+partition <code>/dev/sda1</code>, est <code>(hd1,1)</code>.</p>
+<ol>
+<li>Démarrer Windows depuis la clé</li>
+</ol>
+<p>À l'invite de grub, exécuter :</p>
+<div class="highlight"><pre><span></span><code><span class="n">set</span> <span class="n">root</span><span class="o">=</span><span class="p">(</span><span class="n">hd1</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">chainloader</span> <span class="o">+</span><span class="mi">1</span>
+<span class="n">boot</span>
+</code></pre></div>
+
+<ol>
+<li>
+<p>Démarrer Linux depuis la clé</p>
+</li>
+<li>
+<p><strong>Important</strong></p>
+</li>
+</ol>
+<p>Une fois que <code>root</code> a été défini à la bonne valeur, il est possible d'utiliser
+la touche de tabulation pour compléter automatiquement les noms de fichier.</p>
+<ul>
+<li><strong>Exemple pour une disbution Ubuntu 17.10 à jour</strong></li>
+</ul>
+<p>À l'invite de grub, exécuter :</p>
+<div class="highlight"><pre><span></span><code><span class="err">set root=(hd1,3)</span>
+<span class="err">linux /boot/vmlinuz-4.13.0-17-generic ro root=/dev/sda3</span>
+<span class="err">initrd /boot/initrd.img-4.13.0-17-generic</span>
+<span class="err">boot</span>
+</code></pre></div>
+<p class="subheader">Category: <a href="http://milletseb.free.fr/category/ti.html">TI</a>
+
+</p>
+
+
+
+
+</article>
+    </div>
+    <!-- End Main Content -->
+
+    <!-- Sidebar -->
+    <aside class="large-3 columns">
+        <h5 class="sidebar-title">Site</h5>
+        <ul class="side-nav">
+            <li><a href="http://milletseb.free.fr/archives.html">Archives</a>
+            <li><a href="http://milletseb.free.fr/tags.html">Tags</a>
+
+
+        </ul>
+
+		
+        <h5 class="sidebar-title">Categories</h5>
+        <ul class="side-nav">
+            <li><a href="http://milletseb.free.fr/category/lectures.html">Lectures</a></li>
+            <li><a href="http://milletseb.free.fr/category/origine.html">Origine</a></li>
+            <li><a href="http://milletseb.free.fr/category/partage.html">Partage</a></li>
+            <li><a href="http://milletseb.free.fr/category/programmes.html">Programmes</a></li>
+            <li><a href="http://milletseb.free.fr/category/recettes.html">Recettes</a></li>
+            <li><a href="http://milletseb.free.fr/category/ti.html">TI</a></li>
+   
+        </ul>
+
+        <h5 class="sidebar-title">Links</h5>
+        <ul class="side-nav">
+            <li><a href="http://milletseb.free.fr/ancien/index.html">Ancien Site</a></li>
+            <li><a href="http://getpelican.com/">Pelican</a></li>
+            <li><a href="http://python.org/">Python.org</a></li>
+            <li><a href="http://jinja.pocoo.org/">Jinja2</a></li>
+
+Search: <input data-stork="sitesearch" />
+<div data-stork="sitesearch-output"></div>
+
+        </ul>
+		
+
+    </aside> <!-- End Sidebar -->
+
+</div> <!-- End Main Content and Sidebar -->
+
+
+<!-- Footer -->
+<footer class="row">
+    <div class="large-12 columns">
+        <hr />
+        <div class="row">
+            <div class="large-6 columns">
+                <p>Site de Sébastien Millet by Sébastien Millet</p>
+            </div>
+            </div>
+    </div>
+</footer>
+
+<script src="https://files.stork-search.net/releases/v1.5.0/stork.js"></script>
+<script>
+    stork.register("sitesearch", "http://milletseb.free.fr/search-index.st")
+</script>

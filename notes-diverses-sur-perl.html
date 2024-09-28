@@ -1,0 +1,1340 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="utf-8" />
+    <!-- Set the viewport width to device width for mobile -->
+    <meta name="viewport" content="width=device-width" />
+
+    <title>Notes diverses sur Perl</title>
+
+    <link rel="stylesheet" href="http://milletseb.free.fr/theme/css/normalize.css" />
+    <link rel="stylesheet" href="http://milletseb.free.fr/theme/css/foundation.min.css" />
+    <link rel="stylesheet" href="http://milletseb.free.fr/theme/css/style.css" />
+    <link rel="stylesheet" href="http://milletseb.free.fr/theme/css/pygments.css" />	
+    <script src="http://milletseb.free.fr/theme/js/custom.modernizr.js"></script>
+
+    <!-- So Firefox can bookmark->"abo this site" -->
+
+<link rel="stylesheet" href="https://files.stork-search.net/basic.css" />
+
+</head>
+
+<body>
+
+<!-- Nav Bar -->
+<nav>
+<div class="top-bar">
+<div class="row">
+    <div class="large-9 large-centered columns">
+	    <h1><a href="http://milletseb.free.fr">Site de Sébastien Millet</a></h1>
+    </div>
+</div>
+</div>
+
+<!-- Show menu items and pages -->
+<div class="row">
+<div class="large-9 columns">
+    <ul class="button-group navigation">
+
+    </ul>
+</div>
+</div>
+</nav>
+<!-- End Nav -->
+
+
+<!-- Main Page Content and Sidebar -->
+<div class="row">
+
+    <!-- Main Blog Content -->
+    <div class="large-9 columns">
+<article>
+    <header>
+        <h3 class="article-title"><a href="http://milletseb.free.fr/notes-diverses-sur-perl.html" rel="bookmark"
+        title="Permalink to Notes diverses sur Perl">Notes diverses sur Perl</a></h3>
+    </header>
+
+<h6 class="subheader" title="2018-11-03T00:00:00+01:00">sam. 03 novembre 2018
+</h6>
+
+
+    <p><em>Trouvé sur Internet...</em></p>
+<ul>
+<li>Tracer l'exécution d'un script perl</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="err">perl -d:Trace myprog.pl</span>
+</code></pre></div>
+
+<ul>
+<li>UTF8</li>
+</ul>
+<p><em>Opérateur diamant en UTF8</em></p>
+<div class="highlight"><pre><span></span><code><span class="c1"># La lecture de &lt;&gt; se fera en UTF8, et un fichier ouvert sera par défaut</span>
+<span class="c1"># également en UTF8.</span>
+<span class="k">use</span> <span class="nn">open</span> <span class="sx">qw(:utf8)</span><span class="p">;</span>
+</code></pre></div>
+
+<p><em>Entrées/sorties en UTF8</em></p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Les entrées/sorties standard (ainsi que l&#39;erreur) se feront en UTF8</span>
+<span class="nb">binmode</span> <span class="nv">$_</span><span class="p">,</span> <span class="s">&#39;:utf8&#39;</span> <span class="k">for</span> <span class="o">\*</span><span class="bp">STDIN</span><span class="p">,</span> <span class="o">\*</span><span class="bp">STDOUT</span><span class="p">,</span> <span class="o">\*</span><span class="bp">STDERR</span><span class="p">;</span>
+</code></pre></div>
+
+<p><em>Pour faire les deux ci-dessus simultanément</em></p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Passe &lt;&gt; (ainsi que tout fichier ouvert par défaut), STDINT, STDOUT et STDERR</span>
+<span class="c1"># en utf8.</span>
+<span class="k">use</span> <span class="nn">open</span> <span class="sx">qw (:std </span><span class="p">:</span><span class="n">utf8</span><span class="p">);</span>
+</code></pre></div>
+
+<h1>Notes du livre online <em>Modern Perl</em></h1>
+<h4>Auteur : chromatic</h4>
+<h4>Éditeur : Michael Swaine</h4>
+<h4>Télécharger le document</h4>
+<p><a href="http://onyxneon.com/books/modern_perl/modern_perl_2016_a4.pdf">http://onyxneon.com/books/modern_perl/modern_perl_2016_a4.pdf</a></p>
+<hr>
+<ul>
+<li><code>weaken</code></li>
+</ul>
+<p>Désactiver le comptage des références</p>
+<ul>
+<li><code>wantarray</code></li>
+</ul>
+<p>Détecter le contexte d'appel</p>
+<ul>
+<li><code>each</code></li>
+</ul>
+<p>Parcourir les éléments d'un tableau ou hash par indice / valeur
+(tableau) ou clé / valeur (hash)</p>
+<ul>
+<li><code>keys</code></li>
+</ul>
+<p>Parcourir les clés d'un hash</p>
+<ul>
+<li><code>values</code></li>
+</ul>
+<p>Parcourir les valeurs d'un hash</p>
+<ul>
+<li>Supprimer les valeurs en double dans un tableau</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="k">my</span> <span class="nv">%uniq</span><span class="p">;</span>
+<span class="nb">undef</span> <span class="nv">@uniq</span><span class="p">{</span><span class="nv">@tab</span><span class="p">};</span>
+<span class="k">my</span> <span class="nv">@tab_uniq</span> <span class="o">=</span> <span class="nb">keys</span> <span class="nv">%uniq</span><span class="p">;</span>
+</code></pre></div>
+
+<p>À noter que cette méthode ne conserve pas l'ordre. </p>
+<p>Version qui conserve l'ordre :</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># D&#39;après https://www.perlmonks.org/?node_id=280714</span>
+<span class="k">my</span> <span class="nv">%seen</span><span class="p">;</span>
+<span class="nv">@uniq</span> <span class="o">=</span> <span class="nb">grep</span> <span class="o">!</span> <span class="nv">$seen</span><span class="p">{</span><span class="nv">$_</span><span class="p">}</span><span class="o">++</span><span class="p">,</span> <span class="nv">@list</span><span class="p">;</span>
+</code></pre></div>
+
+<p>La bonne méthode :</p>
+<div class="highlight"><pre><span></span><code><span class="k">use</span> <span class="nn">List::Util</span> <span class="sx">qw(uniq)</span><span class="p">;</span>
+
+<span class="k">my</span> <span class="nv">@subset</span> <span class="o">=</span> <span class="n">uniq</span> <span class="nv">@values</span><span class="p">;</span>
+</code></pre></div>
+
+<p>Voir aussi <code>uniqnum</code> et <code>uniqstr</code>.</p>
+<ul>
+<li><strong><code>//=</code></strong></li>
+</ul>
+<p>Assigner seulement si lvalue est <code>undef</code>, exemple :</p>
+<div class="highlight"><pre><span></span><code><span class="nv">$v</span> <span class="sr">//</span><span class="o">=</span> <span class="s">&#39;&lt;no string provided&gt;&#39;</span><span class="p">;</span>
+</code></pre></div>
+
+<ul>
+<li><strong><code>//</code></strong></li>
+</ul>
+<p>Vérifie si le terme à gauche est défini, exemple :</p>
+<div class="highlight"><pre><span></span><code><span class="k">sub</span> <span class="nf">f</span> <span class="p">{</span> <span class="k">my</span> <span class="nv">$str</span> <span class="o">=</span> <span class="nb">shift</span> <span class="sr">//</span> <span class="s">&#39;&lt;no str provided!&gt;&#39;</span><span class="p">;</span> <span class="p">}</span>
+</code></pre></div>
+
+<ul>
+<li><code>lock_keys</code></li>
+</ul>
+<p>Verrouille les clés d'un hash (<code>Hash::Util</code>)</p>
+<ul>
+<li><code>lock_value</code></li>
+</ul>
+<p>Verrouille les valeurs d'un hash (<code>Hash::Util</code>)</p>
+<ul>
+<li><code>lock_hash</code></li>
+</ul>
+<p>Verrouille le hash dans sa totalité (<code>Hash::Util</code>)</p>
+<ul>
+<li>Pour définir des dualvars</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="nn">Scalar::</span><span class="n">Util</span> <span class="s">&#39;dualvar&#39;</span><span class="p">;</span>
+</code></pre></div>
+
+<hr>
+<h1>Notes du livre online <em>Higher Order Perls</em></h1>
+<h4>Auteur : Mark Jason Dominus</h4>
+<h4>Éditeur : Elsevier</h4>
+<h4>Télécharger le document</h4>
+<p><a href="http://hop.perl.plover.com/book/pdf/HigherOrderPerl.pdf">http://hop.perl.plover.com/book/pdf/HigherOrderPerl.pdf</a></p>
+<hr>
+<ul>
+<li>En perl, false = error et true = succès</li>
+</ul>
+<p>(The hard way)</p>
+<ul>
+<li><code>Params::Validate</code></li>
+</ul>
+<p>Validate method/function parameters</p>
+<ul>
+<li>Option <code>-MCarp::Always</code></li>
+</ul>
+<p>Affiche la pile d'appel en cas d'erreur.</p>
+<ul>
+<li><code>IPC::Open3</code></li>
+</ul>
+<p>"Open a process for reading, writing, and error handling using open3()"</p>
+<ul>
+<li><code>Devel::NYTProf</code> (ou bien <code>Devel::DProf</code>, mais le premier est mieux)</li>
+</ul>
+<p>Profiling performance</p>
+<ul>
+<li><code>Perl::Critic</code></li>
+</ul>
+<p>Analyzing code quality. It's basically lint for Perl.</p>
+<ul>
+<li><code>Data::Dumper</code></li>
+</ul>
+<p>Analyzing a variable's structure</p>
+<ul>
+<li><code>Params::Validate</code> (ou bien, pour Moose : <code>MooseX::Method::Signatures</code>)</li>
+</ul>
+<p>Vérification de paramètre à l'appel de fonction.</p>
+<ul>
+<li><code>Contextual::Return</code></li>
+</ul>
+<p>Retourne une valeur en fonction du contexte d'appel.</p>
+<ul>
+<li>Code trouvé ici et là</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="k">my</span> <span class="nv">@files</span> <span class="o">=</span> <span class="nb">grep</span> <span class="p">{</span> <span class="o">-</span><span class="n">f</span> <span class="p">}</span> <span class="nb">glob</span><span class="p">(</span> <span class="s">&quot;*&quot;</span> <span class="p">);</span>
+
+<span class="k">my</span> <span class="nv">$casefix</span> <span class="o">=</span> <span class="k">sub</span> <span class="p">{</span> <span class="k">return</span> <span class="nb">ucfirst</span> <span class="nb">lc</span> <span class="nv">$_</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="p">};</span>
+
+<span class="k">use</span> <span class="nn">warnings</span> <span class="n">FATAL</span> <span class="o">=&gt;</span> <span class="s">&#39;all&#39;</span><span class="p">;</span>
+
+<span class="k">my</span> <span class="nv">$s</span> <span class="o">=</span> <span class="nb">eval</span> <span class="s">&quot;sub { $text }&quot;</span> <span class="p">;</span>
+
+<span class="k">use</span> <span class="nn">DB_File</span><span class="p">;</span>
+<span class="nb">tie</span> <span class="nv">%hash</span> <span class="o">=&gt;</span> <span class="s">&#39;DB_File&#39;</span><span class="p">,</span> <span class="nv">$file</span><span class="p">,</span> <span class="err">…</span>
+
+<span class="k">use</span> <span class="nn">Term::ANSIColor</span><span class="p">;</span>
+</code></pre></div>
+
+<hr>
+<h1>Notes du livre <em>Perl One-Liners (130 Programs That Get Things Done)</em></h1>
+<h4>Auteur : Peteris Krumins</h4>
+<h4>Éditeur : No Starch Press</h4>
+<h4>Télécharger le code des one-liners (perl1line.txt)</h4>
+<p><a href="http://www.catonmat.net/download/perl1line.txt">http://www.catonmat.net/download/perl1line.txt</a></p>
+<hr>
+<div class="highlight"><pre><span></span><code><span class="s">&quot;@{[ ... ]}&quot;</span> <span class="c1"># Pour exécuter un code dans une chaîne de caractères</span>
+
+<span class="n">perl</span> <span class="o">-</span><span class="ow">le</span> <span class="s">&#39;print map { (&quot;a&quot;..&quot;z&quot;)[rand 26] } 1..8&#39;</span><span class="c1"># Mot de passe</span>
+<span class="n">perl</span> <span class="o">-</span><span class="ow">le</span> <span class="s">&#39;print unpack(&quot;N&quot;, 127.0.0.1)&#39;</span>          <span class="c1"># Convertit IP en entier</span>
+<span class="n">perl</span> <span class="o">-</span><span class="n">MSocket</span> <span class="o">-</span><span class="ow">le</span> <span class="s">&#39;print unpack(&quot;N&quot;, inet_aton(&quot;127.0.0.1&quot;))&#39;</span><span class="c1"># Sans vstring</span>
+<span class="n">perl</span> <span class="o">-</span><span class="n">MSocket</span> <span class="o">-</span><span class="ow">le</span> <span class="s">&#39;print inet_ntoa(pack(&quot;N&quot;, 2130706433))&#39;</span>   <span class="c1"># Dans l&#39;autre sens</span>
+<span class="n">perl</span> <span class="o">-</span><span class="n">nE</span> <span class="s">&#39;say&#39;</span> <span class="n">file</span>                               <span class="c1"># Ajoute lignes vides</span>
+<span class="n">perl</span> <span class="o">-</span><span class="mo">00</span><span class="n">pe0</span>                                       <span class="c1"># Supp. lignes vides multiples</span>
+<span class="n">perl</span> <span class="o">-</span><span class="ow">ne</span> <span class="s">&#39;}{print $.&#39;</span>                             <span class="c1"># wc -l</span>
+    <span class="c1"># Détermine si un entier est un nombre premier</span>
+<span class="n">perl</span> <span class="o">-</span><span class="n">lne</span> <span class="s">&#39;(1x$_) !~ /^1?$|^(11+?)\1+$/ &amp;&amp; print &quot;$_ is prime&quot;&#39;</span>
+<span class="n">perl</span> <span class="o">-</span><span class="n">Mbignum</span><span class="o">=</span><span class="n">bpi</span> <span class="o">-</span><span class="ow">le</span> <span class="s">&#39;print bpi(21)&#39;</span>             <span class="c1"># Affiche 21 décimales de PI</span>
+<span class="n">perl</span> <span class="o">-</span><span class="ow">le</span> <span class="s">&#39;print scalar localtime&#39;</span>                 <span class="c1"># Affiche date et heure</span>
+<span class="n">perl</span> <span class="o">-</span><span class="ow">le</span> <span class="s">&#39;print join &quot;:&quot;, (localtime)[2,1,0]&#39;</span>     <span class="c1"># Affiche l&#39;heure locale</span>
+    <span class="c1"># Calcule factorielle</span>
+<span class="n">perl</span> <span class="o">-</span><span class="nn">MMath::</span><span class="n">BigInt</span> <span class="o">-</span><span class="ow">le</span> <span class="s">&#39;print Math::BigInt-&gt;new(5)-&gt;bfac()&#39;</span>
+    <span class="c1"># Permutations !</span>
+<span class="n">perl</span> <span class="o">-</span><span class="nn">MAlgorithm::</span><span class="n">Permute</span> <span class="o">-</span><span class="ow">le</span> <span class="s">&#39;</span>
+<span class="s">@l = (1,2,3,4,5);</span>
+<span class="s">Algorithm::Permute::permute { print &quot;@l&quot; } @l</span>
+<span class="s">&#39;</span>
+<span class="k">use</span> <span class="nn">List::PowerSet</span>                                <span class="c1"># Partitions d&#39;un ensemble</span>
+<span class="n">perl</span> <span class="o">-</span><span class="n">lpe</span> <span class="s">&#39;y/A-Za-z/N-ZA-Mn-za-m/&#39;</span> <span class="n">file</span>           <span class="c1"># ROT13</span>
+<span class="n">perl</span> <span class="o">-</span><span class="nn">MMIME::</span><span class="n">Base64</span> <span class="o">-</span><span class="mo">0777</span> <span class="o">-</span><span class="ow">ne</span> <span class="s">&#39;print encode_base64($_)&#39;</span> <span class="n">file</span>  <span class="c1"># Encode en BASE64</span>
+<span class="n">perl</span> <span class="o">-</span><span class="nn">MMIME::</span><span class="n">Base64</span> <span class="o">-</span><span class="mo">0777</span> <span class="o">-</span><span class="ow">ne</span> <span class="s">&#39;print decode_base64($_)&#39;</span> <span class="n">file</span>  <span class="c1"># Decode de BASE64</span>
+<span class="n">perl</span> <span class="o">-</span><span class="nn">MURI::</span><span class="n">Escape</span> <span class="o">-</span><span class="ow">le</span> <span class="s">&#39;print uri_escape(&quot;http://example.fr&quot;)&#39;</span><span class="c1"># URL-escape</span>
+<span class="n">perl</span> <span class="o">-</span><span class="nn">MURI::</span><span class="n">Escape</span> <span class="o">-</span><span class="ow">le</span> <span class="s">&#39;print uri_unescape(&quot;http://example.com&quot;)&#39;</span> <span class="c1"># Inverse...</span>
+<span class="n">perl</span> <span class="o">-</span><span class="n">pe</span> <span class="s">&#39;s|\012|\015\012|&#39;</span>                       <span class="c1"># Sauts de ligne UNIX -&gt; DOS</span>
+<span class="n">perl</span> <span class="o">-</span><span class="n">pe</span> <span class="s">&#39;s|\015\012|\012|&#39;</span>                       <span class="c1"># Sauts de ligne DOS -&gt; UNIX</span>
+    <span class="c1"># Adresse IP</span>
+<span class="k">my</span> <span class="nv">$ip_part</span> <span class="o">=</span> <span class="sx">qr/[0-9]|[0-9][0-9]|1[0-9][0-9]|2[0-4][0-9]|25[0-5]/</span><span class="p">;</span>
+<span class="k">if</span> <span class="p">(</span><span class="nv">$ip</span> <span class="o">=~</span><span class="sr"> /^$ip_part\.$ip_part\.$ip_part\.$ip_part$/</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">print</span> <span class="s">&quot;valid ip\n&quot;</span><span class="p">;</span>
+<span class="p">}</span>
+    <span class="c1"># ou bien</span>
+<span class="k">if</span> <span class="p">(</span><span class="nv">$ip</span> <span class="o">=~</span><span class="sr"> /^($ip_part\.){3}$ip_part$/</span><span class="p">)</span> <span class="p">{</span> <span class="o">...</span> <span class="p">}</span>
+<span class="n">perl</span> <span class="o">-</span><span class="nn">MEmail::</span><span class="n">Valid</span> <span class="o">-</span><span class="ow">ne</span> <span class="s">&#39;print if Email::Valid-&gt;address($_)&#39;</span> <span class="c1"># Valide adr. mail</span>
+<span class="n">perl</span> <span class="o">-</span><span class="nn">MRegexp::</span><span class="n">Common</span> <span class="o">-</span><span class="ow">ne</span> <span class="s">&#39;print if /$RE{num}{real}/&#39;</span>  <span class="c1"># Trouve un réel</span>
+<span class="nv">$str</span> <span class="o">=~</span> <span class="sr">s/(\d+)/$1+1/ge</span>                                <span class="c1"># Incrémente les entiers</span>
+<span class="n">perl</span> <span class="o">-</span><span class="nn">MRegexp::</span><span class="n">Common</span> <span class="o">-</span><span class="n">pe</span> <span class="s">&#39;s/($RE{num}{real})/$1+1/ge&#39;</span> <span class="c1"># Incrémente les réels</span>
+<span class="k">my</span> <span class="nv">@nums</span> <span class="o">=</span> <span class="nv">$text</span> <span class="o">=~</span><span class="sr"> /\d+/g</span><span class="p">;</span>                            <span class="c1"># Extrais les nombres...</span>
+<span class="n">perl</span> <span class="o">-</span><span class="n">alne</span> <span class="s">&#39;print &quot;@{[grep { $_ eq reverse $_ } @F]}&quot;&#39;</span> <span class="c1"># Affiche les palindromes</span>
+    <span class="c1"># Lit par paquets de 1024 octets :</span>
+<span class="vg">$/</span> <span class="o">=</span> <span class="o">\</span><span class="mi">1024</span>
+
+<span class="n">perl</span> <span class="o">-</span><span class="ow">le</span> <span class="s">&#39;print &quot;$_: $ENV{$_}&quot; for keys %ENV&#39;</span>     <span class="c1"># Affiche l&#39;environnement</span>
+</code></pre></div>
+
+<hr>
+<h1>Notes du livre <em>Intermediate Perl, 2nd edition</em></h1>
+<h4>Auteur : Randal L. Schwarz, brian d foy &amp; Tom Phoenix</h4>
+<h4>Éditeur : O'Reilly</h4>
+<ul>
+<li>Afficher quelle version de module est venue avec une certaine version de Perl</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="k">use</span> <span class="nn">Module::CoreList</span><span class="p">;</span>
+<span class="k">print</span> <span class="nv">$</span><span class="nn">Module::CoreList::</span><span class="nv">version</span><span class="p">{</span><span class="mf">5.01400</span><span class="p">}{</span><span class="n">CPAN</span><span class="p">};</span>
+</code></pre></div>
+
+<ul>
+<li>Afficher quelle version de Perl a intégré un module dans la librairie standard</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="k">use</span> <span class="nn">Module::CoreList</span><span class="p">;</span>
+<span class="k">print</span> <span class="nn">Module::CoreList</span><span class="o">-&gt;</span><span class="n">first_release</span><span class="p">(</span> <span class="s">&#39;Module::Build&#39;</span> <span class="p">);</span>
+</code></pre></div>
+
+<ul>
+<li>ou bien, depuis la ligne de commande</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="err">corelist Module::Build</span>
+</code></pre></div>
+
+<ul>
+<li>Installer un module dans un répertoire spécifique</li>
+</ul>
+<p><code>perl Makefile.PL INSTALL_BASE=/home/machin/myperl</code></p>
+<ul>
+<li><code>PERL5LIB</code></li>
+</ul>
+<p>Pour ajouter un répertoire où chercher les modules.</p>
+<ul>
+<li>Pour afficher @INC</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="err">perl -le &#39;print for @INC&#39;</span>
+</code></pre></div>
+
+<ul>
+<li><code>local::lib</code></li>
+</ul>
+<p>Permet d'avoir la listes des variables à définir (en syntaxe <em>bash</em>) pour faire
+fonctionner Perl sans droits d'administration.</p>
+<div class="highlight"><pre><span></span><code><span class="err">perl -Mlocal::lib</span>
+</code></pre></div>
+
+<ul>
+<li>
+<p><code>cpan</code>, <code>cpanp</code>, <code>cpanm</code></p>
+<ul>
+<li><code>cpan</code> : le client CPAN historique</li>
+<li><code>cpanp</code> : un client CPAN enrichi ('CPANPLUS')</li>
+<li><code>cpanm</code> : un client CPAN simplifié ('CPANMINUS'), qui tente de tout
+automatiser</li>
+</ul>
+</li>
+<li>
+<p><code>use</code> et <code>require</code></p>
+</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="k">use</span> <span class="nn">List::Util</span><span class="p">;</span>
+
+<span class="c1"># Est équivalent à</span>
+
+<span class="k">BEGIN</span> <span class="p">{</span> <span class="c1"># what use is really doing</span>
+    <span class="k">require</span> <span class="nn">List::Util</span><span class="p">;</span>
+    <span class="nn">List::Util</span><span class="o">-&gt;</span><span class="nb">import</span><span class="p">(</span><span class="o">...</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<ul>
+<li>Module <code>B::Deparse</code></li>
+</ul>
+<p>Ce module permet d'afficher le script tel que compilé par Perl.</p>
+<div class="highlight"><pre><span></span><code><span class="err">perl -MO=Deparse myprog.pl</span>
+</code></pre></div>
+
+<ul>
+<li>Pour vérifier un lien HTTP</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="k">use</span> <span class="nn">HTTP::SimpleLinkChecker</span> <span class="sx">qw(check_link)</span>
+<span class="n">check_link</span><span class="p">(</span> <span class="nv">$_</span> <span class="p">);</span>
+<span class="o">!</span> <span class="nn">HTTP::SimpleLinkChecker::</span><span class="n">ERROR</span><span class="p">;</span>
+</code></pre></div>
+
+<ul>
+<li>Créer un hash d'après un tableau</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="k">my</span> <span class="nv">%hash</span> <span class="o">=</span> <span class="nb">map</span> <span class="p">{</span> <span class="nv">$_</span><span class="p">,</span> <span class="mi">1</span> <span class="p">}</span> <span class="nv">@array</span><span class="p">;</span>
+</code></pre></div>
+
+<ul>
+<li>Éviter de répéter le nom d'un variable</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="k">my</span> <span class="nv">$v</span> <span class="o">=</span> <span class="k">do</span> <span class="p">{</span>
+  <span class="k">if</span> <span class="p">(</span> <span class="o">...</span> <span class="p">)</span> <span class="p">{</span> <span class="s">&#39;value1&#39;</span> <span class="p">}</span>
+  <span class="k">elsif</span> <span class="p">(</span> <span class="o">...</span> <span class="p">)</span> <span class="p">{</span> <span class="s">&#39;value2&#39;</span> <span class="p">}</span>
+  <span class="k">else</span> <span class="p">{</span> <span class="s">&#39;value3&#39;</span> <span class="p">};</span>
+</code></pre></div>
+
+<ul>
+<li>Lire l'intégralité d'un fichier</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="k">my</span> <span class="nv">$file_content</span> <span class="o">=</span> <span class="k">do</span> <span class="p">{</span>
+  <span class="nb">local</span> <span class="vg">$/</span><span class="p">;</span>
+  <span class="nb">local</span> <span class="nv">@ARGV</span> <span class="o">=</span> <span class="p">(</span> <span class="nv">$file_name</span> <span class="p">);</span>
+  <span class="o">&lt;&gt;</span>
+<span class="p">};</span>
+</code></pre></div>
+
+<ul>
+<li>Fonctions de manipulation de noms de fichier</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="k">use</span> <span class="nn">File::Spec::Functions</span><span class="p">;</span> <span class="c1"># Utilise les fonctions plutôt que le mode objet</span>
+</code></pre></div>
+
+<ul>
+<li>Faire un grep en interceptant une mauvaise regex</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="k">print</span> <span class="nb">grep</span> <span class="p">{</span> <span class="nb">eval</span> <span class="p">{</span> <span class="sr">/$regex/</span> <span class="p">}</span> <span class="p">}</span> <span class="nb">glob</span><span class="p">(</span> <span class="s">&quot;.* *&quot;</span><span class="p">);</span>
+</code></pre></div>
+
+<ul>
+<li>Le sigil n'est pas forcément collé au nom de variable</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="k">my</span> <span class="nv">$</span> <span class="nv">abc</span> <span class="o">=</span> <span class="s">&#39;youpi&#39;</span><span class="p">;</span>
+<span class="k">print</span> <span class="nv">$</span> <span class="nv">abc</span><span class="p">,</span> <span class="s">&quot;\n&quot;</span><span class="p">;</span>
+<span class="c1"># Idem avec @ ou %</span>
+<span class="c1"># Par contre, ne fonctionne pas dans une chaîne interpolée</span>
+</code></pre></div>
+
+<ul>
+<li>Dé-référencer sans accolades</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="nv">@$myarrayref</span><span class="p">;</span>
+<span class="nv">%$myhashref</span><span class="p">;</span>
+<span class="nv">$$myarrayref</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span>
+<span class="nv">$$myhashref</span><span class="p">{</span><span class="n">mykey</span><span class="p">};</span>
+</code></pre></div>
+
+<ul>
+<li>Pour savoir si une variable donnée est un hash au sens large</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="c1"># Ne vérifie pas &quot;ce que c&#39;est&quot; avec un ref, plutôt, vérifie que &quot;ça&quot; peut se</span>
+<span class="c1"># comporter comme un hash, quoi que ce soit.</span>
+<span class="k">sub</span> <span class="nf">is_hash_ref</span> <span class="p">{</span>
+  <span class="k">my</span> <span class="nv">$hash_ref</span> <span class="o">=</span> <span class="nb">shift</span><span class="p">;</span>
+  <span class="n">rerurn</span> <span class="nb">eval</span> <span class="p">{</span> <span class="nb">keys</span> <span class="nv">%$hash_ref</span><span class="p">;</span> <span class="mi">1</span> <span class="p">};</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<ul>
+<li>L'auto-vivification fonctionne avec n'importe quel <em>undef</em></li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="k">my</span> <span class="nv">$not_yet</span><span class="p">;</span>
+<span class="nv">@$not_yet</span> <span class="o">=</span> <span class="p">(</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span> <span class="p">);</span>
+
+<span class="k">my</span> <span class="nv">$top</span><span class="p">;</span>
+<span class="nv">$top</span><span class="o">-&gt;</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">-&gt;</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span> <span class="o">=</span> <span class="s">&#39;bla&#39;</span><span class="p">;</span>
+</code></pre></div>
+
+<ul>
+<li>Déboguer un script</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="err">perl -d myscript.pl</span>
+</code></pre></div>
+
+<p>Ensuite : <strong>s</strong> pour avancer d'un pas, <strong>x</strong> pour afficher une ou des variables.
+<strong>h</strong> pour de l'aide.</p>
+<ul>
+<li>Alternatives à <em>Dumper</em></li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="k">use</span> <span class="nn">Data::Dump</span> <span class="sx">qw( dump )</span><span class="p">;</span>
+
+<span class="c1"># Ou bien</span>
+<span class="k">use</span> <span class="nn">Data::Printer</span><span class="p">;</span>
+<span class="o">...</span>
+<span class="n">p</span><span class="p">(</span> <span class="nv">%mon_hash</span> <span class="p">);</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="c1"># print Data::Dumper-&gt;Dump( 2 array references,</span>
+<span class="c1"># one for the content, one for the variable names );</span>
+<span class="k">print</span> <span class="nn">Data::Dumper</span><span class="o">-&gt;</span><span class="n">Dump</span><span class="p">(</span>
+  <span class="p">[</span> <span class="o">\</span><span class="nv">@data1</span><span class="p">,</span> <span class="o">\</span><span class="nv">@data2</span> <span class="p">],</span>
+  <span class="p">[</span> <span class="sx">qw(*data1 *data2)</span> <span class="p">]</span>
+<span class="p">);</span>
+
+<span class="c1"># ---&gt;&gt;&gt;</span>
+<span class="nv">@data1</span> <span class="o">=</span> <span class="p">(</span>
+  <span class="s">&#39;one&#39;</span><span class="p">,</span>
+  <span class="s">&#39;won&#39;</span><span class="p">,</span>
+  <span class="p">[</span>
+    <span class="s">&#39;two&#39;</span><span class="p">,</span>
+    <span class="s">&#39;too&#39;</span><span class="p">,</span>
+    <span class="s">&#39;to&#39;</span><span class="p">,</span>
+    <span class="o">\</span><span class="nv">@data1</span>
+  <span class="p">]</span>
+<span class="p">);</span>
+<span class="nv">@data2</span> <span class="o">=</span> <span class="nv">@</span><span class="p">{</span><span class="nv">$data1</span><span class="p">[</span><span class="mi">2</span><span class="p">]};</span>
+</code></pre></div>
+
+<ul>
+<li>Module <em>Storable</em></li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="k">use</span> <span class="nn">Storable</span><span class="p">;</span>
+<span class="k">my</span> <span class="nv">$frozen</span> <span class="o">=</span> <span class="n">freeze</span> <span class="p">[</span> <span class="o">\</span><span class="nv">@data1</span><span class="p">,</span> <span class="o">\</span><span class="nv">@data2</span> <span class="p">];</span>
+<span class="o">...</span>
+<span class="k">my</span> <span class="nv">$data</span> <span class="o">=</span> <span class="n">thaw</span><span class="p">(</span> <span class="nv">$frozen</span> <span class="p">);</span>
+
+<span class="n">nstore</span> <span class="p">[</span><span class="o">\</span><span class="nv">@data1</span><span class="p">,</span> <span class="o">\</span><span class="nv">@data2</span><span class="p">],</span> <span class="nv">$filename</span><span class="p">;</span>
+<span class="o">...</span>
+<span class="k">my</span> <span class="nv">$array_ref</span> <span class="o">=</span> <span class="n">retrieve</span> <span class="nv">$filename</span><span class="p">;</span>
+
+<span class="c1"># Create a full copy (whatever recursion level)</span>
+<span class="k">my</span> <span class="nv">$full_copy</span> <span class="o">=</span> <span class="n">dclone</span> <span class="nv">$original</span><span class="p">;</span>
+</code></pre></div>
+
+<ul>
+<li>Autres modules pour sérialiser</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="c1"># YAML</span>
+<span class="k">use</span> <span class="nn">YAML</span><span class="p">;</span>
+<span class="o">...</span>
+<span class="k">print</span> <span class="n">Dump</span><span class="p">(</span> <span class="o">\</span><span class="nv">%mon_hash</span> <span class="p">);</span>
+
+<span class="c1"># JSON</span>
+<span class="k">use</span> <span class="nn">JSON</span><span class="p">;</span>
+<span class="k">print</span> <span class="n">to_json</span><span class="p">(</span> <span class="o">\</span><span class="nv">%mon_hash</span><span class="p">,</span> <span class="p">{</span> <span class="n">pretty</span> <span class="o">=&gt;</span> <span class="mi">1</span> <span class="p">}</span> <span class="p">);</span>
+<span class="o">...</span>
+<span class="k">my</span> <span class="nv">$hash_ref</span> <span class="o">=</span> <span class="n">from_json</span><span class="p">(</span> <span class="nv">$json_string</span> <span class="p">);</span>
+</code></pre></div>
+
+<ul>
+<li>Référence vers la sub actuelle</li>
+</ul>
+<p><code>__SUB__</code> est une référence vers la routine dans laquelle nous nous trouvons,
+fonctionne aussi bien avec une sub anonyme que régulière.</p>
+<ul>
+<li><em>MagicalCodeRef</em> (page 110)</li>
+</ul>
+<p>Permet d'afficher le nom de la sub en cours ainsi que des informations utiles
+(les closures en cours notamment).</p>
+<ul>
+<li>Un dumper très puissant, notamment, pour les coderef</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="k">use</span> <span class="nn">Data::Dump::Streamer</span><span class="p">;</span>
+
+<span class="n">Dump</span> <span class="nv">$var</span> <span class="c1"># can be or contain coderef</span>
+</code></pre></div>
+
+<ul>
+<li>Ouvrir un handle de fichier sur une chaîne</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="nb">open</span> <span class="k">my</span> <span class="nv">$fh</span><span class="p">,</span> <span class="s">&#39;&gt;&#39;</span><span class="p">,</span> <span class="o">\</span> <span class="k">my</span> <span class="nv">$string</span><span class="p">;</span>
+
+<span class="c1"># Autre exemple (rediriger STDOUT vers une chaîne)</span>
+<span class="p">{</span>
+  <span class="nb">local</span> <span class="o">*</span><span class="bp">STDOUT</span><span class="p">;</span>
+  <span class="nb">open</span> <span class="bp">STDOUT</span><span class="p">,</span> <span class="s">&#39;&gt;&#39;</span><span class="p">,</span> <span class="o">\</span> <span class="k">my</span> <span class="nv">$string</span><span class="p">;</span>
+
+  <span class="k">print</span> <span class="s">&quot;hello...\n&quot;</span><span class="p">;</span>
+
+  <span class="nv">$some_obj</span><span class="o">-&gt;</span><span class="n">noisy_method</span><span class="p">();</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<ul>
+<li>Module <em>IO::Handle</em></li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="c1"># Utilisation d&#39;un handle de fichier en mode objet</span>
+<span class="c1"># La ligne</span>
+<span class="c1">#   use IO::Handle;</span>
+<span class="c1"># est optionnelle sur mon perl...</span>
+<span class="k">use</span> <span class="nn">IO::Handle</span><span class="p">;</span>
+
+<span class="nb">open</span> <span class="k">my</span> <span class="nv">$fh</span><span class="p">,</span> <span class="s">&#39;&gt;&#39;</span><span class="p">,</span> <span class="nv">$filename</span> <span class="ow">or</span> <span class="nb">die</span> <span class="s">&quot;Error: $!&quot;</span><span class="p">;</span>
+<span class="nv">$fh</span><span class="o">-&gt;</span><span class="k">print</span><span class="p">(</span> <span class="s">&quot;bonjour !\n&quot;</span> <span class="p">);</span>
+<span class="nv">$fh</span><span class="o">-&gt;</span><span class="nb">close</span><span class="p">;</span>
+</code></pre></div>
+
+<ul>
+<li>Module <em>IO::File</em></li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="k">use</span> <span class="nn">IO::File</span><span class="p">;</span>
+
+<span class="k">my</span> <span class="nv">$read_fh</span> <span class="o">=</span> <span class="nn">IO::File</span><span class="o">-&gt;</span><span class="k">new</span><span class="p">(</span> <span class="s">&#39;myfile&#39;</span><span class="p">,</span> <span class="s">&#39;r&#39;</span> <span class="p">);</span>
+<span class="k">my</span> <span class="nv">$write_fh</span> <span class="o">=</span> <span class="nn">IO::File</span><span class="o">-&gt;</span><span class="k">new</span><span class="p">(</span> <span class="s">&#39;myfile&#39;</span><span class="p">,</span> <span class="s">&#39;w&#39;</span> <span class="p">);</span>
+
+<span class="k">my</span> <span class="nv">$append_fh</span> <span class="o">=</span> <span class="nn">IO::File</span><span class="o">-&gt;</span><span class="k">new</span><span class="p">(</span> <span class="s">&#39;myfile&#39;</span><span class="p">,</span> <span class="n">O_WRONLY</span><span class="o">|</span><span class="n">O_APPEND</span> <span class="p">);</span>
+</code></pre></div>
+
+<ul>
+<li>Module <em>IO::Scalar</em></li>
+</ul>
+<p>Pour écrire dans une chaîne, ancienne mode.</p>
+<ul>
+<li>Module IO::Tee</li>
+</ul>
+<p>Pour multiplexer.</p>
+<div class="highlight"><pre><span></span><code><span class="k">use</span> <span class="nn">IO::Tee</span><span class="p">;</span>
+
+<span class="k">my</span> <span class="nv">$tee_fh</span> <span class="o">=</span> <span class="nn">IO::Tee</span><span class="o">-&gt;</span><span class="k">new</span><span class="p">(</span> <span class="nv">$log_fh</span><span class="p">,</span> <span class="nv">$scalar_fh</span> <span class="p">);</span>
+
+<span class="c1"># Peut aussi multiplexer entre une entrée (dans ce cas, le premier handle donné</span>
+<span class="c1"># à IO::Tee) et plusieurs sorties.</span>
+
+<span class="k">my</span> <span class="nv">$tee_fh</span> <span class="o">=</span> <span class="nn">IO::Tee</span><span class="o">-&gt;</span><span class="k">new</span><span class="p">(</span> <span class="nv">$read_fh</span><span class="p">,</span> <span class="nv">$log_fh</span><span class="p">,</span> <span class="nv">$scalar_fh</span> <span class="p">);</span>
+</code></pre></div>
+
+<ul>
+<li>Module <em>IO::Pipe</em></li>
+</ul>
+<p>Permet de récupérer le résultat d'une commande externe (ou bien, envoyer des
+données vers une commande externe), de manière plus propre qu'avec <code>open</code>.</p>
+<div class="highlight"><pre><span></span><code><span class="nb">open</span> <span class="k">my</span> <span class="nv">$pipe</span><span class="p">,</span> <span class="s">&#39;-|&#39;</span><span class="p">,</span> <span class="nv">$command</span> <span class="ow">or</span> <span class="nb">die</span> <span class="s">&quot;Could not open fh: $!&quot;</span><span class="p">;</span>
+
+<span class="k">while</span> <span class="p">(</span><span class="sr">&lt;$pipe&gt;</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">print</span> <span class="s">&quot;Read: $_&quot;</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="c1"># avec IO::Pipe</span>
+<span class="k">use</span> <span class="nn">IO::Pipe</span><span class="p">;</span>
+
+<span class="k">my</span> <span class="nv">$pipe</span> <span class="o">=</span> <span class="nn">IO::Pipe</span><span class="o">-&gt;</span><span class="k">new</span><span class="p">;</span>
+<span class="nv">$pipe</span><span class="o">-&gt;</span><span class="n">reader</span><span class="p">(</span> <span class="s">&quot;$^X -V&quot;</span> <span class="p">);</span>
+
+<span class="k">while</span> <span class="p">(</span><span class="sr">&lt;$pipe&gt;</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">print</span> <span class="s">&quot;Read: $_&quot;</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="c1"># Dans le sens de l&#39;écriture</span>
+
+<span class="nb">open</span> <span class="k">my</span> <span class="nv">$pipe</span><span class="p">,</span> <span class="s">&#39;| $command&#39;</span> <span class="ow">or</span> <span class="nb">die</span> <span class="s">&quot;Could not open fh: $!&quot;</span><span class="p">;</span>
+<span class="k">print</span> <span class="nv">$pipe</span> <span class="s">&quot;I can count to $_\n&quot;</span> <span class="k">for</span> <span class="mi">1</span> <span class="o">..</span> <span class="mi">10</span><span class="p">;</span>
+
+<span class="c1"># Avec IO::Pipe</span>
+
+<span class="k">use</span> <span class="nn">IO::Pipe</span><span class="p">;</span>
+
+<span class="k">my</span> <span class="nv">$pipe</span> <span class="o">=</span> <span class="nn">IO::Pipe</span><span class="o">-&gt;</span><span class="k">new</span><span class="p">;</span>
+<span class="nv">$pipe</span><span class="o">-&gt;</span><span class="n">writer</span><span class="p">(</span> <span class="nv">$command</span> <span class="p">);</span>
+
+<span class="k">print</span> <span class="nv">$pipe</span> <span class="s">&quot;I can count to $_\n&quot;</span> <span class="k">for</span> <span class="mi">1</span> <span class="o">..</span> <span class="mi">10</span><span class="p">;</span>
+</code></pre></div>
+
+<p>Module <em>IO::Null</em></p>
+<div class="highlight"><pre><span></span><code><span class="k">use</span> <span class="nn">IO::Null</span><span class="p">;</span>
+</code></pre></div>
+
+<p>my $null_fh = IO::Null-&gt;new;</p>
+<ul>
+<li>Module <em>IO::Interactive</em></li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="c1"># Le livre n&#39;indique pas d&#39;importer &#39;interactive&#39;, mais c&#39;est nécessaire.</span>
+<span class="k">use</span> <span class="nn">IO::Interactive</span> <span class="sx">qw(interactive)</span><span class="p">;</span>
+
+<span class="c1"># Les accolades sont obligatoires, sans quoi la valeur retournée par la sub</span>
+<span class="c1"># interactive (par ex. &quot;GLOB(0x56154b5b5b00)&quot;) est affichée : en l&#39;absence</span>
+<span class="c1"># d&#39;accolades, print ne comprend pas que interactive est un handle de fichier.</span>
+<span class="k">print</span> <span class="p">{</span> <span class="n">interactive</span> <span class="p">}</span> <span class="s">&quot;youpi\n&quot;</span><span class="p">;</span>
+</code></pre></div>
+
+<ul>
+<li>Un moyen rapide de capturer en vérifiant</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="k">while</span> <span class="p">(</span><span class="o">&lt;&gt;</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">unless</span> <span class="p">(</span><span class="sr">/^([^:]+):/</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nb">warn</span> <span class="s">&quot;ignoring the line with missing name: $_&quot;</span><span class="p">;</span>
+        <span class="k">next</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="k">my</span> <span class="nv">$name</span> <span class="o">=</span> <span class="nb">lc</span> <span class="nv">$1</span><span class="p">;</span>
+
+    <span class="o">...</span>
+
+<span class="p">}</span>
+</code></pre></div>
+
+<ul>
+<li>Smart match pour tester plusieurs regex à la fois</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="c1"># To avoid a warning about feature being experimental</span>
+<span class="k">no</span> <span class="nn">warnings</span> <span class="s">&#39;experimental&#39;</span><span class="p">;</span>
+
+<span class="c1"># To use &#39;any&#39;, in order to make smart match clearer</span>
+<span class="k">use</span> <span class="nn">Smart::Match</span> <span class="sx">qw(any)</span><span class="p">;</span>
+
+<span class="k">my</span> <span class="nv">@patterns</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="sx">qr/(?:Machin)?Bidule/</span><span class="p">,</span>
+    <span class="sx">qr/truc/</span><span class="p">,</span>
+    <span class="sx">qr/chou|ette/</span><span class="p">,</span>
+<span class="p">);</span>
+
+<span class="k">my</span> <span class="nv">$str</span> <span class="o">=</span> <span class="s">&#39;...&#39;</span><span class="p">;</span>
+
+<span class="n">say</span> <span class="s">&quot;Match!&quot;</span> <span class="k">if</span> <span class="nv">$str</span> <span class="o">~~</span> <span class="nv">@patterns</span><span class="p">;</span>
+<span class="c1"># Or, along with</span>
+<span class="c1">#   use Smart::Match qw(any);</span>
+<span class="n">say</span> <span class="s">&quot;Match!&quot;</span> <span class="k">if</span> <span class="nv">$str</span> <span class="o">~~</span> <span class="n">any</span><span class="p">(</span><span class="nv">@patterns</span><span class="p">);</span>
+</code></pre></div>
+
+<ul>
+<li>Position des groupes de capture</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="c1"># @- pour le début, @+ pour la fin</span>
+<span class="c1"># $-[0] est pour le match entier, $+[0] également</span>
+<span class="k">if</span> <span class="p">(</span><span class="nv">$str</span> <span class="o">=~</span><span class="sr"> /$regex/</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">print</span> <span class="s">&quot;Trouvé depuis la position $-[0] à la position $+[0]\n&quot;</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<ul>
+<li>Expressions régulières préconçues</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="k">use</span> <span class="nn">Regexp::Common</span> <span class="sx">qw(URI)</span><span class="p">;</span>
+<span class="k">while</span> <span class="p">(</span><span class="o">&lt;&gt;</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">print</span> <span class="s">&quot;Ok\n&quot;</span> <span class="k">if</span> <span class="sr">/$RE{URI}{HTTP}/</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="c1"># Voir aussi :</span>
+<span class="k">print</span> <span class="k">if</span> <span class="sr">/$RE{num}{int}/</span><span class="p">;</span>
+<span class="k">print</span> <span class="k">if</span> <span class="sr">/$RE{num}{int}{ -base =&gt; 16 }/</span><span class="p">;</span>
+<span class="k">print</span> <span class="nv">$1</span> <span class="k">if</span> <span class="sr">/$RE{num}{int}{ -base =&gt; 16 }{ -keep }/</span><span class="p">;</span>
+<span class="k">print</span> <span class="nv">$1</span> <span class="k">if</span> <span class="sr">/$RE{ -base =&gt; 16 }{num}{ -keep }{int}/</span><span class="p">;</span> <span class="c1"># Fonctionne aussi !</span>
+</code></pre></div>
+
+<ul>
+<li>Assemblage d'expressions régulières</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="k">use</span> <span class="nn">Regexp::Assemble</span><span class="p">;</span>
+
+<span class="k">my</span> <span class="nv">$regex</span> <span class="o">=</span> <span class="nn">Regexp::Assemble</span><span class="o">-&gt;</span><span class="k">new</span><span class="p">;</span>
+<span class="k">for</span> <span class="p">(</span><span class="s">&#39;ici&#39;</span><span class="p">,</span> <span class="s">&#39;illico&#39;</span><span class="p">,</span> <span class="s">&#39;là-bas&#39;</span><span class="p">,</span> <span class="s">&#39;il fait beau&#39;</span><span class="p">,</span> <span class="s">&#39;là-dessus&#39;</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nv">$regex</span><span class="o">-&gt;</span><span class="n">add</span><span class="p">(</span> <span class="s">&quot;\Q$_&quot;</span> <span class="p">);</span>
+<span class="p">}</span>
+<span class="n">say</span> <span class="nv">$regex</span><span class="o">-&gt;</span><span class="n">re</span><span class="p">;</span>
+
+<span class="c1"># Remarque : à partir de v5.10, cette optimisation est faite automatiquement.</span>
+</code></pre></div>
+
+<ul>
+<li>Lire des expressions régulières depuis un fichier et les tester</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="nb">open</span> <span class="k">my</span> <span class="nv">$fh</span><span class="p">,</span> <span class="s">&#39;&lt;&#39;</span><span class="p">,</span> <span class="s">&#39;patterns.txt&#39;</span><span class="p">;</span>
+
+<span class="k">my</span> <span class="nv">@patterns</span><span class="p">;</span>
+
+<span class="k">while</span> <span class="p">(</span><span class="sr">&lt;$fh&gt;</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nb">chomp</span><span class="p">;</span>
+    <span class="k">my</span> <span class="nv">$pattern</span> <span class="o">=</span> <span class="nb">eval</span> <span class="p">{</span> <span class="sx">qr/$_/</span> <span class="p">}</span>
+        <span class="ow">or</span> <span class="k">do</span> <span class="p">{</span> <span class="nb">warn</span> <span class="s">&quot;Invalid pattern: $@&quot;</span><span class="p">;</span> <span class="k">next</span><span class="p">;</span> <span class="p">}</span>
+    <span class="nb">push</span> <span class="nv">@patterns</span><span class="p">,</span> <span class="nv">$pattern</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="k">while</span> <span class="p">(</span><span class="o">&lt;&gt;</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">foreach</span> <span class="k">my</span> <span class="nv">$pattern</span> <span class="p">(</span> <span class="nv">@patterns</span> <span class="p">)</span> <span class="p">{</span>
+        <span class="k">print</span> <span class="s">&quot;Match of [$pattern] at line $.: $_&quot;</span> <span class="k">if</span> <span class="sr">/$pattern/</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<ul>
+<li>Tri stable</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="k">use</span> <span class="nn">sort</span> <span class="s">&quot;stable&quot;</span><span class="p">;</span> <span class="c1"># Pour avoir des tris stables</span>
+</code></pre></div>
+
+<ul>
+<li>Mesurer des temps d'exécution</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="k">use</span> <span class="nn">Benchmark</span> <span class="sx">qw(:all)</span><span class="p">;</span>
+
+<span class="c1"># Si $count est négatif, il s&#39;agit d&#39;un nombre de secondes</span>
+<span class="n">timethese</span><span class="p">(</span> <span class="nv">$count</span><span class="p">,</span> <span class="p">{</span> <span class="n">key1</span> <span class="o">=&gt;</span> <span class="n">sub1</span><span class="p">,</span> <span class="n">key2</span> <span class="o">=&gt;</span> <span class="n">sub2</span><span class="p">,</span> <span class="o">...</span> <span class="p">}</span> <span class="p">);</span>
+<span class="n">cmpthese</span><span class="p">(</span> <span class="nv">$count</span><span class="p">,</span> <span class="p">{</span> <span class="n">key1</span> <span class="o">=&gt;</span> <span class="n">sub1</span><span class="p">,</span> <span class="n">key2</span> <span class="o">=&gt;</span> <span class="n">sub2</span><span class="p">,</span> <span class="o">...</span> <span class="p">}</span> <span class="p">);</span>
+</code></pre></div>
+
+<ul>
+<li>Transformation de chaînes pour la comparaison</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="nv">$string</span> <span class="o">=~</span> <span class="nb">tr</span><span class="sr">/a-z/</span><span class="o">/</span><span class="n">cd</span>      <span class="c1"># Supprime tout caractère qui n&#39;est pas une lettre</span>
+<span class="nv">$string</span> <span class="o">=~</span> <span class="sr">s/\P{Letter}//g</span> <span class="c1"># Supprime tout caractère qui n&#39;est pas une lettre</span>
+                           <span class="c1"># Mieux que tr, car critère compatible Unicode.</span>
+<span class="nv">$string</span> <span class="o">=~</span> <span class="nb">tr</span><span class="sr">/A-Z/</span><span class="n">a</span><span class="o">-</span><span class="n">z</span><span class="o">/</span><span class="p">;</span>    <span class="c1"># Force à passer en minuscule</span>
+<span class="nv">$string</span> <span class="o">=</span> <span class="n">fc</span> <span class="p">(</span> <span class="nv">$string</span> <span class="p">)</span>   <span class="c1"># À partir de 5.16 ; plus propre que lc ou uc</span>
+
+<span class="c1"># D&#39;après le livre, la bonne méthode est de passer par</span>
+<span class="c1">#   Unicode::Collate</span>
+<span class="c1"># (non décrit par le livre)</span>
+</code></pre></div>
+
+<ul>
+<li>Le package courant est lexically-scoped</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="k">package</span> <span class="nn">Navigation</span><span class="p">;</span>
+
+<span class="p">{</span>
+    <span class="k">package</span> <span class="nn">main</span><span class="p">;</span>
+    <span class="k">sub</span> <span class="nf">mafonction1</span> <span class="p">{</span> <span class="c1"># main::mafonction1</span>
+        <span class="o">...</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="k">sub</span> <span class="nf">mafonction2</span> <span class="p">{</span> <span class="c1"># Navigation::mafonction2</span>
+    <span class="o">...</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<ul>
+<li>Variables toujours dans le package <em>main</em></li>
+</ul>
+<p>Les variables suivantes sont toujours dans le package <em>main</em> :
+<code>ARGV</code>, <code>ARGVOUT</code>, <code>ENV</code>, <code>INC</code>, <code>SIG</code>, <code>STDERR</code>, <code>STDIN</code>, et <code>STDOUT</code>.</p>
+<p><code>ARGVOUT</code> est le handle du fichier de sortie en cas d'exécution avec l'option
+<code>-i</code> (édition sur place).</p>
+<ul>
+<li>Les différentes syntaxes de <em>package</em></li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="k">package</span> <span class="nn">Navigation</span> <span class="p">{</span>
+    <span class="o">...</span>
+<span class="p">}</span>
+<span class="c1"># est la même chose que</span>
+<span class="p">{</span>
+    <span class="k">package</span> <span class="nn">Navigation</span><span class="p">;</span>
+    <span class="o">...</span>
+<span class="p">}</span>
+
+<span class="c1"># On peut aussi donner un numéro de version</span>
+<span class="k">use</span> <span class="mf">5.012</span><span class="p">;</span>
+<span class="k">package</span> <span class="nn">Navigation</span> <span class="mf">0.01</span><span class="p">;</span>
+<span class="k">package</span> <span class="nn">DropAnchor</span> <span class="mf">1.23</span> <span class="p">{</span>
+    <span class="o">...</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<ul>
+<li>Les deux systèmes de build</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="k">use</span> <span class="nn">ExtUtils::Makemaker</span><span class="p">;</span> <span class="c1"># Based on Makefile.PL</span>
+<span class="c1"># versus</span>
+<span class="k">use</span> <span class="nn">Module::Build</span><span class="p">;</span>       <span class="c1"># Based on Build.PL</span>
+</code></pre></div>
+
+<ul>
+<li>Module::Starter</li>
+</ul>
+<p>Installer Module::Starter (sous Ubuntu) avec</p>
+<p><code>sudo apt install libmodule-starter-perl</code></p>
+<p>Ensuite exécuter (exemple avec Text::AutoCSV)</p>
+<p><code>module-starter --module=Text::AutoCSV --author="Sébastien Millet"
+    --email=milletseb@laposte.net --verbose</code></p>
+<p>Le mieux est d'avoir un fichier de configuration pour Module::Starter.</p>
+<p>Exemple, fichier <code>~/.module-starter/config</code> :</p>
+<div class="highlight"><pre><span></span><code><span class="n">author</span><span class="o">:</span> <span class="n">Sébastien</span> <span class="n">Millet</span>
+<span class="n">email</span><span class="o">:</span> <span class="n">milletseb</span><span class="err">@</span><span class="n">laposte</span><span class="o">.</span><span class="na">net</span>
+<span class="n">builder</span><span class="o">:</span> <span class="n">Module</span><span class="o">::</span><span class="n">Build</span>
+<span class="n">verbose</span><span class="o">:</span> <span class="mi">1</span>
+</code></pre></div>
+
+<p>Ce qui permet d'exécuter simplement :</p>
+<p><code>module-starter --module=Text::AutoCSV</code></p>
+<p>Pour détecter les dépendances : <code>scandeps.pl</code></p>
+<ul>
+<li>Instructions pour <code>Module::Build</code></li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="err">module-starter --mb --module=&quot;MyModule&quot;</span>
+<span class="err"># Build.PL peut être modifié en fonction des besoins...</span>
+<span class="err">perl Build.PL</span>
+<span class="err">./Build</span>
+<span class="err">./Build test</span>
+<span class="err">./Build disttest</span>
+<span class="err">./Build dist</span>
+</code></pre></div>
+
+<ul>
+<li>Instructions pour <code>ExtUtils::Makemaker</code></li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="n">module</span><span class="o">-</span><span class="n">starter</span> <span class="o">--</span><span class="n">builder</span><span class="o">=</span><span class="s">&quot;ExtUtils::Makemaker&quot;</span> <span class="o">--</span><span class="n">module</span><span class="o">=</span><span class="s">&quot;MyModule&quot;</span>
+<span class="c1"># Makefile.PL peut être modifié en fonction des besoins...</span>
+<span class="n">perl</span> <span class="n">Makefile</span><span class="o">.</span><span class="n">PL</span>
+<span class="n">make</span>
+<span class="n">make</span> <span class="n">test</span>
+<span class="n">make</span> <span class="n">disttest</span>
+<span class="n">make</span> <span class="n">dist</span>
+</code></pre></div>
+
+<ul>
+<li>Au sujet de <code>@ISA</code></li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="c1"># Pour qu&#39;une classe hérite d&#39;une classe parente, les trois possibilités</span>
+<span class="c1"># ci-dessous sont équivalentes.</span>
+
+<span class="c1"># 1 (without using the parent class)</span>
+<span class="k">package</span> <span class="nn">Cow</span><span class="p">;</span>
+<span class="k">use</span> <span class="nn">vars</span> <span class="sx">qw(@ISA)</span><span class="p">;</span>
+<span class="nv">@ISA</span> <span class="o">=</span> <span class="sx">qw(Animal)</span><span class="p">;</span>
+
+<span class="c1"># 2 (without using the parent class)</span>
+<span class="k">package</span> <span class="nn">Cow</span><span class="p">;</span>
+<span class="k">our</span> <span class="nv">@ISA</span> <span class="o">=</span> <span class="sx">qw(Animal)</span><span class="p">;</span>
+
+<span class="c1"># 3</span>
+<span class="k">package</span> <span class="nn">Cow</span><span class="p">;</span>
+<span class="k">use</span> <span class="nn">Animal</span><span class="p">;</span>
+<span class="k">our</span> <span class="nv">@ISA</span> <span class="o">=</span> <span class="sx">qw(Animal)</span><span class="p">;</span>
+
+<span class="c1"># 4</span>
+<span class="k">use</span> <span class="nn">v5</span><span class="mf">.10.1</span><span class="p">;</span>
+<span class="k">package</span> <span class="nn">Cow</span><span class="p">;</span>
+<span class="k">use</span> <span class="nn">parent</span> <span class="sx">qw(Animal)</span><span class="p">;</span>
+</code></pre></div>
+
+<ul>
+<li>Redéfinition (surcharge ?) de méthodes</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="c1"># PAS BON !</span>
+<span class="c1"># Pas de recherche de la bonne méthode dans la hiérarchie d&#39;héritage.</span>
+<span class="k">sub</span> <span class="nf">speak</span> <span class="p">{</span>
+    <span class="k">my</span> <span class="nv">$class</span> <span class="o">=</span> <span class="nb">shift</span><span class="p">;</span>
+    <span class="nn">Animal::</span><span class="n">speak</span><span class="p">(</span><span class="nv">$class</span><span class="p">);</span>
+    <span class="o">...</span>
+<span class="p">}</span>
+
+<span class="c1"># OK !</span>
+<span class="c1"># Mais, il y a mieux - d&#39;ailleurs, en cas d&#39;héritage multiple, il faudrait</span>
+<span class="c1"># savoir où chercher la méthode qui nous intéresse.</span>
+<span class="k">sub</span> <span class="nf">speak</span> <span class="p">{</span>
+    <span class="k">my</span> <span class="nv">$class</span> <span class="o">=</span> <span class="nb">shift</span><span class="p">;</span>
+    <span class="nv">$class</span><span class="o">-&gt;</span><span class="nn">Animal::</span><span class="n">speak</span><span class="p">;</span>
+    <span class="o">...</span>
+<span class="p">}</span>
+
+<span class="c1"># LA BONNE SOLUTION</span>
+<span class="k">sub</span> <span class="nf">speak</span> <span class="p">{</span>
+    <span class="k">my</span> <span class="nv">$class</span> <span class="o">=</span> <span class="nb">shift</span><span class="p">;</span>
+    <span class="nv">$class</span><span class="o">-&gt;</span><span class="nn">SUPER::</span><span class="n">speak</span><span class="p">;</span>
+    <span class="o">...</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<ul>
+<li><code>TODO</code> dans <code>Tests::More</code></li>
+</ul>
+<p>Un bloc de code avec le label <code>TODO</code> pourra être rapporté comme non ok, mais il
+ne sera pas comptabilisé comme une erreur et n'empêchera pas les tests d'être
+réussis. Cela permet de différer une correction.</p>
+<ul>
+<li>Mesurer la couverture des tests</li>
+</ul>
+<p>Avec Module::Build :</p>
+<div class="highlight"><pre><span></span><code><span class="err">./Build testcover</span>
+</code></pre></div>
+
+<p>Avec ExtUtils::Makemaker (non testé) :</p>
+<div class="highlight"><pre><span></span><code><span class="err">HARNESS_PERL_SWITCHES=-MDevel::Cover make test</span>
+</code></pre></div>
+
+<p>Les résultats des tests sont affichés et les détails sont écrits dans le
+répertoire <code>cover_db</code>.</p>
+<ul>
+<li>Méthodes de classe versus méthodes d'instance</li>
+</ul>
+<p>Pour restreindre une méthode à être exécutée sur une instance :</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Uniquement objet</span>
+<span class="k">sub</span> <span class="nf">met_only_for_obj</span> <span class="p">{</span>
+    <span class="nb">ref</span><span class="p">(</span><span class="k">my</span> <span class="nv">$self</span> <span class="o">=</span> <span class="nb">shift</span><span class="p">)</span> <span class="ow">or</span> <span class="n">croak</span> <span class="s">&quot;...&quot;</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="c1"># Uniquement classe</span>
+<span class="k">sub</span> <span class="nf">met_only_for_class</span> <span class="p">{</span>
+    <span class="nb">ref</span><span class="p">(</span><span class="k">my</span> <span class="nv">$class</span> <span class="o">=</span> <span class="nb">shift</span><span class="p">)</span> <span class="ow">and</span> <span class="n">croak</span> <span class="s">&quot;...&quot;</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<ul>
+<li>Classe <code>UNIVERSAL</code></li>
+</ul>
+<p>Tous les objets dérivent de cette classe.
+Ainsi une méthode telle que</p>
+<div class="highlight"><pre><span></span><code><span class="k">sub</span> <span class="nf">UNIVERSAL</span><span class="p">::youpi {</span>
+    <span class="n">say</span> <span class="nb">shift</span><span class="p">,</span> <span class="s">&quot; est content&quot;</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<p>fournira la méthode <strong>youpi</strong> à tout objet quel qu'il soit.</p>
+<ul>
+<li><code>DOES</code> et <code>can</code></li>
+</ul>
+<p>Ces méthodes qui sont toujours disponibles (elles font partie de la classe
+<strong>UNIVERSAL</strong>) permettent de vérifier le type d'objet (DOES) ou la disponibilité
+d'une méthode (can). can renvoie une référence sur la méthode quand elle existe,
+ce qui permet d'invoquer des fonctions dont le nom est connu dynamiquement :</p>
+<div class="highlight"><pre><span></span><code><span class="k">my</span> <span class="nv">$metref</span> <span class="o">=</span> <span class="nv">$myobj</span><span class="o">-&gt;</span><span class="n">can</span><span class="p">(</span><span class="nv">$metname</span><span class="p">);</span>
+<span class="nv">$myobj</span><span class="o">-&gt;</span><span class="nv">$metref</span><span class="p">(</span><span class="o">...</span><span class="p">)</span> <span class="k">if</span> <span class="nv">$metref</span><span class="p">;</span>
+</code></pre></div>
+
+<ul>
+<li><code>AUTOLOAD</code></li>
+</ul>
+<p>Si une méthode n'est pas trouvée, c'est en dernier ressort <strong>AUTOLOAD</strong> qui est
+appelé, ce qui permet de créer des méthodes dynamiquement.</p>
+<ul>
+<li><code>EXPORT_TAGS</code></li>
+</ul>
+<p>Permet de grouper les imports avec des labels tels que <code>:all</code>, <code>:truc</code>, etc.</p>
+<ul>
+<li>Destruction d'objet</li>
+</ul>
+<p>La méthode <code>DESTROY</code> est appelée par Perl lors de la destruction d'un objet.
+Perl l'exécute comme toute autre méthode en prenant en compte l'héritage.</p>
+<ul>
+<li>Tests</li>
+</ul>
+<p>Il est possible de sauter des tests dynamiquement, avec le label <code>SKIP</code> et
+l'instruction <code>skip</code>.</p>
+<p>Il est possible de grouper les tests avec <code>subtest</code>.</p>
+<ul>
+<li><code>Test::LongString</code></li>
+</ul>
+<p>Ce module permet de n'afficher que ce qui diffère entre une chaîne attendue et
+ce qui a été obtenu, pratique si le teste porte sur de grandes quantités.</p>
+<ul>
+<li><code>Test::File</code></li>
+</ul>
+<p>Fournit <code>file_exists_ok</code> et <code>file_not_exists_ok</code></p>
+<ul>
+<li><code>Test::Output</code></li>
+</ul>
+<p>Permet de vérifier ce qu'affichent des fonctions sur la sortie standard (ou sur
+l'erreur standard), avec <code>stdout_is</code> et <code>stderr_is</code>, <code>stdout_like</code>,
+<code>stderr_like</code>.</p>
+<ul>
+<li><code>Test::Warn</code></li>
+</ul>
+<p>Permet de tester les warnings produits par l'exécution.</p>
+<ul>
+<li><code>Test::NoWarnings</code></li>
+</ul>
+<p>Ce teste ne passe pas si un warning se produit.</p>
+<ul>
+<li><code>Test::Builder</code></li>
+</ul>
+<p>Pour créer des fonctions de test.</p>
+<hr>
+<h1>Notes du livre <em>Mastering Perl, 2nd edition</em></h1>
+<h4>Auteur : brian d foy</h4>
+<h4>Éditeur : O'Reilly</h4>
+<ul>
+<li>Expressions régulière récursives</li>
+</ul>
+<p>L'expression ci-dessous écrit dans <code>@matches</code> (et l'affiche) le texte trouvé
+entre quotes (simples ou doubles), à n'importe quel niveau de récursivité. Le
+texte analysé se trouve dans <code>$_</code>.</p>
+<div class="highlight"><pre><span></span><code><span class="k">my</span> <span class="nv">@matches</span><span class="p">;</span>
+<span class="sr">m/</span>
+<span class="sr">(?(DEFINE)</span>
+<span class="sr">    (?&lt;QUOTE_MARK&gt; [&#39;&quot;])</span>
+<span class="sr">    (?&lt;NOT_QUOTE_MARK&gt; [^&#39;&quot;])</span>
+<span class="sr">)</span>
+<span class="sr">(?&lt;said&gt;</span>
+<span class="sr">(?&lt;quote&gt;(?&amp;QUOTE_MARK))</span>
+<span class="sr">    (?:</span>
+<span class="sr">        (?&amp;NOT_QUOTE_MARK)++</span>
+<span class="sr">        |</span>
+<span class="sr">        (?R)</span>
+<span class="sr">    )*</span>
+<span class="sr">\g{quote}</span>
+<span class="sr">)</span>
+<span class="sr">(?{ push @matches, $^N })</span>
+<span class="sr">/x</span><span class="p">;</span>
+<span class="n">say</span> <span class="nb">join</span> <span class="s">&quot;\n&quot;</span><span class="p">,</span> <span class="nv">@matches</span><span class="p">;</span>
+</code></pre></div>
+
+<p>Le livre mentionne ensuite l'utilisation de $^R pour accumuler les résultats
+trouvés et les copier (à la fin) dans @matches.</p>
+<ul>
+<li>Débuguer les expressions régulières</li>
+</ul>
+<p><code>perl -Dr</code> active le débogage des expressions régulières, mais perl doit avoir
+été compilé avec -DDEBUGGING, ce qui n'est pas le cas sur mon Arch Linux.</p>
+<p>Plus simple : utiliser le pragma <code>re</code> :</p>
+<div class="highlight"><pre><span></span><code><span class="k">use</span> <span class="nn">re</span> <span class="s">&#39;debug&#39;</span><span class="p">;</span>
+</code></pre></div>
+
+<p>Il est également possible d'activer ce pragma sans modifier le programme, en
+exécutant perl ainsi :</p>
+<div class="highlight"><pre><span></span><code><span class="err">perl -Mre=debug</span>
+</code></pre></div>
+
+<ul>
+<li>Module <code>Regexp::Debugger</code></li>
+</ul>
+<p>Exécuter perl ainsi :</p>
+<div class="highlight"><pre><span></span><code><span class="err">perl -MRegexp::Debugger</span>
+</code></pre></div>
+
+<p>Cela active le débugueur interactif d'expression régulière <code>Regexp::Debugger</code>,
+un outil qui permet d'en visualiser l'exécution.</p>
+<p>Extraordinaire !</p>
+<ul>
+<li>Utilisation de la notion <code>tainted</code></li>
+</ul>
+<p><code>perl -T</code> arrête le programme si une commande consommant ou produisant des
+données <code>tainted</code> est exécutée. <code>perl -t</code> affiche un avertissement au lieu
+d'arrêter le programme.</p>
+<p><code>Scalar::Util::tainted</code> permet de tester si une donnée est <code>tainted</code> ou pas.</p>
+<p><code>use re 'taint'</code> empêche une expression régulière d'enlever la marque <code>tainted</code>
+des captures.</p>
+<p><code>IO::Handle::untaint</code> enlève la marque <code>tainted</code> de données lues d'un fichier.</p>
+<p><code>Taint::Util</code> permet de modifier soi-même le marquage <code>tainted</code>.</p>
+<ul>
+<li><code>Safe</code></li>
+</ul>
+<p>Permet de restreindre ce que l'on autorise à exécuter.
+Fonctionne par <code>opcode</code>. Liste des <code>opcode</code> :</p>
+<div class="highlight"><pre><span></span><code><span class="err">perl -MOpcode=opdump -e opdump</span>
+</code></pre></div>
+
+<ul>
+<li>Tester un module modifié</li>
+</ul>
+<p>Plutôt que de modifier un module (dont on n'est pas propriétaire) sur place, ce
+qui est toujours risqué, un moyen très simple est de procéder comme suit :</p>
+<div class="highlight"><pre><span></span><code><span class="k">export</span> <span class="n">PERL5LIB</span><span class="o">=~/</span><span class="n">my_lib</span>
+<span class="n">mkdir</span> <span class="o">-</span><span class="n">p</span> <span class="o">~/</span><span class="n">mylib</span><span class="o">/</span><span class="n">Text</span><span class="o">/.</span>
+<span class="n">cp</span> <span class="err">`</span><span class="n">perldoc</span> <span class="o">-</span><span class="n">l</span> <span class="n">Text</span><span class="p">::</span><span class="n">AutoCSV</span><span class="err">`</span> <span class="o">~/</span><span class="n">mylib</span><span class="o">/</span><span class="n">Text</span><span class="o">/.</span>
+</code></pre></div>
+
+<ul>
+<li><code>Hook::LexWrap</code></li>
+</ul>
+<p>Permet d'exécuter un code avant ou après l'appel à une sub, avec <code>wrap</code>.</p>
+<ul>
+<li>Autres débugueurs</li>
+</ul>
+<p>Ci-dessus sont mentionnés les deux moyens de déboguer un programme :</p>
+<div class="highlight"><pre><span></span><code><span class="err">perl -d programme</span>
+<span class="err">ou bien</span>
+<span class="err">perl -d:Trace programme</span>
+</code></pre></div>
+
+<p>Il existe d'autre débogueurs :</p>
+<div class="highlight"><pre><span></span><code><span class="err">  Mode graphique</span>
+<span class="err">perl -d:ptkdb programme</span>
+<span class="err">  Autre possibilité</span>
+<span class="err">perl -d:ebug programme (non testé)</span>
+<span class="err">  Dans un serveur web</span>
+<span class="err">perl -d:hdb programme</span>
+<span class="err">  Avec une interface à la vim</span>
+<span class="c">Vim::Debug (non testé)</span>
+</code></pre></div>
+
+<ul>
+<li>Créer son débugueur</li>
+</ul>
+<p>Exemple (presque identique à l'exemple du livre) :</p>
+<div class="highlight"><pre><span></span><code><span class="k">package</span> <span class="nn">Devel::Mydbg</span><span class="p">;</span>
+
+<span class="k">package</span> <span class="nn">DB</span> <span class="p">{</span>
+    <span class="k">use</span> <span class="nn">strict</span><span class="p">;</span>
+    <span class="k">use</span> <span class="nn">warnings</span><span class="p">;</span>
+
+    <span class="k">my</span> <span class="nv">$count</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+
+    <span class="k">sub</span> <span class="nf">DB</span> <span class="p">{</span>
+        <span class="k">my</span> <span class="p">(</span><span class="nv">$file</span><span class="p">,</span> <span class="nv">$line</span><span class="p">)</span> <span class="o">=</span> <span class="p">(</span><span class="nb">caller</span><span class="p">)[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">];</span>
+        <span class="k">return</span> <span class="k">unless</span> <span class="nv">$file</span> <span class="ow">eq</span> <span class="nv">$0</span><span class="p">;</span>
+        <span class="k">print</span> <span class="s">&#39;  &#39;</span><span class="p">,</span> <span class="nb">substr</span><span class="p">(</span><span class="s">&#39;-\|/&#39;</span><span class="p">,</span> <span class="nv">$count</span><span class="o">++</span> <span class="nv">%</span> <span class="nv">4</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="s">&quot;\r&quot;</span><span class="p">;</span>
+        <span class="bp">STDOUT</span><span class="o">-&gt;</span><span class="n">flush</span><span class="p">();</span>
+    <span class="p">}</span>
+
+    <span class="k">END</span> <span class="p">{</span>
+        <span class="k">print</span> <span class="s">&quot;Mydbg result: $count instructions executed\n&quot;</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="mi">1</span><span class="p">;</span>
+</code></pre></div>
+
+<p>Placer ce module <em>au bon endroit</em>, ensuite exécuter :</p>
+<div class="highlight"><pre><span></span><code><span class="err">perl -d:Mydb programme</span>
+</code></pre></div>
+
+<ul>
+<li>IDE</li>
+</ul>
+<p>L'auteur mentionne <code>EPIC</code> et <code>Komodo</code>.</p>
+<ul>
+<li>Profiling</li>
+</ul>
+<p><code>Devel::NYTProf</code> est très avancé, et fournit une interface en html (déjà
+mentionné dans ce document, plus haut). Exécuter</p>
+<div class="highlight"><pre><span></span><code><span class="err">perl -d:NYTProf programme</span>
+<span class="err">nytprofhtml --open</span>
+</code></pre></div>
+
+<p><code>Devel::Cover</code> permet de tester la couverture (des tests). Il est fourni avec la
+commande <code>cover</code>.</p>
+<ul>
+<li>Typeglobs</li>
+</ul>
+<p>On peut créer un alias avec</p>
+<div class="highlight"><pre><span></span><code><span class="o">*</span><span class="n">varname</span><span class="p">{</span><span class="n">SCALAR</span><span class="p">}</span>
+<span class="o">*</span><span class="n">varname</span><span class="p">{</span><span class="n">ARRAY</span><span class="p">}</span>
+<span class="o">*</span><span class="n">varname</span><span class="p">{</span><span class="n">HASH</span><span class="p">}</span>
+<span class="o">*</span><span class="n">varname</span><span class="p">{</span><span class="n">CODE</span><span class="p">}</span>
+</code></pre></div>
+
+<p>Il est aussi possible de créer un alias comme indiqué ci-dessous (fonctionne
+avec les variables lexicales). C'est-à-dire que <code>\$var</code>, <code>\@var</code>, <code>\%var</code> et
+<code>\&amp;var</code>, assignées à une lvalue de type <code>*aliasname</code> ne provoqueront l'aliasing
+que de la valeur scalar, array, hash et code, respectivement.</p>
+<div class="highlight"><pre><span></span><code><span class="k">use</span> <span class="nn">vars</span> <span class="sx">qw($al)</span><span class="p">;</span>
+<span class="k">my</span> <span class="nv">$v</span> <span class="o">=</span> <span class="s">&#39;bla&#39;</span><span class="p">;</span>
+<span class="o">*</span><span class="n">al</span> <span class="o">=</span> <span class="o">\</span><span class="nv">$v</span><span class="p">;</span>
+<span class="c1"># $al et $v pointent sur la même valeur</span>
+</code></pre></div>
+
+<ul>
+<li><code>Package::Stash</code></li>
+</ul>
+<p>Très particulier... Permet la manipulation de la table des symboles de Perl.</p>
+<ul>
+<li><code>Hash::AsObject</code></li>
+</ul>
+<p>Permet d'accéder à un hash avec la syntaxe objet.</p>
+<ul>
+<li><code>Autosplit</code></li>
+</ul>
+<p>Crée à partir d'un fichier .pm, un fichier par sub. Ensuite l'appel d'une sub
+provoque son chargement dynamiquement.</p>
+<ul>
+<li>Option <code>-s</code></li>
+</ul>
+<p>Si perl est exécuté avec <code>-s</code>, les options du programme sont converties en
+variables.</p>
+<ul>
+<li><code>Config::Scoped</code></li>
+</ul>
+<p>Un peu plus avancé que <code>Config::IniFiles</code>, permet des sections imbriquées et des
+valeurs contenant du code Perl (en sachant, comme l'indique l'auteur, qu'il faut
+être prudent avec ce genre de fonctionnalité).</p>
+<ul>
+<li><code>die</code> avec une référence</li>
+</ul>
+<p>Si <code>die</code> reçoit une référence et est intercepté par <code>eval</code>, $@ contiendra cette
+référence ce qui permet de passer des objects / hash complexes, contenant
+beaucoup de détails sur l'erreur qui s'est produite.</p>
+<p>Fonctionne aussi avec <code>PROPAGATE</code> et permet de chaîner les die encore plus
+facilement.</p>
+<ul>
+<li><code>Log::Log4perl</code></li>
+</ul>
+<p>Est très puissant.</p>
+<ul>
+<li><code>Sereal</code></li>
+</ul>
+<p>Une sorte de super <code>Storable</code>, et très rapide.</p>
+<ul>
+<li><code>DBM::Deep</code></li>
+</ul>
+<p>Vient avec une interface objet et <code>tie</code>. Permet notamment de stocker des hash et
+array de plusieurs niveaux.</p>
+<ul>
+<li>Modules <code>JSON</code>, <code>YAML</code> et <code>MessagePack</code></li>
+</ul>
+<p>Formats non spécifiques de Perl.</p>
+<ul>
+<li>Notation binaire</li>
+</ul>
+<p>Les nombre 0b... sont en binaire (0... pour octal, 0x... pour hexadécimal).</p>
+<ul>
+<li><code>Devel::Size</code></li>
+</ul>
+<p>Permet d'examiner la taille d'une donnée.</p>
+<ul>
+<li>Fonction <code>vec</code></li>
+</ul>
+<p>Pour traiter les données par groupe de bits.</p>
+<ul>
+<li>Warnings étendus</li>
+</ul>
+<p>Exécuter</p>
+<div class="highlight"><pre><span></span><code><span class="k">use</span> <span class="nn">diagnostics</span><span class="p">;</span>
+</code></pre></div>
+
+<p>pour des messages d'avertissement beaucoup plus longs.</p>
+<ul>
+<li><code>perldoc -f</code></li>
+</ul>
+<p>Pour afficher de l'aide sur une fonction, exemple :</p>
+<div class="highlight"><pre><span></span><code><span class="n">perldoc</span> <span class="o">-</span><span class="n">f</span> <span class="nb">substr</span>
+</code></pre></div>
+<p class="subheader">Category: <a href="http://milletseb.free.fr/category/ti.html">TI</a>
+
+</p>
+
+
+
+
+</article>
+    </div>
+    <!-- End Main Content -->
+
+    <!-- Sidebar -->
+    <aside class="large-3 columns">
+        <h5 class="sidebar-title">Site</h5>
+        <ul class="side-nav">
+            <li><a href="http://milletseb.free.fr/archives.html">Archives</a>
+            <li><a href="http://milletseb.free.fr/tags.html">Tags</a>
+
+
+        </ul>
+
+		
+        <h5 class="sidebar-title">Categories</h5>
+        <ul class="side-nav">
+            <li><a href="http://milletseb.free.fr/category/lectures.html">Lectures</a></li>
+            <li><a href="http://milletseb.free.fr/category/origine.html">Origine</a></li>
+            <li><a href="http://milletseb.free.fr/category/partage.html">Partage</a></li>
+            <li><a href="http://milletseb.free.fr/category/programmes.html">Programmes</a></li>
+            <li><a href="http://milletseb.free.fr/category/recettes.html">Recettes</a></li>
+            <li><a href="http://milletseb.free.fr/category/ti.html">TI</a></li>
+   
+        </ul>
+
+        <h5 class="sidebar-title">Links</h5>
+        <ul class="side-nav">
+            <li><a href="http://milletseb.free.fr/ancien/index.html">Ancien Site</a></li>
+            <li><a href="http://getpelican.com/">Pelican</a></li>
+            <li><a href="http://python.org/">Python.org</a></li>
+            <li><a href="http://jinja.pocoo.org/">Jinja2</a></li>
+
+Search: <input data-stork="sitesearch" />
+<div data-stork="sitesearch-output"></div>
+
+        </ul>
+		
+
+    </aside> <!-- End Sidebar -->
+
+</div> <!-- End Main Content and Sidebar -->
+
+
+<!-- Footer -->
+<footer class="row">
+    <div class="large-12 columns">
+        <hr />
+        <div class="row">
+            <div class="large-6 columns">
+                <p>Site de Sébastien Millet by Sébastien Millet</p>
+            </div>
+            </div>
+    </div>
+</footer>
+
+<script src="https://files.stork-search.net/releases/v1.5.0/stork.js"></script>
+<script>
+    stork.register("sitesearch", "http://milletseb.free.fr/search-index.st")
+</script>

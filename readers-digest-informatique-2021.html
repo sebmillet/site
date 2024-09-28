@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="utf-8" />
+    <!-- Set the viewport width to device width for mobile -->
+    <meta name="viewport" content="width=device-width" />
+
+    <title>Reader's Digest Informatique (2021)</title>
+
+    <link rel="stylesheet" href="http://milletseb.free.fr/theme/css/normalize.css" />
+    <link rel="stylesheet" href="http://milletseb.free.fr/theme/css/foundation.min.css" />
+    <link rel="stylesheet" href="http://milletseb.free.fr/theme/css/style.css" />
+    <link rel="stylesheet" href="http://milletseb.free.fr/theme/css/pygments.css" />	
+    <script src="http://milletseb.free.fr/theme/js/custom.modernizr.js"></script>
+
+    <!-- So Firefox can bookmark->"abo this site" -->
+
+<link rel="stylesheet" href="https://files.stork-search.net/basic.css" />
+
+</head>
+
+<body>
+
+<!-- Nav Bar -->
+<nav>
+<div class="top-bar">
+<div class="row">
+    <div class="large-9 large-centered columns">
+	    <h1><a href="http://milletseb.free.fr">Site de Sébastien Millet</a></h1>
+    </div>
+</div>
+</div>
+
+<!-- Show menu items and pages -->
+<div class="row">
+<div class="large-9 columns">
+    <ul class="button-group navigation">
+
+    </ul>
+</div>
+</div>
+</nav>
+<!-- End Nav -->
+
+
+<!-- Main Page Content and Sidebar -->
+<div class="row">
+
+    <!-- Main Blog Content -->
+    <div class="large-9 columns">
+<article>
+    <header>
+        <h3 class="article-title"><a href="http://milletseb.free.fr/readers-digest-informatique-2021.html" rel="bookmark"
+        title="Permalink to Reader's Digest Informatique (2021)">Reader's Digest Informatique (2021)</a></h3>
+    </header>
+
+<h6 class="subheader" title="2021-01-16T00:00:00+01:00">sam. 16 janvier 2021
+</h6>
+
+
+    <!-- default-role rst directive described here: -->
+<!-- https://docutils.sourceforge.io/docs/ref/rst/directives.html#default-role -->
+<div class="section" id="janvier-mars-2021">
+<h2>Janvier - mars 2021</h2>
+<div class="section" id="outrun">
+<h3>outrun</h3>
+<p>(D'après <em>Linux Inside numéro 53, jan.-mar. 2021</em>)</p>
+<p>Permet d'exécuter un programme sur un autre ordi, sans pré-requis (le programme
+exécuté n'a pas besoin d'être installé sur l'ordi distant).</p>
+<p>Utile pour exécuter une tâche consommatrice de ressources (type ré-encodage
+d'un fichier vidéo avec ffmpeg) ailleurs.</p>
+<p>Installtion</p>
+<div class="highlight"><pre><span></span>sudo pip3 install outrun
+</pre></div>
+</div>
+<div class="section" id="identity">
+<h3>Identity</h3>
+<p>(D'après <em>Linux Inside numéro 53, jan.-mar. 2021</em>)</p>
+<p>Outil de comparaison de vidéo.
+Disponible ici : <a class="reference external" href="https://gitlab.gnome.org/YaLTeR/identity">https://gitlab.gnome.org/YaLTeR/identity</a></p>
+<p>Arch : <strong>aur/identity</strong></p>
+</div>
+<div class="section" id="x-moto">
+<h3>x-moto</h3>
+<p>(D'après <em>Linux Inside numéro 53, jan.-mar. 2021</em>)</p>
+<p>Jeu de moto</p>
+<p>Arch : <strong>aur/xmoto</strong></p>
+</div>
+<div class="section" id="ventoy">
+<h3>Ventoy</h3>
+<p>(D'après <em>Linux Inside numéro 53, jan.-mar. 2021</em>)</p>
+<p>Mettre plusieurs images ISO sur une clé USB démarrable.</p>
+</div>
+<div class="section" id="pv">
+<h3>pv</h3>
+<p>(D'après <a class="reference external" href="https://askubuntu.com/questions/17275/how-to-show-the-transfer-progress-and-speed-when-copying-files-with-cp">https://askubuntu.com/questions/17275/how-to-show-the-transfer-progress-and-speed-when-copying-files-with-cp</a>)</p>
+<p>Permet de suivre la progression des données dans un pipe. Exemples :</p>
+<div class="highlight"><pre><span></span>   <span class="c1"># Pour suivre la progression de la copie d&#39;un fichier</span>
+pv fichier_orig &gt; fichier_dest
+
+   <span class="c1"># (D&#39;après le manuel de pv)</span>
+   <span class="c1"># Pour prendre l&#39;image d&#39;un disque, en ignorant les erreurs</span>
+pv -EE /dev/sda &gt; disk-image.img
+
+   <span class="c1"># (D&#39;après le manuel de pv)</span>
+   <span class="c1"># Pour suivre la copie d&#39;un autre processus de numéro 1234,</span>
+   <span class="c1"># sur le descripteur de fichier 3.</span>
+pv -d <span class="m">1234</span>:3
+
+   <span class="c1"># (D&#39;après le manuel de pv)</span>
+   <span class="c1"># Pour suivre la copie d&#39;un autre processus de numéro 1234,</span>
+   <span class="c1"># sur tous les descripteurs de fichier.</span>
+pv -d <span class="m">1234</span>
+</pre></div>
+</div>
+<div class="section" id="ubuntu-retro-remix">
+<h3>Ubuntu Retro Remix</h3>
+<p>(D'après <em>Linux Référence numéro 9, déc. 2020 - fév. 2021</em>)</p>
+<p>Tout est dit dans le nom.</p>
+</div>
+<div class="section" id="linuxfx">
+<h3>LinuxFX</h3>
+<p>(D'après <em>Linux Référence numéro 9, déc. 2020 - fév. 2021</em>)</p>
+<p>Distribution basée sur Ubuntu, qui imite Windows 10.</p>
+</div>
+<div class="section" id="taille-des-logs-systemd">
+<h3>Taille des logs (systemd)</h3>
+<p>(D'après <em>Linux Référence numéro 9, déc. 2020 - fév. 2021</em>)</p>
+<div class="highlight"><pre><span></span>   <span class="c1"># Affiche la taille des logs</span>
+journalctl --disk-usage
+
+   <span class="c1"># Efface les anciennes informations de log jusqu&#39;à ne conserver</span>
+   <span class="c1"># que 100 MO.</span>
+journalctl --vacuum-size<span class="o">=</span>100M
+
+   <span class="c1"># Ne conserve que des données récentes dans le log (ici, 1 an)</span>
+journalctl --vacuum-time<span class="o">=</span>1y
+</pre></div>
+</div>
+<div class="section" id="stacer">
+<h3>Stacer</h3>
+<p>(D'après <em>Linux Référence numéro 9, déc. 2020 - fév. 2021</em>)</p>
+<p>Pour gérer le système en termes de performances, optimisation du stockage, etc.</p>
+</div>
+<div class="section" id="netcat">
+<h3>Netcat</h3>
+<p>(D'après <em>Linux Pratique numéro 123, jan.-fév. 2021</em>)</p>
+<p>Précision : nc existe (Arch début 2021) sous deux déclinaisons</p>
+<ol class="arabic simple">
+<li>Paquet <strong>extra/gnu-netcat</strong></li>
+<li>Paquet <strong>community/openbsd-netcat</strong></li>
+</ol>
+<p>L'article de Linux Magazine semble mélanger les deux ! Le texte affiché par nc
+correspond à la version bsd, mais l'option -c est propre à la version gnu. Je
+n'ai d'ailleurs pas pu reproduire le test avec l'option -c, j'ai utilisé
+openssl à la place.</p>
+<div class="highlight"><pre><span></span>   <span class="c1"># Teste si un port est ouvert</span>
+nc -zv hôte port
+   <span class="c1"># Par exemple</span>
+nc -zv maison-rp <span class="m">80</span>
+
+   <span class="c1"># Teste si le port 53 est dispo en UDP</span>
+   <span class="c1"># À noter que le test réussit s&#39;il n&#39;y a pas de réponse. À garder</span>
+   <span class="c1"># à l&#39;esprit si la machine est derrière un pare-feu.</span>
+nc -zuv maison-rp <span class="m">53</span>
+
+   <span class="c1"># Teste la réponse HTTP</span>
+<span class="nb">printf</span> -- <span class="s2">&quot;GET /ping HTTP/1.1\r\nHost: maison-rp\r\n\r\n&quot;</span> <span class="p">|</span> nc maison-rp <span class="m">80</span>
+
+   <span class="c1"># Teste la connexion HTTPS avec openssl</span>
+<span class="nb">printf</span> -- <span class="s2">&quot;GET /index.html HTTP/1.1\r\nHost: maison-rp\r\n\r\n&quot;</span> <span class="p">|</span> openssl s_client -connect maison-rp:443
+
+   <span class="c1"># Établit une connexion interactive entre deux machines</span>
+   <span class="c1"># (d&#39;après la manuel utilisateur de Netcat version bsd)</span>
+   <span class="c1"># SE RAPPELER QU&#39;IL N&#39;Y A AUCUNE PROTECTION D&#39;AUCUNE SORTE, ni contrôle</span>
+   <span class="c1"># d&#39;accès, ni chiffrement de la connexion.</span>
+
+   <span class="c1"># Sur le &#39;serveur&#39;</span>
+rm -f /tmp/f<span class="p">;</span> mkfifo /tmp/f
+cat /tmp/f <span class="p">|</span> /bin/sh -i <span class="m">2</span>&gt;<span class="p">&amp;</span><span class="m">1</span> <span class="p">|</span> nc -l <span class="m">127</span>.0.0.1 <span class="m">1234</span> &gt; /tmp/f
+   <span class="c1"># Sur le &#39;client&#39;</span>
+nc host.example.com <span class="m">1234</span>
+</pre></div>
+</div>
+<div class="section" id="partage-de-fichiers-en-ligne">
+<h3>Partage de fichiers en ligne</h3>
+<p>(D'après <em>Linux Pratique numéro 123, jan.-fév. 2021</em>)</p>
+<p>Trois outils sont proposés par le collectif CHATONS.</p>
+<p>Site de CHATONS, services libres en ligne : <a class="reference external" href="https://entraide.chatons.org/fr/">https://entraide.chatons.org/fr/</a></p>
+<ul class="simple">
+<li>Lufi (Let's Upload that file), <a class="reference external" href="https://github.com/ldidry/lufi">https://github.com/ldidry/lufi</a></li>
+<li>File to Link, <a class="reference external" href="https://framagit.org/kepon/file2link">https://framagit.org/kepon/file2link</a></li>
+<li>Plik, <a class="reference external" href="https://github.com/root-gg/plik/tree/master">https://github.com/root-gg/plik/tree/master</a></li>
+</ul>
+</div>
+<div class="section" id="ameliorer-la-gestion-de-la-batterie">
+<h3>Améliorer la gestion de la batterie</h3>
+<p>(<em>D'après Planète Linux numéro 118, déc. 2020 - jan. 2021</em>)</p>
+<p>Deux solutions :</p>
+<ul class="simple">
+<li>TLP</li>
+<li>Laptop Mode Tools</li>
+</ul>
+</div>
+<div class="section" id="nas">
+<h3>NAS</h3>
+<p>(<em>D'après Planète Linux numéro 118, déc. 2020 - jan. 2021</em>)</p>
+<p><strong>XigmaNAS</strong></p>
+</div>
+<div class="section" id="manipulation-d-images-par-lot">
+<h3>Manipulation d'images par lot</h3>
+<p>(<em>D'après Planète Linux numéro 118, déc. 2020 - jan. 2021</em>)</p>
+<p><strong>Converseen</strong></p>
+</div>
+<div class="section" id="tout-voir-comme-un-systeme-de-fichier">
+<h3>Tout voir comme un système de fichier</h3>
+<ul>
+<li><p class="first"><strong>httpdirfs</strong></p>
+<p>Déjà signalé ici.</p>
+<p>La partie distante consiste en une liste HTTP. Compatible avec la plupart des
+listes que l'on trouve sur Internet.</p>
+</li>
+<li><p class="first"><strong>curlftpfs</strong></p>
+<p>Comme son nom l'indique, la partie distante est accessible en FTP.</p>
+</li>
+<li><p class="first"><strong>sshfs</strong></p>
+<p>Comme son nom l'indique... la partie distante est accessible en SSH.</p>
+</li>
+</ul>
+</div>
+<div class="section" id="grammalecte">
+<h3>Grammalecte</h3>
+<p>(<em>D'après Planète Linux numéro 119, fév. - mar. 2021</em>)</p>
+<p>Correction orthographique et grammaticale en français. Fonctionne avec
+libreoffice et firefox par défaut, peut aussi s'interfacer avec vim grâce à un
+plug-in (Arch : paquet vim-grammalecte).</p>
+</div>
+<div class="section" id="bpytop">
+<h3>BpyTOP</h3>
+<p>(<em>D'après Planète Linux numéro 119, fév. - mar. 2021</em>)</p>
+<p><strong>top</strong> étendu.</p>
+</div>
+<div class="section" id="lyrics-in-terminal">
+<h3>lyrics-in-terminal</h3>
+<p>(<em>D'après Planète Linux numéro 121, juin - juil. 2021</em>)</p>
+<p>Afficher dans le terminal, les paroles de la musique que l'on est en train
+d'écouter.</p>
+<p>Inutile, donc indispensable.</p>
+</div>
+<div class="section" id="systemctl">
+<h3>systemctl</h3>
+<p>(D'après <em>Linux Pratique numéro 125, mai-juin 2021</em>)</p>
+<div class="highlight"><pre><span></span>  <span class="c1"># Lister l&#39;ensemble des unités</span>
+systemctl list-units
+  <span class="c1"># Idem, mais avec moins de détails</span>
+systemctl list-unit-files
+  <span class="c1"># Unités d&#39;un type donné</span>
+systemctl list-units --type service
+systemctl list-units --type mount
+  <span class="c1"># Statut</span>
+systemctl status cups.service
+  <span class="c1"># Fichier de configuration</span>
+systemctl cat fstrim.service
+  <span class="c1"># Éditer la configuration</span>
+systemctl edit fstrim.timer
+  <span class="c1"># Redémarrer un service</span>
+systemctl restart fstrim.timer
+
+systemctl status
+
+systemctl --failed
+
+systemctl list-dependencies timers.target
+
+  <span class="c1"># Démarrage par défaut (réponse typique : graphical.target)</span>
+systemctl get-default
+
+systemctl set-default multi-user.target
+
+  <span class="c1"># Passe directement en mode console</span>
+systemctl isolate multi-user.target
+  <span class="c1"># Reviens au mode graphique</span>
+systemctl isolate graphical.target
+
+  <span class="c1"># Affiche de quoi a besoin une unité donnée</span>
+systemctl show -p Wants -p Requires graphical.target
+
+systemd-analyze <span class="nb">time</span>
+systemd-analyze blame
+
+  <span class="c1"># NON INSTALLÉ PAR DÉFAUT</span>
+systemd-bootchart
+</pre></div>
+</div>
+<div class="section" id="quelques-commandes-utiles">
+<h3>Quelques commandes utiles</h3>
+<p>(<em>D'après Planète Linux numéro 122, août - septembre 2021</em>)</p>
+<div class="highlight"><pre><span></span>  <span class="c1"># Affiche l&#39;adresse IP publique</span>
+curl ifconfig.co
+
+  <span class="c1"># Tester la vitesse de réponse du DNS</span>
+dig archlinux.org
+
+  <span class="c1"># Lancer un serveur web en 2 secondes (!)</span>
+python3 -m http.server
+
+  <span class="c1"># Convertir un wav en mp3</span>
+lame fichier.wav fichier.mp3
+
+  <span class="c1"># Processus ayant ouvert un port TCP</span>
+lsof -i tcp:631
+
+  <span class="c1"># Affichage des volumes montés, de manière plus pratique</span>
+  <span class="c1"># qu&#39;un simple &#39;mount&#39;</span>
+findmnt
+
+  <span class="c1"># Disque dur : affiche des infos</span>
+  <span class="c1"># Arch : installer smartmontools</span>
+  <span class="c1">#   -i pour avoir des infos</span>
+  <span class="c1">#   -H pour avoir l&#39;état de santé</span>
+  <span class="c1">#   -t short pour lancer un test rapide</span>
+smartctl
+
+  <span class="c1"># Informations sur la matériel</span>
+  <span class="c1"># Arch : installer aur/inxi</span>
+inxi
+
+  <span class="c1"># Infos sur la batterie en CLI</span>
+  <span class="c1"># Arch : installer aur/battop</span>
+  <span class="c1"># Août 2021 : impossible de le compiler</span>
+battop
+upower -i /org/freedesktop/UPower/devices/battery_BAT0
+  <span class="c1"># Arch : installer acpi</span>
+acpi -V
+
+  <span class="c1"># Limiter le % d&#39;utilisation du processeur pour une tâche</span>
+  <span class="c1"># Arch : installer cpulimit</span>
+cpulimit
+</pre></div>
+</div>
+<div class="section" id="optimiez-votre-distribution-debian">
+<h3>Optimiez votre distribution Debian</h3>
+<p>(<em>D'après Linux Pratique numéro 128, novembre - décembre 2021</em>)</p>
+<ol class="arabic simple">
+<li>Alignement des partitions, vérification avec blockdev</li>
+</ol>
+<div class="highlight"><pre><span></span>  <span class="c1"># Vérifie l&#39;alignement des partitions. Affiche un zéro si tout est en</span>
+  <span class="c1"># ordre.</span>
+sudo blockdev --getalignoff /dev/nvme0n1
+</pre></div>
+<ol class="arabic simple" start="2">
+<li>noatime</li>
+</ol>
+<p>À ajouter à <code>/etc/fstab</code> comme option au répertoire racine. Cela dit, j'utilise
+<code>relatime</code> et c'est aussi bien.</p>
+<ol class="arabic simple" start="3">
+<li>Désactiver la journalisation</li>
+</ol>
+<div class="highlight"><pre><span></span>  <span class="c1"># Affiche le status</span>
+sudo tune2fs -l /dev/mapper/vol-rootfs <span class="p">|</span> grep feature
+  <span class="c1"># Enlève la journalisation</span>
+sudo tune2fs -O ^has_journal /dev/mapper/vol-rootfs
+</pre></div>
+<ol class="arabic simple" start="4">
+<li>Changer le (la ?) swappiness</li>
+</ol>
+<p>Lire cette page :
+<a class="reference external" href="https://wiki.archlinux.org/title/swap#Swappiness">https://wiki.archlinux.org/title/swap#Swappiness</a></p>
+<p>Ainsi que :
+<a class="reference external" href="https://rudd-o.com/linux-and-free-software/tales-from-responsivenessland-why-linux-feels-slow-and-how-to-fix-that">https://rudd-o.com/linux-and-free-software/tales-from-responsivenessland-why-linux-feels-slow-and-how-to-fix-that</a></p>
+<p>En résumé, créer le fichier suivant pour changer la valeur de vm.swappiness :</p>
+<div class="highlight"><pre><span></span>  # /etc/sysctl.d/99-swappiness.conf
+vm.swappiness=10
+</pre></div>
+<p>La valeur peut être comprise entre 0 et 200, elle est égale à 60 par défaut (au
+30 janvier 2022). Plus elle est petite, moins Linux aura tendance à déclencher
+le swap.</p>
+<ol class="arabic simple" start="5">
+<li>La mémoire</li>
+</ol>
+<p>Exécuter :</p>
+<div class="highlight"><pre><span></span>  <span class="c1"># Récupère de la mémoire</span>
+sudo sysctl vm.drop_caches<span class="o">=</span><span class="m">3</span>
+</pre></div>
+<ol class="arabic simple" start="6">
+<li>Répertoire temporaire en mémoire</li>
+</ol>
+<p>Entrée correspondante dans /etc/fstab :</p>
+<div class="highlight"><pre><span></span>  # NON TESTÉ
+tmpfs /tmp tmpfs defaults,size=3g
+</pre></div>
+<ol class="arabic simple" start="7">
+<li>Cache des paquets en mémoire</li>
+</ol>
+<p>Valable pour Arch Linux (pacman).</p>
+<div class="highlight"><pre><span></span>  # NON TESTÉ
+tmpfs /var/cache/pacman tmpfs defaults,size=3g 0 0
+</pre></div>
+</div>
+<div class="section" id="activer-fstrim-sur-un-disque-chiffre">
+<h3>Activer fstrim sur un disque chiffré</h3>
+<p>D'après deux URLs :</p>
+<p><a class="reference external" href="http://worldsmostsecret.blogspot.com/2012/04/how-to-activate-trim-on-luks-encrypted.html">http://worldsmostsecret.blogspot.com/2012/04/how-to-activate-trim-on-luks-encrypted.html</a></p>
+<p>et (pour la partie options du noyau) :</p>
+<p><a class="reference external" href="https://forum.manjaro.org/t/how-to-trim-luks-encrypted-device/81339/10">https://forum.manjaro.org/t/how-to-trim-luks-encrypted-device/81339/10</a></p>
+<p>fstrim peut poser des problèmes de sécurité et par défaut, fstrim ne fonctionne
+pas sur une partition chiffrée. Il faut l'activer de manière explicite.</p>
+<ol class="arabic simple">
+<li>Le point de départ</li>
+</ol>
+<p>L'exécution de fstrim produit une erreur.</p>
+<div class="highlight"><pre><span></span>  <span class="c1"># Dans le doute, j&#39;enlève la localisation pour obtenir plus de résultats</span>
+  <span class="c1"># lors de la recherche du message d&#39;erreur sur Internet...</span>
+user@hostname $ <span class="nv">LANG</span><span class="o">=</span><span class="s1">&#39;&#39;</span> sudo fstrim -v /
+fstrim: /: the discard operation is not supported
+</pre></div>
+<ol class="arabic simple" start="2">
+<li>La solution</li>
+</ol>
+<p>2.1. Ajouter l'option discard au volume racine</p>
+<div class="highlight"><pre><span></span>  # Dans /etc/fstab
+UUID=af414764-792c-4dfc-9034-cf0a5f624599  /             ext4   discard,rw,relatime                           0 1
+</pre></div>
+<p>2.2. Ajouter l'option discards au noyau et/ou à la partition</p>
+<p>Un seul des deux est nécessaire, mais on ne sait jamais.</p>
+<div class="highlight"><pre><span></span>  # Dans /boot/loader/entries/arch.conf
+options cryptdevice=UUID=2646c1ab-05f1-4edb-97ce-600fb614cb41:clvm:allow-discards rd.luks.options=discard root=/dev/vol/rootfs pci=noaer ro
+</pre></div>
+<p>2.3. Modifier l'initramfs</p>
+<p>Exécuter :</p>
+<div class="highlight"><pre><span></span>  <span class="c1"># Ne fonctionne pas pour moi...</span>
+sudo update-initramfs -c -k all
+</pre></div>
+<p>2.4 Rebooter</p>
+<p>2.5 Vérifier le résultat</p>
+<p>Exécuter :</p>
+<div class="highlight"><pre><span></span>  <span class="c1"># Ne fonctionne pas pour moi...</span>
+sudo dmsetup table /dev/mapper/vol-rootfs --showkeys
+</pre></div>
+</div>
+</div>
+
+<p class="subheader">Category: <a href="http://milletseb.free.fr/category/ti.html">TI</a>
+
+    Tagged: 
+    <a href="http://milletseb.free.fr/tag/linux.html">Linux </a>
+</p>
+
+
+
+
+</article>
+    </div>
+    <!-- End Main Content -->
+
+    <!-- Sidebar -->
+    <aside class="large-3 columns">
+        <h5 class="sidebar-title">Site</h5>
+        <ul class="side-nav">
+            <li><a href="http://milletseb.free.fr/archives.html">Archives</a>
+            <li><a href="http://milletseb.free.fr/tags.html">Tags</a>
+
+
+        </ul>
+
+		
+        <h5 class="sidebar-title">Categories</h5>
+        <ul class="side-nav">
+            <li><a href="http://milletseb.free.fr/category/lectures.html">Lectures</a></li>
+            <li><a href="http://milletseb.free.fr/category/origine.html">Origine</a></li>
+            <li><a href="http://milletseb.free.fr/category/partage.html">Partage</a></li>
+            <li><a href="http://milletseb.free.fr/category/programmes.html">Programmes</a></li>
+            <li><a href="http://milletseb.free.fr/category/recettes.html">Recettes</a></li>
+            <li><a href="http://milletseb.free.fr/category/ti.html">TI</a></li>
+   
+        </ul>
+
+        <h5 class="sidebar-title">Links</h5>
+        <ul class="side-nav">
+            <li><a href="http://milletseb.free.fr/ancien/index.html">Ancien Site</a></li>
+            <li><a href="http://getpelican.com/">Pelican</a></li>
+            <li><a href="http://python.org/">Python.org</a></li>
+            <li><a href="http://jinja.pocoo.org/">Jinja2</a></li>
+
+Search: <input data-stork="sitesearch" />
+<div data-stork="sitesearch-output"></div>
+
+        </ul>
+		
+
+    </aside> <!-- End Sidebar -->
+
+</div> <!-- End Main Content and Sidebar -->
+
+
+<!-- Footer -->
+<footer class="row">
+    <div class="large-12 columns">
+        <hr />
+        <div class="row">
+            <div class="large-6 columns">
+                <p>Site de Sébastien Millet by Sébastien Millet</p>
+            </div>
+            </div>
+    </div>
+</footer>
+
+<script src="https://files.stork-search.net/releases/v1.5.0/stork.js"></script>
+<script>
+    stork.register("sitesearch", "http://milletseb.free.fr/search-index.st")
+</script>

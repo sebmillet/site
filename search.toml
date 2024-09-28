@@ -1,0 +1,408 @@
+[input]
+base_directory = "output"
+html_selector = "article"
+
+[[input.files]]
+path = "lectures.html"
+url = "/lectures.html"
+title = "Lectures"
+
+[[input.files]]
+path = "readers-digest-informatique-2022.html"
+url = "/readers-digest-informatique-2022.html"
+title = "Reader's Digest Informatique (2022)"
+
+[[input.files]]
+path = "ligne-de-commande.html"
+url = "/ligne-de-commande.html"
+title = "Ligne de commande ++"
+
+[[input.files]]
+path = "charlotte-rose-aux-fruits-rouges.html"
+url = "/charlotte-rose-aux-fruits-rouges.html"
+title = "Charlotte rose aux fruits rouges"
+
+[[input.files]]
+path = "readers-digest-informatique-2021.html"
+url = "/readers-digest-informatique-2021.html"
+title = "Reader's Digest Informatique (2021)"
+
+[[input.files]]
+path = "readers-digest-informatique-2020.html"
+url = "/readers-digest-informatique-2020.html"
+title = "Reader's Digest Informatique (2020)"
+
+[[input.files]]
+path = "quelques-commandes-systemd.html"
+url = "/quelques-commandes-systemd.html"
+title = "Quelques commandes systemd"
+
+[[input.files]]
+path = "index.html"
+url = "/"
+title = "Sébastien Millet"
+
+[[input.files]]
+path = "mousse-au-citron.html"
+url = "/mousse-au-citron.html"
+title = "Mousse au citron"
+
+[[input.files]]
+path = "salade-de-pommes-de-terre-au-citron.html"
+url = "/salade-de-pommes-de-terre-au-citron.html"
+title = "Salade de pommes de terre au citron"
+
+[[input.files]]
+path = "customize-secure-boot.html"
+url = "/customize-secure-boot.html"
+title = "Customize Secure Boot"
+
+[[input.files]]
+path = "partage-fichier.html"
+url = "/partage-fichier.html"
+title = "Partage Fichier"
+
+[[input.files]]
+path = "linux-and-rt3290.html"
+url = "/linux-and-rt3290.html"
+title = "Linux and rt3290"
+
+[[input.files]]
+path = "clafoutis-a-la-rhubarbe.html"
+url = "/clafoutis-a-la-rhubarbe.html"
+title = "Clafoutis à la rhubarbe"
+
+[[input.files]]
+path = "quelques-commandes-journalctl.html"
+url = "/quelques-commandes-journalctl.html"
+title = "Quelques commandes journalctl"
+
+[[input.files]]
+path = "buche-aux-marrons-glaces.html"
+url = "/buche-aux-marrons-glaces.html"
+title = "Bûche aux marrons glacés"
+
+[[input.files]]
+path = "netmon.html"
+url = "/netmon.html"
+title = "netmon"
+
+[[input.files]]
+path = "notes-diverses-sur-perl.html"
+url = "/notes-diverses-sur-perl.html"
+title = "Notes diverses sur Perl"
+
+[[input.files]]
+path = "installer-rtl8812au-dans-dkms.html"
+url = "/installer-rtl8812au-dans-dkms.html"
+title = "Installer rtl8812au dans DKMS"
+
+[[input.files]]
+path = "panna-cotta.html"
+url = "/panna-cotta.html"
+title = "Panna cotta"
+
+[[input.files]]
+path = "tiramisu.html"
+url = "/tiramisu.html"
+title = "Tiramisu"
+
+[[input.files]]
+path = "about-uefi-and-secure-boot.html"
+url = "/about-uefi-and-secure-boot.html"
+title = "About UEFI and Secure Boot"
+
+[[input.files]]
+path = "buche-de-noel.html"
+url = "/buche-de-noel.html"
+title = "Bûche de Noël"
+
+[[input.files]]
+path = "cake-au-citron.html"
+url = "/cake-au-citron.html"
+title = "Cake au citron"
+
+[[input.files]]
+path = "chutney-doignons.html"
+url = "/chutney-doignons.html"
+title = "Chutney d'oignons"
+
+[[input.files]]
+path = "gateau-marbre.html"
+url = "/gateau-marbre.html"
+title = "Gâteau marbré"
+
+[[input.files]]
+path = "roti-de-magrets-de-canard-au-potimarron-et-aux-marrons.html"
+url = "/roti-de-magrets-de-canard-au-potimarron-et-aux-marrons.html"
+title = "Rôti de magrets de canard au potimarron et aux marrons"
+
+[[input.files]]
+path = "tiramisu-au-saumon-fume-avocat-et-pamplemousse-rose.html"
+url = "/tiramisu-au-saumon-fume-avocat-et-pamplemousse-rose.html"
+title = "Tiramisu au saumon fumé, avocat et pamplemousse rose"
+
+[[input.files]]
+path = "meringues.html"
+url = "/meringues.html"
+title = "Meringues"
+
+[[input.files]]
+path = "tarte-au-citron-meringuee.html"
+url = "/tarte-au-citron-meringuee.html"
+title = "Tarte au citron meringuée"
+
+[[input.files]]
+path = "tarte-fine-au-boudin-blanc-et-chutney-de-mangue.html"
+url = "/tarte-fine-au-boudin-blanc-et-chutney-de-mangue.html"
+title = "Tarte fine au boudin blanc et chutney de mangue"
+
+[[input.files]]
+path = "lotte-a-larmoricaine.html"
+url = "/lotte-a-larmoricaine.html"
+title = "Lotte à l'armoricaine"
+
+[[input.files]]
+path = "grub-sur-usb.html"
+url = "/grub-sur-usb.html"
+title = "GRUB sur usb"
+
+[[input.files]]
+path = "lasagnes.html"
+url = "/lasagnes.html"
+title = "Lasagnes"
+
+[[input.files]]
+path = "gratin-dauphinois.html"
+url = "/gratin-dauphinois.html"
+title = "Gratin Dauphinois"
+
+[[input.files]]
+path = "gratin-de-cotes-de-blettes.html"
+url = "/gratin-de-cotes-de-blettes.html"
+title = "Gratin de côtes de blettes"
+
+[[input.files]]
+path = "sauce-bechamel.html"
+url = "/sauce-bechamel.html"
+title = "Sauce béchamel"
+
+[[input.files]]
+path = "aubergine-gratinee-a-la-bolognaise.html"
+url = "/aubergine-gratinee-a-la-bolognaise.html"
+title = "Aubergine gratinée à la Bolognaise"
+
+[[input.files]]
+path = "bouillon-asiatique-aux-vermicelles-et-boeuf.html"
+url = "/bouillon-asiatique-aux-vermicelles-et-boeuf.html"
+title = "Bouillon asiatique aux vermicelles et bœuf"
+
+[[input.files]]
+path = "bricks-de-chevre.html"
+url = "/bricks-de-chevre.html"
+title = "Bricks de chèvre"
+
+[[input.files]]
+path = "choux.html"
+url = "/choux.html"
+title = "Choux"
+
+[[input.files]]
+path = "choux-fleurs-a-la-creme.html"
+url = "/choux-fleurs-a-la-creme.html"
+title = "Choux-fleurs à la crème"
+
+[[input.files]]
+path = "choux-rouge-aux-chataignes.html"
+url = "/choux-rouge-aux-chataignes.html"
+title = "Choux rouge aux châtaignes"
+
+[[input.files]]
+path = "clafoutis-de-jambon-et-courgette.html"
+url = "/clafoutis-de-jambon-et-courgette.html"
+title = "Clafoutis de jambon et courgette"
+
+[[input.files]]
+path = "concombre-au-fromage-blanc.html"
+url = "/concombre-au-fromage-blanc.html"
+title = "Concombre au fromage blanc"
+
+[[input.files]]
+path = "crevettes-kung-pao-aux-cajous.html"
+url = "/crevettes-kung-pao-aux-cajous.html"
+title = "Crevettes Kung Pao aux cajous"
+
+[[input.files]]
+path = "croque-monsieur.html"
+url = "/croque-monsieur.html"
+title = "Croque-monsieur"
+
+[[input.files]]
+path = "crumble-de-potiron-au-comte-et-bacon.html"
+url = "/crumble-de-potiron-au-comte-et-bacon.html"
+title = "Crumble de potiron au Comté et bacon"
+
+[[input.files]]
+path = "domes-de-saumon-fume.html"
+url = "/domes-de-saumon-fume.html"
+title = "Dômes de saumon fumé"
+
+[[input.files]]
+path = "galette-des-rois.html"
+url = "/galette-des-rois.html"
+title = "Galette des rois"
+
+[[input.files]]
+path = "gateau-a-la-creme-de-marron.html"
+url = "/gateau-a-la-creme-de-marron.html"
+title = "Gâteau à la crème de marron"
+
+[[input.files]]
+path = "goulache.html"
+url = "/goulache.html"
+title = "Goulache"
+
+[[input.files]]
+path = "lentilles-saucisses.html"
+url = "/lentilles-saucisses.html"
+title = "Lentilles saucisses"
+
+[[input.files]]
+path = "oeufs-a-la-neige.html"
+url = "/oeufs-a-la-neige.html"
+title = "Œufs à la neige"
+
+[[input.files]]
+path = "paprikas-krumpli.html"
+url = "/paprikas-krumpli.html"
+title = "Paprikás krumpli"
+
+[[input.files]]
+path = "pommes-de-terre-jambon-feta.html"
+url = "/pommes-de-terre-jambon-feta.html"
+title = "Pommes de terre jambon feta"
+
+[[input.files]]
+path = "pommes-de-terre-saumon.html"
+url = "/pommes-de-terre-saumon.html"
+title = "Pommes de terre saumon"
+
+[[input.files]]
+path = "porc-a-la-noix-de-coco.html"
+url = "/porc-a-la-noix-de-coco.html"
+title = "Porc à la noix de coco"
+
+[[input.files]]
+path = "poulet-au-citron-et-aux-olives.html"
+url = "/poulet-au-citron-et-aux-olives.html"
+title = "Poulet au citron et aux olives"
+
+[[input.files]]
+path = "poulet-legumes.html"
+url = "/poulet-legumes.html"
+title = "Poulet légumes"
+
+[[input.files]]
+path = "riz-aux-crevettes-et-noix-de-petoncle.html"
+url = "/riz-aux-crevettes-et-noix-de-petoncle.html"
+title = "Riz aux crevettes et noix de pétoncle"
+
+[[input.files]]
+path = "riz-aux-oignons-cuisson-pilaf.html"
+url = "/riz-aux-oignons-cuisson-pilaf.html"
+title = "Riz aux oignons (cuisson pilaf)"
+
+[[input.files]]
+path = "saute-de-porc-a-la-creme-de-moutarde.html"
+url = "/saute-de-porc-a-la-creme-de-moutarde.html"
+title = "Sauté de porc à la crème de moutarde"
+
+[[input.files]]
+path = "souffle-au-citron.html"
+url = "/souffle-au-citron.html"
+title = "Soufflé au citron"
+
+[[input.files]]
+path = "spaghetti-a-la-carbonara.html"
+url = "/spaghetti-a-la-carbonara.html"
+title = "Spaghetti à la Carbonara"
+
+[[input.files]]
+path = "spaghetti-bolognaise.html"
+url = "/spaghetti-bolognaise.html"
+title = "Spaghetti bolognaise"
+
+[[input.files]]
+path = "taboule.html"
+url = "/taboule.html"
+title = "Taboulé"
+
+[[input.files]]
+path = "tarte-aux-champignons-mozzarella.html"
+url = "/tarte-aux-champignons-mozzarella.html"
+title = "Tarte aux champignons mozzarella"
+
+[[input.files]]
+path = "tartiflette.html"
+url = "/tartiflette.html"
+title = "Tartiflette"
+
+[[input.files]]
+path = "tatins-de-navets.html"
+url = "/tatins-de-navets.html"
+title = "Tatins de navets"
+
+[[input.files]]
+path = "dder.html"
+url = "/dder.html"
+title = "dder"
+
+[[input.files]]
+path = "pkfile.html"
+url = "/pkfile.html"
+title = "pkfile"
+
+[[input.files]]
+path = "zsbc.html"
+url = "/zsbc.html"
+title = "zsbc"
+
+[[input.files]]
+path = "smtprec.html"
+url = "/smtprec.html"
+title = "smtprec"
+
+[[input.files]]
+path = "tcprelay.html"
+url = "/tcprelay.html"
+title = "tcprelay"
+
+[[input.files]]
+path = "flan-noix-de-coco.html"
+url = "/flan-noix-de-coco.html"
+title = "Flan noix de coco"
+
+[[input.files]]
+path = "gateau-au-chocolat-creme-de-marron.html"
+url = "/gateau-au-chocolat-creme-de-marron.html"
+title = "Gâteau au chocolat crème de marron"
+
+[[input.files]]
+path = "mini-clafoutis-au-camembert.html"
+url = "/mini-clafoutis-au-camembert.html"
+title = "Mini clafoutis au camembert"
+
+[[input.files]]
+path = "osso-bucco-au-fenouil.html"
+url = "/osso-bucco-au-fenouil.html"
+title = "Osso-Bucco au fenouil"
+
+[[input.files]]
+path = "prpn.html"
+url = "/prpn.html"
+title = "pRPN"
+
+[[input.files]]
+path = "bouge-de-ton-siege.html"
+url = "/bouge-de-ton-siege.html"
+title = "bouge-de-ton-siege"
