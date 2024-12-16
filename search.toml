@@ -3,6 +3,11 @@ base_directory = "output"
 html_selector = "article"
 
 [[input.files]]
+path = "quelques-trucs-sur-vim.html"
+url = "/quelques-trucs-sur-vim.html"
+title = "Quelques trucs sur vim"
+
+[[input.files]]
 path = "lectures.html"
 url = "/lectures.html"
 title = "Lectures"
