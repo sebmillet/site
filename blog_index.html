@@ -51,23 +51,121 @@
         
 
             <article>
-                <a href="https://sebmillet.github.io/site/quelques-trucs-sur-vim.html"><h3 class="article-title">Quelques trucs sur vim</h3></a>
-<h6 class="subheader" title="2024-12-16T00:00:00+01:00">lun. 16 décembre 2024
+                <a href="https://sebmillet.github.io/site/ajouter-memtest86-au-menu-grub.html"><h3 class="article-title">Ajouter memtest86 au menu grub</h3></a>
+<h6 class="subheader" title="2024-12-17T00:00:00+01:00">mar. 17 décembre 2024
 </h6>
 
 
 <!-- default-role rst directive described here: -->
 <!-- https://docutils.sourceforge.io/docs/ref/rst/directives.html#default-role -->
+<dl class="docutils">
+<dt>D'après</dt>
+<dd><a class="reference external" href="https://www.yosoygames.com.ar/wp/2020/03/installing-memtest86-on-uefi-grub2-ubuntu/">https://www.yosoygames.com.ar/wp/2020/03/installing-memtest86-on-uefi-grub2-ubuntu/</a></dd>
+</dl>
 <ul class="simple">
-<li>Afficher un fichier avec la colorisation du terminal</li>
+<li>Télécharger memtest86, par exemple ici :
+<a class="reference external" href="https://www.memtest86.com/downloads/memtest86-usb.zip">https://www.memtest86.com/downloads/memtest86-usb.zip</a></li>
+<li>Dé-zipper memtest86-usb.zip, ce qui produit entre autres le fichier
+<em>memtest86-usb.img</em>.</li>
+<li>Le site yosoygames donne un moyen direct de monter le volume adéquat dans
+memtest86-usb.img, mais je trouve ça complex. Je préfère la méthode
+ci-dessous. Il faut être root, ou bien, tout préfixer avec <em>sudo</em>.</li>
 </ul>
-<div class="highlight"><pre><span></span><span class="o">(</span>dans vim/gvim, exécuter:<span class="o">)</span>
-:terminal cat fichier
+<div class="highlight"><pre><span></span><span class="s2">&quot; Exécuter en tant que root</span>
+
+<span class="s2"># losetup -P /dev/loop0 memtest86-usb.img</span>
+
+<span class="s2"># losetup -a</span>
+<span class="s2">/dev/loop0: [66310]:4860911 (/home/sebastien/memtest86-usb.img)</span>
+
+<span class="s2"># fdisk -l /dev/loop0</span>
+<span class="s2">Disque /dev/loop0 : 1 GiB, 1073741824 octets, 2097152 secteurs</span>
+<span class="s2">Unités : secteur de 1 × 512 = 512 octets</span>
+<span class="s2">Taille de secteur (logique / physique) : 512 octets / 512 octets</span>
+<span class="s2">taille d&#39;E/S (minimale / optimale) : 512 octets / 512 octets</span>
+<span class="s2">Type d&#39;étiquette de disque : gpt</span>
+<span class="s2">Identifiant de disque : E2BF71FD-A275-4D88-AC0B-8A6CB119584E</span>
+
+<span class="s2">Périphérique   Début     Fin Secteurs Taille Type</span>
+<span class="s2">/dev/loop0p1    2048  524287   522240   255M Données de base Microsoft</span>
+<span class="s2">/dev/loop0p2  524288 1048575   524288   256M Système EFI</span>
+<span class="s2">/dev/loop0p3 1048576 2097118  1048543   512M Données de base Microsoft</span>
+
+<span class="s2"># mkdir p2</span>
+
+<span class="s2"># mount /dev/loop0p2 p2</span>
+
+<span class="s2"># ls -al p2/EFI/BOOT</span>
+<span class="s2">total 6584</span>
+<span class="s2">drwxr-xr-x 3 root root    4096 31 oct.  00:38 .</span>
+<span class="s2">drwxr-xr-x 3 root root    4096 31 oct.  00:38 ..</span>
+<span class="s2">drwxr-xr-x 2 root root    4096 31 oct.  00:38 Benchmark</span>
+<span class="s2">-rwxr-xr-x 1 root root    5834 31 oct.  00:38 blacklist.cfg</span>
+<span class="s2">-rwxr-xr-x 1 root root 1328664 31 oct.  00:38 BOOTAA64.efi</span>
+<span class="s2">-rwxr-xr-x 1 root root 1476120 31 oct.  00:38 BOOTIA32.efi</span>
+<span class="s2">-rwxr-xr-x 1 root root 1543512 31 oct.  00:38 BOOTX64.efi</span>
+<span class="s2">-rwxr-xr-x 1 root root    6823 31 oct.  00:38 mt86.png</span>
+<span class="s2">-rwxr-xr-x 1 root root 2355408 31 oct.  00:38 unifont.bin</span>
+
+<span class="s2"># mkdir /boot/efi/EFI/memtest86</span>
+
+<span class="s2"># cp -aiv p2/EFI/BOOT/* /boot/efi/EFI/memtest86/.</span>
+
+<span class="s2">&quot;</span> Créer le fichier /etc/grub.d/39_memtest86 avec le contenu suivant :
+<span class="c1">#!/bin/sh</span>
+<span class="nb">exec</span> tail -n +3 <span class="nv">$0</span>
+<span class="c1"># From</span>
+<span class="c1">#   https://www.yosoygames.com.ar/wp/2020/03/installing-memtest86-on-uefi-grub2-ubuntu/</span>
+<span class="c1"># This file provides an easy way to add custom menu entries.  Simply type the</span>
+<span class="c1"># menu entries you want to add after this comment.  Be careful not to change</span>
+<span class="c1"># the &#39;exec tail&#39; line above.</span>
+
+menuentry <span class="s1">&#39;memtest86&#39;</span> <span class="o">{</span>
+    insmod part_gpt
+    insmod fat
+    search --no-floppy --fs-uuid --set<span class="o">=</span>root CBB6-0A32
+    chainloader /EFI/memtest86/BOOTX64.efi
+<span class="o">}</span>
+
+<span class="s2">&quot; ÉVIDEMMENT IL FAUT ADAPTER L&#39;UUID DU DISQUE ROOT (EFI).</span>
+<span class="s2">&quot;</span> POUR CE FAIRE :
+
+<span class="c1"># fdisk -l /dev/nvme0n1</span>
+Disque /dev/nvme0n1 : <span class="m">238</span>,47 GiB, <span class="m">256060514304</span> octets, <span class="m">500118192</span> secteurs
+Modèle de disque : INTEL SSDPEKKW256G7
+Unités : secteur de <span class="m">1</span> × <span class="nv">512</span> <span class="o">=</span> <span class="m">512</span> octets
+Taille de secteur <span class="o">(</span>logique / physique<span class="o">)</span> : <span class="m">512</span> octets / <span class="m">512</span> octets
+taille d<span class="s1">&#39;E/S (minimale / optimale) : 512 octets / 512 octets</span>
+<span class="s1">Type d&#39;</span>étiquette de disque : gpt
+Identifiant de disque : 1C6AE4C0-69B3-4FDF-9D86-91C41904AFA3
+
+Périphérique       Début       Fin  Secteurs Taille Type
+/dev/nvme0n1p1      <span class="m">2048</span>   <span class="m">2099199</span>   <span class="m">2097152</span>     1G Système EFI
+/dev/nvme0n1p2   <span class="m">2099200</span>  <span class="m">63539199</span>  <span class="m">61440000</span>  <span class="m">29</span>,3G Système de fichiers Linux
+/dev/nvme0n1p3 <span class="m">359450624</span> <span class="m">359483391</span>     <span class="m">32768</span>    16M Réservé Microsoft
+/dev/nvme0n1p4 <span class="m">359483392</span> <span class="m">500117503</span> <span class="m">140634112</span>  <span class="m">67</span>,1G Données de base Microsoft
+/dev/nvme0n1p5 <span class="m">357449728</span> <span class="m">359450623</span>   <span class="m">2000896</span>   977M Partition d<span class="s1">&#39;échange Linux</span>
+<span class="s1">/dev/nvme0n1p6 173377536 357449727 184072192  87,8G Système de fichiers Linux</span>
+
+<span class="s1">Les entrées de la table de partitions ne sont pas dans l&#39;</span>ordre du disque.
+maison:/etc/grub.d# ls -al /dev/disk/by-uuid
+total <span class="m">0</span>
+drwxr-xr-x <span class="m">2</span> root root <span class="m">320</span> <span class="m">17</span> déc.  <span class="m">14</span>:09 .
+drwxr-xr-x <span class="m">8</span> root root <span class="m">160</span> <span class="m">17</span> déc.  <span class="m">09</span>:24 ..
+...
+lrwxrwxrwx <span class="m">1</span> root root  <span class="m">15</span> <span class="m">17</span> déc.  <span class="m">09</span>:24 OR507090554982R0 -&gt; ../../nvme0n1p4
+lrwxrwxrwx <span class="m">1</span> root root  <span class="m">15</span> <span class="m">17</span> déc.  <span class="m">09</span>:24 CBB6-0A32 -&gt; ../../nvme0n1p1
+lrwxrwxrwx <span class="m">1</span> root root  <span class="m">15</span> <span class="m">17</span> déc.  <span class="m">09</span>:24 rs3-49s6-87rq-66rsq999s992 -&gt; ../../mmcblk0p2
+...
 </pre></div>
+<p>Précision : le site yosoygames indique un autre moyen de définir le volume root.
+Personnellement je préfère l'instruction search qui produit un bon résultat du
+moment que l'UUID donné est le bon (la partition EFI).</p>
 <p class="subheader">Category: <a href="https://sebmillet.github.io/site/category/ti.html">TI</a>
 
     Tagged: 
-    <a href="https://sebmillet.github.io/site/tag/vim.html">vim </a>
+    <a href="https://sebmillet.github.io/site/tag/memtest86.html">memtest86 </a>
+    <a href="https://sebmillet.github.io/site/tag/grub.html">grub </a>
 </p>
 
 
@@ -77,6 +175,27 @@
 
                 <hr  class="gradient"/>
 
+
+        
+
+
+            <article>
+                <a href="https://sebmillet.github.io/site/quelques-trucs-sur-vim.html"><h3 class="article-title">Quelques trucs sur vim</h3></a>
+<h6 class="subheader" title="2024-12-16T00:00:00+01:00">lun. 16 décembre 2024
+</h6>
+
+
+<p class="subheader">Category: <a href="https://sebmillet.github.io/site/category/ti.html">TI</a>
+
+    Tagged: 
+    <a href="https://sebmillet.github.io/site/tag/vim.html">vim </a>
+</p>
+
+
+
+                <a class="button radius secondary small right" href="https://sebmillet.github.io/site/quelques-trucs-sur-vim.html">Read More</a>
+                <hr  class="gradient"/>
+            </article>
 
         
 
@@ -1097,27 +1216,6 @@
 
 
                 <a class="button radius secondary small right" href="https://sebmillet.github.io/site/crumble-de-potiron-au-comte-et-bacon.html">Read More</a>
-                <hr  class="gradient"/>
-            </article>
-
-        
-
-
-            <article>
-                <a href="https://sebmillet.github.io/site/domes-de-saumon-fume.html"><h3 class="article-title">Dômes de saumon fumé</h3></a>
-<h6 class="subheader" title="2016-12-04T00:00:00+01:00">dim. 04 décembre 2016
-</h6>
-
-
-<p class="subheader">Category: <a href="https://sebmillet.github.io/site/category/recettes.html">Recettes</a>
-
-    Tagged: 
-    <a href="https://sebmillet.github.io/site/tag/saumon.html">saumon </a>
-</p>
-
-
-
-                <a class="button radius secondary small right" href="https://sebmillet.github.io/site/domes-de-saumon-fume.html">Read More</a>
                 <hr  class="gradient"/>
             </article>
 
