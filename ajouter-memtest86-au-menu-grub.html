@@ -72,89 +72,89 @@
 memtest86-usb.img, mais je trouve ça complexe. Je préfère la méthode
 ci-dessous. Il faut être root, ou bien, tout préfixer avec <em>sudo</em>.</li>
 </ul>
-<div class="highlight"><pre><span></span><span class="c1"># losetup -P /dev/loop0 memtest86-usb.img</span>
+<div class="highlight"><pre><span></span><span class="gp">#</span> losetup -P /dev/loop0 memtest86-usb.img
 
-<span class="c1"># losetup -a</span>
-/dev/loop0: <span class="o">[</span><span class="m">66310</span><span class="o">]</span>:4860911 <span class="o">(</span>/home/sebastien/memtest86-usb.img<span class="o">)</span>
+<span class="gp">#</span> losetup -a
+<span class="go">/dev/loop0: [66310]:4860911 (/home/sebastien/memtest86-usb.img)</span>
 
-<span class="c1"># fdisk -l /dev/loop0</span>
-Disque /dev/loop0 : <span class="m">1</span> GiB, <span class="m">1073741824</span> octets, <span class="m">2097152</span> secteurs
-Unités : secteur de <span class="m">1</span> × <span class="nv">512</span> <span class="o">=</span> <span class="m">512</span> octets
-Taille de secteur <span class="o">(</span>logique / physique<span class="o">)</span> : <span class="m">512</span> octets / <span class="m">512</span> octets
-taille d<span class="s1">&#39;E/S (minimale / optimale) : 512 octets / 512 octets</span>
-<span class="s1">Type d&#39;</span>étiquette de disque : gpt
-Identifiant de disque : E2BF71FD-A275-4D88-AC0B-8A6CB119584E
+<span class="gp">#</span> fdisk -l /dev/loop0
+<span class="go">Disque /dev/loop0 : 1 GiB, 1073741824 octets, 2097152 secteurs</span>
+<span class="go">Unités : secteur de 1 × 512 = 512 octets</span>
+<span class="go">Taille de secteur (logique / physique) : 512 octets / 512 octets</span>
+<span class="go">taille d&#39;E/S (minimale / optimale) : 512 octets / 512 octets</span>
+<span class="go">Type d&#39;étiquette de disque : gpt</span>
+<span class="go">Identifiant de disque : E2BF71FD-A275-4D88-AC0B-8A6CB119584E</span>
 
-Périphérique   Début     Fin Secteurs Taille Type
-/dev/loop0p1    <span class="m">2048</span>  <span class="m">524287</span>   <span class="m">522240</span>   255M Données de base Microsoft
-/dev/loop0p2  <span class="m">524288</span> <span class="m">1048575</span>   <span class="m">524288</span>   256M Système EFI
-/dev/loop0p3 <span class="m">1048576</span> <span class="m">2097118</span>  <span class="m">1048543</span>   512M Données de base Microsoft
+<span class="go">Périphérique   Début     Fin Secteurs Taille Type</span>
+<span class="go">/dev/loop0p1    2048  524287   522240   255M Données de base Microsoft</span>
+<span class="go">/dev/loop0p2  524288 1048575   524288   256M Système EFI</span>
+<span class="go">/dev/loop0p3 1048576 2097118  1048543   512M Données de base Microsoft</span>
 
-<span class="c1"># mkdir p2</span>
+<span class="gp">#</span> mkdir p2
 
-<span class="c1"># mount /dev/loop0p2 p2</span>
+<span class="gp">#</span> mount /dev/loop0p2 p2
 
-<span class="c1"># ls -al p2/EFI/BOOT</span>
-total <span class="m">6584</span>
-drwxr-xr-x <span class="m">3</span> root root    <span class="m">4096</span> <span class="m">31</span> oct.  <span class="m">00</span>:38 .
-drwxr-xr-x <span class="m">3</span> root root    <span class="m">4096</span> <span class="m">31</span> oct.  <span class="m">00</span>:38 ..
-drwxr-xr-x <span class="m">2</span> root root    <span class="m">4096</span> <span class="m">31</span> oct.  <span class="m">00</span>:38 Benchmark
--rwxr-xr-x <span class="m">1</span> root root    <span class="m">5834</span> <span class="m">31</span> oct.  <span class="m">00</span>:38 blacklist.cfg
--rwxr-xr-x <span class="m">1</span> root root <span class="m">1328664</span> <span class="m">31</span> oct.  <span class="m">00</span>:38 BOOTAA64.efi
--rwxr-xr-x <span class="m">1</span> root root <span class="m">1476120</span> <span class="m">31</span> oct.  <span class="m">00</span>:38 BOOTIA32.efi
--rwxr-xr-x <span class="m">1</span> root root <span class="m">1543512</span> <span class="m">31</span> oct.  <span class="m">00</span>:38 BOOTX64.efi
--rwxr-xr-x <span class="m">1</span> root root    <span class="m">6823</span> <span class="m">31</span> oct.  <span class="m">00</span>:38 mt86.png
--rwxr-xr-x <span class="m">1</span> root root <span class="m">2355408</span> <span class="m">31</span> oct.  <span class="m">00</span>:38 unifont.bin
+<span class="gp">#</span> ls -al p2/EFI/BOOT
+<span class="go">total 6584</span>
+<span class="go">drwxr-xr-x 3 root root    4096 31 oct.  00:38 .</span>
+<span class="go">drwxr-xr-x 3 root root    4096 31 oct.  00:38 ..</span>
+<span class="go">drwxr-xr-x 2 root root    4096 31 oct.  00:38 Benchmark</span>
+<span class="go">-rwxr-xr-x 1 root root    5834 31 oct.  00:38 blacklist.cfg</span>
+<span class="go">-rwxr-xr-x 1 root root 1328664 31 oct.  00:38 BOOTAA64.efi</span>
+<span class="go">-rwxr-xr-x 1 root root 1476120 31 oct.  00:38 BOOTIA32.efi</span>
+<span class="go">-rwxr-xr-x 1 root root 1543512 31 oct.  00:38 BOOTX64.efi</span>
+<span class="go">-rwxr-xr-x 1 root root    6823 31 oct.  00:38 mt86.png</span>
+<span class="go">-rwxr-xr-x 1 root root 2355408 31 oct.  00:38 unifont.bin</span>
 
-<span class="c1"># mkdir /boot/efi/EFI/memtest86</span>
+<span class="gp">#</span> mkdir /boot/efi/EFI/memtest86
 
-<span class="c1"># cp -aiv p2/EFI/BOOT/* /boot/efi/EFI/memtest86/.</span>
+<span class="gp">#</span> cp -aiv p2/EFI/BOOT/* /boot/efi/EFI/memtest86/.
 </pre></div>
 <p>Créer le fichier <em>/etc/grub.d/39_memtest86</em> avec le contenu suivant :</p>
-<div class="highlight"><pre><span></span><span class="ch">#!/bin/sh</span>
-<span class="nb">exec</span> tail -n +3 <span class="nv">$0</span>
-<span class="c1"># From</span>
-<span class="c1">#   https://www.yosoygames.com.ar/wp/2020/03/installing-memtest86-on-uefi-grub2-ubuntu/</span>
-<span class="c1"># This file provides an easy way to add custom menu entries.  Simply type the</span>
-<span class="c1"># menu entries you want to add after this comment.  Be careful not to change</span>
-<span class="c1"># the &#39;exec tail&#39; line above.</span>
+<div class="highlight"><pre><span></span><span class="gp">#</span>!/bin/sh
+<span class="go">exec tail -n +3 $0</span>
+<span class="gp">#</span> From
+<span class="gp">#</span>   https://www.yosoygames.com.ar/wp/2020/03/installing-memtest86-on-uefi-grub2-ubuntu/
+<span class="gp">#</span> This file provides an easy way to add custom menu entries.  Simply <span class="nb">type</span> the
+<span class="gp">#</span> menu entries you want to add after this comment.  Be careful not to change
+<span class="gp">#</span> the <span class="s1">&#39;exec tail&#39;</span> line above.
 
-menuentry <span class="s1">&#39;memtest86&#39;</span> <span class="o">{</span>
-    insmod part_gpt
-    insmod fat
-    search --no-floppy --fs-uuid --set<span class="o">=</span>root CBB6-0A32
-    chainloader /EFI/memtest86/BOOTX64.efi
-<span class="o">}</span>
+<span class="go">menuentry &#39;memtest86&#39; {</span>
+<span class="go">    insmod part_gpt</span>
+<span class="go">    insmod fat</span>
+<span class="go">    search --no-floppy --fs-uuid --set=root CBB6-0A32</span>
+<span class="go">    chainloader /EFI/memtest86/BOOTX64.efi</span>
+<span class="go">}</span>
 </pre></div>
 <p>Évidemment il faut adapter l'uuid du disque root (EFI).
 Pour ce faire :</p>
-<div class="highlight"><pre><span></span><span class="c1"># fdisk -l /dev/nvme0n1</span>
-Disque /dev/nvme0n1 : <span class="m">238</span>,47 GiB, <span class="m">256060514304</span> octets, <span class="m">500118192</span> secteurs
-Modèle de disque : INTEL SSDPEKKW256G7
-Unités : secteur de <span class="m">1</span> × <span class="nv">512</span> <span class="o">=</span> <span class="m">512</span> octets
-Taille de secteur <span class="o">(</span>logique / physique<span class="o">)</span> : <span class="m">512</span> octets / <span class="m">512</span> octets
-taille d<span class="s1">&#39;E/S (minimale / optimale) : 512 octets / 512 octets</span>
-<span class="s1">Type d&#39;</span>étiquette de disque : gpt
-Identifiant de disque : 1C6AE4C0-69B3-4FDF-9D86-91C41904AFA3
+<div class="highlight"><pre><span></span><span class="gp">#</span> fdisk -l /dev/nvme0n1
+<span class="go">Disque /dev/nvme0n1 : 238,47 GiB, 256060514304 octets, 500118192 secteurs</span>
+<span class="go">Modèle de disque : INTEL SSDPEKKW256G7</span>
+<span class="go">Unités : secteur de 1 × 512 = 512 octets</span>
+<span class="go">Taille de secteur (logique / physique) : 512 octets / 512 octets</span>
+<span class="go">taille d&#39;E/S (minimale / optimale) : 512 octets / 512 octets</span>
+<span class="go">Type d&#39;étiquette de disque : gpt</span>
+<span class="go">Identifiant de disque : 1C6AE4C0-69B3-4FDF-9D86-91C41904AFA3</span>
 
-Périphérique       Début       Fin  Secteurs Taille Type
-/dev/nvme0n1p1      <span class="m">2048</span>   <span class="m">2099199</span>   <span class="m">2097152</span>     1G Système EFI
-/dev/nvme0n1p2   <span class="m">2099200</span>  <span class="m">63539199</span>  <span class="m">61440000</span>  <span class="m">29</span>,3G Système de fichiers Linux
-/dev/nvme0n1p3 <span class="m">359450624</span> <span class="m">359483391</span>     <span class="m">32768</span>    16M Réservé Microsoft
-/dev/nvme0n1p4 <span class="m">359483392</span> <span class="m">500117503</span> <span class="m">140634112</span>  <span class="m">67</span>,1G Données de base Microsoft
-/dev/nvme0n1p5 <span class="m">357449728</span> <span class="m">359450623</span>   <span class="m">2000896</span>   977M Partition d<span class="s1">&#39;échange Linux</span>
-<span class="s1">/dev/nvme0n1p6 173377536 357449727 184072192  87,8G Système de fichiers Linux</span>
+<span class="go">Périphérique       Début       Fin  Secteurs Taille Type</span>
+<span class="go">/dev/nvme0n1p1      2048   2099199   2097152     1G Système EFI</span>
+<span class="go">/dev/nvme0n1p2   2099200  63539199  61440000  29,3G Système de fichiers Linux</span>
+<span class="go">/dev/nvme0n1p3 359450624 359483391     32768    16M Réservé Microsoft</span>
+<span class="go">/dev/nvme0n1p4 359483392 500117503 140634112  67,1G Données de base Microsoft</span>
+<span class="go">/dev/nvme0n1p5 357449728 359450623   2000896   977M Partition d&#39;échange Linux</span>
+<span class="go">/dev/nvme0n1p6 173377536 357449727 184072192  87,8G Système de fichiers Linux</span>
 
-<span class="s1">Les entrées de la table de partitions ne sont pas dans l&#39;</span>ordre du disque.
-maison:/etc/grub.d# ls -al /dev/disk/by-uuid
-total <span class="m">0</span>
-drwxr-xr-x <span class="m">2</span> root root <span class="m">320</span> <span class="m">17</span> déc.  <span class="m">14</span>:09 .
-drwxr-xr-x <span class="m">8</span> root root <span class="m">160</span> <span class="m">17</span> déc.  <span class="m">09</span>:24 ..
-...
-lrwxrwxrwx <span class="m">1</span> root root  <span class="m">15</span> <span class="m">17</span> déc.  <span class="m">09</span>:24 OR507090554982R0 -&gt; ../../nvme0n1p4
-lrwxrwxrwx <span class="m">1</span> root root  <span class="m">15</span> <span class="m">17</span> déc.  <span class="m">09</span>:24 CBB6-0A32 -&gt; ../../nvme0n1p1
-lrwxrwxrwx <span class="m">1</span> root root  <span class="m">15</span> <span class="m">17</span> déc.  <span class="m">09</span>:24 rs3-49s6-87rq-66rsq999s992 -&gt; ../../mmcblk0p2
-...
+<span class="go">Les entrées de la table de partitions ne sont pas dans l&#39;ordre du disque.</span>
+<span class="gp">maison:/etc/grub.d#</span> ls -al /dev/disk/by-uuid
+<span class="go">total 0</span>
+<span class="go">drwxr-xr-x 2 root root 320 17 déc.  14:09 .</span>
+<span class="go">drwxr-xr-x 8 root root 160 17 déc.  09:24 ..</span>
+<span class="go">...</span>
+<span class="go">lrwxrwxrwx 1 root root  15 17 déc.  09:24 OR507090554982R0 -&gt; ../../nvme0n1p4</span>
+<span class="go">lrwxrwxrwx 1 root root  15 17 déc.  09:24 CBB6-0A32 -&gt; ../../nvme0n1p1</span>
+<span class="go">lrwxrwxrwx 1 root root  15 17 déc.  09:24 rs3-49s6-87rq-66rsq999s992 -&gt; ../../mmcblk0p2</span>
+<span class="go">...</span>
 </pre></div>
 <p>Précision : le site yosoygames indique un autre moyen de définir le volume root.
 Personnellement je préfère l'instruction search qui produit un bon résultat du
