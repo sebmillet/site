@@ -99,10 +99,16 @@ linux        /boot/vmlinuz-5.10.0-18-amd64 root=UUID=1t9n0z93-a4b9-0013-81aa-n05
 </ul>
 <p>Exécuter dmesg et examiner les lignes qui suivent
 &quot;user-defined physical RAM map:&quot;</p>
-<div class="highlight"><pre><span></span><span class="go">[    0.000000] user: [mem 0x0000000100000000-0x0000000153ffe00b] usable</span>
-<span class="go">[    0.000000] user: [mem 0x0000000153ffe00c-0x0000000153fff00b] reserved</span>
-<span class="go">[    0.000000] user: [mem 0x0000000153fff00c-0x000000026effffff] usable</span>
+<div class="highlight"><pre><span></span><span class="m">[    0.000000] </span><span class="k">user-defined physical RAM map:</span>
+...
+<span class="m">[    0.000000] </span><span class="k">user:</span> [mem 0x0000000100000000-0x0000000153ffe00b] usable
+<span class="m">[    0.000000] </span><span class="k">user:</span> [mem 0x0000000153ffe00c-0x0000000153fff00b] reserved
+<span class="m">[    0.000000] </span><span class="k">user:</span> [mem 0x0000000153fff00c-0x000000026effffff] usable
+...
 </pre></div>
+<p>À noter que la section qui précède dans dmesg, &quot;BIOS-provided physical RAM map&quot;,
+montre la carte mémoire d'après le BIOS, donc indépendamment des paramètres
+Linux.</p>
 
 <p class="subheader">Category: <a href="https://sebmillet.github.io/site/category/ti.html">TI</a>
 
