@@ -51,114 +51,53 @@
         
 
             <article>
-                <a href="https://sebmillet.github.io/site/ajouter-memtest86-au-menu-grub.html"><h3 class="article-title">Ajouter memtest86 au menu grub</h3></a>
-<h6 class="subheader" title="2024-12-17T00:00:00+01:00">mar. 17 décembre 2024
+                <a href="https://sebmillet.github.io/site/utiliser-memmap.html"><h3 class="article-title">Utiliser memmap</h3></a>
+<h6 class="subheader" title="2024-12-18T00:00:00+01:00">mer. 18 décembre 2024
 </h6>
 
 
 <!-- default-role rst directive described here: -->
 <!-- https://docutils.sourceforge.io/docs/ref/rst/directives.html#default-role -->
-<dl class="docutils">
-<dt>D'après</dt>
-<dd><a class="reference external" href="https://www.yosoygames.com.ar/wp/2020/03/installing-memtest86-on-uefi-grub2-ubuntu/">https://www.yosoygames.com.ar/wp/2020/03/installing-memtest86-on-uefi-grub2-ubuntu/</a></dd>
-</dl>
 <ul class="simple">
-<li>Télécharger memtest86, par exemple ici :
-<a class="reference external" href="https://www.memtest86.com/downloads/memtest86-usb.zip">https://www.memtest86.com/downloads/memtest86-usb.zip</a></li>
-<li>Dé-zipper memtest86-usb.zip, ce qui produit entre autres le fichier
-<em>memtest86-usb.img</em>.</li>
-<li>Le site yosoygames donne un moyen direct de monter le volume adéquat dans
-memtest86-usb.img, mais je trouve ça complexe. Je préfère la méthode
-ci-dessous. Il faut être root, ou bien, tout préfixer avec <em>sudo</em>.</li>
+<li>Options à ajouter au démarrage du noyau, par exemple :</li>
 </ul>
-<div class="highlight"><pre><span></span><span class="gp">#</span> losetup -P /dev/loop0 memtest86-usb.img
-
-<span class="gp">#</span> losetup -a
-<span class="go">/dev/loop0: [66310]:4860911 (/home/sebastien/memtest86-usb.img)</span>
-
-<span class="gp">#</span> fdisk -l /dev/loop0
-<span class="go">Disque /dev/loop0 : 1 GiB, 1073741824 octets, 2097152 secteurs</span>
-<span class="go">Unités : secteur de 1 × 512 = 512 octets</span>
-<span class="go">Taille de secteur (logique / physique) : 512 octets / 512 octets</span>
-<span class="go">taille d&#39;E/S (minimale / optimale) : 512 octets / 512 octets</span>
-<span class="go">Type d&#39;étiquette de disque : gpt</span>
-<span class="go">Identifiant de disque : E2BF71FD-A275-4D88-AC0B-8A6CB119584E</span>
-
-<span class="go">Périphérique   Début     Fin Secteurs Taille Type</span>
-<span class="go">/dev/loop0p1    2048  524287   522240   255M Données de base Microsoft</span>
-<span class="go">/dev/loop0p2  524288 1048575   524288   256M Système EFI</span>
-<span class="go">/dev/loop0p3 1048576 2097118  1048543   512M Données de base Microsoft</span>
-
-<span class="gp">#</span> mkdir p2
-
-<span class="gp">#</span> mount /dev/loop0p2 p2
-
-<span class="gp">#</span> ls -al p2/EFI/BOOT
-<span class="go">total 6584</span>
-<span class="go">drwxr-xr-x 3 root root    4096 31 oct.  00:38 .</span>
-<span class="go">drwxr-xr-x 3 root root    4096 31 oct.  00:38 ..</span>
-<span class="go">drwxr-xr-x 2 root root    4096 31 oct.  00:38 Benchmark</span>
-<span class="go">-rwxr-xr-x 1 root root    5834 31 oct.  00:38 blacklist.cfg</span>
-<span class="go">-rwxr-xr-x 1 root root 1328664 31 oct.  00:38 BOOTAA64.efi</span>
-<span class="go">-rwxr-xr-x 1 root root 1476120 31 oct.  00:38 BOOTIA32.efi</span>
-<span class="go">-rwxr-xr-x 1 root root 1543512 31 oct.  00:38 BOOTX64.efi</span>
-<span class="go">-rwxr-xr-x 1 root root    6823 31 oct.  00:38 mt86.png</span>
-<span class="go">-rwxr-xr-x 1 root root 2355408 31 oct.  00:38 unifont.bin</span>
-
-<span class="gp">#</span> mkdir /boot/efi/EFI/memtest86
-
-<span class="gp">#</span> cp -aiv p2/EFI/BOOT/* /boot/efi/EFI/memtest86/.
+<p>memmap=0x1000$0x153FFE00C</p>
+<ul class="simple">
+<li>Les difficultés viennent de grub. Pour ajouter cette option dans le fichier
+<em>/etc/default/grub</em>, il faut l'échapper. Résultat :</li>
+</ul>
+<div class="highlight"><pre><span></span>...
+GRUB_CMDLINE_LINUX_DEFAULT=&quot;pci=noaer memmap=0x1000\\\$0x153FFE00C&quot;
+...
 </pre></div>
-<p>Créer le fichier <em>/etc/grub.d/39_memtest86</em> avec le contenu suivant :</p>
-<div class="highlight"><pre><span></span><span class="gp">#</span>!/bin/sh
-<span class="go">exec tail -n +3 $0</span>
-<span class="gp">#</span> From
-<span class="gp">#</span>   https://www.yosoygames.com.ar/wp/2020/03/installing-memtest86-on-uefi-grub2-ubuntu/
-<span class="gp">#</span> This file provides an easy way to add custom menu entries.  Simply <span class="nb">type</span> the
-<span class="gp">#</span> menu entries you want to add after this comment.  Be careful not to change
-<span class="gp">#</span> the <span class="s1">&#39;exec tail&#39;</span> line above.
+<p>En effet il faut échapper une fois dans le fichier cible <em>grub.cfg</em> (typiquement
+<em>/boot/grub/grub.cfg</em>), ce qui nécessite d'échapper deux fois dans
+<em>/etc/default/grub</em>.</p>
+<p class="subheader">Category: <a href="https://sebmillet.github.io/site/category/ti.html">TI</a>
 
-<span class="go">menuentry &#39;memtest86&#39; {</span>
-<span class="go">    insmod part_gpt</span>
-<span class="go">    insmod fat</span>
-<span class="go">    search --no-floppy --fs-uuid --set=root CBB6-0A32</span>
-<span class="go">    chainloader /EFI/memtest86/BOOTX64.efi</span>
-<span class="go">}</span>
-</pre></div>
-<p>Évidemment il faut adapter l'uuid du disque root (EFI).
-Pour ce faire :</p>
-<div class="highlight"><pre><span></span><span class="gp">#</span> fdisk -l /dev/nvme0n1
-<span class="go">Disque /dev/nvme0n1 : 238,47 GiB, 256060514304 octets, 500118192 secteurs</span>
-<span class="go">Modèle de disque : INTEL SSDPEKKW256G7</span>
-<span class="go">Unités : secteur de 1 × 512 = 512 octets</span>
-<span class="go">Taille de secteur (logique / physique) : 512 octets / 512 octets</span>
-<span class="go">taille d&#39;E/S (minimale / optimale) : 512 octets / 512 octets</span>
-<span class="go">Type d&#39;étiquette de disque : gpt</span>
-<span class="go">Identifiant de disque : 1C6AE4C0-69B3-4FDF-9D86-91C41904AFA3</span>
+    Tagged: 
+    <a href="https://sebmillet.github.io/site/tag/memtest86.html">memtest86 </a>
+    <a href="https://sebmillet.github.io/site/tag/grub.html">grub </a>
+    <a href="https://sebmillet.github.io/site/tag/memmap.html">memmap </a>
+</p>
 
-<span class="go">Périphérique       Début       Fin  Secteurs Taille Type</span>
-<span class="go">/dev/nvme0n1p1      2048   2099199   2097152     1G Système EFI</span>
-<span class="go">/dev/nvme0n1p2   2099200  63539199  61440000  29,3G Système de fichiers Linux</span>
-<span class="go">/dev/nvme0n1p3 359450624 359483391     32768    16M Réservé Microsoft</span>
-<span class="go">/dev/nvme0n1p4 359483392 500117503 140634112  67,1G Données de base Microsoft</span>
-<span class="go">/dev/nvme0n1p5 357449728 359450623   2000896   977M Partition d&#39;échange Linux</span>
-<span class="go">/dev/nvme0n1p6 173377536 357449727 184072192  87,8G Système de fichiers Linux</span>
 
-<span class="go">Les entrées de la table de partitions ne sont pas dans l&#39;ordre du disque.</span>
-<span class="gp">maison:/etc/grub.d#</span> ls -al /dev/disk/by-uuid
-<span class="go">total 0</span>
-<span class="go">drwxr-xr-x 2 root root 320 17 déc.  14:09 .</span>
-<span class="go">drwxr-xr-x 8 root root 160 17 déc.  09:24 ..</span>
-<span class="go">...</span>
-<span class="go">lrwxrwxrwx 1 root root  15 17 déc.  09:24 OR507090554982R0 -&gt; ../../nvme0n1p4</span>
-<span class="go">lrwxrwxrwx 1 root root  15 17 déc.  09:24 CBB6-0A32 -&gt; ../../nvme0n1p1</span>
-<span class="go">lrwxrwxrwx 1 root root  15 17 déc.  09:24 rs3-49s6-87rq-66rsq999s992 -&gt; ../../mmcblk0p2</span>
-<span class="go">...</span>
-</pre></div>
-<p>Précision : le site yosoygames indique un autre moyen de définir le volume root.
-Personnellement je préfère l'instruction search qui produit un bon résultat du
-moment que l'UUID donné est le bon (la partition EFI). Pas besoin d'indiquer un
-numéro de disque ou un numéro de partition sur un disque.</p>
+
+            </article>
+
+
+                <hr  class="gradient"/>
+
+
+        
+
+
+            <article>
+                <a href="https://sebmillet.github.io/site/ajouter-memtest86-au-menu-grub.html"><h3 class="article-title">Ajouter memtest86 au menu grub</h3></a>
+<h6 class="subheader" title="2024-12-17T00:00:00+01:00">mar. 17 décembre 2024
+</h6>
+
+
 <p class="subheader">Category: <a href="https://sebmillet.github.io/site/category/ti.html">TI</a>
 
     Tagged: 
@@ -168,8 +107,11 @@ numéro de disque ou un numéro de partition sur un disque.</p>
 
 
 
+                <a class="button radius secondary small right" href="https://sebmillet.github.io/site/ajouter-memtest86-au-menu-grub.html">Read More</a>
+                <hr  class="gradient"/>
             </article>
 
+            <!-- /#posts-list -->
 <div class="pagination-centered">
 <h6 class="subheader">Page 1 of 1</h6>
 
@@ -177,10 +119,6 @@ numéro de disque ou un numéro de partition sur un disque.</p>
 
 </p>
 </div>
-
-
-
-            <!-- /#posts-list -->
 
     </div>
     <!-- End Main Content -->

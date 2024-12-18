@@ -3,6 +3,11 @@ base_directory = "output"
 html_selector = "article"
 
 [[input.files]]
+path = "utiliser-memmap.html"
+url = "/utiliser-memmap.html"
+title = "Utiliser memmap"
+
+[[input.files]]
 path = "ajouter-memtest86-au-menu-grub.html"
 url = "/ajouter-memtest86-au-menu-grub.html"
 title = "Ajouter memtest86 au menu grub"
