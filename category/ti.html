@@ -79,7 +79,7 @@ GRUB_CMDLINE_LINUX_DEFAULT=&quot;pci=noaer memmap=0x1000\\\$0x153FFE00C&quot;
 <p>En effet il faut échapper une fois dans le fichier cible <em>grub.cfg</em> (typiquement
 <em>/boot/grub/grub.cfg</em>), ce qui nécessite d'échapper deux fois dans
 <em>/etc/default/grub</em>.</p>
-<p>On peut voir que le triple anti barre oblique devient une seul barre oblique
+<p>On peut voir que la triple anti barre oblique devient une seul barre oblique
 dans le fichier grub.cfg :</p>
 <div class="highlight"><pre><span></span>...
 linux        /boot/vmlinuz-5.10.0-18-amd64 root=UUID=1t9n0z93-a4b9-0013-81aa-n052800r28p8 ro  pci=noaer memmap=0x1000\$0x153FFE00C
@@ -90,7 +90,7 @@ linux        /boot/vmlinuz-5.10.0-18-amd64 root=UUID=1t9n0z93-a4b9-0013-81aa-n05
 </ul>
 <p>Il faut d'abord vérifier que l'option a bien été passée au noyau.</p>
 <p>Exécuter :</p>
-<div class="highlight"><pre><span></span><span class="go">cat /proc/cmdline</span>
+<div class="highlight"><pre><span></span><span class="go">user@host:~/path: cat /proc/cmdline</span>
 <span class="go">BOOT_IMAGE=/boot/vmlinuz-5.10.0-33-amd64 root=UUID=1t9n0z93-a4b9-0013-81aa-n052800r28p8 ro pci=noaer memmap=0x1000$0x153FFE00C</span>
 </pre></div>
 <ul class="simple">
