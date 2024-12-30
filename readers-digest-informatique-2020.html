@@ -14,8 +14,6 @@
 
     <!-- So Firefox can bookmark->"abo this site" -->
 
-<link rel="stylesheet" href="https://files.stork-search.net/basic.css" />
-
 </head>
 
 <body>
@@ -91,10 +89,10 @@ fonctionnelle.</p>
 <h3>Gérer les fichiers de config avec git</h3>
 <p>(D'après <em>Inside Linux numéro 50, mars-avril-mai 2020</em>)</p>
 <p>Exécuter les commandes suivantes :</p>
-<div class="highlight"><pre><span></span>mkdir ~/dotfiles
-<span class="nb">cd</span> ~/dotfiles
-git init --bare .
-<span class="nb">alias</span> <span class="nv">config</span><span class="o">=</span><span class="s1">&#39;git --git-dir=$HOME/dotfiles --work-tree=$HOME&#39;</span>
+<div class="highlight"><pre><span></span>mkdir<span class="w"> </span>~/dotfiles
+<span class="nb">cd</span><span class="w"> </span>~/dotfiles
+git<span class="w"> </span>init<span class="w"> </span>--bare<span class="w"> </span>.
+<span class="nb">alias</span><span class="w"> </span><span class="nv">config</span><span class="o">=</span><span class="s1">&#39;git --git-dir=$HOME/dotfiles --work-tree=$HOME&#39;</span>
 </pre></div>
 <p>Ensuite, gérer les fichier ce dépôt avec <code>config</code> suivie de commandes git.</p>
 </div>
@@ -139,7 +137,7 @@ démarrage.</p>
 <h3><em>pkill</em></h3>
 <p>(D'après <em>Linux Reference numéro 7, juin - juillet - août 2020</em>)</p>
 <p>Pour tuer tous les processus d'un utilisateur, exécuter :</p>
-<div class="highlight"><pre><span></span>sudo pkill -KILL -u nom_utilisateur
+<div class="highlight"><pre><span></span>sudo<span class="w"> </span>pkill<span class="w"> </span>-KILL<span class="w"> </span>-u<span class="w"> </span>nom_utilisateur
 </pre></div>
 </div>
 <div class="section" id="bleachbit">
@@ -157,22 +155,22 @@ démarrage.</p>
 <p>(D'après <em>Linux Reference numéro 7, juin - juillet - août 2020</em>)</p>
 <p><code>top</code>, <code>vmstat</code>, <code>w</code>, <code>uptime</code>, <code>ps</code>, <code>free</code>, <code>iostat</code></p>
 <p><code>sar</code>, exemples :</p>
-<div class="highlight"><pre><span></span>  <span class="c1"># Mesure 5 fois, avec 4 secondes de délai entre chaque mesure</span>
-sar <span class="m">4</span> <span class="m">5</span>
-  <span class="c1"># Enregistre les informations réseau</span>
-sar -n DEV
+<div class="highlight"><pre><span></span><span class="w">  </span><span class="c1"># Mesure 5 fois, avec 4 secondes de délai entre chaque mesure</span>
+sar<span class="w"> </span><span class="m">4</span><span class="w"> </span><span class="m">5</span>
+<span class="w">  </span><span class="c1"># Enregistre les informations réseau</span>
+sar<span class="w"> </span>-n<span class="w"> </span>DEV
 </pre></div>
 <p><code>mpstat</code> : détaille l'utilisation des processeurs. Exemple :</p>
-<div class="highlight"><pre><span></span>mpstat -P ALL
+<div class="highlight"><pre><span></span>mpstat<span class="w"> </span>-P<span class="w"> </span>ALL
 </pre></div>
 <p><code>pmap</code> : affiche en détail l'utilisation de la mémoire par un processus</p>
 <p><code>netstat</code>, exemples :</p>
-<div class="highlight"><pre><span></span>netstat -tulpn
-netstat -nat
+<div class="highlight"><pre><span></span>netstat<span class="w"> </span>-tulpn
+netstat<span class="w"> </span>-nat
 </pre></div>
 <p><code>ss</code>, affiche des statistiques réseau, exemples :</p>
-<div class="highlight"><pre><span></span>ss -t -a
-ss -u -a
+<div class="highlight"><pre><span></span>ss<span class="w"> </span>-t<span class="w"> </span>-a
+ss<span class="w"> </span>-u<span class="w"> </span>-a
 </pre></div>
 <p><code>iptraf</code>, informations en temps réel sur le trafic (Arch : paquet <em>iptraf-ng</em>),
 avec une interface ncurses</p>
@@ -193,10 +191,10 @@ mon PC</p>
 client / serveur</p>
 <p><code>strace</code></p>
 <p><em>/proc</em>, pour afficher des informations système, notamment :</p>
-<div class="highlight"><pre><span></span>cat /proc/cpuinfo
-cat /proc/meminfo
-cat /proc/zoneinfo
-cat /proc/mounts
+<div class="highlight"><pre><span></span>cat<span class="w"> </span>/proc/cpuinfo
+cat<span class="w"> </span>/proc/meminfo
+cat<span class="w"> </span>/proc/zoneinfo
+cat<span class="w"> </span>/proc/mounts
 </pre></div>
 <p><code>nmap</code>, <code>lsof</code></p>
 <p><code>ntop</code> : surveille le réseau à la manière de <em>top</em>, fournit ses résultats avec
@@ -350,10 +348,6 @@ que cette correction soit disponible avec la commande <strong>f</strong>.</p>
             <li><a href="http://getpelican.com/">Pelican</a></li>
             <li><a href="http://python.org/">Python.org</a></li>
             <li><a href="http://jinja.pocoo.org/">Jinja2</a></li>
-
-Search: <input data-stork="sitesearch" />
-<div data-stork="sitesearch-output"></div>
-
         </ul>
 		
 
@@ -373,8 +367,3 @@ Search: <input data-stork="sitesearch" />
             </div>
     </div>
 </footer>
-
-<script src="https://files.stork-search.net/releases/v1.5.0/stork.js"></script>
-<script>
-    stork.register("sitesearch", "https://sebmillet.github.io/site")
-</script>

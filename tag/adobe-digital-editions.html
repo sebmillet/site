@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="utf-8" />
+    <!-- Set the viewport width to device width for mobile -->
+    <meta name="viewport" content="width=device-width" />
+
+    <title>Site de Sébastien Millet - adobe digital editions</title>
+
+    <link rel="stylesheet" href="https://sebmillet.github.io/site/theme/css/normalize.css" />
+    <link rel="stylesheet" href="https://sebmillet.github.io/site/theme/css/foundation.min.css" />
+    <link rel="stylesheet" href="https://sebmillet.github.io/site/theme/css/style.css" />
+    <link rel="stylesheet" href="https://sebmillet.github.io/site/theme/css/pygments.css" />	
+    <script src="https://sebmillet.github.io/site/theme/js/custom.modernizr.js"></script>
+
+    <!-- So Firefox can bookmark->"abo this site" -->
+
+</head>
+
+<body>
+
+<!-- Nav Bar -->
+<nav>
+<div class="top-bar">
+<div class="row">
+    <div class="large-9 large-centered columns">
+	    <h1><a href="https://sebmillet.github.io/site">Site de Sébastien Millet</a></h1>
+    </div>
+</div>
+</div>
+
+<!-- Show menu items and pages -->
+<div class="row">
+<div class="large-9 columns">
+    <ul class="button-group navigation">
+
+    </ul>
+</div>
+</div>
+</nav>
+<!-- End Nav -->
+
+
+<!-- Main Page Content and Sidebar -->
+<div class="row">
+
+    <!-- Main Blog Content -->
+    <div class="large-9 columns">
+        
+        
+
+            <article>
+                <a href="https://sebmillet.github.io/site/enlever-les-drm.html"><h3 class="article-title">Enlever les DRM</h3></a>
+<h6 class="subheader" title="2024-12-30T00:00:00+01:00">lun. 30 décembre 2024
+</h6>
+
+
+<!-- default-role rst directive described here: -->
+<!-- https://docutils.sourceforge.io/docs/ref/rst/directives.html#default-role -->
+<ul>
+<li><p class="first">Le but est double :</p>
+<blockquote>
+<ol class="arabic simple">
+<li>Récupérer un epub disponible sur la kobo - un epub <em>acheté</em>.</li>
+<li>Ôter les DRM du fichier.</li>
+</ol>
+</blockquote>
+</li>
+</ul>
+<div class="section" id="preparation">
+<h2>1) Préparation</h2>
+</div>
+<div class="section" id="installation-de-gourou">
+<h2>1.1 Installation de <em>gourou</em></h2>
+<p>Installer <em>gourou</em>.
+Sur Arch par exemple, gourou est disponible sur <em>AUR</em>. Dans
+l'hypothèse où c'est l'outil <em>yay</em> qui est utilisé pour installer des paquets
+d'<em>AUR</em>, exécuter :</p>
+<div class="highlight"><pre><span></span>yay<span class="w"> </span>gourou
+</pre></div>
+</div>
+<div class="section" id="activer-adept-session-utilisateur">
+<h2>1.2 Activer adept (session utilisateur)</h2>
+<p>Il faut avoir un compte <em>Adobe Digital Editions</em>.</p>
+<p>Se connecter à :</p>
+<blockquote>
+<a class="reference external" href="https://account.adobe.com/">https://account.adobe.com/</a></blockquote>
+<p>et suivre les instructions pour se créer un compte.</p>
+<p>Ensuite exécuter :</p>
+<div class="highlight"><pre><span></span>adept_activate<span class="w"> </span>-u<span class="w"> </span>sebastien.millet@gmail.com
+</pre></div>
+<p>Si l'activation réussit, cela génère le fichier :
+<strong>~/.config/adept/activation.xml</strong>.</p>
+</div>
+<div class="section" id="recuperation-du-fichier-epub-sur-le-pc">
+<h2>2) Récupération du fichier epub sur le PC</h2>
+</div>
+<div class="section" id="telechargement-du-fichier-acsm">
+<h2>2.1) Téléchargement du fichier ACSM</h2>
+<p>Il faut d'abord obtenir le fichier ACSM du livre. Avec kobo, je me connecte à</p>
+<blockquote>
+<a class="reference external" href="https://authorize.kobo.com/fr/fr/Signin?returnUrl=https://www.kobo.com/fr/fr">https://authorize.kobo.com/fr/fr/Signin?returnUrl=https://www.kobo.com/fr/fr</a>?changeLanguage=True</blockquote>
+<p>puis je clique en haut à droite sur <em>Mon compte</em> et enfin sur le menu <em>Livres</em>.</p>
+<p>Ensuite sur la carte du livre que je souhaite télécharger, je clique sur le menu
+'trois petits points' et sur <em>Télécharger</em>.</p>
+<p>Le navigateur récupère un fichier <em>URLLink.acsm</em> dans le dossier des
+téléchargements.</p>
+</div>
+<div class="section" id="telechargement-du-fichier-epub-avec-le-fichier-acsm">
+<h2>2.2) Téléchargement du fichier epub avec le fichier ACSM</h2>
+<p>Exécuter (exemple avec <em>Bifrost n° 116</em>) :</p>
+<div class="highlight"><pre><span></span>$<span class="w"> </span>acsmdownloader<span class="w"> </span>URLLink.acsm
+Created<span class="w"> </span>Bifrost<span class="w"> </span>n°<span class="w"> </span><span class="m">116</span><span class="w"> </span>-<span class="w"> </span>dossier<span class="w"> </span>Catherine<span class="w"> </span>Dufour.epub
+</pre></div>
+<p>Si tout se passe bien, <em>acsmdownloader</em> indique le nom du fichier .epub créé.</p>
+<p>À ce stade le fichier est protégé, on peut le voir avec par exemple <em>calibre</em> qui
+affiche un message d'erreur</p>
+<p><em>Ce livre est verrouillé par des DRMs [...]</em></p>
+</div>
+<div class="section" id="suppression-des-drms">
+<h2>3) Suppression des DRMs</h2>
+<p>Exécuter (même exemple) :</p>
+<div class="highlight"><pre><span></span>$<span class="w"> </span>adept_remove<span class="w"> </span>Bifrost<span class="se">\ </span>n°<span class="se">\ </span><span class="m">116</span><span class="se">\ </span>-<span class="se">\ </span>dossier<span class="se">\ </span>Catherine<span class="se">\ </span>Dufour.epub
+DRM<span class="w"> </span>removed<span class="w"> </span>from<span class="w"> </span>Bifrost<span class="w"> </span>n°<span class="w"> </span><span class="m">116</span><span class="w"> </span>-<span class="w"> </span>dossier<span class="w"> </span>Catherine<span class="w"> </span>Dufour.epub
+</pre></div>
+<p>Si tout se passe bien, adept_remove confirme l'opération. On peut le vérifier
+facilement en l'ajoutant à <em>calibre</em> par exemple, qui affiche le contenu du
+livre sans erreur.</p>
+</div>
+<p class="subheader">Category: <a href="https://sebmillet.github.io/site/category/ti.html">TI</a>
+
+    Tagged: 
+    <a href="https://sebmillet.github.io/site/tag/adobe.html">adobe </a>
+    <a href="https://sebmillet.github.io/site/tag/ade.html">ade </a>
+    <a href="https://sebmillet.github.io/site/tag/adobe-digital-editions.html">adobe digital editions </a>
+    <a href="https://sebmillet.github.io/site/tag/kobo.html">kobo </a>
+    <a href="https://sebmillet.github.io/site/tag/drm.html">drm </a>
+</p>
+
+
+
+            </article>
+
+<div class="pagination-centered">
+<h6 class="subheader">Page 1 of 1</h6>
+
+<p>
+
+</p>
+</div>
+
+
+
+            <!-- /#posts-list -->
+
+    </div>
+    <!-- End Main Content -->
+
+    <!-- Sidebar -->
+    <aside class="large-3 columns">
+        <h5 class="sidebar-title">Site</h5>
+        <ul class="side-nav">
+            <li><a href="https://sebmillet.github.io/site/archives.html">Archives</a>
+            <li><a href="https://sebmillet.github.io/site/tags.html">Tags</a>
+
+
+        </ul>
+
+		
+        <h5 class="sidebar-title">Categories</h5>
+        <ul class="side-nav">
+            <li><a href="https://sebmillet.github.io/site/category/lectures.html">Lectures</a></li>
+            <li><a href="https://sebmillet.github.io/site/category/origine.html">Origine</a></li>
+            <li><a href="https://sebmillet.github.io/site/category/partage.html">Partage</a></li>
+            <li><a href="https://sebmillet.github.io/site/category/programmes.html">Programmes</a></li>
+            <li><a href="https://sebmillet.github.io/site/category/recettes.html">Recettes</a></li>
+            <li><a href="https://sebmillet.github.io/site/category/ti.html">TI</a></li>
+   
+        </ul>
+
+        <h5 class="sidebar-title">Links</h5>
+        <ul class="side-nav">
+            <li><a href="https://sebmillet.github.io/site/ancien/index.html">Ancien Site</a></li>
+            <li><a href="http://getpelican.com/">Pelican</a></li>
+            <li><a href="http://python.org/">Python.org</a></li>
+            <li><a href="http://jinja.pocoo.org/">Jinja2</a></li>
+        </ul>
+		
+
+    </aside> <!-- End Sidebar -->
+
+</div> <!-- End Main Content and Sidebar -->
+
+
+<!-- Footer -->
+<footer class="row">
+    <div class="large-12 columns">
+        <hr />
+        <div class="row">
+            <div class="large-6 columns">
+                <p>Site de Sébastien Millet by Sébastien Millet</p>
+            </div>
+            </div>
+    </div>
+</footer>

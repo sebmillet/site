@@ -14,8 +14,6 @@
 
     <!-- So Firefox can bookmark->"abo this site" -->
 
-<link rel="stylesheet" href="https://files.stork-search.net/basic.css" />
-
 </head>
 
 <body>
@@ -91,14 +89,14 @@ information applicable to all cases that can be written here.</p>
 <li>
 <p>Using OS-level administration tools.</p>
 <ul>
-<li>In Linux, running the command<div class="highlight"><pre><span></span><code><span class="err">efibootmgr -v</span>
+<li>In Linux, running the command<div class="highlight"><pre><span></span><code>efibootmgr -v
 </code></pre></div>
 
 </li>
 </ul>
 <p>outputs detailed boot configuration, as found in the computer's NVRAM.</p>
 <ul>
-<li>In Windows, running the command<div class="highlight"><pre><span></span><code><span class="n">bcdedit</span> <span class="o">/</span><span class="k">enum</span> <span class="n">firmware</span>
+<li>In Windows, running the command<div class="highlight"><pre><span></span><code><span class="n">bcdedit</span><span class="w"> </span><span class="o">/</span><span class="k">enum</span><span class="w"> </span><span class="n">firmware</span>
 </code></pre></div>
 
 </li>
@@ -132,29 +130,29 @@ examined, and so on.</p>
 <p>Example on my Acer swift 3 laptop with dual-boot between Kubuntu and Windows 10.
 The three-dot sequences (...) in the beginning or end of lines were added to see
 lines up to the end.</p>
-<div class="highlight"><pre><span></span><code><span class="err">sebastien@maison-nblin:~/SecureBoot$ efibootmgr -v</span>
-<span class="c">BootCurrent: 0001</span>
-<span class="c">Timeout: 0 seconds</span>
-<span class="c">BootOrder: 0001,0005,0002,2001,2002,2003</span>
-<span class="err">Boot0000* Unknown Device:       HD(1,GPT,3f0f2672-851a-4ef7-82f2-61de04d2...</span>
-<span class="err">        ...3794,0x800,0x32000)/File(\EFI\ubuntu\shimx64.efi)RC</span>
-<span class="err">Boot0001* rEFInd        PciRoot(0x0)/Pci(0x1c,0x4)/Pci(0x0,0x0)/NVMe(0x1,...</span>
-<span class="err">        ...00-00-00-00-00-00-00-00)/HD(1,GPT,3f0f2672-851a-4ef7-82f2-61de...</span>
-<span class="err">        ...04d23794,0x800,0x32000)/File(\EFI\refind\refind_x64.efi)A01 ..</span>
-<span class="err">Boot0002* fwupx64       PciRoot(0x0)/Pci(0x1c,0x4)/Pci(0x0,0x0)/NVMe(0x1,...</span>
-<span class="err">        ...00-00-00-00-00-00-00-00)/HD(1,GPT,3f0f2672-851a-4ef7-82f2-61de...</span>
-<span class="err">        ...04d23794,0x800,0x32000)/File(\EFI\ubuntu\fwupx64.efi)A01 ..</span>
-<span class="err">Boot0003* Unknown Device:       HD(1,GPT,3f0f2672-851a-4ef7-82f2-61de04d2...</span>
-<span class="err">        ...3794,0x800,0x32000)/File(\EFI\ubuntu\shimx64.efi)RC</span>
-<span class="err">Boot0005* Windows Boot Manager  HD(1,GPT,3f0f2672-851a-4ef7-82f2-61de04d2...</span>
-<span class="err">        ...3794,0x800,0x32000)/File(\EFI\Microsoft\Boot\bootmgfw.efi)WIND...</span>
-<span class="err">        ...OWS.........x...B.C.D.O.B.J.E.C.T.=.{.9.d.e.a.8.6.2.c.-.5.c.d....</span>
-<span class="err">        ...d.-.4.e.7.0.-.a.c.c.1.-.f.3.2.b.3.4.4.d.4.7.9.5.}................</span>
-<span class="err">        ..........</span>
-<span class="err">Boot2001* EFI USB Device        RC</span>
-<span class="err">Boot2002* EFI DVD/CDROM RC</span>
-<span class="err">Boot2003* EFI Network   RC</span>
-<span class="err">sebastien@maison-nblin:~/SecureBoot$</span>
+<div class="highlight"><pre><span></span><code><span class="n">sebastien</span><span class="nv">@maison</span><span class="o">-</span><span class="nl">nblin</span><span class="p">:</span><span class="o">~/</span><span class="n">SecureBoot</span><span class="err">$</span><span class="w"> </span><span class="n">efibootmgr</span><span class="w"> </span><span class="o">-</span><span class="n">v</span>
+<span class="nl">BootCurrent</span><span class="p">:</span><span class="w"> </span><span class="mi">0001</span>
+<span class="nl">Timeout</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="n">seconds</span>
+<span class="nl">BootOrder</span><span class="p">:</span><span class="w"> </span><span class="mi">0001</span><span class="p">,</span><span class="mi">0005</span><span class="p">,</span><span class="mi">0002</span><span class="p">,</span><span class="mi">2001</span><span class="p">,</span><span class="mi">2002</span><span class="p">,</span><span class="mi">2003</span>
+<span class="n">Boot0000</span><span class="o">*</span><span class="w"> </span><span class="k">Unknown</span><span class="w"> </span><span class="nl">Device</span><span class="p">:</span><span class="w">       </span><span class="n">HD</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="n">GPT</span><span class="p">,</span><span class="mi">3</span><span class="n">f0f2672</span><span class="o">-</span><span class="mi">851</span><span class="n">a</span><span class="o">-</span><span class="mi">4</span><span class="n">ef7</span><span class="o">-</span><span class="mi">82</span><span class="n">f2</span><span class="o">-</span><span class="mi">61</span><span class="n">de04d2</span><span class="p">...</span>
+<span class="w">        </span><span class="p">..</span><span class="mf">.3794</span><span class="p">,</span><span class="mh">0x800</span><span class="p">,</span><span class="mh">0x32000</span><span class="p">)</span><span class="o">/</span><span class="k">File</span><span class="p">(</span><span class="err">\</span><span class="n">EFI</span><span class="err">\</span><span class="n">ubuntu</span><span class="err">\</span><span class="n">shimx64</span><span class="p">.</span><span class="n">efi</span><span class="p">)</span><span class="n">RC</span>
+<span class="n">Boot0001</span><span class="o">*</span><span class="w"> </span><span class="n">rEFInd</span><span class="w">        </span><span class="n">PciRoot</span><span class="p">(</span><span class="mh">0x0</span><span class="p">)</span><span class="o">/</span><span class="n">Pci</span><span class="p">(</span><span class="mh">0x1c</span><span class="p">,</span><span class="mh">0x4</span><span class="p">)</span><span class="o">/</span><span class="n">Pci</span><span class="p">(</span><span class="mh">0x0</span><span class="p">,</span><span class="mh">0x0</span><span class="p">)</span><span class="o">/</span><span class="n">NVMe</span><span class="p">(</span><span class="mh">0x1</span><span class="p">,...</span>
+<span class="w">        </span><span class="p">..</span><span class="mf">.00</span><span class="o">-</span><span class="mi">00</span><span class="o">-</span><span class="mi">00</span><span class="o">-</span><span class="mi">00</span><span class="o">-</span><span class="mi">00</span><span class="o">-</span><span class="mi">00</span><span class="o">-</span><span class="mi">00</span><span class="o">-</span><span class="mi">00</span><span class="p">)</span><span class="o">/</span><span class="n">HD</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="n">GPT</span><span class="p">,</span><span class="mi">3</span><span class="n">f0f2672</span><span class="o">-</span><span class="mi">851</span><span class="n">a</span><span class="o">-</span><span class="mi">4</span><span class="n">ef7</span><span class="o">-</span><span class="mi">82</span><span class="n">f2</span><span class="o">-</span><span class="mi">61</span><span class="n">de</span><span class="p">...</span>
+<span class="w">        </span><span class="p">..</span><span class="mf">.04</span><span class="n">d23794</span><span class="p">,</span><span class="mh">0x800</span><span class="p">,</span><span class="mh">0x32000</span><span class="p">)</span><span class="o">/</span><span class="k">File</span><span class="p">(</span><span class="err">\</span><span class="n">EFI</span><span class="err">\</span><span class="n">refind</span><span class="err">\</span><span class="n">refind_x64</span><span class="p">.</span><span class="n">efi</span><span class="p">)</span><span class="n">A01</span><span class="w"> </span><span class="p">..</span>
+<span class="n">Boot0002</span><span class="o">*</span><span class="w"> </span><span class="n">fwupx64</span><span class="w">       </span><span class="n">PciRoot</span><span class="p">(</span><span class="mh">0x0</span><span class="p">)</span><span class="o">/</span><span class="n">Pci</span><span class="p">(</span><span class="mh">0x1c</span><span class="p">,</span><span class="mh">0x4</span><span class="p">)</span><span class="o">/</span><span class="n">Pci</span><span class="p">(</span><span class="mh">0x0</span><span class="p">,</span><span class="mh">0x0</span><span class="p">)</span><span class="o">/</span><span class="n">NVMe</span><span class="p">(</span><span class="mh">0x1</span><span class="p">,...</span>
+<span class="w">        </span><span class="p">..</span><span class="mf">.00</span><span class="o">-</span><span class="mi">00</span><span class="o">-</span><span class="mi">00</span><span class="o">-</span><span class="mi">00</span><span class="o">-</span><span class="mi">00</span><span class="o">-</span><span class="mi">00</span><span class="o">-</span><span class="mi">00</span><span class="o">-</span><span class="mi">00</span><span class="p">)</span><span class="o">/</span><span class="n">HD</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="n">GPT</span><span class="p">,</span><span class="mi">3</span><span class="n">f0f2672</span><span class="o">-</span><span class="mi">851</span><span class="n">a</span><span class="o">-</span><span class="mi">4</span><span class="n">ef7</span><span class="o">-</span><span class="mi">82</span><span class="n">f2</span><span class="o">-</span><span class="mi">61</span><span class="n">de</span><span class="p">...</span>
+<span class="w">        </span><span class="p">..</span><span class="mf">.04</span><span class="n">d23794</span><span class="p">,</span><span class="mh">0x800</span><span class="p">,</span><span class="mh">0x32000</span><span class="p">)</span><span class="o">/</span><span class="k">File</span><span class="p">(</span><span class="err">\</span><span class="n">EFI</span><span class="err">\</span><span class="n">ubuntu</span><span class="err">\</span><span class="n">fwupx64</span><span class="p">.</span><span class="n">efi</span><span class="p">)</span><span class="n">A01</span><span class="w"> </span><span class="p">..</span>
+<span class="n">Boot0003</span><span class="o">*</span><span class="w"> </span><span class="k">Unknown</span><span class="w"> </span><span class="nl">Device</span><span class="p">:</span><span class="w">       </span><span class="n">HD</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="n">GPT</span><span class="p">,</span><span class="mi">3</span><span class="n">f0f2672</span><span class="o">-</span><span class="mi">851</span><span class="n">a</span><span class="o">-</span><span class="mi">4</span><span class="n">ef7</span><span class="o">-</span><span class="mi">82</span><span class="n">f2</span><span class="o">-</span><span class="mi">61</span><span class="n">de04d2</span><span class="p">...</span>
+<span class="w">        </span><span class="p">..</span><span class="mf">.3794</span><span class="p">,</span><span class="mh">0x800</span><span class="p">,</span><span class="mh">0x32000</span><span class="p">)</span><span class="o">/</span><span class="k">File</span><span class="p">(</span><span class="err">\</span><span class="n">EFI</span><span class="err">\</span><span class="n">ubuntu</span><span class="err">\</span><span class="n">shimx64</span><span class="p">.</span><span class="n">efi</span><span class="p">)</span><span class="n">RC</span>
+<span class="n">Boot0005</span><span class="o">*</span><span class="w"> </span><span class="n">Windows</span><span class="w"> </span><span class="n">Boot</span><span class="w"> </span><span class="n">Manager</span><span class="w">  </span><span class="n">HD</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="n">GPT</span><span class="p">,</span><span class="mi">3</span><span class="n">f0f2672</span><span class="o">-</span><span class="mi">851</span><span class="n">a</span><span class="o">-</span><span class="mi">4</span><span class="n">ef7</span><span class="o">-</span><span class="mi">82</span><span class="n">f2</span><span class="o">-</span><span class="mi">61</span><span class="n">de04d2</span><span class="p">...</span>
+<span class="w">        </span><span class="p">..</span><span class="mf">.3794</span><span class="p">,</span><span class="mh">0x800</span><span class="p">,</span><span class="mh">0x32000</span><span class="p">)</span><span class="o">/</span><span class="k">File</span><span class="p">(</span><span class="err">\</span><span class="n">EFI</span><span class="err">\</span><span class="n">Microsoft</span><span class="err">\</span><span class="n">Boot</span><span class="err">\</span><span class="n">bootmgfw</span><span class="p">.</span><span class="n">efi</span><span class="p">)</span><span class="n">WIND</span><span class="p">...</span>
+<span class="w">        </span><span class="p">...</span><span class="n">OWS</span><span class="p">.........</span><span class="n">x</span><span class="p">...</span><span class="n">B</span><span class="p">.</span><span class="n">C</span><span class="p">.</span><span class="n">D</span><span class="p">.</span><span class="n">O</span><span class="p">.</span><span class="n">B</span><span class="p">.</span><span class="n">J</span><span class="p">.</span><span class="n">E</span><span class="p">.</span><span class="n">C</span><span class="p">.</span><span class="n">T</span><span class="p">.</span><span class="o">=</span><span class="p">.</span><span class="err">{</span><span class="mf">.9</span><span class="p">.</span><span class="n">d</span><span class="p">.</span><span class="n">e</span><span class="p">.</span><span class="n">a</span><span class="mf">.8.6.2</span><span class="p">.</span><span class="n">c</span><span class="p">.</span><span class="o">-</span><span class="mf">.5</span><span class="p">.</span><span class="n">c</span><span class="p">.</span><span class="n">d</span><span class="p">....</span>
+<span class="w">        </span><span class="p">...</span><span class="n">d</span><span class="p">.</span><span class="o">-</span><span class="mf">.4</span><span class="p">.</span><span class="n">e</span><span class="mf">.7.0</span><span class="p">.</span><span class="o">-</span><span class="p">.</span><span class="n">a</span><span class="p">.</span><span class="n">c</span><span class="p">.</span><span class="n">c</span><span class="mf">.1</span><span class="p">.</span><span class="o">-</span><span class="p">.</span><span class="n">f</span><span class="mf">.3.2</span><span class="p">.</span><span class="n">b</span><span class="mf">.3.4.4</span><span class="p">.</span><span class="n">d</span><span class="mf">.4.7.9.5</span><span class="p">.</span><span class="err">}</span><span class="p">................</span>
+<span class="w">        </span><span class="p">..........</span>
+<span class="n">Boot2001</span><span class="o">*</span><span class="w"> </span><span class="n">EFI</span><span class="w"> </span><span class="n">USB</span><span class="w"> </span><span class="n">Device</span><span class="w">        </span><span class="n">RC</span>
+<span class="n">Boot2002</span><span class="o">*</span><span class="w"> </span><span class="n">EFI</span><span class="w"> </span><span class="n">DVD</span><span class="o">/</span><span class="n">CDROM</span><span class="w"> </span><span class="n">RC</span>
+<span class="n">Boot2003</span><span class="o">*</span><span class="w"> </span><span class="n">EFI</span><span class="w"> </span><span class="n">Network</span><span class="w">   </span><span class="n">RC</span>
+<span class="n">sebastien</span><span class="nv">@maison</span><span class="o">-</span><span class="nl">nblin</span><span class="p">:</span><span class="o">~/</span><span class="n">SecureBoot</span><span class="err">$</span>
 </code></pre></div>
 
 <p>It is worth noting that not all variables <em>Boot####</em> are listed in <em>BootOrder</em>,
@@ -168,11 +166,11 @@ that) partition and if it finds one, it looks for a file
 <em>\EFI\BOOT\BOOT{arch}.EFI</em>, where <em>{arch}</em> depends on the machine
 architecture.</p>
 <p>Examples for a few architectures:</p>
-<div class="highlight"><pre><span></span><code><span class="c">x86-64: \EFI\BOOT\BOOTX64.EFI</span>
-<span class="c">x86-32: \EFI\BOOT\BOOTIA32.EFI</span>
-<span class="c">Itanium: \EFI\BOOT\BOOTIA64.EFI</span>
-<span class="err">ARM 32-bit: \EFI\BOOT\BOOTARM.EFI</span>
-<span class="err">ARM 64-bit: \EFI\BOOT\BOOTAA64.EFI</span>
+<div class="highlight"><pre><span></span><code>x86-64: \EFI\BOOT\BOOTX64.EFI
+x86-32: \EFI\BOOT\BOOTIA32.EFI
+Itanium: \EFI\BOOT\BOOTIA64.EFI
+ARM 32-bit: \EFI\BOOT\BOOTARM.EFI
+ARM 64-bit: \EFI\BOOT\BOOTAA64.EFI
 </code></pre></div>
 
 <p>Source:</p>
@@ -497,10 +495,10 @@ the fact that it switches the machine to <em>Setup Mode</em>.</p>
 When <em>PK</em> is set, it immediately switches the mode from <em>Setup</em> to <em>User</em>, and
 no further update can be done. As said earlier, <em>db</em> updates (signed with <em>KEK</em>
 certificate) or <em>KEK</em> updates (signed with <em>PK</em>) could never be done.</p>
-<p><strong>
+<p>**
 <em>efi-updatevar</em> (<em>efitools</em> debian/ubuntu package) would always produce an
 error. Same result with <em>KeyTool</em>.
-</strong></p>
+**</p>
 <p>In the end, all this system of <em>PK -&gt; KEK -&gt; (db, dbx)</em> update hierarchy is just
 useless. I lastly left <em>PK</em> and <em>KEK</em> to their default values, and added my own
 certificate to <em>db</em>, so that I can sign whichever binary I want to sign to make
@@ -547,7 +545,7 @@ it is not possible "as is".</p>
 <a href="git://kernel.ubuntu.com/jk/sbsigntool.git">git://kernel.ubuntu.com/jk/sbsigntool.git</a></p>
 <p>If using a packaged Linux distribution, you had better rely on the package
 manager. On Ubuntu, you got to execute the command below:</p>
-<div class="highlight"><pre><span></span><code><span class="n">apt</span><span class="o">-</span><span class="n">get</span> <span class="n">source</span> <span class="n">sbsigntool</span>
+<div class="highlight"><pre><span></span><code><span class="n">apt</span><span class="o">-</span><span class="n">get</span><span class="w"> </span><span class="n">source</span><span class="w"> </span><span class="n">sbsigntool</span>
 </code></pre></div>
 
 <h3>6.2. Apply the patch</h3>
@@ -558,70 +556,70 @@ manager. On Ubuntu, you got to execute the command below:</p>
 <span class="gi">+++ sbsigntool-0.6-hash/src/sbsign.c    2017-12-16 10:31:34.781884149 +0100</span>
 <span class="gu">@@ -57,6 +57,8 @@</span>
 
- static const char *toolname = &quot;sbsign&quot;;
+<span class="w"> </span>static const char *toolname = &quot;sbsign&quot;;
 
 <span class="gi">+static int only_print_hash = 0;</span>
 <span class="gi">+</span>
- struct sign_context {
-    struct image *image;
-    const char *infilename;
+<span class="w"> </span>struct sign_context {
+<span class="w"> </span>   struct image *image;
+<span class="w"> </span>   const char *infilename;
 <span class="gu">@@ -70,6 +72,7 @@</span>
-    { &quot;cert&quot;, required_argument, NULL, &#39;c&#39; },
-    { &quot;key&quot;, required_argument, NULL, &#39;k&#39; },
-    { &quot;detached&quot;, no_argument, NULL, &#39;d&#39; },
+<span class="w"> </span>   { &quot;cert&quot;, required_argument, NULL, &#39;c&#39; },
+<span class="w"> </span>   { &quot;key&quot;, required_argument, NULL, &#39;k&#39; },
+<span class="w"> </span>   { &quot;detached&quot;, no_argument, NULL, &#39;d&#39; },
 <span class="gi">+   { &quot;hash&quot;, no_argument, NULL, &#39;H&#39; },</span>
-    { &quot;verbose&quot;, no_argument, NULL, &#39;v&#39; },
-    { &quot;help&quot;, no_argument, NULL, &#39;h&#39; },
-    { &quot;version&quot;, no_argument, NULL, &#39;V&#39; },
+<span class="w"> </span>   { &quot;verbose&quot;, no_argument, NULL, &#39;v&#39; },
+<span class="w"> </span>   { &quot;help&quot;, no_argument, NULL, &#39;h&#39; },
+<span class="w"> </span>   { &quot;version&quot;, no_argument, NULL, &#39;V&#39; },
 <span class="gu">@@ -90,7 +93,9 @@</span>
-        &quot;\t--output &lt;file&gt;    write signed data to &lt;file&gt;\n&quot;
-        &quot;\t                    (default &lt;efi-boot-image&gt;.signed,\n&quot;
-        &quot;\t                    or &lt;efi-boot-image&gt;.pk7 for detached\n&quot;
+<span class="w"> </span>       &quot;\t--output &lt;file&gt;    write signed data to &lt;file&gt;\n&quot;
+<span class="w"> </span>       &quot;\t                    (default &lt;efi-boot-image&gt;.signed,\n&quot;
+<span class="w"> </span>       &quot;\t                    or &lt;efi-boot-image&gt;.pk7 for detached\n&quot;
 <span class="gd">-       &quot;\t                    signatures)\n&quot;,</span>
 <span class="gi">+       &quot;\t                    signatures)\n&quot;</span>
 <span class="gi">+       &quot;\t--hash             output the SHA256 sum that would be signed\n&quot;</span>
 <span class="gi">+        &quot;\t                    and exit (don&#39;t sign)\n&quot;,</span>
-        toolname);
- }
+<span class="w"> </span>       toolname);
+<span class="w"> </span>}
 
 <span class="gu">@@ -123,7 +128,7 @@</span>
 
-    for (;;) {
-        int idx;
+<span class="w"> </span>   for (;;) {
+<span class="w"> </span>       int idx;
 <span class="gd">-       c = getopt_long(argc, argv, &quot;o:c:k:dvVh&quot;, options, &amp;idx);</span>
 <span class="gi">+       c = getopt_long(argc, argv, &quot;o:c:k:dvVhH&quot;, options, &amp;idx);</span>
-        if (c == -1)
-            break;
+<span class="w"> </span>       if (c == -1)
+<span class="w"> </span>           break;
 
 <span class="gu">@@ -140,6 +145,9 @@</span>
-        case &#39;d&#39;:
-            ctx-&gt;detached = 1;
-            break;
+<span class="w"> </span>       case &#39;d&#39;:
+<span class="w"> </span>           ctx-&gt;detached = 1;
+<span class="w"> </span>           break;
 <span class="gi">+       case &#39;H&#39;:</span>
 <span class="gi">+           only_print_hash = 1;</span>
 <span class="gi">+           break;</span>
-        case &#39;v&#39;:
-            ctx-&gt;verbose = 1;
-            break;
+<span class="w"> </span>       case &#39;v&#39;:
+<span class="w"> </span>           ctx-&gt;verbose = 1;
+<span class="w"> </span>           break;
 <span class="gu">@@ -161,13 +169,13 @@</span>
-    if (!ctx-&gt;outfilename)
-        set_default_outfilename(ctx);
+<span class="w"> </span>   if (!ctx-&gt;outfilename)
+<span class="w"> </span>       set_default_outfilename(ctx);
 
 <span class="gd">-   if (!certfilename) {</span>
 <span class="gi">+   if (!only_print_hash &amp;&amp; !certfilename) {</span>
-        fprintf(stderr,
-            &quot;error: No certificate specified (with --cert)\n&quot;);
-        usage();
-        return EXIT_FAILURE;
-    }
+<span class="w"> </span>       fprintf(stderr,
+<span class="w"> </span>           &quot;error: No certificate specified (with --cert)\n&quot;);
+<span class="w"> </span>       usage();
+<span class="w"> </span>       return EXIT_FAILURE;
+<span class="w"> </span>   }
 <span class="gd">-   if (!keyfilename) {</span>
 <span class="gi">+   if (!only_print_hash &amp;&amp; !keyfilename) {</span>
-        fprintf(stderr,
-            &quot;error: No key specified (with --key)\n&quot;);
-        usage();
+<span class="w"> </span>       fprintf(stderr,
+<span class="w"> </span>           &quot;error: No key specified (with --key)\n&quot;);
+<span class="w"> </span>       usage();
 <span class="gu">@@ -184,6 +192,16 @@</span>
-    OpenSSL_add_all_digests();
-    OpenSSL_add_all_ciphers();
+<span class="w"> </span>   OpenSSL_add_all_digests();
+<span class="w"> </span>   OpenSSL_add_all_ciphers();
 
 <span class="gi">+    if (only_print_hash) {</span>
 <span class="gi">+        uint8_t sha[SHA256_DIGEST_LENGTH];</span>
@@ -633,66 +631,66 @@ manager. On Ubuntu, you got to execute the command below:</p>
 <span class="gi">+        return EXIT_SUCCESS;</span>
 <span class="gi">+    }</span>
 <span class="gi">+</span>
-    EVP_PKEY *pkey = fileio_read_pkey(keyfilename);
-    if (!pkey)
-        return EXIT_FAILURE;
+<span class="w"> </span>   EVP_PKEY *pkey = fileio_read_pkey(keyfilename);
+<span class="w"> </span>   if (!pkey)
+<span class="w"> </span>       return EXIT_FAILURE;
 </code></pre></div>
 
 <p><strong>cd to the source directory and apply the patch like this:</strong></p>
-<div class="highlight"><pre><span></span><code><span class="o">&gt;</span> <span class="n">patch</span> <span class="o">-</span><span class="n">p</span> <span class="mi">1</span> <span class="o">&lt;</span> <span class="n">sbsigntool</span><span class="o">-</span><span class="mf">0.6</span><span class="o">-</span><span class="n">patch</span><span class="o">.</span><span class="n">txt</span>
-<span class="n">patching</span> <span class="n">file</span> <span class="n">src</span><span class="o">/</span><span class="n">sbsign</span><span class="o">.</span><span class="n">c</span>
+<div class="highlight"><pre><span></span><code><span class="o">&gt;</span><span class="w"> </span><span class="n">patch</span><span class="w"> </span><span class="o">-</span><span class="n">p</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">sbsigntool</span><span class="o">-</span><span class="mf">0.6</span><span class="o">-</span><span class="n">patch</span><span class="o">.</span><span class="n">txt</span>
+<span class="n">patching</span><span class="w"> </span><span class="n">file</span><span class="w"> </span><span class="n">src</span><span class="o">/</span><span class="n">sbsign</span><span class="o">.</span><span class="n">c</span>
 <span class="o">&gt;</span>
 </code></pre></div>
 
 <p>Then, generate binaries as usual. Only <em>sbsign</em> binary is different from
 original source.</p>
 <p>Using the modified <em>sbsign</em> allows to match a given hash with a file, example:</p>
-<div class="highlight"><pre><span></span><code><span class="n">sebastien</span><span class="err">@</span><span class="n">maison</span><span class="o">-</span><span class="n">nblin</span><span class="p">:</span><span class="o">~/</span><span class="n">sbsigntool</span><span class="o">$</span> <span class="n">efi</span><span class="o">-</span><span class="n">readvar</span> <span class="o">-</span><span class="n">v</span> <span class="n">db</span>                            
-<span class="n">Variable</span> <span class="n">db</span><span class="p">,</span> <span class="n">length</span> <span class="mi">6924</span>
-<span class="n">db</span><span class="p">:</span> <span class="n">List</span> <span class="mi">0</span><span class="p">,</span> <span class="n">type</span> <span class="n">X509</span>
-    <span class="n">Signature</span> <span class="mi">0</span><span class="p">,</span> <span class="n">size</span> <span class="mi">1515</span><span class="p">,</span> <span class="n">owner</span> <span class="mi">77</span><span class="n">fa9abd</span><span class="o">-</span><span class="mi">0359</span><span class="o">-</span><span class="mi">4</span><span class="n">d32</span><span class="o">-</span><span class="n">bd60</span><span class="o">-</span><span class="mi">28</span><span class="n">f4e78f784b</span>
-        <span class="n">Subject</span><span class="p">:</span>
-            <span class="n">C</span><span class="o">=</span><span class="n">US</span><span class="p">,</span> <span class="n">ST</span><span class="o">=</span><span class="n">Washington</span><span class="p">,</span> <span class="n">L</span><span class="o">=</span><span class="n">Redmond</span><span class="p">,</span> <span class="n">O</span><span class="o">=</span><span class="n">Microsoft</span> <span class="n">Corporation</span><span class="p">,</span> <span class="n">CN</span><span class="o">=</span><span class="n">Microsoft</span> <span class="n">Windows</span> <span class="n">Production</span> <span class="n">PCA</span> <span class="mi">2011</span>
-        <span class="n">Issuer</span><span class="p">:</span>
-            <span class="n">C</span><span class="o">=</span><span class="n">US</span><span class="p">,</span> <span class="n">ST</span><span class="o">=</span><span class="n">Washington</span><span class="p">,</span> <span class="n">L</span><span class="o">=</span><span class="n">Redmond</span><span class="p">,</span> <span class="n">O</span><span class="o">=</span><span class="n">Microsoft</span> <span class="n">Corporation</span><span class="p">,</span> <span class="n">CN</span><span class="o">=</span><span class="n">Microsoft</span> <span class="n">Root</span> <span class="n">Certificate</span> <span class="n">Authority</span> <span class="mi">2010</span>
-<span class="n">db</span><span class="p">:</span> <span class="n">List</span> <span class="mi">1</span><span class="p">,</span> <span class="n">type</span> <span class="n">X509</span>
-    <span class="n">Signature</span> <span class="mi">0</span><span class="p">,</span> <span class="n">size</span> <span class="mi">1572</span><span class="p">,</span> <span class="n">owner</span> <span class="mi">77</span><span class="n">fa9abd</span><span class="o">-</span><span class="mi">0359</span><span class="o">-</span><span class="mi">4</span><span class="n">d32</span><span class="o">-</span><span class="n">bd60</span><span class="o">-</span><span class="mi">28</span><span class="n">f4e78f784b</span>
-        <span class="n">Subject</span><span class="p">:</span>
-            <span class="n">C</span><span class="o">=</span><span class="n">US</span><span class="p">,</span> <span class="n">ST</span><span class="o">=</span><span class="n">Washington</span><span class="p">,</span> <span class="n">L</span><span class="o">=</span><span class="n">Redmond</span><span class="p">,</span> <span class="n">O</span><span class="o">=</span><span class="n">Microsoft</span> <span class="n">Corporation</span><span class="p">,</span> <span class="n">CN</span><span class="o">=</span><span class="n">Microsoft</span> <span class="n">Corporation</span> <span class="n">UEFI</span> <span class="n">CA</span> <span class="mi">2011</span>
-        <span class="n">Issuer</span><span class="p">:</span>
-            <span class="n">C</span><span class="o">=</span><span class="n">US</span><span class="p">,</span> <span class="n">ST</span><span class="o">=</span><span class="n">Washington</span><span class="p">,</span> <span class="n">L</span><span class="o">=</span><span class="n">Redmond</span><span class="p">,</span> <span class="n">O</span><span class="o">=</span><span class="n">Microsoft</span> <span class="n">Corporation</span><span class="p">,</span> <span class="n">CN</span><span class="o">=</span><span class="n">Microsoft</span> <span class="n">Corporation</span> <span class="n">Third</span> <span class="n">Party</span> <span class="n">Marketplace</span> <span class="n">Root</span>
-<span class="n">db</span><span class="p">:</span> <span class="n">List</span> <span class="mi">2</span><span class="p">,</span> <span class="n">type</span> <span class="n">X509</span>
-    <span class="n">Signature</span> <span class="mi">0</span><span class="p">,</span> <span class="n">size</span> <span class="mi">923</span><span class="p">,</span> <span class="n">owner</span> <span class="mi">92</span><span class="n">fcafcd</span><span class="o">-</span><span class="n">c861</span><span class="o">-</span><span class="mi">4</span><span class="n">b8b</span><span class="o">-</span><span class="n">aff2</span><span class="o">-</span><span class="n">a3d5a3e093f8</span>
-        <span class="n">Subject</span><span class="p">:</span>
-            <span class="n">C</span><span class="o">=</span><span class="n">Taiwan</span><span class="p">,</span> <span class="n">ST</span><span class="o">=</span><span class="n">TW</span><span class="p">,</span> <span class="n">L</span><span class="o">=</span><span class="n">Taipei</span><span class="p">,</span> <span class="n">O</span><span class="o">=</span><span class="n">Acer</span><span class="p">,</span> <span class="n">CN</span><span class="o">=</span><span class="n">Acer</span> <span class="n">Database</span>
-        <span class="n">Issuer</span><span class="p">:</span>
-            <span class="n">C</span><span class="o">=</span><span class="n">Taiwan</span><span class="p">,</span> <span class="n">ST</span><span class="o">=</span><span class="n">TW</span><span class="p">,</span> <span class="n">L</span><span class="o">=</span><span class="n">Taipei</span><span class="p">,</span> <span class="n">O</span><span class="o">=</span><span class="n">Acer</span><span class="p">,</span> <span class="n">CN</span><span class="o">=</span><span class="n">Acer</span> <span class="n">Root</span> <span class="n">CA</span>
-<span class="n">db</span><span class="p">:</span> <span class="n">List</span> <span class="mi">3</span><span class="p">,</span> <span class="n">type</span> <span class="n">X509</span>
-    <span class="n">Signature</span> <span class="mi">0</span><span class="p">,</span> <span class="n">size</span> <span class="mi">797</span><span class="p">,</span> <span class="n">owner</span> <span class="mi">92</span><span class="n">fcafcd</span><span class="o">-</span><span class="n">c861</span><span class="o">-</span><span class="mi">4</span><span class="n">b8b</span><span class="o">-</span><span class="n">aff2</span><span class="o">-</span><span class="n">a3d5a3e093f8</span>
-        <span class="n">Subject</span><span class="p">:</span>
-            <span class="n">CN</span><span class="o">=</span><span class="n">PEGA</span><span class="o">-</span><span class="n">SW2</span>
-        <span class="n">Issuer</span><span class="p">:</span>
-            <span class="n">CN</span><span class="o">=</span><span class="n">PEGA</span><span class="o">-</span><span class="n">SW2</span>
-<span class="n">db</span><span class="p">:</span> <span class="n">List</span> <span class="mi">4</span><span class="p">,</span> <span class="n">type</span> <span class="n">X509</span>
-    <span class="n">Signature</span> <span class="mi">0</span><span class="p">,</span> <span class="n">size</span> <span class="mi">1096</span><span class="p">,</span> <span class="n">owner</span> <span class="mf">685984e3</span><span class="o">-</span><span class="mi">5</span><span class="n">d0f</span><span class="o">-</span><span class="mi">4682</span><span class="o">-</span><span class="mi">94</span><span class="n">c1</span><span class="o">-</span><span class="mi">0</span><span class="n">f85ecb55d34</span>
-        <span class="n">Subject</span><span class="p">:</span>
-            <span class="n">C</span><span class="o">=</span><span class="n">GB</span><span class="p">,</span> <span class="n">ST</span><span class="o">=</span><span class="n">Isle</span> <span class="n">of</span> <span class="n">Man</span><span class="p">,</span> <span class="n">L</span><span class="o">=</span><span class="n">Douglas</span><span class="p">,</span> <span class="n">O</span><span class="o">=</span><span class="n">Canonical</span> <span class="n">Ltd</span><span class="o">.</span><span class="p">,</span> <span class="n">CN</span><span class="o">=</span><span class="n">Canonical</span> <span class="n">Ltd</span><span class="o">.</span> <span class="n">Master</span> <span class="n">Certificate</span> <span class="n">Authority</span>
-        <span class="n">Issuer</span><span class="p">:</span>
-            <span class="n">C</span><span class="o">=</span><span class="n">GB</span><span class="p">,</span> <span class="n">ST</span><span class="o">=</span><span class="n">Isle</span> <span class="n">of</span> <span class="n">Man</span><span class="p">,</span> <span class="n">L</span><span class="o">=</span><span class="n">Douglas</span><span class="p">,</span> <span class="n">O</span><span class="o">=</span><span class="n">Canonical</span> <span class="n">Ltd</span><span class="o">.</span><span class="p">,</span> <span class="n">CN</span><span class="o">=</span><span class="n">Canonical</span> <span class="n">Ltd</span><span class="o">.</span> <span class="n">Master</span> <span class="n">Certificate</span> <span class="n">Authority</span>
-<span class="n">db</span><span class="p">:</span> <span class="n">List</span> <span class="mi">5</span><span class="p">,</span> <span class="n">type</span> <span class="n">X509</span>
-    <span class="n">Signature</span> <span class="mi">0</span><span class="p">,</span> <span class="n">size</span> <span class="mi">777</span><span class="p">,</span> <span class="n">owner</span> <span class="n">eee29bf3</span><span class="o">-</span><span class="n">fbc6</span><span class="o">-</span><span class="mi">4</span><span class="n">c38</span><span class="o">-</span><span class="mi">96</span><span class="n">df</span><span class="o">-</span><span class="n">bfe181770f39</span>
-        <span class="n">Subject</span><span class="p">:</span>
-            <span class="n">CN</span><span class="o">=</span><span class="n">SMT</span> <span class="n">db</span>
-        <span class="n">Issuer</span><span class="p">:</span>
-            <span class="n">CN</span><span class="o">=</span><span class="n">SMT</span> <span class="n">db</span>
-<span class="n">db</span><span class="p">:</span> <span class="n">List</span> <span class="mi">6</span><span class="p">,</span> <span class="n">type</span> <span class="n">SHA256</span>
-    <span class="n">Signature</span> <span class="mi">0</span><span class="p">,</span> <span class="n">size</span> <span class="mi">48</span><span class="p">,</span> <span class="n">owner</span> <span class="mi">00000000</span><span class="o">-</span><span class="mi">0000</span><span class="o">-</span><span class="mi">0000</span><span class="o">-</span><span class="mi">0000</span><span class="o">-</span><span class="mi">000000000000</span>
-        <span class="n">Hash</span><span class="p">:</span><span class="n">a220f1b4305d04f59565e5c08ad35fcdda3540e4841d412e31d97ae780b6f66d</span>
-<span class="n">sebastien</span><span class="err">@</span><span class="n">maison</span><span class="o">-</span><span class="n">nblin</span><span class="p">:</span><span class="o">~/</span><span class="n">sbsigntool</span><span class="o">$</span> <span class="o">./</span><span class="n">sbsign</span> <span class="o">--</span><span class="nb">hash</span> <span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">fwupdate</span><span class="o">/</span><span class="n">fwupx64</span><span class="o">.</span><span class="n">efi</span>
-<span class="n">warning</span><span class="p">:</span> <span class="n">data</span> <span class="n">remaining</span><span class="p">[</span><span class="mi">57344</span> <span class="n">vs</span> <span class="mi">65261</span><span class="p">]:</span> <span class="n">gaps</span> <span class="n">between</span> <span class="n">PE</span><span class="o">/</span><span class="n">COFF</span> <span class="n">sections</span><span class="err">?</span>
-<span class="n">warning</span><span class="p">:</span> <span class="n">data</span> <span class="n">remaining</span><span class="p">[</span><span class="mi">57344</span> <span class="n">vs</span> <span class="mi">65264</span><span class="p">]:</span> <span class="n">gaps</span> <span class="n">between</span> <span class="n">PE</span><span class="o">/</span><span class="n">COFF</span> <span class="n">sections</span><span class="err">?</span>
+<div class="highlight"><pre><span></span><code><span class="n">sebastien</span><span class="err">@</span><span class="n">maison</span><span class="o">-</span><span class="n">nblin</span><span class="p">:</span><span class="o">~/</span><span class="n">sbsigntool</span><span class="o">$</span><span class="w"> </span><span class="n">efi</span><span class="o">-</span><span class="n">readvar</span><span class="w"> </span><span class="o">-</span><span class="n">v</span><span class="w"> </span><span class="n">db</span><span class="w">                            </span>
+<span class="n">Variable</span><span class="w"> </span><span class="n">db</span><span class="p">,</span><span class="w"> </span><span class="n">length</span><span class="w"> </span><span class="mi">6924</span>
+<span class="n">db</span><span class="p">:</span><span class="w"> </span><span class="n">List</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="n">type</span><span class="w"> </span><span class="n">X509</span>
+<span class="w">    </span><span class="n">Signature</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="n">size</span><span class="w"> </span><span class="mi">1515</span><span class="p">,</span><span class="w"> </span><span class="n">owner</span><span class="w"> </span><span class="mi">77</span><span class="n">fa9abd</span><span class="o">-</span><span class="mi">0359</span><span class="o">-</span><span class="mi">4</span><span class="n">d32</span><span class="o">-</span><span class="n">bd60</span><span class="o">-</span><span class="mi">28</span><span class="n">f4e78f784b</span>
+<span class="w">        </span><span class="n">Subject</span><span class="p">:</span>
+<span class="w">            </span><span class="n">C</span><span class="o">=</span><span class="n">US</span><span class="p">,</span><span class="w"> </span><span class="n">ST</span><span class="o">=</span><span class="n">Washington</span><span class="p">,</span><span class="w"> </span><span class="n">L</span><span class="o">=</span><span class="n">Redmond</span><span class="p">,</span><span class="w"> </span><span class="n">O</span><span class="o">=</span><span class="n">Microsoft</span><span class="w"> </span><span class="n">Corporation</span><span class="p">,</span><span class="w"> </span><span class="n">CN</span><span class="o">=</span><span class="n">Microsoft</span><span class="w"> </span><span class="n">Windows</span><span class="w"> </span><span class="n">Production</span><span class="w"> </span><span class="n">PCA</span><span class="w"> </span><span class="mi">2011</span>
+<span class="w">        </span><span class="n">Issuer</span><span class="p">:</span>
+<span class="w">            </span><span class="n">C</span><span class="o">=</span><span class="n">US</span><span class="p">,</span><span class="w"> </span><span class="n">ST</span><span class="o">=</span><span class="n">Washington</span><span class="p">,</span><span class="w"> </span><span class="n">L</span><span class="o">=</span><span class="n">Redmond</span><span class="p">,</span><span class="w"> </span><span class="n">O</span><span class="o">=</span><span class="n">Microsoft</span><span class="w"> </span><span class="n">Corporation</span><span class="p">,</span><span class="w"> </span><span class="n">CN</span><span class="o">=</span><span class="n">Microsoft</span><span class="w"> </span><span class="n">Root</span><span class="w"> </span><span class="n">Certificate</span><span class="w"> </span><span class="n">Authority</span><span class="w"> </span><span class="mi">2010</span>
+<span class="n">db</span><span class="p">:</span><span class="w"> </span><span class="n">List</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="n">type</span><span class="w"> </span><span class="n">X509</span>
+<span class="w">    </span><span class="n">Signature</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="n">size</span><span class="w"> </span><span class="mi">1572</span><span class="p">,</span><span class="w"> </span><span class="n">owner</span><span class="w"> </span><span class="mi">77</span><span class="n">fa9abd</span><span class="o">-</span><span class="mi">0359</span><span class="o">-</span><span class="mi">4</span><span class="n">d32</span><span class="o">-</span><span class="n">bd60</span><span class="o">-</span><span class="mi">28</span><span class="n">f4e78f784b</span>
+<span class="w">        </span><span class="n">Subject</span><span class="p">:</span>
+<span class="w">            </span><span class="n">C</span><span class="o">=</span><span class="n">US</span><span class="p">,</span><span class="w"> </span><span class="n">ST</span><span class="o">=</span><span class="n">Washington</span><span class="p">,</span><span class="w"> </span><span class="n">L</span><span class="o">=</span><span class="n">Redmond</span><span class="p">,</span><span class="w"> </span><span class="n">O</span><span class="o">=</span><span class="n">Microsoft</span><span class="w"> </span><span class="n">Corporation</span><span class="p">,</span><span class="w"> </span><span class="n">CN</span><span class="o">=</span><span class="n">Microsoft</span><span class="w"> </span><span class="n">Corporation</span><span class="w"> </span><span class="n">UEFI</span><span class="w"> </span><span class="n">CA</span><span class="w"> </span><span class="mi">2011</span>
+<span class="w">        </span><span class="n">Issuer</span><span class="p">:</span>
+<span class="w">            </span><span class="n">C</span><span class="o">=</span><span class="n">US</span><span class="p">,</span><span class="w"> </span><span class="n">ST</span><span class="o">=</span><span class="n">Washington</span><span class="p">,</span><span class="w"> </span><span class="n">L</span><span class="o">=</span><span class="n">Redmond</span><span class="p">,</span><span class="w"> </span><span class="n">O</span><span class="o">=</span><span class="n">Microsoft</span><span class="w"> </span><span class="n">Corporation</span><span class="p">,</span><span class="w"> </span><span class="n">CN</span><span class="o">=</span><span class="n">Microsoft</span><span class="w"> </span><span class="n">Corporation</span><span class="w"> </span><span class="n">Third</span><span class="w"> </span><span class="n">Party</span><span class="w"> </span><span class="n">Marketplace</span><span class="w"> </span><span class="n">Root</span>
+<span class="n">db</span><span class="p">:</span><span class="w"> </span><span class="n">List</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="n">type</span><span class="w"> </span><span class="n">X509</span>
+<span class="w">    </span><span class="n">Signature</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="n">size</span><span class="w"> </span><span class="mi">923</span><span class="p">,</span><span class="w"> </span><span class="n">owner</span><span class="w"> </span><span class="mi">92</span><span class="n">fcafcd</span><span class="o">-</span><span class="n">c861</span><span class="o">-</span><span class="mi">4</span><span class="n">b8b</span><span class="o">-</span><span class="n">aff2</span><span class="o">-</span><span class="n">a3d5a3e093f8</span>
+<span class="w">        </span><span class="n">Subject</span><span class="p">:</span>
+<span class="w">            </span><span class="n">C</span><span class="o">=</span><span class="n">Taiwan</span><span class="p">,</span><span class="w"> </span><span class="n">ST</span><span class="o">=</span><span class="n">TW</span><span class="p">,</span><span class="w"> </span><span class="n">L</span><span class="o">=</span><span class="n">Taipei</span><span class="p">,</span><span class="w"> </span><span class="n">O</span><span class="o">=</span><span class="n">Acer</span><span class="p">,</span><span class="w"> </span><span class="n">CN</span><span class="o">=</span><span class="n">Acer</span><span class="w"> </span><span class="n">Database</span>
+<span class="w">        </span><span class="n">Issuer</span><span class="p">:</span>
+<span class="w">            </span><span class="n">C</span><span class="o">=</span><span class="n">Taiwan</span><span class="p">,</span><span class="w"> </span><span class="n">ST</span><span class="o">=</span><span class="n">TW</span><span class="p">,</span><span class="w"> </span><span class="n">L</span><span class="o">=</span><span class="n">Taipei</span><span class="p">,</span><span class="w"> </span><span class="n">O</span><span class="o">=</span><span class="n">Acer</span><span class="p">,</span><span class="w"> </span><span class="n">CN</span><span class="o">=</span><span class="n">Acer</span><span class="w"> </span><span class="n">Root</span><span class="w"> </span><span class="n">CA</span>
+<span class="n">db</span><span class="p">:</span><span class="w"> </span><span class="n">List</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span><span class="w"> </span><span class="n">type</span><span class="w"> </span><span class="n">X509</span>
+<span class="w">    </span><span class="n">Signature</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="n">size</span><span class="w"> </span><span class="mi">797</span><span class="p">,</span><span class="w"> </span><span class="n">owner</span><span class="w"> </span><span class="mi">92</span><span class="n">fcafcd</span><span class="o">-</span><span class="n">c861</span><span class="o">-</span><span class="mi">4</span><span class="n">b8b</span><span class="o">-</span><span class="n">aff2</span><span class="o">-</span><span class="n">a3d5a3e093f8</span>
+<span class="w">        </span><span class="n">Subject</span><span class="p">:</span>
+<span class="w">            </span><span class="n">CN</span><span class="o">=</span><span class="n">PEGA</span><span class="o">-</span><span class="n">SW2</span>
+<span class="w">        </span><span class="n">Issuer</span><span class="p">:</span>
+<span class="w">            </span><span class="n">CN</span><span class="o">=</span><span class="n">PEGA</span><span class="o">-</span><span class="n">SW2</span>
+<span class="n">db</span><span class="p">:</span><span class="w"> </span><span class="n">List</span><span class="w"> </span><span class="mi">4</span><span class="p">,</span><span class="w"> </span><span class="n">type</span><span class="w"> </span><span class="n">X509</span>
+<span class="w">    </span><span class="n">Signature</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="n">size</span><span class="w"> </span><span class="mi">1096</span><span class="p">,</span><span class="w"> </span><span class="n">owner</span><span class="w"> </span><span class="mf">685984e3</span><span class="o">-</span><span class="mi">5</span><span class="n">d0f</span><span class="o">-</span><span class="mi">4682</span><span class="o">-</span><span class="mi">94</span><span class="n">c1</span><span class="o">-</span><span class="mi">0</span><span class="n">f85ecb55d34</span>
+<span class="w">        </span><span class="n">Subject</span><span class="p">:</span>
+<span class="w">            </span><span class="n">C</span><span class="o">=</span><span class="n">GB</span><span class="p">,</span><span class="w"> </span><span class="n">ST</span><span class="o">=</span><span class="n">Isle</span><span class="w"> </span><span class="n">of</span><span class="w"> </span><span class="n">Man</span><span class="p">,</span><span class="w"> </span><span class="n">L</span><span class="o">=</span><span class="n">Douglas</span><span class="p">,</span><span class="w"> </span><span class="n">O</span><span class="o">=</span><span class="n">Canonical</span><span class="w"> </span><span class="n">Ltd</span><span class="o">.</span><span class="p">,</span><span class="w"> </span><span class="n">CN</span><span class="o">=</span><span class="n">Canonical</span><span class="w"> </span><span class="n">Ltd</span><span class="o">.</span><span class="w"> </span><span class="n">Master</span><span class="w"> </span><span class="n">Certificate</span><span class="w"> </span><span class="n">Authority</span>
+<span class="w">        </span><span class="n">Issuer</span><span class="p">:</span>
+<span class="w">            </span><span class="n">C</span><span class="o">=</span><span class="n">GB</span><span class="p">,</span><span class="w"> </span><span class="n">ST</span><span class="o">=</span><span class="n">Isle</span><span class="w"> </span><span class="n">of</span><span class="w"> </span><span class="n">Man</span><span class="p">,</span><span class="w"> </span><span class="n">L</span><span class="o">=</span><span class="n">Douglas</span><span class="p">,</span><span class="w"> </span><span class="n">O</span><span class="o">=</span><span class="n">Canonical</span><span class="w"> </span><span class="n">Ltd</span><span class="o">.</span><span class="p">,</span><span class="w"> </span><span class="n">CN</span><span class="o">=</span><span class="n">Canonical</span><span class="w"> </span><span class="n">Ltd</span><span class="o">.</span><span class="w"> </span><span class="n">Master</span><span class="w"> </span><span class="n">Certificate</span><span class="w"> </span><span class="n">Authority</span>
+<span class="n">db</span><span class="p">:</span><span class="w"> </span><span class="n">List</span><span class="w"> </span><span class="mi">5</span><span class="p">,</span><span class="w"> </span><span class="n">type</span><span class="w"> </span><span class="n">X509</span>
+<span class="w">    </span><span class="n">Signature</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="n">size</span><span class="w"> </span><span class="mi">777</span><span class="p">,</span><span class="w"> </span><span class="n">owner</span><span class="w"> </span><span class="n">eee29bf3</span><span class="o">-</span><span class="n">fbc6</span><span class="o">-</span><span class="mi">4</span><span class="n">c38</span><span class="o">-</span><span class="mi">96</span><span class="n">df</span><span class="o">-</span><span class="n">bfe181770f39</span>
+<span class="w">        </span><span class="n">Subject</span><span class="p">:</span>
+<span class="w">            </span><span class="n">CN</span><span class="o">=</span><span class="n">SMT</span><span class="w"> </span><span class="n">db</span>
+<span class="w">        </span><span class="n">Issuer</span><span class="p">:</span>
+<span class="w">            </span><span class="n">CN</span><span class="o">=</span><span class="n">SMT</span><span class="w"> </span><span class="n">db</span>
+<span class="n">db</span><span class="p">:</span><span class="w"> </span><span class="n">List</span><span class="w"> </span><span class="mi">6</span><span class="p">,</span><span class="w"> </span><span class="n">type</span><span class="w"> </span><span class="n">SHA256</span>
+<span class="w">    </span><span class="n">Signature</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="n">size</span><span class="w"> </span><span class="mi">48</span><span class="p">,</span><span class="w"> </span><span class="n">owner</span><span class="w"> </span><span class="mi">00000000</span><span class="o">-</span><span class="mi">0000</span><span class="o">-</span><span class="mi">0000</span><span class="o">-</span><span class="mi">0000</span><span class="o">-</span><span class="mi">000000000000</span>
+<span class="w">        </span><span class="n">Hash</span><span class="p">:</span><span class="n">a220f1b4305d04f59565e5c08ad35fcdda3540e4841d412e31d97ae780b6f66d</span>
+<span class="n">sebastien</span><span class="err">@</span><span class="n">maison</span><span class="o">-</span><span class="n">nblin</span><span class="p">:</span><span class="o">~/</span><span class="n">sbsigntool</span><span class="o">$</span><span class="w"> </span><span class="o">./</span><span class="n">sbsign</span><span class="w"> </span><span class="o">--</span><span class="nb">hash</span><span class="w"> </span><span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">fwupdate</span><span class="o">/</span><span class="n">fwupx64</span><span class="o">.</span><span class="n">efi</span>
+<span class="n">warning</span><span class="p">:</span><span class="w"> </span><span class="n">data</span><span class="w"> </span><span class="n">remaining</span><span class="p">[</span><span class="mi">57344</span><span class="w"> </span><span class="n">vs</span><span class="w"> </span><span class="mi">65261</span><span class="p">]:</span><span class="w"> </span><span class="n">gaps</span><span class="w"> </span><span class="n">between</span><span class="w"> </span><span class="n">PE</span><span class="o">/</span><span class="n">COFF</span><span class="w"> </span><span class="n">sections</span><span class="err">?</span>
+<span class="n">warning</span><span class="p">:</span><span class="w"> </span><span class="n">data</span><span class="w"> </span><span class="n">remaining</span><span class="p">[</span><span class="mi">57344</span><span class="w"> </span><span class="n">vs</span><span class="w"> </span><span class="mi">65264</span><span class="p">]:</span><span class="w"> </span><span class="n">gaps</span><span class="w"> </span><span class="n">between</span><span class="w"> </span><span class="n">PE</span><span class="o">/</span><span class="n">COFF</span><span class="w"> </span><span class="n">sections</span><span class="err">?</span>
 <span class="n">a220f1b4305d04f59565e5c08ad35fcdda3540e4841d412e31d97ae780b6f66d</span>
-<span class="n">sebastien</span><span class="err">@</span><span class="n">maison</span><span class="o">-</span><span class="n">nblin</span><span class="p">:</span><span class="o">~/</span><span class="n">sbsigntool</span><span class="o">$</span> 
+<span class="n">sebastien</span><span class="err">@</span><span class="n">maison</span><span class="o">-</span><span class="n">nblin</span><span class="p">:</span><span class="o">~/</span><span class="n">sbsigntool</span><span class="o">$</span><span class="w"> </span>
 </code></pre></div>
 
 <hr>
@@ -775,10 +773,6 @@ done with the private key.&#160;<a class="footnote-backref" href="#fnref:5" titl
             <li><a href="http://getpelican.com/">Pelican</a></li>
             <li><a href="http://python.org/">Python.org</a></li>
             <li><a href="http://jinja.pocoo.org/">Jinja2</a></li>
-
-Search: <input data-stork="sitesearch" />
-<div data-stork="sitesearch-output"></div>
-
         </ul>
 		
 
@@ -798,8 +792,3 @@ Search: <input data-stork="sitesearch" />
             </div>
     </div>
 </footer>
-
-<script src="https://files.stork-search.net/releases/v1.5.0/stork.js"></script>
-<script>
-    stork.register("sitesearch", "https://sebmillet.github.io/site")
-</script>

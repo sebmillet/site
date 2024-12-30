@@ -14,8 +14,6 @@
 
     <!-- So Firefox can bookmark->"abo this site" -->
 
-<link rel="stylesheet" href="https://files.stork-search.net/basic.css" />
-
 </head>
 
 <body>
@@ -68,9 +66,9 @@
 <div class="section" id="starship">
 <h2>starship</h2>
 <p>Gère des prompts évolués (notamment avec git), cela me rappelle Oh My Zsh !</p>
-<div class="highlight"><pre><span></span>curl -fsSL https://starship.rs/install.sh <span class="p">|</span> bash
-  <span class="c1"># Ensuite, pour l&#39;activer</span>
-<span class="nb">eval</span> <span class="s2">&quot;</span><span class="k">$(</span>starship init zsh<span class="k">)</span><span class="s2">&quot;</span>
+<div class="highlight"><pre><span></span>curl<span class="w"> </span>-fsSL<span class="w"> </span>https://starship.rs/install.sh<span class="w"> </span><span class="p">|</span><span class="w"> </span>bash
+<span class="w">  </span><span class="c1"># Ensuite, pour l&#39;activer</span>
+<span class="nb">eval</span><span class="w"> </span><span class="s2">&quot;</span><span class="k">$(</span>starship<span class="w"> </span>init<span class="w"> </span>zsh<span class="k">)</span><span class="s2">&quot;</span>
 </pre></div>
 <p>La configuration par défaut est minimaliste.</p>
 <p>Cette adresse <a class="reference external" href="https://gist.github.com/ryo-ARAKI/48a11585299f9032fa4bda60c9bba593">https://gist.github.com/ryo-ARAKI/48a11585299f9032fa4bda60c9bba593</a>
@@ -89,18 +87,18 @@ cd nerd-fonts
 <h2>PyWal</h2>
 <p>Pour contrôler le thème couleurs (de kitty, entre autres).</p>
 <p>Exécuter les commandes :</p>
-<div class="highlight"><pre><span></span>pacman -S python-pipx
-pipx install pywal
-  <span class="c1"># Pour modifier le PATH (sinon, le faire à la main)</span>
-  <span class="c1"># Ajouter /home/sebastien/.local/bin au PATH.</span>
-pipx ensurepath
+<div class="highlight"><pre><span></span>pacman<span class="w"> </span>-S<span class="w"> </span>python-pipx
+pipx<span class="w"> </span>install<span class="w"> </span>pywal
+<span class="w">  </span><span class="c1"># Pour modifier le PATH (sinon, le faire à la main)</span>
+<span class="w">  </span><span class="c1"># Ajouter /home/sebastien/.local/bin au PATH.</span>
+pipx<span class="w"> </span>ensurepath
 </pre></div>
 <p>Exécuter <strong>wal --theme</strong> et <strong>wal --theme solarized</strong> (par exemple) pour activer
 un thème particulier.</p>
 <p>Le thème actuel est décrit dans <strong>~/.cache/wal</strong>.</p>
 <p>Pour atciver un thème donné automatiquement dans kitty, ajouter la ligne
 suivante au fichier <strong>~/.config/kitty/kitty.conf</strong> :</p>
-<div class="highlight"><pre><span></span>include ~/.cache/wal/colors-kitty.conf
+<div class="highlight"><pre><span></span>include<span class="w"> </span>~/.cache/wal/colors-kitty.conf
 </pre></div>
 </div>
 <div class="section" id="direnv-asdf">
@@ -143,8 +141,8 @@ l'option <strong>-w</strong>.</p>
 <p>Très pratique, une sorte d'explorateur en mode CLI.</p>
 <p>Pour prévisualiser (avec kitty) les images, créer le fichier
 <strong>~/.config/ranger/rc.conf</strong> avec ces deux lignes :</p>
-<div class="highlight"><pre><span></span><span class="nb">set</span> preview_images <span class="nb">true</span>
-<span class="nb">set</span> preview_images_method kitty
+<div class="highlight"><pre><span></span><span class="nb">set</span><span class="w"> </span>preview_images<span class="w"> </span><span class="nb">true</span>
+<span class="nb">set</span><span class="w"> </span>preview_images_method<span class="w"> </span>kitty
 </pre></div>
 </div>
 <p class="subheader">Category: <a href="https://sebmillet.github.io/site/category/ti.html">TI</a>
@@ -201,10 +199,6 @@ l'option <strong>-w</strong>.</p>
             <li><a href="http://getpelican.com/">Pelican</a></li>
             <li><a href="http://python.org/">Python.org</a></li>
             <li><a href="http://jinja.pocoo.org/">Jinja2</a></li>
-
-Search: <input data-stork="sitesearch" />
-<div data-stork="sitesearch-output"></div>
-
         </ul>
 		
 
@@ -224,8 +218,3 @@ Search: <input data-stork="sitesearch" />
             </div>
     </div>
 </footer>
-
-<script src="https://files.stork-search.net/releases/v1.5.0/stork.js"></script>
-<script>
-    stork.register("sitesearch", "https://sebmillet.github.io/site")
-</script>

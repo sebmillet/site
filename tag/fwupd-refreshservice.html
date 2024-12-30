@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="utf-8" />
+    <!-- Set the viewport width to device width for mobile -->
+    <meta name="viewport" content="width=device-width" />
+
+    <title>Site de Sébastien Millet - fwupd-refresh.service</title>
+
+    <link rel="stylesheet" href="https://sebmillet.github.io/site/theme/css/normalize.css" />
+    <link rel="stylesheet" href="https://sebmillet.github.io/site/theme/css/foundation.min.css" />
+    <link rel="stylesheet" href="https://sebmillet.github.io/site/theme/css/style.css" />
+    <link rel="stylesheet" href="https://sebmillet.github.io/site/theme/css/pygments.css" />	
+    <script src="https://sebmillet.github.io/site/theme/js/custom.modernizr.js"></script>
+
+    <!-- So Firefox can bookmark->"abo this site" -->
+
+</head>
+
+<body>
+
+<!-- Nav Bar -->
+<nav>
+<div class="top-bar">
+<div class="row">
+    <div class="large-9 large-centered columns">
+	    <h1><a href="https://sebmillet.github.io/site">Site de Sébastien Millet</a></h1>
+    </div>
+</div>
+</div>
+
+<!-- Show menu items and pages -->
+<div class="row">
+<div class="large-9 columns">
+    <ul class="button-group navigation">
+
+    </ul>
+</div>
+</div>
+</nav>
+<!-- End Nav -->
+
+
+<!-- Main Page Content and Sidebar -->
+<div class="row">
+
+    <!-- Main Blog Content -->
+    <div class="large-9 columns">
+        
+        
+
+            <article>
+                <a href="https://sebmillet.github.io/site/fix-fwupd-refreshservice-start.html"><h3 class="article-title">Fix fwupd-refresh.service start</h3></a>
+<h6 class="subheader" title="2024-12-22T00:00:00+01:00">dim. 22 décembre 2024
+</h6>
+
+
+<!-- default-role rst directive described here: -->
+<!-- https://docutils.sourceforge.io/docs/ref/rst/directives.html#default-role -->
+<ul class="simple">
+<li>Sur ma Cinnamon en décembre 2024 (mais depuis bien avant), le service fwupd-refresh.service produisait une erreur à chaque démarrage.</li>
+<li>L'exécution de</li>
+</ul>
+<div class="highlight"><pre><span></span><span class="go">sudo /usr/bin/fwupdmgr refresh</span>
+<span class="gp"># </span>ou<span class="w"> </span>bien
+<span class="go">sudo /usr/bin/fwupdmgr refresh --force</span>
+</pre></div>
+<p>a montré que <em>fwupdmgr</em> fonctionnait correctement.</p>
+<dl class="docutils">
+<dt>Cette page :</dt>
+<dd><a class="reference external" href="https://askubuntu.com/questions/1404691/fwupd-refresh-service-failed">https://askubuntu.com/questions/1404691/fwupd-refresh-service-failed</a></dd>
+</dl>
+<p>m'a indiqué la solution, consistant à définir dans le service l'option
+<em>DynamicUser</em> à <em>No</em>.</p>
+<p>Pour ce faire, exécuter :</p>
+<div class="highlight"><pre><span></span><span class="go">sudo systemctl edit fwupd-refresh.service</span>
+</pre></div>
+<p>Et ajouter les deux lignes</p>
+<div class="highlight"><pre><span></span>[Service]
+DynamicUser=no
+</pre></div>
+<p>Il est possible de contrôler le résultat avec la commande
+<em>sudo systemctl cat fwupd-refresh.service</em></p>
+<p>Résultat :</p>
+<div class="highlight"><pre><span></span># /lib/systemd/system/fwupd-refresh.service
+[Unit]
+Description=Refresh fwupd metadata and update motd
+Documentation=man:fwupdmgr(1)
+After=network.target
+
+[Service]
+Type=oneshot
+CacheDirectory=fwupdmgr
+StandardError=null
+DynamicUser=yes
+RestrictAddressFamilies=AF_NETLINK AF_UNIX AF_INET AF_INET6
+SystemCallFilter=~@mount
+ProtectKernelModules=yes
+ProtectControlGroups=yes
+RestrictRealtime=yes
+SuccessExitStatus=2
+ExecStart=/usr/bin/fwupdmgr refresh
+
+# /etc/systemd/system/fwupd-refresh.service.d/override.conf
+[Service]
+DynamicUser=no
+</pre></div>
+<p class="subheader">Category: <a href="https://sebmillet.github.io/site/category/ti.html">TI</a>
+
+    Tagged: 
+    <a href="https://sebmillet.github.io/site/tag/fwupd-refreshservice.html">fwupd-refresh.service </a>
+    <a href="https://sebmillet.github.io/site/tag/systemd.html">systemd </a>
+</p>
+
+
+
+            </article>
+
+<div class="pagination-centered">
+<h6 class="subheader">Page 1 of 1</h6>
+
+<p>
+
+</p>
+</div>
+
+
+
+            <!-- /#posts-list -->
+
+    </div>
+    <!-- End Main Content -->
+
+    <!-- Sidebar -->
+    <aside class="large-3 columns">
+        <h5 class="sidebar-title">Site</h5>
+        <ul class="side-nav">
+            <li><a href="https://sebmillet.github.io/site/archives.html">Archives</a>
+            <li><a href="https://sebmillet.github.io/site/tags.html">Tags</a>
+
+
+        </ul>
+
+		
+        <h5 class="sidebar-title">Categories</h5>
+        <ul class="side-nav">
+            <li><a href="https://sebmillet.github.io/site/category/lectures.html">Lectures</a></li>
+            <li><a href="https://sebmillet.github.io/site/category/origine.html">Origine</a></li>
+            <li><a href="https://sebmillet.github.io/site/category/partage.html">Partage</a></li>
+            <li><a href="https://sebmillet.github.io/site/category/programmes.html">Programmes</a></li>
+            <li><a href="https://sebmillet.github.io/site/category/recettes.html">Recettes</a></li>
+            <li><a href="https://sebmillet.github.io/site/category/ti.html">TI</a></li>
+   
+        </ul>
+
+        <h5 class="sidebar-title">Links</h5>
+        <ul class="side-nav">
+            <li><a href="https://sebmillet.github.io/site/ancien/index.html">Ancien Site</a></li>
+            <li><a href="http://getpelican.com/">Pelican</a></li>
+            <li><a href="http://python.org/">Python.org</a></li>
+            <li><a href="http://jinja.pocoo.org/">Jinja2</a></li>
+        </ul>
+		
+
+    </aside> <!-- End Sidebar -->
+
+</div> <!-- End Main Content and Sidebar -->
+
+
+<!-- Footer -->
+<footer class="row">
+    <div class="large-12 columns">
+        <hr />
+        <div class="row">
+            <div class="large-6 columns">
+                <p>Site de Sébastien Millet by Sébastien Millet</p>
+            </div>
+            </div>
+    </div>
+</footer>

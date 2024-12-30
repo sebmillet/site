@@ -14,8 +14,6 @@
 
     <!-- So Firefox can bookmark->"abo this site" -->
 
-<link rel="stylesheet" href="https://files.stork-search.net/basic.css" />
-
 </head>
 
 <body>
@@ -59,7 +57,7 @@
 
     <p>Il s'agit ici de la version 4.2.2 du driver de la clé WIFI USB Realtek.
 Sa version exacte (lsusb -v) est :</p>
-<div class="highlight"><pre><span></span><code><span class="err">Bus 001 Device 009: ID 0bda:0129 Realtek Semiconductor Corp. RTS5129 Card Reader Controller</span>
+<div class="highlight"><pre><span></span><code>Bus 001 Device 009: ID 0bda:0129 Realtek Semiconductor Corp. RTS5129 Card Reader Controller
 </code></pre></div>
 
 <p>Fait sur Kubuntu 17.10.</p>
@@ -83,56 +81,56 @@ standard DKMS.</p>
 <h2>2. Fichier <code>dmks.conf</code></h2>
 <p>Le driver 8812au contient un fichier dkms.conf qui est suffisant, pas besoin de
 le modifier. Pour information, voici ce fichier :</p>
-<div class="highlight"><pre><span></span><code><span class="n">PACKAGE_NAME</span><span class="o">=</span><span class="mi">8812</span><span class="n">au</span>
-<span class="n">PACKAGE_VERSION</span><span class="o">=</span><span class="mi">4</span><span class="p">.</span><span class="mi">2</span><span class="p">.</span><span class="mi">2</span>
+<div class="highlight"><pre><span></span><code><span class="n">PACKAGE_NAME</span><span class="o">=</span><span class="mh">8812</span><span class="n">au</span>
+<span class="n">PACKAGE_VERSION</span><span class="o">=</span><span class="mf">4.2.2</span>
 
 <span class="n">DEST_MODULE_LOCATION</span><span class="o">=/</span><span class="n">kernel</span><span class="o">/</span><span class="n">drivers</span><span class="o">/</span><span class="n">net</span><span class="o">/</span><span class="n">wireless</span>
-<span class="n">BUILT_MODULE_NAME</span><span class="o">=</span><span class="mi">8812</span><span class="n">au</span>
+<span class="n">BUILT_MODULE_NAME</span><span class="o">=</span><span class="mh">8812</span><span class="n">au</span>
 
-<span class="n">MAKE</span><span class="o">=</span><span class="ss">&quot;&#39;make&#39;  all&quot;</span>
-<span class="n">CLEAN</span><span class="o">=</span><span class="ss">&quot;&#39;make&#39; clean&quot;</span>
-<span class="n">AUTOINSTALL</span><span class="o">=</span><span class="ss">&quot;yes&quot;</span>
+<span class="n">MAKE</span><span class="o">=</span><span class="s">&quot;&#39;make&#39;  all&quot;</span>
+<span class="n">CLEAN</span><span class="o">=</span><span class="s">&quot;&#39;make&#39; clean&quot;</span>
+<span class="n">AUTOINSTALL</span><span class="o">=</span><span class="s">&quot;yes&quot;</span>
 </code></pre></div>
 
 <h2>3. Installation dans DKMS</h2>
-<div class="highlight"><pre><span></span><code><span class="n">root</span> <span class="c1"># dkms add -m 8812au -v 4.2.2</span>
+<div class="highlight"><pre><span></span><code><span class="n">root</span><span class="w"> </span><span class="c1"># dkms add -m 8812au -v 4.2.2</span>
 
-<span class="n">Creating</span> <span class="n">symlink</span> <span class="o">/</span><span class="k">var</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">dkms</span><span class="o">/</span><span class="mi">8812</span><span class="n">au</span><span class="o">/</span><span class="mf">4.2</span><span class="o">.</span><span class="mi">2</span><span class="o">/</span><span class="n">source</span> <span class="o">-&gt;</span>
-                 <span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">src</span><span class="o">/</span><span class="mi">8812</span><span class="n">au</span><span class="o">-</span><span class="mf">4.2</span><span class="o">.</span><span class="mi">2</span>
+<span class="n">Creating</span><span class="w"> </span><span class="n">symlink</span><span class="w"> </span><span class="o">/</span><span class="k">var</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">dkms</span><span class="o">/</span><span class="mi">8812</span><span class="n">au</span><span class="o">/</span><span class="mf">4.2</span><span class="o">.</span><span class="mi">2</span><span class="o">/</span><span class="n">source</span><span class="w"> </span><span class="o">-&gt;</span>
+<span class="w">                 </span><span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">src</span><span class="o">/</span><span class="mi">8812</span><span class="n">au</span><span class="o">-</span><span class="mf">4.2</span><span class="o">.</span><span class="mi">2</span>
 
-<span class="n">DKMS</span><span class="p">:</span> <span class="n">add</span> <span class="n">completed</span><span class="o">.</span>
+<span class="n">DKMS</span><span class="p">:</span><span class="w"> </span><span class="n">add</span><span class="w"> </span><span class="n">completed</span><span class="o">.</span>
 </code></pre></div>
 
 <h2>4. Compilation par DKMS</h2>
-<div class="highlight"><pre><span></span><code><span class="n">root</span> <span class="o">#</span> <span class="n">dkms</span> <span class="n">build</span> <span class="o">-</span><span class="n">m</span> <span class="mi">8812</span><span class="n">au</span> <span class="o">-</span><span class="n">v</span> <span class="mi">4</span><span class="p">.</span><span class="mi">2</span><span class="p">.</span><span class="mi">2</span>
+<div class="highlight"><pre><span></span><code><span class="nv">root</span><span class="w"> </span>#<span class="w"> </span><span class="nv">dkms</span><span class="w"> </span><span class="nv">build</span><span class="w"> </span><span class="o">-</span><span class="nv">m</span><span class="w"> </span><span class="mi">8812</span><span class="nv">au</span><span class="w"> </span><span class="o">-</span><span class="nv">v</span><span class="w"> </span><span class="mi">4</span>.<span class="mi">2</span>.<span class="mi">2</span>
 
-<span class="n">Kernel</span> <span class="n">preparation</span> <span class="n">unnecessary</span> <span class="k">for</span> <span class="n">this</span> <span class="n">kernel</span><span class="p">.</span>  <span class="n">Skipping</span><span class="p">...</span>
+<span class="nv">Kernel</span><span class="w"> </span><span class="nv">preparation</span><span class="w"> </span><span class="nv">unnecessary</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="nv">this</span><span class="w"> </span><span class="nv">kernel</span>.<span class="w">  </span><span class="nv">Skipping</span>...
 
-<span class="n">Building</span> <span class="n">module</span><span class="p">:</span>
-<span class="n">cleaning</span> <span class="n">build</span> <span class="n">area</span><span class="p">...</span>
-<span class="s1">&#39;make&#39;</span> <span class="k">all</span><span class="p">.............</span>
-<span class="n">cleaning</span> <span class="n">build</span> <span class="n">area</span><span class="p">...</span>
+<span class="nv">Building</span><span class="w"> </span><span class="nv">module</span>:
+<span class="nv">cleaning</span><span class="w"> </span><span class="nv">build</span><span class="w"> </span><span class="nv">area</span>...
+<span class="s1">&#39;make&#39;</span><span class="w"> </span><span class="nv">all</span>.............
+<span class="nv">cleaning</span><span class="w"> </span><span class="nv">build</span><span class="w"> </span><span class="nv">area</span>...
 
-<span class="n">DKMS</span><span class="p">:</span> <span class="n">build</span> <span class="n">completed</span><span class="p">.</span>
+<span class="nv">DKMS</span>:<span class="w"> </span><span class="nv">build</span><span class="w"> </span><span class="nv">completed</span>.
 </code></pre></div>
 
 <h2>5. Installation par DKMS</h2>
 <p>À noter que si on lance l'installation du module alors qu'il n'est pas encore
 compilé, DKMS s'en charge.</p>
 <p>Mais dans ce document, j'ai préféré détailler ces étapes une par une.</p>
-<div class="highlight"><pre><span></span><code><span class="n">dkms</span> <span class="n">install</span> <span class="o">-</span><span class="n">m</span> <span class="mi">8812</span><span class="n">au</span> <span class="o">-</span><span class="n">v</span> <span class="mi">4</span><span class="p">.</span><span class="mi">2</span><span class="p">.</span><span class="mi">2</span>
+<div class="highlight"><pre><span></span><code>dkms install -m 8812au -v 4.2.2
 
-<span class="mi">8812</span><span class="n">au</span><span class="p">:</span>
-<span class="n">Running</span> <span class="n">module</span> <span class="k">version</span> <span class="n">sanity</span> <span class="k">check</span><span class="p">.</span>
+8812au:
+Running module version sanity check.
 
-<span class="n">Good</span> <span class="n">news</span><span class="o">!</span> <span class="n">Module</span> <span class="k">version</span> <span class="n">v4</span><span class="p">.</span><span class="mi">2</span><span class="p">.</span><span class="mi">2</span><span class="n">_7502</span><span class="p">.</span><span class="mi">20130517</span> <span class="k">for</span> <span class="mi">8812</span><span class="n">au</span><span class="p">.</span><span class="n">ko</span>
-<span class="n">exactly</span> <span class="n">matches</span> <span class="n">what</span> <span class="k">is</span> <span class="n">already</span> <span class="k">found</span> <span class="k">in</span> <span class="n">kernel</span> <span class="mi">4</span><span class="p">.</span><span class="mi">13</span><span class="p">.</span><span class="mi">0</span><span class="o">-</span><span class="mi">37</span><span class="o">-</span><span class="n">generic</span><span class="p">.</span>
-<span class="n">DKMS</span> <span class="n">will</span> <span class="k">not</span> <span class="k">replace</span> <span class="n">this</span> <span class="n">module</span><span class="p">.</span>
-<span class="n">You</span> <span class="n">may</span> <span class="n">override</span> <span class="k">by</span> <span class="n">specifying</span> <span class="c1">--force.</span>
+Good news! Module version v4.2.2_7502.20130517 for 8812au.ko
+exactly matches what is already found in kernel 4.13.0-37-generic.
+DKMS will not replace this module.
+You may override by specifying --force.
 
-<span class="n">depmod</span><span class="p">...</span>
+depmod...
 
-<span class="n">DKMS</span><span class="p">:</span> <span class="n">install</span> <span class="n">completed</span><span class="p">.</span>
+DKMS: install completed.
 </code></pre></div>
 
 <h2>6. Faire signer le module par DKMS</h2>
@@ -167,30 +165,30 @@ fonctionne pas car :</p>
 <p>Pour savoir si un module est signé, il faut en afficher le contenu binaire et
 regarder si la fin du fichier contient le texte <code>~Module signature appended~</code>.</p>
 <p>Exemples :</p>
-<div class="highlight"><pre><span></span><code><span class="o">##</span> <span class="n">Cas</span> <span class="mi">1</span> <span class="p">:</span> <span class="n">module</span> <span class="n">non</span> <span class="n">signé</span>
-<span class="o">#</span> <span class="n">hexdump</span> <span class="o">-</span><span class="k">C</span> <span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">modules</span><span class="o">/</span><span class="mi">4</span><span class="p">.</span><span class="mi">13</span><span class="p">.</span><span class="mi">0</span><span class="o">-</span><span class="mi">37</span><span class="o">-</span><span class="n">generic</span><span class="o">/</span><span class="n">updates</span><span class="o">/</span><span class="n">dkms</span><span class="o">/</span><span class="mi">8812</span><span class="n">au</span><span class="p">.</span><span class="n">ko</span> <span class="o">|</span> <span class="n">tail</span>
-<span class="mi">001</span><span class="n">b2a90</span>  <span class="mi">08</span> <span class="mi">00</span> <span class="mi">00</span> <span class="mi">00</span> <span class="mi">00</span> <span class="mi">00</span> <span class="mi">00</span> <span class="mi">00</span>  <span class="mi">18</span> <span class="mi">00</span> <span class="mi">00</span> <span class="mi">00</span> <span class="mi">00</span> <span class="mi">00</span> <span class="mi">00</span> <span class="mi">00</span>  <span class="o">|</span><span class="p">................</span><span class="o">|</span>
-<span class="mi">001</span><span class="n">b2aa0</span>  <span class="mi">09</span> <span class="mi">00</span> <span class="mi">00</span> <span class="mi">00</span> <span class="mi">03</span> <span class="mi">00</span> <span class="mi">00</span> <span class="mi">00</span>  <span class="mi">00</span> <span class="mi">00</span> <span class="mi">00</span> <span class="mi">00</span> <span class="mi">00</span> <span class="mi">00</span> <span class="mi">00</span> <span class="mi">00</span>  <span class="o">|</span><span class="p">................</span><span class="o">|</span>
-<span class="mi">001</span><span class="n">b2ab0</span>  <span class="mi">00</span> <span class="mi">00</span> <span class="mi">00</span> <span class="mi">00</span> <span class="mi">00</span> <span class="mi">00</span> <span class="mi">00</span> <span class="mi">00</span>  <span class="mi">78</span> <span class="mi">4</span><span class="n">b</span> <span class="mi">0</span><span class="n">e</span> <span class="mi">00</span> <span class="mi">00</span> <span class="mi">00</span> <span class="mi">00</span> <span class="mi">00</span>  <span class="o">|</span><span class="p">........</span><span class="n">xK</span><span class="p">......</span><span class="o">|</span>
-<span class="mi">001</span><span class="n">b2ac0</span>  <span class="mi">57</span> <span class="n">ce</span> <span class="mi">00</span> <span class="mi">00</span> <span class="mi">00</span> <span class="mi">00</span> <span class="mi">00</span> <span class="mi">00</span>  <span class="mi">00</span> <span class="mi">00</span> <span class="mi">00</span> <span class="mi">00</span> <span class="mi">00</span> <span class="mi">00</span> <span class="mi">00</span> <span class="mi">00</span>  <span class="o">|</span><span class="n">W</span><span class="p">...............</span><span class="o">|</span>
-<span class="mi">001</span><span class="n">b2ad0</span>  <span class="mi">01</span> <span class="mi">00</span> <span class="mi">00</span> <span class="mi">00</span> <span class="mi">00</span> <span class="mi">00</span> <span class="mi">00</span> <span class="mi">00</span>  <span class="mi">00</span> <span class="mi">00</span> <span class="mi">00</span> <span class="mi">00</span> <span class="mi">00</span> <span class="mi">00</span> <span class="mi">00</span> <span class="mi">00</span>  <span class="o">|</span><span class="p">................</span><span class="o">|</span>
-<span class="mi">001</span><span class="n">b2ae0</span>  <span class="mi">11</span> <span class="mi">00</span> <span class="mi">00</span> <span class="mi">00</span> <span class="mi">03</span> <span class="mi">00</span> <span class="mi">00</span> <span class="mi">00</span>  <span class="mi">00</span> <span class="mi">00</span> <span class="mi">00</span> <span class="mi">00</span> <span class="mi">00</span> <span class="mi">00</span> <span class="mi">00</span> <span class="mi">00</span>  <span class="o">|</span><span class="p">................</span><span class="o">|</span>
-<span class="mi">001</span><span class="n">b2af0</span>  <span class="mi">00</span> <span class="mi">00</span> <span class="mi">00</span> <span class="mi">00</span> <span class="mi">00</span> <span class="mi">00</span> <span class="mi">00</span> <span class="mi">00</span>  <span class="n">b0</span> <span class="mi">21</span> <span class="mi">1</span><span class="n">b</span> <span class="mi">00</span> <span class="mi">00</span> <span class="mi">00</span> <span class="mi">00</span> <span class="mi">00</span>  <span class="o">|</span><span class="p">.........</span><span class="o">!</span><span class="p">......</span><span class="o">|</span>
-<span class="mi">001</span><span class="n">b2b00</span>  <span class="mi">2</span><span class="k">c</span> <span class="mi">01</span> <span class="mi">00</span> <span class="mi">00</span> <span class="mi">00</span> <span class="mi">00</span> <span class="mi">00</span> <span class="mi">00</span>  <span class="mi">00</span> <span class="mi">00</span> <span class="mi">00</span> <span class="mi">00</span> <span class="mi">00</span> <span class="mi">00</span> <span class="mi">00</span> <span class="mi">00</span>  <span class="o">|</span><span class="p">,...............</span><span class="o">|</span>
-<span class="mi">001</span><span class="n">b2b10</span>  <span class="mi">01</span> <span class="mi">00</span> <span class="mi">00</span> <span class="mi">00</span> <span class="mi">00</span> <span class="mi">00</span> <span class="mi">00</span> <span class="mi">00</span>  <span class="mi">00</span> <span class="mi">00</span> <span class="mi">00</span> <span class="mi">00</span> <span class="mi">00</span> <span class="mi">00</span> <span class="mi">00</span> <span class="mi">00</span>  <span class="o">|</span><span class="p">................</span><span class="o">|</span>
+<div class="highlight"><pre><span></span><code><span class="o">##</span><span class="w"> </span><span class="n">Cas</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="k">module</span><span class="w"> </span><span class="nn">non</span><span class="w"> </span><span class="n">signé</span>
+<span class="o">#</span><span class="w"> </span><span class="n">hexdump</span><span class="w"> </span><span class="o">-</span><span class="n">C</span><span class="w"> </span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">modules</span><span class="o">/</span><span class="mi">4</span><span class="o">.</span><span class="mi">13</span><span class="o">.</span><span class="mi">0</span><span class="o">-</span><span class="mi">37</span><span class="o">-</span><span class="n">generic</span><span class="o">/</span><span class="n">updates</span><span class="o">/</span><span class="n">dkms</span><span class="o">/</span><span class="mi">8812</span><span class="n">au</span><span class="o">.</span><span class="n">ko</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">tail</span>
+<span class="mi">001</span><span class="n">b2a90</span><span class="w">  </span><span class="mi">08</span><span class="w"> </span><span class="mi">00</span><span class="w"> </span><span class="mi">00</span><span class="w"> </span><span class="mi">00</span><span class="w"> </span><span class="mi">00</span><span class="w"> </span><span class="mi">00</span><span class="w"> </span><span class="mi">00</span><span class="w"> </span><span class="mi">00</span><span class="w">  </span><span class="mi">18</span><span class="w"> </span><span class="mi">00</span><span class="w"> </span><span class="mi">00</span><span class="w"> </span><span class="mi">00</span><span class="w"> </span><span class="mi">00</span><span class="w"> </span><span class="mi">00</span><span class="w"> </span><span class="mi">00</span><span class="w"> </span><span class="mi">00</span><span class="w">  </span><span class="o">|................|</span>
+<span class="mi">001</span><span class="n">b2aa0</span><span class="w">  </span><span class="mi">09</span><span class="w"> </span><span class="mi">00</span><span class="w"> </span><span class="mi">00</span><span class="w"> </span><span class="mi">00</span><span class="w"> </span><span class="mi">03</span><span class="w"> </span><span class="mi">00</span><span class="w"> </span><span class="mi">00</span><span class="w"> </span><span class="mi">00</span><span class="w">  </span><span class="mi">00</span><span class="w"> </span><span class="mi">00</span><span class="w"> </span><span class="mi">00</span><span class="w"> </span><span class="mi">00</span><span class="w"> </span><span class="mi">00</span><span class="w"> </span><span class="mi">00</span><span class="w"> </span><span class="mi">00</span><span class="w"> </span><span class="mi">00</span><span class="w">  </span><span class="o">|................|</span>
+<span class="mi">001</span><span class="n">b2ab0</span><span class="w">  </span><span class="mi">00</span><span class="w"> </span><span class="mi">00</span><span class="w"> </span><span class="mi">00</span><span class="w"> </span><span class="mi">00</span><span class="w"> </span><span class="mi">00</span><span class="w"> </span><span class="mi">00</span><span class="w"> </span><span class="mi">00</span><span class="w"> </span><span class="mi">00</span><span class="w">  </span><span class="mi">78</span><span class="w"> </span><span class="mi">4</span><span class="n">b</span><span class="w"> </span><span class="mi">0</span><span class="n">e</span><span class="w"> </span><span class="mi">00</span><span class="w"> </span><span class="mi">00</span><span class="w"> </span><span class="mi">00</span><span class="w"> </span><span class="mi">00</span><span class="w"> </span><span class="mi">00</span><span class="w">  </span><span class="o">|........</span><span class="n">xK</span><span class="o">......|</span>
+<span class="mi">001</span><span class="n">b2ac0</span><span class="w">  </span><span class="mi">57</span><span class="w"> </span><span class="n">ce</span><span class="w"> </span><span class="mi">00</span><span class="w"> </span><span class="mi">00</span><span class="w"> </span><span class="mi">00</span><span class="w"> </span><span class="mi">00</span><span class="w"> </span><span class="mi">00</span><span class="w"> </span><span class="mi">00</span><span class="w">  </span><span class="mi">00</span><span class="w"> </span><span class="mi">00</span><span class="w"> </span><span class="mi">00</span><span class="w"> </span><span class="mi">00</span><span class="w"> </span><span class="mi">00</span><span class="w"> </span><span class="mi">00</span><span class="w"> </span><span class="mi">00</span><span class="w"> </span><span class="mi">00</span><span class="w">  </span><span class="o">|</span><span class="nn">W</span><span class="p">...............</span><span class="o">|</span>
+<span class="mi">001</span><span class="n">b2ad0</span><span class="w">  </span><span class="mi">01</span><span class="w"> </span><span class="mi">00</span><span class="w"> </span><span class="mi">00</span><span class="w"> </span><span class="mi">00</span><span class="w"> </span><span class="mi">00</span><span class="w"> </span><span class="mi">00</span><span class="w"> </span><span class="mi">00</span><span class="w"> </span><span class="mi">00</span><span class="w">  </span><span class="mi">00</span><span class="w"> </span><span class="mi">00</span><span class="w"> </span><span class="mi">00</span><span class="w"> </span><span class="mi">00</span><span class="w"> </span><span class="mi">00</span><span class="w"> </span><span class="mi">00</span><span class="w"> </span><span class="mi">00</span><span class="w"> </span><span class="mi">00</span><span class="w">  </span><span class="o">|................|</span>
+<span class="mi">001</span><span class="n">b2ae0</span><span class="w">  </span><span class="mi">11</span><span class="w"> </span><span class="mi">00</span><span class="w"> </span><span class="mi">00</span><span class="w"> </span><span class="mi">00</span><span class="w"> </span><span class="mi">03</span><span class="w"> </span><span class="mi">00</span><span class="w"> </span><span class="mi">00</span><span class="w"> </span><span class="mi">00</span><span class="w">  </span><span class="mi">00</span><span class="w"> </span><span class="mi">00</span><span class="w"> </span><span class="mi">00</span><span class="w"> </span><span class="mi">00</span><span class="w"> </span><span class="mi">00</span><span class="w"> </span><span class="mi">00</span><span class="w"> </span><span class="mi">00</span><span class="w"> </span><span class="mi">00</span><span class="w">  </span><span class="o">|................|</span>
+<span class="mi">001</span><span class="n">b2af0</span><span class="w">  </span><span class="mi">00</span><span class="w"> </span><span class="mi">00</span><span class="w"> </span><span class="mi">00</span><span class="w"> </span><span class="mi">00</span><span class="w"> </span><span class="mi">00</span><span class="w"> </span><span class="mi">00</span><span class="w"> </span><span class="mi">00</span><span class="w"> </span><span class="mi">00</span><span class="w">  </span><span class="n">b0</span><span class="w"> </span><span class="mi">21</span><span class="w"> </span><span class="mi">1</span><span class="n">b</span><span class="w"> </span><span class="mi">00</span><span class="w"> </span><span class="mi">00</span><span class="w"> </span><span class="mi">00</span><span class="w"> </span><span class="mi">00</span><span class="w"> </span><span class="mi">00</span><span class="w">  </span><span class="o">|.........!......|</span>
+<span class="mi">001</span><span class="n">b2b00</span><span class="w">  </span><span class="mi">2</span><span class="n">c</span><span class="w"> </span><span class="mi">01</span><span class="w"> </span><span class="mi">00</span><span class="w"> </span><span class="mi">00</span><span class="w"> </span><span class="mi">00</span><span class="w"> </span><span class="mi">00</span><span class="w"> </span><span class="mi">00</span><span class="w"> </span><span class="mi">00</span><span class="w">  </span><span class="mi">00</span><span class="w"> </span><span class="mi">00</span><span class="w"> </span><span class="mi">00</span><span class="w"> </span><span class="mi">00</span><span class="w"> </span><span class="mi">00</span><span class="w"> </span><span class="mi">00</span><span class="w"> </span><span class="mi">00</span><span class="w"> </span><span class="mi">00</span><span class="w">  </span><span class="o">|,...............|</span>
+<span class="mi">001</span><span class="n">b2b10</span><span class="w">  </span><span class="mi">01</span><span class="w"> </span><span class="mi">00</span><span class="w"> </span><span class="mi">00</span><span class="w"> </span><span class="mi">00</span><span class="w"> </span><span class="mi">00</span><span class="w"> </span><span class="mi">00</span><span class="w"> </span><span class="mi">00</span><span class="w"> </span><span class="mi">00</span><span class="w">  </span><span class="mi">00</span><span class="w"> </span><span class="mi">00</span><span class="w"> </span><span class="mi">00</span><span class="w"> </span><span class="mi">00</span><span class="w"> </span><span class="mi">00</span><span class="w"> </span><span class="mi">00</span><span class="w"> </span><span class="mi">00</span><span class="w"> </span><span class="mi">00</span><span class="w">  </span><span class="o">|................|</span>
 <span class="mi">001</span><span class="n">b2b20</span>
 
-<span class="o">##</span> <span class="n">Cas</span> <span class="mi">2</span> <span class="p">:</span> <span class="n">module</span> <span class="n">signé</span>
-<span class="o">#</span> <span class="n">hexdump</span> <span class="o">-</span><span class="k">C</span> <span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">modules</span><span class="o">/</span><span class="mi">4</span><span class="p">.</span><span class="mi">13</span><span class="p">.</span><span class="mi">0</span><span class="o">-</span><span class="mi">37</span><span class="o">-</span><span class="n">generic</span><span class="o">/</span><span class="n">updates</span><span class="o">/</span><span class="n">dkms</span><span class="o">/</span><span class="mi">8812</span><span class="n">au</span><span class="p">.</span><span class="n">ko</span> <span class="o">|</span> <span class="n">tail</span>
-<span class="mi">001</span><span class="n">b2c40</span>  <span class="n">bc</span> <span class="n">fb</span> <span class="n">c4</span> <span class="n">b6</span> <span class="mi">68</span> <span class="mi">34</span> <span class="n">c7</span> <span class="n">d3</span>  <span class="mi">8</span><span class="n">a</span> <span class="mi">20</span> <span class="mi">28</span> <span class="mi">47</span> <span class="n">ba</span> <span class="mi">87</span> <span class="n">a7</span> <span class="mi">4</span><span class="n">a</span>  <span class="o">|</span><span class="p">....</span><span class="n">h4</span><span class="p">...</span> <span class="p">(</span><span class="k">G</span><span class="p">...</span><span class="n">J</span><span class="o">|</span>
-<span class="mi">001</span><span class="n">b2c50</span>  <span class="mi">5</span><span class="n">d</span> <span class="n">c9</span> <span class="n">b1</span> <span class="mi">07</span> <span class="mi">16</span> <span class="n">fb</span> <span class="mi">95</span> <span class="mi">8</span><span class="n">a</span>  <span class="n">bc</span> <span class="n">f5</span> <span class="n">a0</span> <span class="n">fe</span> <span class="n">a0</span> <span class="mi">46</span> <span class="n">f3</span> <span class="n">d4</span>  <span class="o">|</span><span class="p">]............</span><span class="n">F</span><span class="p">..</span><span class="o">|</span>
-<span class="mi">001</span><span class="n">b2c60</span>  <span class="mi">2</span><span class="n">b</span> <span class="mi">4</span><span class="n">e</span> <span class="mi">29</span> <span class="mi">4</span><span class="n">b</span> <span class="mi">60</span> <span class="mi">5</span><span class="n">d</span> <span class="n">e8</span> <span class="mi">11</span>  <span class="n">cf</span> <span class="mi">19</span> <span class="n">cc</span> <span class="mi">69</span> <span class="n">af</span> <span class="n">f2</span> <span class="mi">7</span><span class="n">d</span> <span class="mi">3</span><span class="k">c</span>  <span class="o">|+</span><span class="n">N</span><span class="p">)</span><span class="n">K</span><span class="o">`</span><span class="p">].....</span><span class="n">i</span><span class="p">..</span><span class="err">}</span><span class="o">&lt;|</span>
-<span class="mi">001</span><span class="n">b2c70</span>  <span class="mi">21</span> <span class="mi">5</span><span class="n">b</span> <span class="mi">66</span> <span class="mi">3</span><span class="n">a</span> <span class="n">a6</span> <span class="mi">2</span><span class="k">c</span> <span class="n">eb</span> <span class="n">b2</span>  <span class="mi">46</span> <span class="n">fc</span> <span class="mi">03</span> <span class="n">d9</span> <span class="n">b9</span> <span class="mi">6</span><span class="n">e</span> <span class="mi">7</span><span class="n">a</span> <span class="mi">74</span>  <span class="o">|!</span><span class="p">[</span><span class="n">f</span><span class="p">:.,..</span><span class="n">F</span><span class="p">....</span><span class="n">nzt</span><span class="o">|</span>
-<span class="mi">001</span><span class="n">b2c80</span>  <span class="mi">24</span> <span class="n">ac</span> <span class="mi">5</span><span class="n">d</span> <span class="mi">79</span> <span class="mi">54</span> <span class="n">ad</span> <span class="mi">03</span> <span class="mi">1</span><span class="n">d</span>  <span class="mi">16</span> <span class="n">d8</span> <span class="n">fa</span> <span class="mi">0</span><span class="n">b</span> <span class="mi">93</span> <span class="mi">8</span><span class="k">c</span> <span class="n">ba</span> <span class="n">cc</span>  <span class="o">|</span><span class="err">$</span><span class="p">.]</span><span class="n">yT</span><span class="p">...........</span><span class="o">|</span>
-<span class="mi">001</span><span class="n">b2c90</span>  <span class="n">b5</span> <span class="mi">2</span><span class="n">d</span> <span class="mi">57</span> <span class="mi">43</span> <span class="mi">9</span><span class="n">f</span> <span class="n">d3</span> <span class="mi">44</span> <span class="n">b5</span>  <span class="mi">6</span><span class="n">f</span> <span class="n">c8</span> <span class="mi">86</span> <span class="mi">14</span> <span class="mi">8</span><span class="n">e</span> <span class="n">b8</span> <span class="n">c0</span> <span class="n">dc</span>  <span class="o">|</span><span class="p">.</span><span class="o">-</span><span class="n">WC</span><span class="p">..</span><span class="n">D</span><span class="p">.</span><span class="n">o</span><span class="p">.......</span><span class="o">|</span>
-<span class="mi">001</span><span class="n">b2ca0</span>  <span class="n">e4</span> <span class="mi">00</span> <span class="mi">00</span> <span class="mi">02</span> <span class="mi">00</span> <span class="mi">00</span> <span class="mi">00</span> <span class="mi">00</span>  <span class="mi">00</span> <span class="mi">00</span> <span class="mi">00</span> <span class="mi">01</span> <span class="mi">81</span> <span class="mi">7</span><span class="n">e</span> <span class="mi">4</span><span class="n">d</span> <span class="mi">6</span><span class="n">f</span>  <span class="o">|</span><span class="p">.............</span><span class="o">~</span><span class="n">Mo</span><span class="o">|</span>
-<span class="mi">001</span><span class="n">b2cb0</span>  <span class="mi">64</span> <span class="mi">75</span> <span class="mi">6</span><span class="k">c</span> <span class="mi">65</span> <span class="mi">20</span> <span class="mi">73</span> <span class="mi">69</span> <span class="mi">67</span>  <span class="mi">6</span><span class="n">e</span> <span class="mi">61</span> <span class="mi">74</span> <span class="mi">75</span> <span class="mi">72</span> <span class="mi">65</span> <span class="mi">20</span> <span class="mi">61</span>  <span class="o">|</span><span class="n">dule</span> <span class="n">signature</span> <span class="n">a</span><span class="o">|</span>
-<span class="mi">001</span><span class="n">b2cc0</span>  <span class="mi">70</span> <span class="mi">70</span> <span class="mi">65</span> <span class="mi">6</span><span class="n">e</span> <span class="mi">64</span> <span class="mi">65</span> <span class="mi">64</span> <span class="mi">7</span><span class="n">e</span>  <span class="mi">0</span><span class="n">a</span>                       <span class="o">|</span><span class="n">ppended</span><span class="o">~</span><span class="p">.</span><span class="o">|</span>
+<span class="o">##</span><span class="w"> </span><span class="n">Cas</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="k">module</span><span class="w"> </span><span class="nn">signé</span>
+<span class="o">#</span><span class="w"> </span><span class="n">hexdump</span><span class="w"> </span><span class="o">-</span><span class="n">C</span><span class="w"> </span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">modules</span><span class="o">/</span><span class="mi">4</span><span class="o">.</span><span class="mi">13</span><span class="o">.</span><span class="mi">0</span><span class="o">-</span><span class="mi">37</span><span class="o">-</span><span class="n">generic</span><span class="o">/</span><span class="n">updates</span><span class="o">/</span><span class="n">dkms</span><span class="o">/</span><span class="mi">8812</span><span class="n">au</span><span class="o">.</span><span class="n">ko</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">tail</span>
+<span class="mi">001</span><span class="n">b2c40</span><span class="w">  </span><span class="n">bc</span><span class="w"> </span><span class="n">fb</span><span class="w"> </span><span class="n">c4</span><span class="w"> </span><span class="n">b6</span><span class="w"> </span><span class="mi">68</span><span class="w"> </span><span class="mi">34</span><span class="w"> </span><span class="n">c7</span><span class="w"> </span><span class="n">d3</span><span class="w">  </span><span class="mi">8</span><span class="n">a</span><span class="w"> </span><span class="mi">20</span><span class="w"> </span><span class="mi">28</span><span class="w"> </span><span class="mi">47</span><span class="w"> </span><span class="n">ba</span><span class="w"> </span><span class="mi">87</span><span class="w"> </span><span class="n">a7</span><span class="w"> </span><span class="mi">4</span><span class="n">a</span><span class="w">  </span><span class="o">|....</span><span class="n">h4</span><span class="o">...</span><span class="w"> </span><span class="o">(</span><span class="nn">G</span><span class="p">...</span><span class="n">J</span><span class="o">|</span>
+<span class="mi">001</span><span class="n">b2c50</span><span class="w">  </span><span class="mi">5</span><span class="n">d</span><span class="w"> </span><span class="n">c9</span><span class="w"> </span><span class="n">b1</span><span class="w"> </span><span class="mi">07</span><span class="w"> </span><span class="mi">16</span><span class="w"> </span><span class="n">fb</span><span class="w"> </span><span class="mi">95</span><span class="w"> </span><span class="mi">8</span><span class="n">a</span><span class="w">  </span><span class="n">bc</span><span class="w"> </span><span class="n">f5</span><span class="w"> </span><span class="n">a0</span><span class="w"> </span><span class="n">fe</span><span class="w"> </span><span class="n">a0</span><span class="w"> </span><span class="mi">46</span><span class="w"> </span><span class="n">f3</span><span class="w"> </span><span class="n">d4</span><span class="w">  </span><span class="o">|]............</span><span class="n">F</span><span class="o">..|</span>
+<span class="mi">001</span><span class="n">b2c60</span><span class="w">  </span><span class="mi">2</span><span class="n">b</span><span class="w"> </span><span class="mi">4</span><span class="n">e</span><span class="w"> </span><span class="mi">29</span><span class="w"> </span><span class="mi">4</span><span class="n">b</span><span class="w"> </span><span class="mi">60</span><span class="w"> </span><span class="mi">5</span><span class="n">d</span><span class="w"> </span><span class="n">e8</span><span class="w"> </span><span class="mi">11</span><span class="w">  </span><span class="n">cf</span><span class="w"> </span><span class="mi">19</span><span class="w"> </span><span class="n">cc</span><span class="w"> </span><span class="mi">69</span><span class="w"> </span><span class="n">af</span><span class="w"> </span><span class="n">f2</span><span class="w"> </span><span class="mi">7</span><span class="n">d</span><span class="w"> </span><span class="mi">3</span><span class="n">c</span><span class="w">  </span><span class="o">|+</span><span class="n">N</span><span class="o">)</span><span class="n">K</span><span class="o">`].....</span><span class="n">i</span><span class="o">..}&lt;|</span>
+<span class="mi">001</span><span class="n">b2c70</span><span class="w">  </span><span class="mi">21</span><span class="w"> </span><span class="mi">5</span><span class="n">b</span><span class="w"> </span><span class="mi">66</span><span class="w"> </span><span class="mi">3</span><span class="n">a</span><span class="w"> </span><span class="n">a6</span><span class="w"> </span><span class="mi">2</span><span class="n">c</span><span class="w"> </span><span class="n">eb</span><span class="w"> </span><span class="n">b2</span><span class="w">  </span><span class="mi">46</span><span class="w"> </span><span class="n">fc</span><span class="w"> </span><span class="mi">03</span><span class="w"> </span><span class="n">d9</span><span class="w"> </span><span class="n">b9</span><span class="w"> </span><span class="mi">6</span><span class="n">e</span><span class="w"> </span><span class="mi">7</span><span class="n">a</span><span class="w"> </span><span class="mi">74</span><span class="w">  </span><span class="o">|![</span><span class="n">f</span><span class="o">:.,..</span><span class="n">F</span><span class="o">....</span><span class="n">nzt</span><span class="o">|</span>
+<span class="mi">001</span><span class="n">b2c80</span><span class="w">  </span><span class="mi">24</span><span class="w"> </span><span class="n">ac</span><span class="w"> </span><span class="mi">5</span><span class="n">d</span><span class="w"> </span><span class="mi">79</span><span class="w"> </span><span class="mi">54</span><span class="w"> </span><span class="n">ad</span><span class="w"> </span><span class="mi">03</span><span class="w"> </span><span class="mi">1</span><span class="n">d</span><span class="w">  </span><span class="mi">16</span><span class="w"> </span><span class="n">d8</span><span class="w"> </span><span class="n">fa</span><span class="w"> </span><span class="mi">0</span><span class="n">b</span><span class="w"> </span><span class="mi">93</span><span class="w"> </span><span class="mi">8</span><span class="n">c</span><span class="w"> </span><span class="n">ba</span><span class="w"> </span><span class="n">cc</span><span class="w">  </span><span class="o">|$.]</span><span class="n">yT</span><span class="o">...........|</span>
+<span class="mi">001</span><span class="n">b2c90</span><span class="w">  </span><span class="n">b5</span><span class="w"> </span><span class="mi">2</span><span class="n">d</span><span class="w"> </span><span class="mi">57</span><span class="w"> </span><span class="mi">43</span><span class="w"> </span><span class="mi">9</span><span class="n">f</span><span class="w"> </span><span class="n">d3</span><span class="w"> </span><span class="mi">44</span><span class="w"> </span><span class="n">b5</span><span class="w">  </span><span class="mi">6</span><span class="n">f</span><span class="w"> </span><span class="n">c8</span><span class="w"> </span><span class="mi">86</span><span class="w"> </span><span class="mi">14</span><span class="w"> </span><span class="mi">8</span><span class="n">e</span><span class="w"> </span><span class="n">b8</span><span class="w"> </span><span class="n">c0</span><span class="w"> </span><span class="n">dc</span><span class="w">  </span><span class="o">|.-</span><span class="nn">WC</span><span class="p">..</span><span class="nn">D</span><span class="p">.</span><span class="n">o</span><span class="o">.......|</span>
+<span class="mi">001</span><span class="n">b2ca0</span><span class="w">  </span><span class="n">e4</span><span class="w"> </span><span class="mi">00</span><span class="w"> </span><span class="mi">00</span><span class="w"> </span><span class="mi">02</span><span class="w"> </span><span class="mi">00</span><span class="w"> </span><span class="mi">00</span><span class="w"> </span><span class="mi">00</span><span class="w"> </span><span class="mi">00</span><span class="w">  </span><span class="mi">00</span><span class="w"> </span><span class="mi">00</span><span class="w"> </span><span class="mi">00</span><span class="w"> </span><span class="mi">01</span><span class="w"> </span><span class="mi">81</span><span class="w"> </span><span class="mi">7</span><span class="n">e</span><span class="w"> </span><span class="mi">4</span><span class="n">d</span><span class="w"> </span><span class="mi">6</span><span class="n">f</span><span class="w">  </span><span class="o">|.............~</span><span class="n">Mo</span><span class="o">|</span>
+<span class="mi">001</span><span class="n">b2cb0</span><span class="w">  </span><span class="mi">64</span><span class="w"> </span><span class="mi">75</span><span class="w"> </span><span class="mi">6</span><span class="n">c</span><span class="w"> </span><span class="mi">65</span><span class="w"> </span><span class="mi">20</span><span class="w"> </span><span class="mi">73</span><span class="w"> </span><span class="mi">69</span><span class="w"> </span><span class="mi">67</span><span class="w">  </span><span class="mi">6</span><span class="n">e</span><span class="w"> </span><span class="mi">61</span><span class="w"> </span><span class="mi">74</span><span class="w"> </span><span class="mi">75</span><span class="w"> </span><span class="mi">72</span><span class="w"> </span><span class="mi">65</span><span class="w"> </span><span class="mi">20</span><span class="w"> </span><span class="mi">61</span><span class="w">  </span><span class="o">|</span><span class="n">dule</span><span class="w"> </span><span class="n">signature</span><span class="w"> </span><span class="n">a</span><span class="o">|</span>
+<span class="mi">001</span><span class="n">b2cc0</span><span class="w">  </span><span class="mi">70</span><span class="w"> </span><span class="mi">70</span><span class="w"> </span><span class="mi">65</span><span class="w"> </span><span class="mi">6</span><span class="n">e</span><span class="w"> </span><span class="mi">64</span><span class="w"> </span><span class="mi">65</span><span class="w"> </span><span class="mi">64</span><span class="w"> </span><span class="mi">7</span><span class="n">e</span><span class="w">  </span><span class="mi">0</span><span class="n">a</span><span class="w">                       </span><span class="o">|</span><span class="n">ppended</span><span class="o">~.|</span>
 <span class="mi">001</span><span class="n">b2cc9</span>
 </code></pre></div>
 
@@ -204,43 +202,43 @@ trouvent dans le répertoire <code>/root/efikeys</code>, et ont pour nom <code>d
 <p>Voilà le contenu de 'db' et de la clé :</p>
 <div class="highlight"><pre><span></span><code><span class="c1"># efi-readvar -v db</span>
 <span class="o">[</span>...<span class="o">]</span>
-db: List <span class="m">5</span>, <span class="nb">type</span> X509
-    Signature <span class="m">0</span>, size <span class="m">777</span>, owner eee29bf3-fbc6-4c38-96df-bfe181770f39
-        Subject:
-            <span class="nv">CN</span><span class="o">=</span>SMT db
-        Issuer:
-            <span class="nv">CN</span><span class="o">=</span>SMT db
+db:<span class="w"> </span>List<span class="w"> </span><span class="m">5</span>,<span class="w"> </span><span class="nb">type</span><span class="w"> </span>X509
+<span class="w">    </span>Signature<span class="w"> </span><span class="m">0</span>,<span class="w"> </span>size<span class="w"> </span><span class="m">777</span>,<span class="w"> </span>owner<span class="w"> </span>eee29bf3-fbc6-4c38-96df-bfe181770f39
+<span class="w">        </span>Subject:
+<span class="w">            </span><span class="nv">CN</span><span class="o">=</span>SMT<span class="w"> </span>db
+<span class="w">        </span>Issuer:
+<span class="w">            </span><span class="nv">CN</span><span class="o">=</span>SMT<span class="w"> </span>db
 <span class="o">[</span>...<span class="o">]</span>
 <span class="c1"># openssl x509 -inform der -in /root/efikeys/db.cer -noout -text</span>
 Certificate:
-    Data:
-        Version: <span class="m">3</span> <span class="o">(</span>0x2<span class="o">)</span>
-        Serial Number: <span class="m">11380626299561560859</span> <span class="o">(</span>0x9df01b5282d5cb1b<span class="o">)</span>
-    Signature Algorithm: sha256WithRSAEncryption
-        Issuer: <span class="nv">CN</span><span class="o">=</span>SMT db
-        Validity
-            Not Before: Dec <span class="m">15</span> <span class="m">19</span>:30:46 <span class="m">2017</span> GMT
-            Not After : Dec <span class="m">13</span> <span class="m">19</span>:30:46 <span class="m">2027</span> GMT
-        Subject: <span class="nv">CN</span><span class="o">=</span>SMT db
-        Subject Public Key Info:
-            Public Key Algorithm: rsaEncryption
-                Public-Key: <span class="o">(</span><span class="m">2048</span> bit<span class="o">)</span>
-                Modulus:
-                    <span class="m">00</span>:a4:8a:15:5e:19:51:f3:f1:9e:61:bd:1e:89:55:
-                    <span class="o">[</span>...<span class="o">]</span>
-                    2c:1b
-                Exponent: <span class="m">65537</span> <span class="o">(</span>0x10001<span class="o">)</span>
-        X509v3 extensions:
-            X509v3 Subject Key Identifier: 
-                4B:E3:36:82:65:86:6F:8D:9D:36:99:7E:BF:69:C8:46:F8:D1:12:49
-            X509v3 Authority Key Identifier: 
-                keyid:4B:E3:36:82:65:86:6F:8D:9D:36:99:7E:BF:69:C8:46:F8:D1:12:49
-            X509v3 Basic Constraints: 
-                CA:TRUE
-    Signature Algorithm: sha256WithRSAEncryption
-         <span class="m">83</span>:3f:1e:c2:73:63:3c:4e:e9:79:d2:73:ef:67:a5:4d:2d:51:
-         <span class="o">[</span>...<span class="o">]</span>
-         6e:63:a4:2d
+<span class="w">    </span>Data:
+<span class="w">        </span>Version:<span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="o">(</span>0x2<span class="o">)</span>
+<span class="w">        </span>Serial<span class="w"> </span>Number:<span class="w"> </span><span class="m">11380626299561560859</span><span class="w"> </span><span class="o">(</span>0x9df01b5282d5cb1b<span class="o">)</span>
+<span class="w">    </span>Signature<span class="w"> </span>Algorithm:<span class="w"> </span>sha256WithRSAEncryption
+<span class="w">        </span>Issuer:<span class="w"> </span><span class="nv">CN</span><span class="o">=</span>SMT<span class="w"> </span>db
+<span class="w">        </span>Validity
+<span class="w">            </span>Not<span class="w"> </span>Before:<span class="w"> </span>Dec<span class="w"> </span><span class="m">15</span><span class="w"> </span><span class="m">19</span>:30:46<span class="w"> </span><span class="m">2017</span><span class="w"> </span>GMT
+<span class="w">            </span>Not<span class="w"> </span>After<span class="w"> </span>:<span class="w"> </span>Dec<span class="w"> </span><span class="m">13</span><span class="w"> </span><span class="m">19</span>:30:46<span class="w"> </span><span class="m">2027</span><span class="w"> </span>GMT
+<span class="w">        </span>Subject:<span class="w"> </span><span class="nv">CN</span><span class="o">=</span>SMT<span class="w"> </span>db
+<span class="w">        </span>Subject<span class="w"> </span>Public<span class="w"> </span>Key<span class="w"> </span>Info:
+<span class="w">            </span>Public<span class="w"> </span>Key<span class="w"> </span>Algorithm:<span class="w"> </span>rsaEncryption
+<span class="w">                </span>Public-Key:<span class="w"> </span><span class="o">(</span><span class="m">2048</span><span class="w"> </span>bit<span class="o">)</span>
+<span class="w">                </span>Modulus:
+<span class="w">                    </span><span class="m">00</span>:a4:8a:15:5e:19:51:f3:f1:9e:61:bd:1e:89:55:
+<span class="w">                    </span><span class="o">[</span>...<span class="o">]</span>
+<span class="w">                    </span>2c:1b
+<span class="w">                </span>Exponent:<span class="w"> </span><span class="m">65537</span><span class="w"> </span><span class="o">(</span>0x10001<span class="o">)</span>
+<span class="w">        </span>X509v3<span class="w"> </span>extensions:
+<span class="w">            </span>X509v3<span class="w"> </span>Subject<span class="w"> </span>Key<span class="w"> </span>Identifier:<span class="w"> </span>
+<span class="w">                </span>4B:E3:36:82:65:86:6F:8D:9D:36:99:7E:BF:69:C8:46:F8:D1:12:49
+<span class="w">            </span>X509v3<span class="w"> </span>Authority<span class="w"> </span>Key<span class="w"> </span>Identifier:<span class="w"> </span>
+<span class="w">                </span>keyid:4B:E3:36:82:65:86:6F:8D:9D:36:99:7E:BF:69:C8:46:F8:D1:12:49
+<span class="w">            </span>X509v3<span class="w"> </span>Basic<span class="w"> </span>Constraints:<span class="w"> </span>
+<span class="w">                </span>CA:TRUE
+<span class="w">    </span>Signature<span class="w"> </span>Algorithm:<span class="w"> </span>sha256WithRSAEncryption
+<span class="w">         </span><span class="m">83</span>:3f:1e:c2:73:63:3c:4e:e9:79:d2:73:ef:67:a5:4d:2d:51:
+<span class="w">         </span><span class="o">[</span>...<span class="o">]</span>
+<span class="w">         </span>6e:63:a4:2d
 </code></pre></div>
 
 <h3>1. Fichier <code>sign-module.sh</code></h3>
@@ -250,9 +248,9 @@ dans notre cas, <code>/usr/src/8812au-4.2.2</code>.</p>
 <p>Fichier <code>sign-module.sh</code> :</p>
 <div class="highlight"><pre><span></span><code><span class="ch">#!/bin/sh</span>
 
-<span class="nb">cd</span> ../<span class="nv">$kernelver</span>/<span class="nv">$arch</span>/module
-<span class="nb">echo</span> Signing module
-kmodsign SHA256 /root/efikeys/db.key /root/efikeys/db.cer 8812au.ko
+<span class="nb">cd</span><span class="w"> </span>../<span class="nv">$kernelver</span>/<span class="nv">$arch</span>/module
+<span class="nb">echo</span><span class="w"> </span>Signing<span class="w"> </span>module
+kmodsign<span class="w"> </span>SHA256<span class="w"> </span>/root/efikeys/db.key<span class="w"> </span>/root/efikeys/db.cer<span class="w"> </span>8812au.ko
 </code></pre></div>
 
 <h3>2. Fichier <code>/etc/dkms/8812au.conf</code></h3>
@@ -260,7 +258,7 @@ kmodsign SHA256 /root/efikeys/db.key /root/efikeys/db.cer 8812au.ko
 module. Comme indiqué précédemment, si on exécute le script dans le POST_BUILD,
 la signature est éliminée durant le strip.</p>
 <p><code>/etc/dkms/8812au.conf</code> :</p>
-<div class="highlight"><pre><span></span><code><span class="err">PRE_INSTALL=sign-module.sh</span>
+<div class="highlight"><pre><span></span><code>PRE_INSTALL=sign-module.sh
 </code></pre></div>
 
 <h2>7. Modification de dkms</h2>
@@ -282,14 +280,14 @@ habituel est affiché.</p>
 </li>
 </ul>
 <p>Dans le fichier <code>/usr/sbin/dkms</code> version 2.2.1.0, chercher la ligne qui contient</p>
-<div class="highlight"><pre><span></span><code>warn $<span class="s2">&quot;The </span><span class="nv">$1</span><span class="s2"> script is not executable.&quot;</span>
+<div class="highlight"><pre><span></span><code>warn<span class="w"> </span>$<span class="s2">&quot;The </span><span class="nv">$1</span><span class="s2"> script is not executable.&quot;</span>
 </code></pre></div>
 
 <p>Et écrire à la place :</p>
-<div class="highlight"><pre><span></span><code><span class="k">if</span> <span class="o">[[</span> -e <span class="si">${</span><span class="nv">run</span><span class="p">%% *</span><span class="si">}</span> <span class="o">]]</span><span class="p">;</span> <span class="k">then</span>
-    warn $<span class="s2">&quot;The </span><span class="nv">$1</span><span class="s2"> script is not executable.&quot;</span>
+<div class="highlight"><pre><span></span><code><span class="k">if</span><span class="w"> </span><span class="o">[[</span><span class="w"> </span>-e<span class="w"> </span><span class="si">${</span><span class="nv">run</span><span class="p">%% *</span><span class="si">}</span><span class="w"> </span><span class="o">]]</span><span class="p">;</span><span class="w"> </span><span class="k">then</span>
+<span class="w">    </span>warn<span class="w"> </span>$<span class="s2">&quot;The </span><span class="nv">$1</span><span class="s2"> script is not executable.&quot;</span>
 <span class="k">else</span>
-    warn $<span class="s2">&quot;The </span><span class="nv">$1</span><span class="s2"> script is not found, file: </span><span class="nv">$run</span><span class="s2">&quot;</span>
+<span class="w">    </span>warn<span class="w"> </span>$<span class="s2">&quot;The </span><span class="nv">$1</span><span class="s2"> script is not found, file: </span><span class="nv">$run</span><span class="s2">&quot;</span>
 <span class="k">fi</span>
 </code></pre></div>
 
@@ -304,52 +302,52 @@ habituel est affiché.</p>
 <p>Ci-dessous, on part d'un DKMS ne contenant pas le module pour la version de
 noyau en cours d'exécution. On commence par le compiler puis l'installer, et on
 termine avec un <code>modprobe</code> pour le charger.</p>
-<div class="highlight"><pre><span></span><code><span class="o">#</span> <span class="n">uname</span> <span class="o">-</span><span class="n">r</span> <span class="o">-</span><span class="n">i</span>
-<span class="mi">4</span><span class="p">.</span><span class="mi">13</span><span class="p">.</span><span class="mi">0</span><span class="o">-</span><span class="mi">37</span><span class="o">-</span><span class="n">generic</span> <span class="n">x86_64</span>
-<span class="o">#</span> <span class="n">dkms</span> <span class="n">status</span>
-<span class="mi">8812</span><span class="n">au</span><span class="p">,</span> <span class="mi">4</span><span class="p">.</span><span class="mi">2</span><span class="p">.</span><span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">.</span><span class="mi">13</span><span class="p">.</span><span class="mi">0</span><span class="o">-</span><span class="mi">36</span><span class="o">-</span><span class="n">generic</span><span class="p">,</span> <span class="n">x86_64</span><span class="p">:</span> <span class="n">installed</span>
-<span class="o">#</span> <span class="n">lsmod</span> <span class="o">|</span> <span class="n">grep</span> <span class="mi">8812</span><span class="n">au</span>
-<span class="o">#</span> <span class="n">dkms</span> <span class="n">build</span> <span class="o">-</span><span class="n">m</span> <span class="mi">8812</span><span class="n">au</span> <span class="o">-</span><span class="n">v</span> <span class="mi">4</span><span class="p">.</span><span class="mi">2</span><span class="p">.</span><span class="mi">2</span>
+<div class="highlight"><pre><span></span><code><span class="gh">#</span> uname -r -i
+4.13.0-37-generic x86_64
+<span class="gh">#</span> dkms status
+8812au, 4.2.2, 4.13.0-36-generic, x86_64: installed
+<span class="gh">#</span> lsmod | grep 8812au
+<span class="gh">#</span> dkms build -m 8812au -v 4.2.2
 
-<span class="n">Kernel</span> <span class="n">preparation</span> <span class="n">unnecessary</span> <span class="k">for</span> <span class="n">this</span> <span class="n">kernel</span><span class="p">.</span>  <span class="n">Skipping</span><span class="p">...</span>
+Kernel preparation unnecessary for this kernel.  Skipping...
 
-<span class="n">Building</span> <span class="n">module</span><span class="p">:</span>
-<span class="n">cleaning</span> <span class="n">build</span> <span class="n">area</span><span class="p">...</span>
-<span class="s1">&#39;make&#39;</span> <span class="k">all</span><span class="p">.............</span>
-<span class="n">cleaning</span> <span class="n">build</span> <span class="n">area</span><span class="p">...</span>
+Building module:
+cleaning build area...
+&#39;make&#39; all.............
+cleaning build area...
 
-<span class="n">DKMS</span><span class="p">:</span> <span class="n">build</span> <span class="n">completed</span><span class="p">.</span>
-<span class="o">#</span> <span class="n">dkms</span> <span class="n">status</span>
-<span class="mi">8812</span><span class="n">au</span><span class="p">,</span> <span class="mi">4</span><span class="p">.</span><span class="mi">2</span><span class="p">.</span><span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">.</span><span class="mi">13</span><span class="p">.</span><span class="mi">0</span><span class="o">-</span><span class="mi">36</span><span class="o">-</span><span class="n">generic</span><span class="p">,</span> <span class="n">x86_64</span><span class="p">:</span> <span class="n">installed</span>
-<span class="mi">8812</span><span class="n">au</span><span class="p">,</span> <span class="mi">4</span><span class="p">.</span><span class="mi">2</span><span class="p">.</span><span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">.</span><span class="mi">13</span><span class="p">.</span><span class="mi">0</span><span class="o">-</span><span class="mi">37</span><span class="o">-</span><span class="n">generic</span><span class="p">,</span> <span class="n">x86_64</span><span class="p">:</span> <span class="n">built</span>
-<span class="o">#</span> <span class="n">dkms</span> <span class="n">install</span> <span class="o">-</span><span class="n">m</span> <span class="mi">8812</span><span class="n">au</span> <span class="o">-</span><span class="n">v</span> <span class="mi">4</span><span class="p">.</span><span class="mi">2</span><span class="p">.</span><span class="mi">2</span>
+DKMS: build completed.
+<span class="gh">#</span> dkms status
+8812au, 4.2.2, 4.13.0-36-generic, x86_64: installed
+8812au, 4.2.2, 4.13.0-37-generic, x86_64: built
+<span class="gh">#</span> dkms install -m 8812au -v 4.2.2
 
-<span class="mi">8812</span><span class="n">au</span><span class="p">:</span>
-<span class="n">Running</span> <span class="n">module</span> <span class="k">version</span> <span class="n">sanity</span> <span class="k">check</span><span class="p">.</span>
+8812au:
+Running module version sanity check.
 
-<span class="n">Running</span> <span class="n">the</span> <span class="n">pre_install</span> <span class="n">script</span><span class="p">:</span>
-<span class="n">Signing</span> <span class="n">module</span>
- <span class="o">-</span> <span class="n">Original</span> <span class="n">module</span>
-   <span class="o">-</span> <span class="k">No</span> <span class="n">original</span> <span class="n">module</span> <span class="k">exists</span> <span class="n">within</span> <span class="n">this</span> <span class="n">kernel</span>
- <span class="o">-</span> <span class="n">Installation</span>
-   <span class="o">-</span> <span class="n">Installing</span> <span class="k">to</span> <span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">modules</span><span class="o">/</span><span class="mi">4</span><span class="p">.</span><span class="mi">13</span><span class="p">.</span><span class="mi">0</span><span class="o">-</span><span class="mi">37</span><span class="o">-</span><span class="n">generic</span><span class="o">/</span><span class="n">updates</span><span class="o">/</span><span class="n">dkms</span><span class="o">/</span>
+Running the pre_install script:
+Signing module
+ <span class="k">-</span> Original module
+   <span class="k">-</span> No original module exists within this kernel
+ <span class="k">-</span> Installation
+   <span class="k">-</span> Installing to /lib/modules/4.13.0-37-generic/updates/dkms/
 
-<span class="n">depmod</span><span class="p">...</span>
+depmod...
 
-<span class="n">DKMS</span><span class="p">:</span> <span class="n">install</span> <span class="n">completed</span><span class="p">.</span>
-<span class="o">#</span> <span class="n">dkms</span> <span class="n">status</span>
-<span class="mi">8812</span><span class="n">au</span><span class="p">,</span> <span class="mi">4</span><span class="p">.</span><span class="mi">2</span><span class="p">.</span><span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">.</span><span class="mi">13</span><span class="p">.</span><span class="mi">0</span><span class="o">-</span><span class="mi">36</span><span class="o">-</span><span class="n">generic</span><span class="p">,</span> <span class="n">x86_64</span><span class="p">:</span> <span class="n">installed</span>
-<span class="mi">8812</span><span class="n">au</span><span class="p">,</span> <span class="mi">4</span><span class="p">.</span><span class="mi">2</span><span class="p">.</span><span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">.</span><span class="mi">13</span><span class="p">.</span><span class="mi">0</span><span class="o">-</span><span class="mi">37</span><span class="o">-</span><span class="n">generic</span><span class="p">,</span> <span class="n">x86_64</span><span class="p">:</span> <span class="n">installed</span>
-<span class="o">#</span> <span class="n">modprobe</span> <span class="mi">8812</span><span class="n">au</span>
-<span class="o">#</span> <span class="n">lsmod</span> <span class="o">|</span> <span class="n">grep</span> <span class="mi">8812</span><span class="n">au</span>
-<span class="mi">8812</span><span class="n">au</span>                <span class="mi">999424</span>  <span class="mi">0</span>
+DKMS: install completed.
+<span class="gh">#</span> dkms status
+8812au, 4.2.2, 4.13.0-36-generic, x86_64: installed
+8812au, 4.2.2, 4.13.0-37-generic, x86_64: installed
+<span class="gh">#</span> modprobe 8812au
+<span class="gh">#</span> lsmod | grep 8812au
+8812au                999424  0
 </code></pre></div>
 
 <h2>9. Post Scriptum</h2>
 <p>La compilation suite à l'installation d'un nouveau noyau ne fonctionne pas.</p>
 <p>Erreur qui s'est produite :</p>
-<div class="highlight"><pre><span></span><code><span class="mi">8812</span><span class="n">au</span><span class="p">:</span> <span class="n">version</span> <span class="n">magic</span> <span class="s1">&#39;4.13.0-37-generic SMP mod_unload &#39;</span> <span class="n">should</span> <span class="n">be</span>
-    <span class="s1">&#39;4.13.0-38-generic SMP mod_unload &#39;</span>
+<div class="highlight"><pre><span></span><code><span class="mi">8812</span><span class="n">au</span><span class="p">:</span><span class="w"> </span><span class="n">version</span><span class="w"> </span><span class="n">magic</span><span class="w"> </span><span class="s1">&#39;4.13.0-37-generic SMP mod_unload &#39;</span><span class="w"> </span><span class="n">should</span><span class="w"> </span><span class="n">be</span>
+<span class="w">    </span><span class="s1">&#39;4.13.0-38-generic SMP mod_unload &#39;</span>
 </code></pre></div>
 
 <p>Il semble donc que la compilation ait été faite en fonction du noyau actuel,
@@ -358,13 +356,13 @@ alors qu'il fallait prendre en compte le noyau <em>à venir</em>.</p>
 <p><a href="https://elementaryos.stackexchange.com/questions/4767/dkms-not-running-correctly-on-system-update">https://elementaryos.stackexchange.com/questions/4767/dkms-not-running-correctly-on-system-update</a></p>
 <p>Solution : modifier le Makefile dans le source du module.</p>
 <p>Avant :</p>
-<div class="highlight"><pre><span></span><code><span class="err">$(MAKE) KERNELRELEASE=$(kernelver) ARCH=$(ARCH) CROSS_COMPILE=$(CROSS_COMPILE) \</span>
-<span class="err">    -C $(KSRC) M=$(shell pwd)  modules</span>
+<div class="highlight"><pre><span></span><code><span class="k">$(</span><span class="nv">MAKE</span><span class="k">)</span><span class="w"> </span><span class="nv">KERNELRELEASE</span><span class="o">=</span><span class="k">$(</span>kernelver<span class="k">)</span><span class="w"> </span><span class="nv">ARCH</span><span class="o">=</span><span class="k">$(</span>ARCH<span class="k">)</span><span class="w"> </span><span class="nv">CROSS_COMPILE</span><span class="o">=</span><span class="k">$(</span>CROSS_COMPILE<span class="k">)</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-C<span class="w"> </span><span class="k">$(</span>KSRC<span class="k">)</span><span class="w"> </span><span class="nv">M</span><span class="o">=</span><span class="k">$(</span>shell<span class="w"> </span><span class="nb">pwd</span><span class="k">)</span><span class="w">  </span>modules
 </code></pre></div>
 
 <p>Après :</p>
-<div class="highlight"><pre><span></span><code><span class="err">$(MAKE) ARCH=$(ARCH) CROSS_COMPILE=$(CROSS_COMPILE) \</span>
-<span class="err">    -C $(KSRC) M=$(shell pwd)  modules</span>
+<div class="highlight"><pre><span></span><code><span class="k">$(</span><span class="nv">MAKE</span><span class="k">)</span><span class="w"> </span><span class="nv">ARCH</span><span class="o">=</span><span class="k">$(</span>ARCH<span class="k">)</span><span class="w"> </span><span class="nv">CROSS_COMPILE</span><span class="o">=</span><span class="k">$(</span>CROSS_COMPILE<span class="k">)</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-C<span class="w"> </span><span class="k">$(</span>KSRC<span class="k">)</span><span class="w"> </span><span class="nv">M</span><span class="o">=</span><span class="k">$(</span>shell<span class="w"> </span><span class="nb">pwd</span><span class="k">)</span><span class="w">  </span>modules
 </code></pre></div>
 
 <p>À suivre (non encore testé)...</p>
@@ -407,10 +405,6 @@ alors qu'il fallait prendre en compte le noyau <em>à venir</em>.</p>
             <li><a href="http://getpelican.com/">Pelican</a></li>
             <li><a href="http://python.org/">Python.org</a></li>
             <li><a href="http://jinja.pocoo.org/">Jinja2</a></li>
-
-Search: <input data-stork="sitesearch" />
-<div data-stork="sitesearch-output"></div>
-
         </ul>
 		
 
@@ -430,8 +424,3 @@ Search: <input data-stork="sitesearch" />
             </div>
     </div>
 </footer>
-
-<script src="https://files.stork-search.net/releases/v1.5.0/stork.js"></script>
-<script>
-    stork.register("sitesearch", "https://sebmillet.github.io/site")
-</script>

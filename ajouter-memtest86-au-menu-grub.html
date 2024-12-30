@@ -14,8 +14,6 @@
 
     <!-- So Firefox can bookmark->"abo this site" -->
 
-<link rel="stylesheet" href="https://files.stork-search.net/basic.css" />
-
 </head>
 
 <body>
@@ -72,12 +70,12 @@
 memtest86-usb.img, mais je trouve ça complexe. Je préfère la méthode
 ci-dessous. Il faut être root, ou bien, tout préfixer avec <em>sudo</em>.</li>
 </ul>
-<div class="highlight"><pre><span></span><span class="gp">#</span> losetup -P /dev/loop0 memtest86-usb.img
+<div class="highlight"><pre><span></span><span class="gp"># </span>losetup<span class="w"> </span>-P<span class="w"> </span>/dev/loop0<span class="w"> </span>memtest86-usb.img
 
-<span class="gp">#</span> losetup -a
+<span class="gp"># </span>losetup<span class="w"> </span>-a
 <span class="go">/dev/loop0: [66310]:4860911 (/home/sebastien/memtest86-usb.img)</span>
 
-<span class="gp">#</span> fdisk -l /dev/loop0
+<span class="gp"># </span>fdisk<span class="w"> </span>-l<span class="w"> </span>/dev/loop0
 <span class="go">Disque /dev/loop0 : 1 GiB, 1073741824 octets, 2097152 secteurs</span>
 <span class="go">Unités : secteur de 1 × 512 = 512 octets</span>
 <span class="go">Taille de secteur (logique / physique) : 512 octets / 512 octets</span>
@@ -90,11 +88,11 @@ ci-dessous. Il faut être root, ou bien, tout préfixer avec <em>sudo</em>.</li>
 <span class="go">/dev/loop0p2  524288 1048575   524288   256M Système EFI</span>
 <span class="go">/dev/loop0p3 1048576 2097118  1048543   512M Données de base Microsoft</span>
 
-<span class="gp">#</span> mkdir p2
+<span class="gp"># </span>mkdir<span class="w"> </span>p2
 
-<span class="gp">#</span> mount /dev/loop0p2 p2
+<span class="gp"># </span>mount<span class="w"> </span>/dev/loop0p2<span class="w"> </span>p2
 
-<span class="gp">#</span> ls -al p2/EFI/BOOT
+<span class="gp"># </span>ls<span class="w"> </span>-al<span class="w"> </span>p2/EFI/BOOT
 <span class="go">total 6584</span>
 <span class="go">drwxr-xr-x 3 root root    4096 31 oct.  00:38 .</span>
 <span class="go">drwxr-xr-x 3 root root    4096 31 oct.  00:38 ..</span>
@@ -106,18 +104,18 @@ ci-dessous. Il faut être root, ou bien, tout préfixer avec <em>sudo</em>.</li>
 <span class="go">-rwxr-xr-x 1 root root    6823 31 oct.  00:38 mt86.png</span>
 <span class="go">-rwxr-xr-x 1 root root 2355408 31 oct.  00:38 unifont.bin</span>
 
-<span class="gp">#</span> mkdir /boot/efi/EFI/memtest86
+<span class="gp"># </span>mkdir<span class="w"> </span>/boot/efi/EFI/memtest86
 
-<span class="gp">#</span> cp -aiv p2/EFI/BOOT/* /boot/efi/EFI/memtest86/.
+<span class="gp"># </span>cp<span class="w"> </span>-aiv<span class="w"> </span>p2/EFI/BOOT/*<span class="w"> </span>/boot/efi/EFI/memtest86/.
 </pre></div>
 <p>Créer le fichier <em>/etc/grub.d/39_memtest86</em> avec le contenu suivant :</p>
 <div class="highlight"><pre><span></span><span class="gp">#</span>!/bin/sh
 <span class="go">exec tail -n +3 $0</span>
-<span class="gp">#</span> From
-<span class="gp">#</span>   https://www.yosoygames.com.ar/wp/2020/03/installing-memtest86-on-uefi-grub2-ubuntu/
-<span class="gp">#</span> This file provides an easy way to add custom menu entries.  Simply <span class="nb">type</span> the
-<span class="gp">#</span> menu entries you want to add after this comment.  Be careful not to change
-<span class="gp">#</span> the <span class="s1">&#39;exec tail&#39;</span> line above.
+<span class="gp"># </span>From
+<span class="gp">#   </span>https://www.yosoygames.com.ar/wp/2020/03/installing-memtest86-on-uefi-grub2-ubuntu/
+<span class="gp"># </span>This<span class="w"> </span>file<span class="w"> </span>provides<span class="w"> </span>an<span class="w"> </span>easy<span class="w"> </span>way<span class="w"> </span>to<span class="w"> </span>add<span class="w"> </span>custom<span class="w"> </span>menu<span class="w"> </span>entries.<span class="w">  </span>Simply<span class="w"> </span><span class="nb">type</span><span class="w"> </span>the
+<span class="gp"># </span>menu<span class="w"> </span>entries<span class="w"> </span>you<span class="w"> </span>want<span class="w"> </span>to<span class="w"> </span>add<span class="w"> </span>after<span class="w"> </span>this<span class="w"> </span>comment.<span class="w">  </span>Be<span class="w"> </span>careful<span class="w"> </span>not<span class="w"> </span>to<span class="w"> </span>change
+<span class="gp"># </span>the<span class="w"> </span><span class="s1">&#39;exec tail&#39;</span><span class="w"> </span>line<span class="w"> </span>above.
 
 <span class="go">menuentry &#39;memtest86&#39; {</span>
 <span class="go">    insmod part_gpt</span>
@@ -128,7 +126,7 @@ ci-dessous. Il faut être root, ou bien, tout préfixer avec <em>sudo</em>.</li>
 </pre></div>
 <p>Évidemment il faut adapter l'uuid du disque root (EFI).
 Pour ce faire :</p>
-<div class="highlight"><pre><span></span><span class="gp">#</span> fdisk -l /dev/nvme0n1
+<div class="highlight"><pre><span></span><span class="gp"># </span>fdisk<span class="w"> </span>-l<span class="w"> </span>/dev/nvme0n1
 <span class="go">Disque /dev/nvme0n1 : 238,47 GiB, 256060514304 octets, 500118192 secteurs</span>
 <span class="go">Modèle de disque : INTEL SSDPEKKW256G7</span>
 <span class="go">Unités : secteur de 1 × 512 = 512 octets</span>
@@ -146,7 +144,7 @@ Pour ce faire :</p>
 <span class="go">/dev/nvme0n1p6 173377536 357449727 184072192  87,8G Système de fichiers Linux</span>
 
 <span class="go">Les entrées de la table de partitions ne sont pas dans l&#39;ordre du disque.</span>
-<span class="gp">maison:/etc/grub.d#</span> ls -al /dev/disk/by-uuid
+<span class="gp">maison:/etc/grub.d# </span>ls<span class="w"> </span>-al<span class="w"> </span>/dev/disk/by-uuid
 <span class="go">total 0</span>
 <span class="go">drwxr-xr-x 2 root root 320 17 déc.  14:09 .</span>
 <span class="go">drwxr-xr-x 8 root root 160 17 déc.  09:24 ..</span>
@@ -203,10 +201,6 @@ numéro de disque ou un numéro de partition sur un disque.</p>
             <li><a href="http://getpelican.com/">Pelican</a></li>
             <li><a href="http://python.org/">Python.org</a></li>
             <li><a href="http://jinja.pocoo.org/">Jinja2</a></li>
-
-Search: <input data-stork="sitesearch" />
-<div data-stork="sitesearch-output"></div>
-
         </ul>
 		
 
@@ -226,8 +220,3 @@ Search: <input data-stork="sitesearch" />
             </div>
     </div>
 </footer>
-
-<script src="https://files.stork-search.net/releases/v1.5.0/stork.js"></script>
-<script>
-    stork.register("sitesearch", "https://sebmillet.github.io/site")
-</script>

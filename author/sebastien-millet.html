@@ -14,8 +14,6 @@
 
     <!-- So Firefox can bookmark->"abo this site" -->
 
-<link rel="stylesheet" href="https://files.stork-search.net/basic.css" />
-
 </head>
 
 <body>
@@ -51,63 +49,197 @@
         
 
             <article>
-                <a href="https://sebmillet.github.io/site/utiliser-memmap.html"><h3 class="article-title">Utiliser memmap</h3></a>
-<h6 class="subheader" title="2024-12-18T00:00:00+01:00">mer. 18 décembre 2024
+                <a href="https://sebmillet.github.io/site/enlever-les-drm.html"><h3 class="article-title">Enlever les DRM</h3></a>
+<h6 class="subheader" title="2024-12-30T00:00:00+01:00">lun. 30 décembre 2024
 </h6>
 
 
 <!-- default-role rst directive described here: -->
 <!-- https://docutils.sourceforge.io/docs/ref/rst/directives.html#default-role -->
-<ul class="simple">
-<li>Option à ajouter au démarrage du noyau, par exemple :</li>
+<ul>
+<li><p class="first">Le but est double :</p>
+<blockquote>
+<ol class="arabic simple">
+<li>Récupérer un epub disponible sur la kobo - un epub <em>acheté</em>.</li>
+<li>Ôter les DRM du fichier.</li>
+</ol>
+</blockquote>
+</li>
 </ul>
-<div class="highlight"><pre><span></span>memmap=0x1000$0x153FFE00C
+<div class="section" id="preparation">
+<h2>1) Préparation</h2>
+</div>
+<div class="section" id="installation-de-gourou">
+<h2>1.1 Installation de <em>gourou</em></h2>
+<p>Installer <em>gourou</em>.
+Sur Arch par exemple, gourou est disponible sur <em>AUR</em>. Dans
+l'hypothèse où c'est l'outil <em>yay</em> qui est utilisé pour installer des paquets
+d'<em>AUR</em>, exécuter :</p>
+<div class="highlight"><pre><span></span>yay<span class="w"> </span>gourou
 </pre></div>
-<p>Pour plus de détails, aller ici :
-<a class="reference external" href="https://unix.stackexchange.com/questions/777409/understanding-the-memmap-linux-parameter">https://unix.stackexchange.com/questions/777409/understanding-the-memmap-linux-parameter</a></p>
-<ul class="simple">
-<li>Config grub</li>
-</ul>
-<p>L'option dans <em>grub.cfg</em> doit être échappée. Mais du coup, dans
-<em>/etc/default/grub</em>, elle doit être double-échappée (donc <em>trois</em> caractères
-d'échappement à la suite).</p>
-<p>Exemple sur mon ordi :</p>
-<div class="highlight"><pre><span></span>...
-GRUB_CMDLINE_LINUX_DEFAULT=&quot;pci=noaer memmap=0x1000\\\$0x153FFE00C&quot;
-...
+</div>
+<div class="section" id="activer-adept-session-utilisateur">
+<h2>1.2 Activer adept (session utilisateur)</h2>
+<p>Il faut avoir un compte <em>Adobe Digital Editions</em>.</p>
+<p>Se connecter à :</p>
+<blockquote>
+<a class="reference external" href="https://account.adobe.com/">https://account.adobe.com/</a></blockquote>
+<p>et suivre les instructions pour se créer un compte.</p>
+<p>Ensuite exécuter :</p>
+<div class="highlight"><pre><span></span>adept_activate<span class="w"> </span>-u<span class="w"> </span>sebastien.millet@gmail.com
 </pre></div>
-<p>En effet il faut échapper une fois dans le fichier cible <em>grub.cfg</em> (typiquement
-<em>/boot/grub/grub.cfg</em>), ce qui nécessite d'échapper deux fois dans
-<em>/etc/default/grub</em>.</p>
-<p>On peut voir que la triple anti barre oblique devient une seul barre oblique
-dans le fichier grub.cfg :</p>
-<div class="highlight"><pre><span></span>...
-linux        /boot/vmlinuz-5.10.0-18-amd64 root=UUID=1t9n0z93-a4b9-0013-81aa-n052800r28p8 ro  pci=noaer memmap=0x1000\$0x153FFE00C
-...
+<p>Si l'activation réussit, cela génère le fichier :
+<strong>~/.config/adept/activation.xml</strong>.</p>
+</div>
+<div class="section" id="recuperation-du-fichier-epub-sur-le-pc">
+<h2>2) Récupération du fichier epub sur le PC</h2>
+</div>
+<div class="section" id="telechargement-du-fichier-acsm">
+<h2>2.1) Téléchargement du fichier ACSM</h2>
+<p>Il faut d'abord obtenir le fichier ACSM du livre. Avec kobo, je me connecte à</p>
+<blockquote>
+<a class="reference external" href="https://authorize.kobo.com/fr/fr/Signin?returnUrl=https://www.kobo.com/fr/fr">https://authorize.kobo.com/fr/fr/Signin?returnUrl=https://www.kobo.com/fr/fr</a>?changeLanguage=True</blockquote>
+<p>puis je clique en haut à droite sur <em>Mon compte</em> et enfin sur le menu <em>Livres</em>.</p>
+<p>Ensuite sur la carte du livre que je souhaite télécharger, je clique sur le menu
+'trois petits points' et sur <em>Télécharger</em>.</p>
+<p>Le navigateur récupère un fichier <em>URLLink.acsm</em> dans le dossier des
+téléchargements.</p>
+</div>
+<div class="section" id="telechargement-du-fichier-epub-avec-le-fichier-acsm">
+<h2>2.2) Téléchargement du fichier epub avec le fichier ACSM</h2>
+<p>Exécuter (exemple avec <em>Bifrost n° 116</em>) :</p>
+<div class="highlight"><pre><span></span>$<span class="w"> </span>acsmdownloader<span class="w"> </span>URLLink.acsm
+Created<span class="w"> </span>Bifrost<span class="w"> </span>n°<span class="w"> </span><span class="m">116</span><span class="w"> </span>-<span class="w"> </span>dossier<span class="w"> </span>Catherine<span class="w"> </span>Dufour.epub
 </pre></div>
-<ul class="simple">
-<li>Vérification après redémarrage</li>
-</ul>
-<p>Il faut d'abord vérifier que l'option a bien été passée au noyau.</p>
-<p>Exécuter :</p>
-<div class="highlight"><pre><span></span>user@host:~/path: cat /proc/cmdline
-BOOT_IMAGE=/boot/vmlinuz-5.10.0-33-amd64 root=UUID=1t9n0z93-a4b9-0013-81aa-n052800r28p8 ro pci=noaer memmap=0x1000$0x153FFE00C
+<p>Si tout se passe bien, <em>acsmdownloader</em> indique le nom du fichier .epub créé.</p>
+<p>À ce stade le fichier est protégé, on peut le voir avec par exemple <em>calibre</em> qui
+affiche un message d'erreur</p>
+<p><em>Ce livre est verrouillé par des DRMs [...]</em></p>
+</div>
+<div class="section" id="suppression-des-drms">
+<h2>3) Suppression des DRMs</h2>
+<p>Exécuter (même exemple) :</p>
+<div class="highlight"><pre><span></span>$<span class="w"> </span>adept_remove<span class="w"> </span>Bifrost<span class="se">\ </span>n°<span class="se">\ </span><span class="m">116</span><span class="se">\ </span>-<span class="se">\ </span>dossier<span class="se">\ </span>Catherine<span class="se">\ </span>Dufour.epub
+DRM<span class="w"> </span>removed<span class="w"> </span>from<span class="w"> </span>Bifrost<span class="w"> </span>n°<span class="w"> </span><span class="m">116</span><span class="w"> </span>-<span class="w"> </span>dossier<span class="w"> </span>Catherine<span class="w"> </span>Dufour.epub
 </pre></div>
-<ul class="simple">
-<li>Vérification d'après les messages au démarrage</li>
-</ul>
-<p>Exécuter dmesg et examiner les lignes qui suivent
-&quot;user-defined physical RAM map:&quot;</p>
-<div class="highlight"><pre><span></span><span class="m">[    0.000000] </span><span class="k">user-defined physical RAM map:</span>
-...
-<span class="m">[    0.000000] </span><span class="k">user:</span> [mem 0x0000000100000000-0x0000000153ffe00b] usable
-<span class="m">[    0.000000] </span><span class="k">user:</span> [mem 0x0000000153ffe00c-0x0000000153fff00b] reserved
-<span class="m">[    0.000000] </span><span class="k">user:</span> [mem 0x0000000153fff00c-0x000000026effffff] usable
-...
-</pre></div>
-<p>À noter que la section qui précède dans dmesg, &quot;BIOS-provided physical RAM map&quot;,
-montre la carte mémoire d'après le BIOS, donc indépendamment des paramètres
-Linux.</p>
+<p>Si tout se passe bien, adept_remove confirme l'opération. On peut le vérifier
+facilement en l'ajoutant à <em>calibre</em> par exemple, qui affiche le contenu du
+livre sans erreur.</p>
+</div>
+<p class="subheader">Category: <a href="https://sebmillet.github.io/site/category/ti.html">TI</a>
+
+    Tagged: 
+    <a href="https://sebmillet.github.io/site/tag/adobe.html">adobe </a>
+    <a href="https://sebmillet.github.io/site/tag/ade.html">ade </a>
+    <a href="https://sebmillet.github.io/site/tag/adobe-digital-editions.html">adobe digital editions </a>
+    <a href="https://sebmillet.github.io/site/tag/kobo.html">kobo </a>
+    <a href="https://sebmillet.github.io/site/tag/drm.html">drm </a>
+</p>
+
+
+
+            </article>
+
+
+                <hr  class="gradient"/>
+
+
+        
+
+
+            <article>
+                <a href="https://sebmillet.github.io/site/fix-fwupd-refreshservice-start.html"><h3 class="article-title">Fix fwupd-refresh.service start</h3></a>
+<h6 class="subheader" title="2024-12-22T00:00:00+01:00">dim. 22 décembre 2024
+</h6>
+
+
+<p class="subheader">Category: <a href="https://sebmillet.github.io/site/category/ti.html">TI</a>
+
+    Tagged: 
+    <a href="https://sebmillet.github.io/site/tag/fwupd-refreshservice.html">fwupd-refresh.service </a>
+    <a href="https://sebmillet.github.io/site/tag/systemd.html">systemd </a>
+</p>
+
+
+
+                <a class="button radius secondary small right" href="https://sebmillet.github.io/site/fix-fwupd-refreshservice-start.html">Read More</a>
+                <hr  class="gradient"/>
+            </article>
+
+        
+
+
+            <article>
+                <a href="https://sebmillet.github.io/site/lynis.html"><h3 class="article-title">Lynis</h3></a>
+<h6 class="subheader" title="2024-12-22T00:00:00+01:00">dim. 22 décembre 2024
+</h6>
+
+
+<p class="subheader">Category: <a href="https://sebmillet.github.io/site/category/ti.html">TI</a>
+
+    Tagged: 
+    <a href="https://sebmillet.github.io/site/tag/lynis.html">lynis </a>
+    <a href="https://sebmillet.github.io/site/tag/securite.html">sécurité </a>
+</p>
+
+
+
+                <a class="button radius secondary small right" href="https://sebmillet.github.io/site/lynis.html">Read More</a>
+                <hr  class="gradient"/>
+            </article>
+
+        
+
+
+            <article>
+                <a href="https://sebmillet.github.io/site/sysinfo.html"><h3 class="article-title">sysinfo</h3></a>
+<h6 class="subheader" title="2024-12-22T00:00:00+01:00">dim. 22 décembre 2024
+</h6>
+
+
+<p class="subheader">Category: <a href="https://sebmillet.github.io/site/category/ti.html">TI</a>
+
+    Tagged: 
+    <a href="https://sebmillet.github.io/site/tag/inxi.html">inxi </a>
+</p>
+
+
+
+                <a class="button radius secondary small right" href="https://sebmillet.github.io/site/sysinfo.html">Read More</a>
+                <hr  class="gradient"/>
+            </article>
+
+        
+
+
+            <article>
+                <a href="https://sebmillet.github.io/site/vm.html"><h3 class="article-title">VM</h3></a>
+<h6 class="subheader" title="2024-12-22T00:00:00+01:00">dim. 22 décembre 2024
+</h6>
+
+
+<p class="subheader">Category: <a href="https://sebmillet.github.io/site/category/ti.html">TI</a>
+
+    Tagged: 
+    <a href="https://sebmillet.github.io/site/tag/vm.html">vm </a>
+    <a href="https://sebmillet.github.io/site/tag/virt-sparsify.html">virt-sparsify </a>
+</p>
+
+
+
+                <a class="button radius secondary small right" href="https://sebmillet.github.io/site/vm.html">Read More</a>
+                <hr  class="gradient"/>
+            </article>
+
+        
+
+
+            <article>
+                <a href="https://sebmillet.github.io/site/utiliser-memmap.html"><h3 class="article-title">Utiliser memmap</h3></a>
+<h6 class="subheader" title="2024-12-18T00:00:00+01:00">mer. 18 décembre 2024
+</h6>
+
+
 <p class="subheader">Category: <a href="https://sebmillet.github.io/site/category/ti.html">TI</a>
 
     Tagged: 
@@ -118,11 +250,9 @@ Linux.</p>
 
 
 
-            </article>
-
-
+                <a class="button radius secondary small right" href="https://sebmillet.github.io/site/utiliser-memmap.html">Read More</a>
                 <hr  class="gradient"/>
-
+            </article>
 
         
 
@@ -1062,111 +1192,6 @@ Linux.</p>
                 <hr  class="gradient"/>
             </article>
 
-        
-
-
-            <article>
-                <a href="https://sebmillet.github.io/site/choux-rouge-aux-chataignes.html"><h3 class="article-title">Choux rouge aux châtaignes</h3></a>
-<h6 class="subheader" title="2016-12-04T00:00:00+01:00">dim. 04 décembre 2016
-</h6>
-
-
-<p class="subheader">Category: <a href="https://sebmillet.github.io/site/category/recettes.html">Recettes</a>
-
-    Tagged: 
-    <a href="https://sebmillet.github.io/site/tag/choux.html">choux </a>
-    <a href="https://sebmillet.github.io/site/tag/chataignes.html">châtaignes </a>
-</p>
-
-
-
-                <a class="button radius secondary small right" href="https://sebmillet.github.io/site/choux-rouge-aux-chataignes.html">Read More</a>
-                <hr  class="gradient"/>
-            </article>
-
-        
-
-
-            <article>
-                <a href="https://sebmillet.github.io/site/clafoutis-de-jambon-et-courgette.html"><h3 class="article-title">Clafoutis de jambon et courgette</h3></a>
-<h6 class="subheader" title="2016-12-04T00:00:00+01:00">dim. 04 décembre 2016
-</h6>
-
-
-<p class="subheader">Category: <a href="https://sebmillet.github.io/site/category/recettes.html">Recettes</a>
-
-    Tagged: 
-    <a href="https://sebmillet.github.io/site/tag/courgette.html">courgette </a>
-    <a href="https://sebmillet.github.io/site/tag/jambon.html">jambon </a>
-</p>
-
-
-
-                <a class="button radius secondary small right" href="https://sebmillet.github.io/site/clafoutis-de-jambon-et-courgette.html">Read More</a>
-                <hr  class="gradient"/>
-            </article>
-
-        
-
-
-            <article>
-                <a href="https://sebmillet.github.io/site/concombre-au-fromage-blanc.html"><h3 class="article-title">Concombre au fromage blanc</h3></a>
-<h6 class="subheader" title="2016-12-04T00:00:00+01:00">dim. 04 décembre 2016
-</h6>
-
-
-<p class="subheader">Category: <a href="https://sebmillet.github.io/site/category/recettes.html">Recettes</a>
-
-    Tagged: 
-    <a href="https://sebmillet.github.io/site/tag/concombre.html">concombre </a>
-</p>
-
-
-
-                <a class="button radius secondary small right" href="https://sebmillet.github.io/site/concombre-au-fromage-blanc.html">Read More</a>
-                <hr  class="gradient"/>
-            </article>
-
-        
-
-
-            <article>
-                <a href="https://sebmillet.github.io/site/crevettes-kung-pao-aux-cajous.html"><h3 class="article-title">Crevettes Kung Pao aux cajous</h3></a>
-<h6 class="subheader" title="2016-12-04T00:00:00+01:00">dim. 04 décembre 2016
-</h6>
-
-
-<p class="subheader">Category: <a href="https://sebmillet.github.io/site/category/recettes.html">Recettes</a>
-
-    Tagged: 
-    <a href="https://sebmillet.github.io/site/tag/crevettes.html">crevettes </a>
-</p>
-
-
-
-                <a class="button radius secondary small right" href="https://sebmillet.github.io/site/crevettes-kung-pao-aux-cajous.html">Read More</a>
-                <hr  class="gradient"/>
-            </article>
-
-        
-
-
-            <article>
-                <a href="https://sebmillet.github.io/site/croque-monsieur.html"><h3 class="article-title">Croque-monsieur</h3></a>
-<h6 class="subheader" title="2016-12-04T00:00:00+01:00">dim. 04 décembre 2016
-</h6>
-
-
-<p class="subheader">Category: <a href="https://sebmillet.github.io/site/category/recettes.html">Recettes</a>
-
-</p>
-
-
-
-                <a class="button radius secondary small right" href="https://sebmillet.github.io/site/croque-monsieur.html">Read More</a>
-                <hr  class="gradient"/>
-            </article>
-
             <!-- /#posts-list -->
 <div class="pagination-centered">
 <h6 class="subheader">Page 1 of 2</h6>
@@ -1208,10 +1233,6 @@ Linux.</p>
             <li><a href="http://getpelican.com/">Pelican</a></li>
             <li><a href="http://python.org/">Python.org</a></li>
             <li><a href="http://jinja.pocoo.org/">Jinja2</a></li>
-
-Search: <input data-stork="sitesearch" />
-<div data-stork="sitesearch-output"></div>
-
         </ul>
 		
 
@@ -1231,8 +1252,3 @@ Search: <input data-stork="sitesearch" />
             </div>
     </div>
 </footer>
-
-<script src="https://files.stork-search.net/releases/v1.5.0/stork.js"></script>
-<script>
-    stork.register("sitesearch", "https://sebmillet.github.io/site")
-</script>

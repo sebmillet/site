@@ -14,8 +14,6 @@
 
     <!-- So Firefox can bookmark->"abo this site" -->
 
-<link rel="stylesheet" href="https://files.stork-search.net/basic.css" />
-
 </head>
 
 <body>
@@ -62,39 +60,39 @@
 <ul class="simple">
 <li>Logs depuis le démarrage :</li>
 </ul>
-<div class="highlight"><pre><span></span>journalctl -b
+<div class="highlight"><pre><span></span>journalctl<span class="w"> </span>-b
 </pre></div>
 <ul class="simple">
 <li>Logs avec critère de date</li>
 </ul>
-<div class="highlight"><pre><span></span>journalctl --since today
-journalctl --since <span class="m">17</span>:00 --until <span class="m">17</span>:25
+<div class="highlight"><pre><span></span>journalctl<span class="w"> </span>--since<span class="w"> </span>today
+journalctl<span class="w"> </span>--since<span class="w"> </span><span class="m">17</span>:00<span class="w"> </span>--until<span class="w"> </span><span class="m">17</span>:25
 </pre></div>
 <ul class="simple">
 <li>Logs indiquant une erreur</li>
 </ul>
-<div class="highlight"><pre><span></span>journalctl -b -p err
+<div class="highlight"><pre><span></span>journalctl<span class="w"> </span>-b<span class="w"> </span>-p<span class="w"> </span>err
 </pre></div>
 <ul class="simple">
 <li>Les 25 dernières entrées</li>
 </ul>
-<div class="highlight"><pre><span></span>journalctl -n <span class="m">25</span>
+<div class="highlight"><pre><span></span>journalctl<span class="w"> </span>-n<span class="w"> </span><span class="m">25</span>
 </pre></div>
 <ul class="simple">
 <li>Encore plus de log</li>
 </ul>
-<div class="highlight"><pre><span></span>journalctl -o verbose
+<div class="highlight"><pre><span></span>journalctl<span class="w"> </span>-o<span class="w"> </span>verbose
 </pre></div>
 <ul class="simple">
 <li>Logs du démon sshd (_EXE pour indiquer un exécutable... ? ne marche pas chez
 moi)</li>
 </ul>
-<div class="highlight"><pre><span></span>journalctl --since today <span class="nv">_COMM</span><span class="o">=</span>sshd
+<div class="highlight"><pre><span></span>journalctl<span class="w"> </span>--since<span class="w"> </span>today<span class="w"> </span><span class="nv">_COMM</span><span class="o">=</span>sshd
 </pre></div>
 <ul class="simple">
 <li>Pas de pager</li>
 </ul>
-<div class="highlight"><pre><span></span>journalctl -b --no-pager
+<div class="highlight"><pre><span></span>journalctl<span class="w"> </span>-b<span class="w"> </span>--no-pager
 </pre></div>
 <p>Les réglages sont situés dans le fichier <code>/etc/systemd/journald.conf</code>.</p>
 <p>Par exemple, utiliser l'option <code>ForwardToSyslog=yes</code> pour que tout soit envoyé à
@@ -102,7 +100,7 @@ syslog (dans ce cas, installer syslog-ng).</p>
 <ul class="simple">
 <li>Afficher l'année des événements</li>
 </ul>
-<div class="highlight"><pre><span></span>journalctl -o short-full
+<div class="highlight"><pre><span></span>journalctl<span class="w"> </span>-o<span class="w"> </span>short-full
 </pre></div>
 <p class="subheader">Category: <a href="https://sebmillet.github.io/site/category/ti.html">TI</a>
 
@@ -158,10 +156,6 @@ syslog (dans ce cas, installer syslog-ng).</p>
             <li><a href="http://getpelican.com/">Pelican</a></li>
             <li><a href="http://python.org/">Python.org</a></li>
             <li><a href="http://jinja.pocoo.org/">Jinja2</a></li>
-
-Search: <input data-stork="sitesearch" />
-<div data-stork="sitesearch-output"></div>
-
         </ul>
 		
 
@@ -181,8 +175,3 @@ Search: <input data-stork="sitesearch" />
             </div>
     </div>
 </footer>
-
-<script src="https://files.stork-search.net/releases/v1.5.0/stork.js"></script>
-<script>
-    stork.register("sitesearch", "https://sebmillet.github.io/site")
-</script>

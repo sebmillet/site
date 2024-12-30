@@ -14,8 +14,6 @@
 
     <!-- So Firefox can bookmark->"abo this site" -->
 
-<link rel="stylesheet" href="https://files.stork-search.net/basic.css" />
-
 </head>
 
 <body>
@@ -51,34 +49,85 @@
         
 
             <article>
-                <a href="https://sebmillet.github.io/site/quelques-commandes-systemd.html"><h3 class="article-title">Quelques commandes systemd</h3></a>
-<h6 class="subheader" title="2020-11-07T00:00:00+01:00">sam. 07 novembre 2020
+                <a href="https://sebmillet.github.io/site/fix-fwupd-refreshservice-start.html"><h3 class="article-title">Fix fwupd-refresh.service start</h3></a>
+<h6 class="subheader" title="2024-12-22T00:00:00+01:00">dim. 22 décembre 2024
 </h6>
 
 
 <!-- default-role rst directive described here: -->
 <!-- https://docutils.sourceforge.io/docs/ref/rst/directives.html#default-role -->
-<p>(D'après <em>Linux Reference numéro 7, juin - juillet - août 2020</em>)</p>
 <ul class="simple">
-<li>Détails sur le démarrage (durées de chargement) :</li>
+<li>Sur ma Cinnamon en décembre 2024 (mais depuis bien avant), le service fwupd-refresh.service produisait une erreur à chaque démarrage.</li>
+<li>L'exécution de</li>
 </ul>
-<div class="highlight"><pre><span></span>systemd-analyze
+<div class="highlight"><pre><span></span><span class="go">sudo /usr/bin/fwupdmgr refresh</span>
+<span class="gp"># </span>ou<span class="w"> </span>bien
+<span class="go">sudo /usr/bin/fwupdmgr refresh --force</span>
 </pre></div>
-<ul class="simple">
-<li>Lister les services lancés au démarrage :</li>
-</ul>
-<div class="highlight"><pre><span></span>systemctl list-unit-files --state<span class="o">=</span>enabled
+<p>a montré que <em>fwupdmgr</em> fonctionnait correctement.</p>
+<dl class="docutils">
+<dt>Cette page :</dt>
+<dd><a class="reference external" href="https://askubuntu.com/questions/1404691/fwupd-refresh-service-failed">https://askubuntu.com/questions/1404691/fwupd-refresh-service-failed</a></dd>
+</dl>
+<p>m'a indiqué la solution, consistant à définir dans le service l'option
+<em>DynamicUser</em> à <em>No</em>.</p>
+<p>Pour ce faire, exécuter :</p>
+<div class="highlight"><pre><span></span><span class="go">sudo systemctl edit fwupd-refresh.service</span>
 </pre></div>
-<ul class="simple">
-<li>Pour afficher les services qui ont pris le plus de temps à démarrer :</li>
-</ul>
-<div class="highlight"><pre><span></span>systemd-analyze blame
+<p>Et ajouter les deux lignes</p>
+<div class="highlight"><pre><span></span>[Service]
+DynamicUser=no
 </pre></div>
-<ul class="simple">
-<li>Pour lister les <em>timers</em> (exécutions périodiques) :</li>
-</ul>
-<div class="highlight"><pre><span></span>systemctl list-timers --all
+<p>Il est possible de contrôler le résultat avec la commande
+<em>sudo systemctl cat fwupd-refresh.service</em></p>
+<p>Résultat :</p>
+<div class="highlight"><pre><span></span># /lib/systemd/system/fwupd-refresh.service
+[Unit]
+Description=Refresh fwupd metadata and update motd
+Documentation=man:fwupdmgr(1)
+After=network.target
+
+[Service]
+Type=oneshot
+CacheDirectory=fwupdmgr
+StandardError=null
+DynamicUser=yes
+RestrictAddressFamilies=AF_NETLINK AF_UNIX AF_INET AF_INET6
+SystemCallFilter=~@mount
+ProtectKernelModules=yes
+ProtectControlGroups=yes
+RestrictRealtime=yes
+SuccessExitStatus=2
+ExecStart=/usr/bin/fwupdmgr refresh
+
+# /etc/systemd/system/fwupd-refresh.service.d/override.conf
+[Service]
+DynamicUser=no
 </pre></div>
+<p class="subheader">Category: <a href="https://sebmillet.github.io/site/category/ti.html">TI</a>
+
+    Tagged: 
+    <a href="https://sebmillet.github.io/site/tag/fwupd-refreshservice.html">fwupd-refresh.service </a>
+    <a href="https://sebmillet.github.io/site/tag/systemd.html">systemd </a>
+</p>
+
+
+
+            </article>
+
+
+                <hr  class="gradient"/>
+
+
+        
+
+
+            <article>
+                <a href="https://sebmillet.github.io/site/quelques-commandes-systemd.html"><h3 class="article-title">Quelques commandes systemd</h3></a>
+<h6 class="subheader" title="2020-11-07T00:00:00+01:00">sam. 07 novembre 2020
+</h6>
+
+
 <p class="subheader">Category: <a href="https://sebmillet.github.io/site/category/ti.html">TI</a>
 
     Tagged: 
@@ -88,8 +137,11 @@
 
 
 
+                <a class="button radius secondary small right" href="https://sebmillet.github.io/site/quelques-commandes-systemd.html">Read More</a>
+                <hr  class="gradient"/>
             </article>
 
+            <!-- /#posts-list -->
 <div class="pagination-centered">
 <h6 class="subheader">Page 1 of 1</h6>
 
@@ -97,10 +149,6 @@
 
 </p>
 </div>
-
-
-
-            <!-- /#posts-list -->
 
     </div>
     <!-- End Main Content -->
@@ -133,10 +181,6 @@
             <li><a href="http://getpelican.com/">Pelican</a></li>
             <li><a href="http://python.org/">Python.org</a></li>
             <li><a href="http://jinja.pocoo.org/">Jinja2</a></li>
-
-Search: <input data-stork="sitesearch" />
-<div data-stork="sitesearch-output"></div>
-
         </ul>
 		
 
@@ -156,8 +200,3 @@ Search: <input data-stork="sitesearch" />
             </div>
     </div>
 </footer>
-
-<script src="https://files.stork-search.net/releases/v1.5.0/stork.js"></script>
-<script>
-    stork.register("sitesearch", "https://sebmillet.github.io/site")
-</script>

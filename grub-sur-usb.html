@@ -14,8 +14,6 @@
 
     <!-- So Firefox can bookmark->"abo this site" -->
 
-<link rel="stylesheet" href="https://files.stork-search.net/basic.css" />
-
 </head>
 
 <body>
@@ -72,59 +70,59 @@
 <p>Exemple avec fdisk, pour une clé de 4 GO vierge sur <code>/dev/sdb</code> :</p>
 </li>
 </ol>
-<div class="highlight"><pre><span></span><code><span class="o">#</span> <span class="n">fdisk</span> <span class="o">/</span><span class="n">dev</span><span class="o">/</span><span class="n">sdb</span>
-<span class="p">[...]</span>
-<span class="n">Command</span> <span class="p">(</span><span class="n">m</span> <span class="k">for</span> <span class="n">help</span><span class="p">):</span> <span class="n">n</span>
-<span class="n">Partition</span> <span class="k">type</span>
-   <span class="n">p</span>   <span class="k">primary</span> <span class="p">(</span><span class="mi">0</span> <span class="k">primary</span><span class="p">,</span> <span class="mi">0</span> <span class="n">extended</span><span class="p">,</span> <span class="mi">4</span> <span class="k">free</span><span class="p">)</span>
-   <span class="n">e</span>   <span class="n">extended</span> <span class="p">(</span><span class="n">container</span> <span class="k">for</span> <span class="n">logical</span> <span class="n">partitions</span><span class="p">)</span>
-<span class="k">Select</span> <span class="p">(</span><span class="k">default</span> <span class="n">p</span><span class="p">):</span> <span class="n">p</span>
-<span class="n">Partition</span> <span class="nb">number</span> <span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="mi">4</span><span class="p">,</span> <span class="k">default</span> <span class="mi">1</span><span class="p">):</span> <span class="mi">1</span>
-<span class="k">First</span> <span class="n">sector</span> <span class="p">(</span><span class="mi">2048</span><span class="o">-</span><span class="mi">8058879</span><span class="p">,</span> <span class="k">default</span> <span class="mi">2048</span><span class="p">):</span> 
-<span class="k">Last</span> <span class="n">sector</span><span class="p">,</span> <span class="o">+</span><span class="n">sectors</span> <span class="k">or</span> <span class="o">+</span><span class="k">size</span><span class="err">{</span><span class="n">K</span><span class="p">,</span><span class="n">M</span><span class="p">,</span><span class="k">G</span><span class="p">,</span><span class="n">T</span><span class="p">,</span><span class="n">P</span><span class="err">}</span> <span class="p">(</span><span class="mi">2048</span><span class="o">-</span><span class="mi">8058879</span><span class="p">,</span> <span class="k">default</span> <span class="mi">8058879</span><span class="p">):</span> 
+<div class="highlight"><pre><span></span><code><span class="err">#</span><span class="w"> </span><span class="nx">fdisk</span><span class="w"> </span><span class="o">/</span><span class="nx">dev</span><span class="o">/</span><span class="nx">sdb</span>
+<span class="p">[</span><span class="o">...</span><span class="p">]</span>
+<span class="nx">Command</span><span class="w"> </span><span class="p">(</span><span class="nx">m</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="nx">help</span><span class="p">):</span><span class="w"> </span><span class="nx">n</span>
+<span class="nx">Partition</span><span class="w"> </span><span class="k">type</span>
+<span class="w">   </span><span class="nx">p</span><span class="w">   </span><span class="nx">primary</span><span class="w"> </span><span class="p">(</span><span class="mi">0</span><span class="w"> </span><span class="nx">primary</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="nx">extended</span><span class="p">,</span><span class="w"> </span><span class="mi">4</span><span class="w"> </span><span class="nx">free</span><span class="p">)</span>
+<span class="w">   </span><span class="nx">e</span><span class="w">   </span><span class="nx">extended</span><span class="w"> </span><span class="p">(</span><span class="nx">container</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="nx">logical</span><span class="w"> </span><span class="nx">partitions</span><span class="p">)</span>
+<span class="nx">Select</span><span class="w"> </span><span class="p">(</span><span class="k">default</span><span class="w"> </span><span class="nx">p</span><span class="p">):</span><span class="w"> </span><span class="nx">p</span>
+<span class="nx">Partition</span><span class="w"> </span><span class="nx">number</span><span class="w"> </span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="mi">4</span><span class="p">,</span><span class="w"> </span><span class="k">default</span><span class="w"> </span><span class="mi">1</span><span class="p">):</span><span class="w"> </span><span class="mi">1</span>
+<span class="nx">First</span><span class="w"> </span><span class="nx">sector</span><span class="w"> </span><span class="p">(</span><span class="mi">2048</span><span class="o">-</span><span class="mi">8058879</span><span class="p">,</span><span class="w"> </span><span class="k">default</span><span class="w"> </span><span class="mi">2048</span><span class="p">):</span><span class="w"> </span>
+<span class="nx">Last</span><span class="w"> </span><span class="nx">sector</span><span class="p">,</span><span class="w"> </span><span class="o">+</span><span class="nx">sectors</span><span class="w"> </span><span class="k">or</span><span class="w"> </span><span class="o">+</span><span class="nx">size</span><span class="p">{</span><span class="nx">K</span><span class="p">,</span><span class="nx">M</span><span class="p">,</span><span class="nx">G</span><span class="p">,</span><span class="nx">T</span><span class="p">,</span><span class="nx">P</span><span class="p">}</span><span class="w"> </span><span class="p">(</span><span class="mi">2048</span><span class="o">-</span><span class="mi">8058879</span><span class="p">,</span><span class="w"> </span><span class="k">default</span><span class="w"> </span><span class="mi">8058879</span><span class="p">):</span><span class="w"> </span>
 
-<span class="n">Created</span> <span class="n">a</span> <span class="k">new</span> <span class="n">partition</span> <span class="mi">1</span> <span class="k">of</span> <span class="k">type</span> <span class="s1">&#39;Linux&#39;</span> <span class="k">and</span> <span class="k">of</span> <span class="k">size</span> <span class="mi">3</span><span class="p">.</span><span class="mi">9</span> <span class="n">GiB</span><span class="p">.</span>
+<span class="nx">Created</span><span class="w"> </span><span class="nx">a</span><span class="w"> </span><span class="nx">new</span><span class="w"> </span><span class="nx">partition</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="nx">of</span><span class="w"> </span><span class="k">type</span><span class="w"> </span><span class="err">&#39;</span><span class="nx">Linux</span><span class="err">&#39;</span><span class="w"> </span><span class="k">and</span><span class="w"> </span><span class="nx">of</span><span class="w"> </span><span class="nx">size</span><span class="w"> </span><span class="m m-Double">3.9</span><span class="w"> </span><span class="nx">GiB</span><span class="p">.</span>
 
-<span class="n">Command</span> <span class="p">(</span><span class="n">m</span> <span class="k">for</span> <span class="n">help</span><span class="p">):</span> <span class="n">a</span>
-<span class="n">Selected</span> <span class="n">partition</span> <span class="mi">1</span>
-<span class="n">The</span> <span class="n">bootable</span> <span class="n">flag</span> <span class="k">on</span> <span class="n">partition</span> <span class="mi">1</span> <span class="k">is</span> <span class="n">enabled</span> <span class="n">now</span><span class="p">.</span>
+<span class="nx">Command</span><span class="w"> </span><span class="p">(</span><span class="nx">m</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="nx">help</span><span class="p">):</span><span class="w"> </span><span class="nx">a</span>
+<span class="nx">Selected</span><span class="w"> </span><span class="nx">partition</span><span class="w"> </span><span class="mi">1</span>
+<span class="nx">The</span><span class="w"> </span><span class="nx">bootable</span><span class="w"> </span><span class="nx">flag</span><span class="w"> </span><span class="nx">on</span><span class="w"> </span><span class="nx">partition</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="nx">enabled</span><span class="w"> </span><span class="nx">now</span><span class="p">.</span>
 
-<span class="n">Command</span> <span class="p">(</span><span class="n">m</span> <span class="k">for</span> <span class="n">help</span><span class="p">):</span> <span class="n">p</span>
-<span class="n">Disk</span> <span class="o">/</span><span class="n">dev</span><span class="o">/</span><span class="n">sdb</span><span class="p">:</span> <span class="mi">3</span><span class="p">.</span><span class="mi">9</span> <span class="n">GiB</span><span class="p">,</span> <span class="mi">4126146560</span> <span class="n">bytes</span><span class="p">,</span> <span class="mi">8058880</span> <span class="n">sectors</span>
-<span class="n">Units</span><span class="p">:</span> <span class="n">sectors</span> <span class="k">of</span> <span class="mi">1</span> <span class="o">*</span> <span class="mi">512</span> <span class="o">=</span> <span class="mi">512</span> <span class="n">bytes</span>
-<span class="n">Sector</span> <span class="k">size</span> <span class="p">(</span><span class="n">logical</span><span class="o">/</span><span class="n">physical</span><span class="p">):</span> <span class="mi">512</span> <span class="n">bytes</span> <span class="o">/</span> <span class="mi">512</span> <span class="n">bytes</span>
-<span class="n">I</span><span class="o">/</span><span class="n">O</span> <span class="k">size</span> <span class="p">(</span><span class="n">minimum</span><span class="o">/</span><span class="n">optimal</span><span class="p">):</span> <span class="mi">512</span> <span class="n">bytes</span> <span class="o">/</span> <span class="mi">512</span> <span class="n">bytes</span>
-<span class="n">Disklabel</span> <span class="k">type</span><span class="p">:</span> <span class="n">dos</span>
-<span class="n">Disk</span> <span class="n">identifier</span><span class="p">:</span> <span class="mi">0</span><span class="n">xafcd074d</span>
+<span class="nx">Command</span><span class="w"> </span><span class="p">(</span><span class="nx">m</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="nx">help</span><span class="p">):</span><span class="w"> </span><span class="nx">p</span>
+<span class="nx">Disk</span><span class="w"> </span><span class="o">/</span><span class="nx">dev</span><span class="o">/</span><span class="nx">sdb</span><span class="p">:</span><span class="w"> </span><span class="m m-Double">3.9</span><span class="w"> </span><span class="nx">GiB</span><span class="p">,</span><span class="w"> </span><span class="mi">4126146560</span><span class="w"> </span><span class="nx">bytes</span><span class="p">,</span><span class="w"> </span><span class="mi">8058880</span><span class="w"> </span><span class="nx">sectors</span>
+<span class="nx">Units</span><span class="p">:</span><span class="w"> </span><span class="nx">sectors</span><span class="w"> </span><span class="nx">of</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">512</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="mi">512</span><span class="w"> </span><span class="nx">bytes</span>
+<span class="nx">Sector</span><span class="w"> </span><span class="nx">size</span><span class="w"> </span><span class="p">(</span><span class="nx">logical</span><span class="o">/</span><span class="nx">physical</span><span class="p">):</span><span class="w"> </span><span class="mi">512</span><span class="w"> </span><span class="nx">bytes</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mi">512</span><span class="w"> </span><span class="nx">bytes</span>
+<span class="nx">I</span><span class="o">/</span><span class="nx">O</span><span class="w"> </span><span class="nx">size</span><span class="w"> </span><span class="p">(</span><span class="nx">minimum</span><span class="o">/</span><span class="nx">optimal</span><span class="p">):</span><span class="w"> </span><span class="mi">512</span><span class="w"> </span><span class="nx">bytes</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mi">512</span><span class="w"> </span><span class="nx">bytes</span>
+<span class="nx">Disklabel</span><span class="w"> </span><span class="k">type</span><span class="p">:</span><span class="w"> </span><span class="nx">dos</span>
+<span class="nx">Disk</span><span class="w"> </span><span class="nx">identifier</span><span class="p">:</span><span class="w"> </span><span class="mh">0xafcd074d</span>
 
-<span class="n">Device</span>     <span class="n">Boot</span> <span class="k">Start</span>     <span class="k">End</span> <span class="n">Sectors</span>  <span class="k">Size</span> <span class="n">Id</span> <span class="k">Type</span>
-<span class="o">/</span><span class="n">dev</span><span class="o">/</span><span class="n">sdb1</span>  <span class="o">*</span>     <span class="mi">2048</span> <span class="mi">8058879</span> <span class="mi">8056832</span>  <span class="mi">3</span><span class="p">.</span><span class="mi">9</span><span class="k">G</span> <span class="mi">83</span> <span class="n">Linux</span>
+<span class="nx">Device</span><span class="w">     </span><span class="nx">Boot</span><span class="w"> </span><span class="nx">Start</span><span class="w">     </span><span class="nx">End</span><span class="w"> </span><span class="nx">Sectors</span><span class="w">  </span><span class="nx">Size</span><span class="w"> </span><span class="nx">Id</span><span class="w"> </span><span class="nx">Type</span>
+<span class="o">/</span><span class="nx">dev</span><span class="o">/</span><span class="nx">sdb1</span><span class="w">  </span><span class="o">*</span><span class="w">     </span><span class="mi">2048</span><span class="w"> </span><span class="mi">8058879</span><span class="w"> </span><span class="mi">8056832</span><span class="w">  </span><span class="m m-Double">3.9</span><span class="nx">G</span><span class="w"> </span><span class="mi">83</span><span class="w"> </span><span class="nx">Linux</span>
 
-<span class="n">Command</span> <span class="p">(</span><span class="n">m</span> <span class="k">for</span> <span class="n">help</span><span class="p">):</span>
+<span class="nx">Command</span><span class="w"> </span><span class="p">(</span><span class="nx">m</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="nx">help</span><span class="p">):</span>
 </code></pre></div>
 
 <ol>
 <li>Formatter le volume en ext2. Exemple pour notre clé :</li>
 </ol>
-<div class="highlight"><pre><span></span><code><span class="err">mkfs.ext2 -L USBGRUB /dev/sdb1</span>
+<div class="highlight"><pre><span></span><code>mkfs.ext2 -L USBGRUB /dev/sdb1
 </code></pre></div>
 
 <p><strong>Note</strong></p>
-<div class="highlight"><pre><span></span><code><span class="err">L&#39;URL donnée en haut fait formatter le volume en VFAT (type &#39;c&#39; dans la</span>
-<span class="err">table des partitions), cela fonctionne aussi. Je préfère ext2.</span>
+<div class="highlight"><pre><span></span><code><span class="nx">L</span><span class="err">&#39;</span><span class="nx">URL</span><span class="w"> </span><span class="nx">donnée</span><span class="w"> </span><span class="nx">en</span><span class="w"> </span><span class="nx">haut</span><span class="w"> </span><span class="nx">fait</span><span class="w"> </span><span class="nx">formatter</span><span class="w"> </span><span class="nx">le</span><span class="w"> </span><span class="nx">volume</span><span class="w"> </span><span class="nx">en</span><span class="w"> </span><span class="nx">VFAT</span><span class="w"> </span><span class="p">(</span><span class="k">type</span><span class="w"> </span><span class="sc">&#39;c&#39;</span><span class="w"> </span><span class="nx">dans</span><span class="w"> </span><span class="nx">la</span>
+<span class="nx">table</span><span class="w"> </span><span class="nx">des</span><span class="w"> </span><span class="nx">partitions</span><span class="p">),</span><span class="w"> </span><span class="nx">cela</span><span class="w"> </span><span class="nx">fonctionne</span><span class="w"> </span><span class="nx">aussi</span><span class="p">.</span><span class="w"> </span><span class="nx">Je</span><span class="w"> </span><span class="nx">préfère</span><span class="w"> </span><span class="nx">ext2</span><span class="p">.</span>
 </code></pre></div>
 
 <ol>
 <li>Monter le volume. Exemple :</li>
 </ol>
-<div class="highlight"><pre><span></span><code><span class="err">mkdir /mnt/usbgrub</span>
-<span class="err">mount /dev/sdb1 /mnt/usbgrub</span>
+<div class="highlight"><pre><span></span><code>mkdir /mnt/usbgrub
+mount /dev/sdb1 /mnt/usbgrub
 </code></pre></div>
 
 <ol>
 <li>Exécuter la commande</li>
 </ol>
-<div class="highlight"><pre><span></span><code><span class="err">grub-install --boot-directory=/mnt/usbgrub/boot /dev/sdb</span>
+<div class="highlight"><pre><span></span><code>grub-install --boot-directory=/mnt/usbgrub/boot /dev/sdb
 </code></pre></div>
 
 <ol>
@@ -142,8 +140,8 @@ partition <code>/dev/sda1</code>, est <code>(hd1,1)</code>.</p>
 <li>Démarrer Windows depuis la clé</li>
 </ol>
 <p>À l'invite de grub, exécuter :</p>
-<div class="highlight"><pre><span></span><code><span class="n">set</span> <span class="n">root</span><span class="o">=</span><span class="p">(</span><span class="n">hd1</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
-<span class="n">chainloader</span> <span class="o">+</span><span class="mi">1</span>
+<div class="highlight"><pre><span></span><code><span class="n">set</span><span class="w"> </span><span class="n">root</span><span class="o">=</span><span class="p">(</span><span class="n">hd1</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">chainloader</span><span class="w"> </span><span class="o">+</span><span class="mi">1</span>
 <span class="n">boot</span>
 </code></pre></div>
 
@@ -161,10 +159,10 @@ la touche de tabulation pour compléter automatiquement les noms de fichier.</p>
 <li><strong>Exemple pour une disbution Ubuntu 17.10 à jour</strong></li>
 </ul>
 <p>À l'invite de grub, exécuter :</p>
-<div class="highlight"><pre><span></span><code><span class="err">set root=(hd1,3)</span>
-<span class="err">linux /boot/vmlinuz-4.13.0-17-generic ro root=/dev/sda3</span>
-<span class="err">initrd /boot/initrd.img-4.13.0-17-generic</span>
-<span class="err">boot</span>
+<div class="highlight"><pre><span></span><code>set root=(hd1,3)
+linux /boot/vmlinuz-4.13.0-17-generic ro root=/dev/sda3
+initrd /boot/initrd.img-4.13.0-17-generic
+boot
 </code></pre></div>
 <p class="subheader">Category: <a href="https://sebmillet.github.io/site/category/ti.html">TI</a>
 
@@ -205,10 +203,6 @@ la touche de tabulation pour compléter automatiquement les noms de fichier.</p>
             <li><a href="http://getpelican.com/">Pelican</a></li>
             <li><a href="http://python.org/">Python.org</a></li>
             <li><a href="http://jinja.pocoo.org/">Jinja2</a></li>
-
-Search: <input data-stork="sitesearch" />
-<div data-stork="sitesearch-output"></div>
-
         </ul>
 		
 
@@ -228,8 +222,3 @@ Search: <input data-stork="sitesearch" />
             </div>
     </div>
 </footer>
-
-<script src="https://files.stork-search.net/releases/v1.5.0/stork.js"></script>
-<script>
-    stork.register("sitesearch", "https://sebmillet.github.io/site")
-</script>

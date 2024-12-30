@@ -14,8 +14,6 @@
 
     <!-- So Firefox can bookmark->"abo this site" -->
 
-<link rel="stylesheet" href="https://files.stork-search.net/basic.css" />
-
 </head>
 
 <body>
@@ -138,8 +136,8 @@ as a package.</p>
 <p>and also:</p>
 <p><a href="https://ubuntuforums.org/showthread.php?t=2261375">https://ubuntuforums.org/showthread.php?t=2261375</a></p>
 <p>To resume it very briefly, you have two commands to execute:</p>
-<div class="highlight"><pre><span></span><code>fakeroot debian/rules clean
-fakeroot debian/rules binary-headers binary-generic binary-perarch
+<div class="highlight"><pre><span></span><code>fakeroot<span class="w"> </span>debian/rules<span class="w"> </span>clean
+fakeroot<span class="w"> </span>debian/rules<span class="w"> </span>binary-headers<span class="w"> </span>binary-generic<span class="w"> </span>binary-perarch
 </code></pre></div>
 
 <h4>2.3.3 Result</h4>
@@ -162,15 +160,15 @@ kernel, available here:</p>
 <a href="https://bugzilla.redhat.com/show_bug.cgi?id=1190467#c7">https://bugzilla.redhat.com/show_bug.cgi?id=1190467#c7</a>,
 says that solving the issue is as simple as blacklisting some kernel modules.</p>
 <p>That is, add the following lines to <code>/etc/modprobe.d/blacklist</code>:</p>
-<div class="highlight"><pre><span></span><code>blacklist rt2800pci
-blacklist rt2800usb
-blacklist rt2800lib
+<div class="highlight"><pre><span></span><code>blacklist<span class="w"> </span>rt2800pci
+blacklist<span class="w"> </span>rt2800usb
+blacklist<span class="w"> </span>rt2800lib
 </code></pre></div>
 
 <p>and then execute the following commands:</p>
-<div class="highlight"><pre><span></span><code>modprobe rt2x00usb
-modprobe rt2x00lib
-modprobe rt2x00pci
+<div class="highlight"><pre><span></span><code>modprobe<span class="w"> </span>rt2x00usb
+modprobe<span class="w"> </span>rt2x00lib
+modprobe<span class="w"> </span>rt2x00pci
 </code></pre></div>
 
 <p>Mentionned in 2015 with <em>rhe 7.1</em>.</p>
@@ -193,21 +191,21 @@ other one of type <em>EFI</em> that contains a .efi file to make UEFI startable.
 <span class="c1"># From the below URL:</span>
 <span class="c1">#   https://wiki.syslinux.org/wiki/index.php?title=Isohybrid</span>
 
-<span class="nb">set</span> -euo pipefail
+<span class="nb">set</span><span class="w"> </span>-euo<span class="w"> </span>pipefail
 
-xorriso -as mkisofs <span class="se">\</span>
-  -o output.iso <span class="se">\</span>
-  -isohybrid-mbr /usr/lib/syslinux/bios/isohdpfx.bin <span class="se">\</span>
-  -c isolinux/boot.cat <span class="se">\</span>
-  -b isolinux/isolinux.bin <span class="se">\</span>
-  -no-emul-boot <span class="se">\</span>
-  -boot-load-size <span class="m">4</span> <span class="se">\</span>
-  -boot-info-table <span class="se">\</span>
-  -eltorito-alt-boot <span class="se">\</span>
-  -e boot/grub/efi.img <span class="se">\</span>
-  -no-emul-boot <span class="se">\</span>
-  -isohybrid-gpt-basdat <span class="se">\</span>
-  extract-cd
+xorriso<span class="w"> </span>-as<span class="w"> </span>mkisofs<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-o<span class="w"> </span>output.iso<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-isohybrid-mbr<span class="w"> </span>/usr/lib/syslinux/bios/isohdpfx.bin<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-c<span class="w"> </span>isolinux/boot.cat<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-b<span class="w"> </span>isolinux/isolinux.bin<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-no-emul-boot<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-boot-load-size<span class="w"> </span><span class="m">4</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-boot-info-table<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-eltorito-alt-boot<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-e<span class="w"> </span>boot/grub/efi.img<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-no-emul-boot<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-isohybrid-gpt-basdat<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>extract-cd
 </code></pre></div>
 <p class="subheader">Category: <a href="https://sebmillet.github.io/site/category/ti.html">TI</a>
 
@@ -252,10 +250,6 @@ xorriso -as mkisofs <span class="se">\</span>
             <li><a href="http://getpelican.com/">Pelican</a></li>
             <li><a href="http://python.org/">Python.org</a></li>
             <li><a href="http://jinja.pocoo.org/">Jinja2</a></li>
-
-Search: <input data-stork="sitesearch" />
-<div data-stork="sitesearch-output"></div>
-
         </ul>
 		
 
@@ -275,8 +269,3 @@ Search: <input data-stork="sitesearch" />
             </div>
     </div>
 </footer>
-
-<script src="https://files.stork-search.net/releases/v1.5.0/stork.js"></script>
-<script>
-    stork.register("sitesearch", "https://sebmillet.github.io/site")
-</script>

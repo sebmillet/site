@@ -14,8 +14,6 @@
 
     <!-- So Firefox can bookmark->"abo this site" -->
 
-<link rel="stylesheet" href="https://files.stork-search.net/basic.css" />
-
 </head>
 
 <body>
@@ -68,17 +66,17 @@
 <ul class="simple">
 <li>Lister les services lancés au démarrage :</li>
 </ul>
-<div class="highlight"><pre><span></span>systemctl list-unit-files --state<span class="o">=</span>enabled
+<div class="highlight"><pre><span></span>systemctl<span class="w"> </span>list-unit-files<span class="w"> </span>--state<span class="o">=</span>enabled
 </pre></div>
 <ul class="simple">
 <li>Pour afficher les services qui ont pris le plus de temps à démarrer :</li>
 </ul>
-<div class="highlight"><pre><span></span>systemd-analyze blame
+<div class="highlight"><pre><span></span>systemd-analyze<span class="w"> </span>blame
 </pre></div>
 <ul class="simple">
 <li>Pour lister les <em>timers</em> (exécutions périodiques) :</li>
 </ul>
-<div class="highlight"><pre><span></span>systemctl list-timers --all
+<div class="highlight"><pre><span></span>systemctl<span class="w"> </span>list-timers<span class="w"> </span>--all
 </pre></div>
 
 <p class="subheader">Category: <a href="https://sebmillet.github.io/site/category/ti.html">TI</a>
@@ -123,10 +121,6 @@
             <li><a href="http://getpelican.com/">Pelican</a></li>
             <li><a href="http://python.org/">Python.org</a></li>
             <li><a href="http://jinja.pocoo.org/">Jinja2</a></li>
-
-Search: <input data-stork="sitesearch" />
-<div data-stork="sitesearch-output"></div>
-
         </ul>
 		
 
@@ -146,8 +140,3 @@ Search: <input data-stork="sitesearch" />
             </div>
     </div>
 </footer>
-
-<script src="https://files.stork-search.net/releases/v1.5.0/stork.js"></script>
-<script>
-    stork.register("sitesearch", "https://sebmillet.github.io/site")
-</script>
