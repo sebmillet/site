@@ -49,83 +49,51 @@
         
 
             <article>
-                <a href="https://sebmillet.github.io/site/enlever-les-drm.html"><h3 class="article-title">Enlever les DRM</h3></a>
-<h6 class="subheader" title="2024-12-30T00:00:00+01:00">lun. 30 décembre 2024
+                <a href="https://sebmillet.github.io/site/demarrer-le-reseau-sur-un-systeme-minimaliste.html"><h3 class="article-title">Démarrer le réseau sur un système minimaliste</h3></a>
+<h6 class="subheader" title="2025-12-15T00:00:00+01:00">lun. 15 décembre 2025
 </h6>
 
 
 <!-- default-role rst directive described here: -->
 <!-- https://docutils.sourceforge.io/docs/ref/rst/directives.html#default-role -->
-<ul>
-<li><p class="first">Le but est double :</p>
-<blockquote>
-<ol class="arabic simple">
-<li>Récupérer un epub disponible sur la kobo - un epub <em>acheté</em>.</li>
-<li>Ôter les DRM du fichier.</li>
-</ol>
-</blockquote>
-</li>
-</ul>
-<div class="section" id="preparation">
-<h2>1) Préparation</h2>
-</div>
-<div class="section" id="installation-de-gourou">
-<h2>1.1 Installation de <em>gourou</em></h2>
-<p>Installer <em>gourou</em>.
-Sur Arch par exemple, gourou est disponible sur <em>AUR</em>. Dans
-l'hypothèse où c'est l'outil <em>yay</em> qui est utilisé pour installer des paquets
-d'<em>AUR</em>, exécuter :</p>
-<div class="highlight"><pre><span></span>yay<span class="w"> </span>gourou
+<dl class="docutils">
+<dt>D'après :</dt>
+<dd><a class="reference external" href="https://www.reddit.com/r/debian/comments/wz4bnt/looking_for_iwconfig_command_to_connect_to_wifi">https://www.reddit.com/r/debian/comments/wz4bnt/looking_for_iwconfig_command_to_connect_to_wifi</a></dd>
+</dl>
+<p>Exécuter (exemple avec <strong>wls1</strong> comme carte réseau WiFi) :</p>
+<div class="highlight"><pre><span></span>cat<span class="w"> </span>&gt;<span class="w"> </span>/root/wpa_temp_config<span class="w"> </span>&lt;&lt;<span class="s2">&quot;EOF&quot;</span>
+<span class="nv">network</span><span class="o">={</span>
+<span class="w">    </span><span class="nv">ssid</span><span class="o">=</span><span class="s2">&quot;NASA&quot;</span>
+<span class="w">    </span><span class="nv">psk</span><span class="o">=</span><span class="s2">&quot;This is the NASA password&quot;</span>
+<span class="o">}</span>
+EOF
+wpa_supplicant<span class="w"> </span>-i<span class="w"> </span>wls1<span class="w"> </span>-c<span class="w"> </span>/root/wpa_temp_config<span class="w"> </span>-B
+dhclient<span class="w"> </span>wls1
 </pre></div>
-</div>
-<div class="section" id="activer-adept-session-utilisateur">
-<h2>1.2 Activer adept (session utilisateur)</h2>
-<p>Il faut avoir un compte <em>Adobe Digital Editions</em>.</p>
-<p>Se connecter à :</p>
-<blockquote>
-<a class="reference external" href="https://account.adobe.com/">https://account.adobe.com/</a></blockquote>
-<p>et suivre les instructions pour se créer un compte.</p>
-<p>Ensuite exécuter :</p>
-<div class="highlight"><pre><span></span>adept_activate<span class="w"> </span>-u<span class="w"> </span>sebastien.millet@gmail.com
-</pre></div>
-<p>Si l'activation réussit, cela génère le fichier :
-<strong>~/.config/adept/activation.xml</strong>.</p>
-</div>
-<div class="section" id="recuperation-du-fichier-epub-sur-le-pc">
-<h2>2) Récupération du fichier epub sur le PC</h2>
-</div>
-<div class="section" id="telechargement-du-fichier-acsm">
-<h2>2.1) Téléchargement du fichier ACSM</h2>
-<p>Il faut d'abord obtenir le fichier ACSM du livre. Avec kobo, je me connecte à</p>
-<blockquote>
-<a class="reference external" href="https://authorize.kobo.com/fr/fr/Signin?returnUrl=https://www.kobo.com/fr/fr">https://authorize.kobo.com/fr/fr/Signin?returnUrl=https://www.kobo.com/fr/fr</a>?changeLanguage=True</blockquote>
-<p>puis je clique en haut à droite sur <em>Mon compte</em> et enfin sur le menu <em>Livres</em>.</p>
-<p>Ensuite sur la carte du livre que je souhaite télécharger, je clique sur le menu
-'trois petits points' et sur <em>Télécharger</em>.</p>
-<p>Le navigateur récupère un fichier <em>URLLink.acsm</em> dans le dossier des
-téléchargements.</p>
-</div>
-<div class="section" id="telechargement-du-fichier-epub-avec-le-fichier-acsm">
-<h2>2.2) Téléchargement du fichier epub avec le fichier ACSM</h2>
-<p>Exécuter (exemple avec <em>Bifrost n° 116</em>) :</p>
-<div class="highlight"><pre><span></span>$<span class="w"> </span>acsmdownloader<span class="w"> </span>URLLink.acsm
-Created<span class="w"> </span>Bifrost<span class="w"> </span>n°<span class="w"> </span><span class="m">116</span><span class="w"> </span>-<span class="w"> </span>dossier<span class="w"> </span>Catherine<span class="w"> </span>Dufour.epub
-</pre></div>
-<p>Si tout se passe bien, <em>acsmdownloader</em> indique le nom du fichier .epub créé.</p>
-<p>À ce stade le fichier est protégé, on peut le voir avec par exemple <em>calibre</em> qui
-affiche un message d'erreur</p>
-<p><em>Ce livre est verrouillé par des DRMs [...]</em></p>
-</div>
-<div class="section" id="suppression-des-drms">
-<h2>3) Suppression des DRMs</h2>
-<p>Exécuter (même exemple) :</p>
-<div class="highlight"><pre><span></span>$<span class="w"> </span>adept_remove<span class="w"> </span>Bifrost<span class="se">\ </span>n°<span class="se">\ </span><span class="m">116</span><span class="se">\ </span>-<span class="se">\ </span>dossier<span class="se">\ </span>Catherine<span class="se">\ </span>Dufour.epub
-DRM<span class="w"> </span>removed<span class="w"> </span>from<span class="w"> </span>Bifrost<span class="w"> </span>n°<span class="w"> </span><span class="m">116</span><span class="w"> </span>-<span class="w"> </span>dossier<span class="w"> </span>Catherine<span class="w"> </span>Dufour.epub
-</pre></div>
-<p>Si tout se passe bien, adept_remove confirme l'opération. On peut le vérifier
-facilement en l'ajoutant à <em>calibre</em> par exemple, qui affiche le contenu du
-livre sans erreur.</p>
-</div>
+<p>Si <strong>nmcli</strong> est disponible, c'est beaucoup plus simple.</p>
+<p class="subheader">Category: <a href="https://sebmillet.github.io/site/category/ti.html">TI</a>
+
+    Tagged: 
+    <a href="https://sebmillet.github.io/site/tag/network.html">network </a>
+</p>
+
+
+
+            </article>
+
+
+                <hr  class="gradient"/>
+
+
+        
+
+
+            <article>
+                <a href="https://sebmillet.github.io/site/enlever-les-drm.html"><h3 class="article-title">Enlever les DRM</h3></a>
+<h6 class="subheader" title="2024-12-30T00:00:00+01:00">lun. 30 décembre 2024
+</h6>
+
+
 <p class="subheader">Category: <a href="https://sebmillet.github.io/site/category/ti.html">TI</a>
 
     Tagged: 
@@ -138,11 +106,9 @@ livre sans erreur.</p>
 
 
 
-            </article>
-
-
+                <a class="button radius secondary small right" href="https://sebmillet.github.io/site/enlever-les-drm.html">Read More</a>
                 <hr  class="gradient"/>
-
+            </article>
 
         
 
@@ -294,6 +260,27 @@ livre sans erreur.</p>
 
 
                 <a class="button radius secondary small right" href="https://sebmillet.github.io/site/quelques-trucs-sur-vim.html">Read More</a>
+                <hr  class="gradient"/>
+            </article>
+
+        
+
+
+            <article>
+                <a href="https://sebmillet.github.io/site/chntpw.html"><h3 class="article-title">chntpw</h3></a>
+<h6 class="subheader" title="2024-12-15T00:00:00+01:00">dim. 15 décembre 2024
+</h6>
+
+
+<p class="subheader">Category: <a href="https://sebmillet.github.io/site/category/ti.html">TI</a>
+
+    Tagged: 
+    <a href="https://sebmillet.github.io/site/tag/chntpw.html">chntpw </a>
+</p>
+
+
+
+                <a class="button radius secondary small right" href="https://sebmillet.github.io/site/chntpw.html">Read More</a>
                 <hr  class="gradient"/>
             </article>
 
