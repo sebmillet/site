@@ -279,7 +279,7 @@ Behavior</em>.</p>
 <tr>
 <td>Criteria for being a bootable disk</td>
 <td>Has a MBR marked as bootable</td>
-<td>Has a partition readable by UEFI <sup id="fnref:3"><a class="footnote-ref" href="#fn:3">4</a></sup> that contains a file named <em>\EFI\BOOT\bootx64.efi</em> <sup id="fnref:4"><a class="footnote-ref" href="#fn:4">5</a></sup></td>
+<td>Has a partition readable by UEFI <sup id="fnref:3"><a class="footnote-ref" href="#fn:3">3</a></sup> that contains a file named <em>\EFI\BOOT\bootx64.efi</em> <sup id="fnref:4"><a class="footnote-ref" href="#fn:4">4</a></sup></td>
 </tr>
 </tbody>
 </table>
@@ -454,7 +454,7 @@ this standard).</p>
 <ul>
 <li>
 <p><em>db</em>: contains SHA256 hash of authorized files and certificates that, when
-signing a file <sup id="fnref:5"><a class="footnote-ref" href="#fn:5">3</a></sup>, will allow its execution. That means, <em>db</em> contains two
+signing a file <sup id="fnref:5"><a class="footnote-ref" href="#fn:5">5</a></sup>, will allow its execution. That means, <em>db</em> contains two
 different types of entries, <em>authorized certificates</em> and <em>authorized hashes</em>.</p>
 </li>
 <li>
@@ -711,12 +711,6 @@ MBR, but we are speaking here about starting from a storage media.&#160;<a class
 <li id="fn:2">
 <p>In this document, <em>volume</em> and <em>partition</em> are used interchangeably.&#160;<a class="footnote-backref" href="#fnref:2" title="Jump back to footnote 2 in the text">&#8617;</a></p>
 </li>
-<li id="fn:5">
-<p>I write that <em>certificates sign a file</em> to keep it simple. Strictly
-speaking, the certificate is associated to a private and public key pair (the
-certificate file contains the public part of the key pair), and a signature is
-done with the private key.&#160;<a class="footnote-backref" href="#fnref:5" title="Jump back to footnote 3 in the text">&#8617;</a></p>
-</li>
 <li id="fn:3">
 <p>It is typically a FAT partition of type "EFI System", making the disk's
 ESP, the <em>EFI System Partition</em>. As highlighted by
@@ -726,11 +720,17 @@ a disk brings a lot of robustness and clarity, in particular when compared to
 BIOS craziness. But given the flexibility of UEFI in practice, the <em>ESP</em> type
 should be regarded as a mark to help humans more than machines. Well, humans and
 OS installers (no, don't ask me. I didn't check the behavior of Kubuntu when
-installing in UEFI mode on a disk that has no ESP).&#160;<a class="footnote-backref" href="#fnref:3" title="Jump back to footnote 4 in the text">&#8617;</a></p>
+installing in UEFI mode on a disk that has no ESP).&#160;<a class="footnote-backref" href="#fnref:3" title="Jump back to footnote 3 in the text">&#8617;</a></p>
 </li>
 <li id="fn:4">
 <p>bootx64.efi is for the case of an x64 architecture. See list earlier in
-this document, for other architectures.&#160;<a class="footnote-backref" href="#fnref:4" title="Jump back to footnote 5 in the text">&#8617;</a></p>
+this document, for other architectures.&#160;<a class="footnote-backref" href="#fnref:4" title="Jump back to footnote 4 in the text">&#8617;</a></p>
+</li>
+<li id="fn:5">
+<p>I write that <em>certificates sign a file</em> to keep it simple. Strictly
+speaking, the certificate is associated to a private and public key pair (the
+certificate file contains the public part of the key pair), and a signature is
+done with the private key.&#160;<a class="footnote-backref" href="#fnref:5" title="Jump back to footnote 5 in the text">&#8617;</a></p>
 </li>
 </ol>
 </div>
