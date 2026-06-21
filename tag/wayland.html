@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="utf-8" />
+    <!-- Set the viewport width to device width for mobile -->
+    <meta name="viewport" content="width=device-width" />
+
+    <title>Site de Sébastien Millet - wayland</title>
+
+    <link rel="stylesheet" href="https://sebmillet.github.io/site/theme/css/normalize.css" />
+    <link rel="stylesheet" href="https://sebmillet.github.io/site/theme/css/foundation.min.css" />
+    <link rel="stylesheet" href="https://sebmillet.github.io/site/theme/css/style.css" />
+    <link rel="stylesheet" href="https://sebmillet.github.io/site/theme/css/pygments.css" />	
+    <script src="https://sebmillet.github.io/site/theme/js/custom.modernizr.js"></script>
+
+    <!-- So Firefox can bookmark->"abo this site" -->
+
+</head>
+
+<body>
+
+<!-- Nav Bar -->
+<nav>
+<div class="top-bar">
+<div class="row">
+    <div class="large-9 large-centered columns">
+	    <h1><a href="https://sebmillet.github.io/site">Site de Sébastien Millet</a></h1>
+    </div>
+</div>
+</div>
+
+<!-- Show menu items and pages -->
+<div class="row">
+<div class="large-9 columns">
+    <ul class="button-group navigation">
+
+    </ul>
+</div>
+</div>
+</nav>
+<!-- End Nav -->
+
+
+<!-- Main Page Content and Sidebar -->
+<div class="row">
+
+    <!-- Main Blog Content -->
+    <div class="large-9 columns">
+        
+        
+
+            <article>
+                <a href="https://sebmillet.github.io/site/raspberry-gui-acces-distant.html"><h3 class="article-title">Raspberry gui accès distant</h3></a>
+<h6 class="subheader" title="2026-06-20T00:00:00+02:00">sam. 20 juin 2026
+</h6>
+
+
+<!-- default-role rst directive described here: -->
+<!-- https://docutils.sourceforge.io/docs/ref/rst/directives.html#default-role -->
+<ul class="simple">
+<li>gt5 permet d'afficher &quot;sous forme HTML dans la console&quot; le résultat de la
+commande du.</li>
+</ul>
+<div class="highlight"><pre><span></span>du -x &gt; ~/tmp/du-2026-05-10.txt
+gt5 ~/tmp/du-2026-05-10.txt
+</pre></div>
+<p>Nécessite d'installer <strong>links</strong>.</p>
+<p>Page : <a class="reference external" href="https://gt5.sourceforge.net/">https://gt5.sourceforge.net/</a></p>
+<div class="section" id="configurer-le-clavier-en-francais-wayland">
+<h2>Configurer le clavier en français (wayland)</h2>
+<div class="highlight"><pre><span></span>localectl<span class="w"> </span>set-x11-keymap<span class="w"> </span>fr
+</pre></div>
+</div>
+<div class="section" id="demarrer-automatiquement-le-mode-graphique">
+<h2>Démarrer automatiquement le mode graphique</h2>
+<ul class="simple">
+<li>Méthode 1</li>
+</ul>
+<div class="highlight"><pre><span></span>systemctl<span class="w"> </span>set-default<span class="w"> </span>graphical.target
+<span class="c1"># Vérifier la config</span>
+systemctl<span class="w"> </span>get-default
+</pre></div>
+<ul class="simple">
+<li>Méthode 2</li>
+</ul>
+<p>Exécuter raspi-config, System Options -&gt; Boot
+choisir B2 Desktop Desktop GUI.</p>
+</div>
+<div class="section" id="demarrer-automatiquement-une-session-utilisateur">
+<h2>Démarrer automatiquement une session utilisateur</h2>
+<ul class="simple">
+<li>Méthode 1</li>
+</ul>
+<p>Ajouter la ligne</p>
+<blockquote>
+autologin-user=maisonadm</blockquote>
+<p>au fichier /etc/lightdm/lightdm.conf</p>
+<ul class="simple">
+<li>Méthode 2</li>
+</ul>
+<p>Exécuter raspi-config, System Options -&gt; AutoLogin</p>
+</div>
+<div class="section" id="installer-et-configurer-wayvnc">
+<h2>Installer et configurer wayvnc</h2>
+<p>wayvnc côté serveur sera utilisé à travers un tunnel SSH.</p>
+<p>L'objectif ici est de démarrer wayvnc :</p>
+<ul class="simple">
+<li>Sur la session graphique utilisateur (surtout pas système)</li>
+<li>À l'écoute uniquement en loopback (127.0.0.1), du fait du tunnel SSH.</li>
+</ul>
+<ol class="arabic simple">
+<li>Installer le paquet wayvnc.</li>
+<li>Créer le dossier ~/.config/systemd/user</li>
+<li>Dans ce dossier, créer le fichier wayvnc.service</li>
+</ol>
+<dl class="docutils">
+<dt>Le nom complet du fichier est donc</dt>
+<dd>~/.config/systemd/user/wayvnc.service</dd>
+</dl>
+<ol class="arabic simple" start="4">
+<li>Contenu du fichier :</li>
+</ol>
+<div class="highlight"><pre><span></span>[Unit]
+Description=WayVNC (user session)
+After=graphical-session.target
+Wants=graphical-session.target
+
+[Service]
+ExecStart=/usr/bin/wayvnc 127.0.0.1
+Restart=on-failure
+RestartSec=2
+
+[Install]
+WantedBy=default.target
+</pre></div>
+<ol class="arabic simple" start="5">
+<li>Lancer le service et le configurer pour démarrer automatiquement :</li>
+</ol>
+<div class="highlight"><pre><span></span>systemctl --user daemon-reload
+systemctl --user enable wayvnc.service
+systemctl --user start wayvnc.service
+
+# Vérifier le status
+systemctl --user status wayvnc.service
+</pre></div>
+</div>
+<div class="section" id="installer-et-configurer-remmina">
+<h2>Installer et configurer remmina</h2>
+<p>Sous Arch, installer le paquet <strong>remmina</strong>.</p>
+<ol class="arabic simple">
+<li>Créer une entrée</li>
+<li><em>Protocole</em> : choisir <em>Greffon VNC pour Remmina</em></li>
+<li><dl class="first docutils">
+<dt>Onglet <em>Basique</em>, champ <em>Serveur</em>, écrire :</dt>
+<dd>localhost:5900</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt>Onglet <em>Tunnel SSH</em>, sélectionner <em>Personnalisée</em> et écrire :</dt>
+<dd>192.168.0.33:38000</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt>Dans <em>Authentification SSH</em>, champ <em>Type d'authentification</em>, choisir</dt>
+<dd>Fichier d'identité SSH</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt><em>Nom d'utilisateur</em>, écrire :</dt>
+<dd>maisonadm</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt>Champ <em>Fichier contenant la clef SSH privée</em>, sélectionner :</dt>
+<dd><a class="reference external" href="mailto:~/.ssh/maisonadm&#64;maison-rp_id_rsa">~/.ssh/maisonadm&#64;maison-rp_id_rsa</a></dd>
+</dl>
+</li>
+</ol>
+</div>
+<div class="section" id="resolution-du-client-par-rapport-au-serveur">
+<h2>Résolution du client par rapport au serveur</h2>
+<p>Dans la fenêtre de session distante remmina, barre de gauche, cliquer sur</p>
+<blockquote>
+<em>Commuter la mise à jour dynamique de la définition</em>.</blockquote>
+<p>pour adapter l'affichage local au distant, c'est-à-dire, éviter l'affichage
+d'ascenseurs si la résolution du serveur est supérieure.</p>
+</div>
+<p class="subheader">Category: <a href="https://sebmillet.github.io/site/category/ti.html">TI</a>
+
+    Tagged: 
+    <a href="https://sebmillet.github.io/site/tag/raspberry.html">raspberry </a>
+    <a href="https://sebmillet.github.io/site/tag/wayland.html">wayland </a>
+    <a href="https://sebmillet.github.io/site/tag/vnc.html">vnc </a>
+</p>
+
+
+
+            </article>
+
+<div class="pagination-centered">
+<h6 class="subheader">Page 1 of 1</h6>
+
+<p>
+
+</p>
+</div>
+
+
+
+            <!-- /#posts-list -->
+
+    </div>
+    <!-- End Main Content -->
+
+    <!-- Sidebar -->
+    <aside class="large-3 columns">
+        <h5 class="sidebar-title">Site</h5>
+        <ul class="side-nav">
+            <li><a href="https://sebmillet.github.io/site/archives.html">Archives</a>
+            <li><a href="https://sebmillet.github.io/site/tags.html">Tags</a>
+
+
+        </ul>
+
+		
+        <h5 class="sidebar-title">Categories</h5>
+        <ul class="side-nav">
+            <li><a href="https://sebmillet.github.io/site/category/lectures.html">Lectures</a></li>
+            <li><a href="https://sebmillet.github.io/site/category/origine.html">Origine</a></li>
+            <li><a href="https://sebmillet.github.io/site/category/partage.html">Partage</a></li>
+            <li><a href="https://sebmillet.github.io/site/category/programmes.html">Programmes</a></li>
+            <li><a href="https://sebmillet.github.io/site/category/recettes.html">Recettes</a></li>
+            <li><a href="https://sebmillet.github.io/site/category/ti.html">TI</a></li>
+   
+        </ul>
+
+        <h5 class="sidebar-title">Links</h5>
+        <ul class="side-nav">
+            <li><a href="https://sebmillet.github.io/site/ancien/index.html">Ancien Site</a></li>
+            <li><a href="http://getpelican.com/">Pelican</a></li>
+            <li><a href="http://python.org/">Python.org</a></li>
+            <li><a href="http://jinja.pocoo.org/">Jinja2</a></li>
+        </ul>
+		
+
+    </aside> <!-- End Sidebar -->
+
+</div> <!-- End Main Content and Sidebar -->
+
+
+<!-- Footer -->
+<footer class="row">
+    <div class="large-12 columns">
+        <hr />
+        <div class="row">
+            <div class="large-6 columns">
+                <p>Site de Sébastien Millet by Sébastien Millet</p>
+            </div>
+            </div>
+    </div>
+</footer>
