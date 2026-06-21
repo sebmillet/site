@@ -56,15 +56,6 @@
 
 <!-- default-role rst directive described here: -->
 <!-- https://docutils.sourceforge.io/docs/ref/rst/directives.html#default-role -->
-<ul class="simple">
-<li>gt5 permet d'afficher &quot;sous forme HTML dans la console&quot; le résultat de la
-commande du.</li>
-</ul>
-<div class="highlight"><pre><span></span>du -x &gt; ~/tmp/du-2026-05-10.txt
-gt5 ~/tmp/du-2026-05-10.txt
-</pre></div>
-<p>Nécessite d'installer <strong>links</strong>.</p>
-<p>Page : <a class="reference external" href="https://gt5.sourceforge.net/">https://gt5.sourceforge.net/</a></p>
 <div class="section" id="configurer-le-clavier-en-francais-wayland">
 <h2>Configurer le clavier en français (wayland)</h2>
 <div class="highlight"><pre><span></span>localectl<span class="w"> </span>set-x11-keymap<span class="w"> </span>fr
@@ -82,8 +73,8 @@ systemctl<span class="w"> </span>get-default
 <ul class="simple">
 <li>Méthode 2</li>
 </ul>
-<p>Exécuter raspi-config, System Options -&gt; Boot
-choisir B2 Desktop Desktop GUI.</p>
+<p>Exécuter <em>raspi-config</em>, <em>System Options</em> -&gt; <em>Boot</em>
+choisir <em>B2 Desktop Desktop GUI</em>.</p>
 </div>
 <div class="section" id="demarrer-automatiquement-une-session-utilisateur">
 <h2>Démarrer automatiquement une session utilisateur</h2>
@@ -93,11 +84,11 @@ choisir B2 Desktop Desktop GUI.</p>
 <p>Ajouter la ligne</p>
 <blockquote>
 autologin-user=maisonadm</blockquote>
-<p>au fichier /etc/lightdm/lightdm.conf</p>
+<p>au fichier <em>/etc/lightdm/lightdm.conf</em></p>
 <ul class="simple">
 <li>Méthode 2</li>
 </ul>
-<p>Exécuter raspi-config, System Options -&gt; AutoLogin</p>
+<p>Exécuter <em>raspi-config</em>, <em>System Options</em> -&gt; <em>AutoLogin</em></p>
 </div>
 <div class="section" id="installer-et-configurer-wayvnc">
 <h2>Installer et configurer wayvnc</h2>
@@ -105,17 +96,15 @@ autologin-user=maisonadm</blockquote>
 <p>L'objectif ici est de démarrer wayvnc :</p>
 <ul class="simple">
 <li>Sur la session graphique utilisateur (surtout pas système)</li>
-<li>À l'écoute uniquement en loopback (127.0.0.1), du fait du tunnel SSH.</li>
+<li>À l'écoute uniquement en local (127.0.0.1), du fait du tunnel SSH.</li>
 </ul>
 <ol class="arabic simple">
-<li>Installer le paquet wayvnc.</li>
-<li>Créer le dossier ~/.config/systemd/user</li>
-<li>Dans ce dossier, créer le fichier wayvnc.service</li>
+<li>Installer le paquet <em>wayvnc</em>.</li>
+<li>Créer le dossier <em>~/.config/systemd/user</em>.</li>
+<li>Dans ce dossier, créer le fichier <em>wayvnc.service</em>.</li>
 </ol>
-<dl class="docutils">
-<dt>Le nom complet du fichier est donc</dt>
-<dd>~/.config/systemd/user/wayvnc.service</dd>
-</dl>
+<p>Le nom complet du fichier est donc</p>
+<p><em>~/.config/systemd/user/wayvnc.service</em></p>
 <ol class="arabic simple" start="4">
 <li>Contenu du fichier :</li>
 </ol>
@@ -145,42 +134,34 @@ systemctl --user status wayvnc.service
 </div>
 <div class="section" id="installer-et-configurer-remmina">
 <h2>Installer et configurer remmina</h2>
-<p>Sous Arch, installer le paquet <strong>remmina</strong>.</p>
+<p>Sous Arch, installer le paquet <em>remmina</em>.</p>
 <ol class="arabic simple">
 <li>Créer une entrée</li>
 <li><em>Protocole</em> : choisir <em>Greffon VNC pour Remmina</em></li>
-<li><dl class="first docutils">
-<dt>Onglet <em>Basique</em>, champ <em>Serveur</em>, écrire :</dt>
-<dd>localhost:5900</dd>
-</dl>
-</li>
-<li><dl class="first docutils">
-<dt>Onglet <em>Tunnel SSH</em>, sélectionner <em>Personnalisée</em> et écrire :</dt>
-<dd>192.168.0.33:38000</dd>
-</dl>
-</li>
-<li><dl class="first docutils">
-<dt>Dans <em>Authentification SSH</em>, champ <em>Type d'authentification</em>, choisir</dt>
-<dd>Fichier d'identité SSH</dd>
-</dl>
-</li>
-<li><dl class="first docutils">
-<dt><em>Nom d'utilisateur</em>, écrire :</dt>
-<dd>maisonadm</dd>
-</dl>
-</li>
-<li><dl class="first docutils">
-<dt>Champ <em>Fichier contenant la clef SSH privée</em>, sélectionner :</dt>
-<dd><a class="reference external" href="mailto:~/.ssh/maisonadm&#64;maison-rp_id_rsa">~/.ssh/maisonadm&#64;maison-rp_id_rsa</a></dd>
-</dl>
-</li>
+<li>Onglet <em>Basique</em>, champ <em>Serveur</em>, écrire :</li>
 </ol>
+<p>localhost:5900</p>
+<ol class="arabic simple" start="4">
+<li>Onglet <em>Tunnel SSH</em>, sélectionner <em>Personnalisée</em> et écrire :</li>
+</ol>
+<p>192.168.0.33:38000</p>
+<ol class="arabic simple" start="5">
+<li>Dans <em>Authentification SSH</em>, champ <em>Type d'authentification</em>, choisir</li>
+</ol>
+<p>Fichier d'identité SSH</p>
+<ol class="arabic simple" start="6">
+<li><em>Nom d'utilisateur</em>, écrire :</li>
+</ol>
+<p>maisonadm</p>
+<ol class="arabic simple" start="7">
+<li>Champ <em>Fichier contenant la clef SSH privée</em>, sélectionner :</li>
+</ol>
+<p><em>~/.ssh/maisonadm&#64;maison-rp_id_rsa</em></p>
 </div>
 <div class="section" id="resolution-du-client-par-rapport-au-serveur">
 <h2>Résolution du client par rapport au serveur</h2>
 <p>Dans la fenêtre de session distante remmina, barre de gauche, cliquer sur</p>
-<blockquote>
-<em>Commuter la mise à jour dynamique de la définition</em>.</blockquote>
+<p><em>Commuter la mise à jour dynamique de la définition</em>.</p>
 <p>pour adapter l'affichage local au distant, c'est-à-dire, éviter l'affichage
 d'ascenseurs si la résolution du serveur est supérieure.</p>
 </div>
