@@ -59,15 +59,12 @@
 <!-- https://docutils.sourceforge.io/docs/ref/rst/directives.html#default-role -->
 <div class="section" id="installation-de-kodi-sur-raspbian">
 <h2>Installation de kodi sur raspbian</h2>
-<div class="highlight"><pre><span></span>apt-get<span class="w"> </span>install<span class="w"> </span>kodi
-</pre></div>
+<p>Installer le paquet <em>kodi</em>.</p>
 </div>
 <div class="section" id="demarrage-de-kodi-automatiquement-sur-raspbian">
 <h2>Démarrage de kodi automatiquement sur raspbian</h2>
-<p>Exécuter</p>
-<div class="highlight"><pre><span></span>mkdir<span class="w"> </span>-p<span class="w"> </span>~/.config/autostart
-</pre></div>
-<p>Créer le fichier <em>~/.config/autostart/kodi.desktop</em></p>
+<p>Créer le dossier <em>~/.config/autostart</em>.</p>
+<p>Y créer le fichier <em>kodi.desktop</em></p>
 <p>Contenu :</p>
 <div class="highlight"><pre><span></span>[Desktop Entry]
 Type=Application
@@ -90,12 +87,17 @@ X-GNOME-Autostart-enabled=true
 <h2>2) IPTV</h2>
 <p>IMPORTANT</p>
 <p><strong>iptv-org NE FONCTIONNE PAS, LES FLUX VIDÉOS SONT INEXPLOITABLES.</strong></p>
-<p>Les informations ci-dessous sont conservées pour mémoire, aussi pour rappeler
-comment activer iptvsimple.</p>
-<p>Pour commencer installer le paquet (sur raspbian) :</p>
-<div class="highlight"><pre><span></span>apt-get<span class="w"> </span>install<span class="w"> </span>kodi-pvr-iptvsimple
-</pre></div>
-<p>Ensuite configurer IPTV Simple Client avec par exemple :</p>
+<p><strong>Les informations ci-dessous sont conservées pour mémoire, aussi pour rappeler
+comment rendre l'addon &quot;IPTV Simple Client&quot; disponible.</strong></p>
+</div>
+<div class="section" id="installation">
+<h2>2.1) Installation</h2>
+<p>Installer le paquet <em>kodi-pvr-iptvsimple</em>.</p>
+</div>
+<div class="section" id="urls">
+<h2>2.2 URLs</h2>
+<p>IPTV Simple Client a besoin d'une URL pour l'IPTV proprement dite, et une URL
+optionnelle pour l'EPG (Electronic Program Guide).</p>
 <p>Liste M3U :
 <a class="reference external" href="https://iptv-org.github.io/iptv/countries/fr.m3u">https://iptv-org.github.io/iptv/countries/fr.m3u</a></p>
 <p>EPG XMLTV :
@@ -103,12 +105,12 @@ comment activer iptvsimple.</p>
 </div>
 <div class="section" id="lancer-un-flux-avec-streamlink">
 <h2>3) Lancer un flux avec streamlink</h2>
-<p>Installer le paquet</p>
-<p>streamlink</p>
-<p>Ensuite, exemple qui doit fonctionner sans modifier streamlink.</p>
+<p>Installer le paquet <em>streamlink</em>.</p>
+<p>streamlink fonctionne en ligne de commande, ce qui est pratique pour le tester.</p>
+<p>Exemple qui doit fonctionner sans modifier streamlink :</p>
 <div class="highlight"><pre><span></span>streamlink<span class="w"> </span>https://www.france.tv/france-5/direct.html<span class="w"> </span>best
 </pre></div>
-<p>Cet exemple ci-dessous ne fonctionne pas :</p>
+<p>L'exemple ci-dessous ne fonctionne pas :</p>
 <div class="highlight"><pre><span></span>streamlink<span class="w"> </span>https://www.arte.tv/fr/live/arte-tv/<span class="w"> </span>best
 </pre></div>
 <p>Pour utiliser streamlink avec Arte, il faut modifier le plugin ArteTV.
@@ -137,7 +139,7 @@ Constaté le 2026-07-05.</p>
 <div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>/usr/lib/python3.14/site-packages/streamlink/plugins
 patch<span class="w"> </span>artetv.py<span class="w"> </span>&lt;<span class="w"> </span>~/artetv.py.patch
 </pre></div>
-<p>La commande streamlink doit fonctionner pour Arte :</p>
+<p>La commande streamlink doit désormais fonctionner pour Arte :</p>
 <div class="highlight"><pre><span></span>streamlink<span class="w"> </span>https://www.arte.tv/fr/live/arte-tv/<span class="w"> </span>best
 </pre></div>
 </div>
@@ -146,16 +148,16 @@ patch<span class="w"> </span>artetv.py<span class="w"> </span>&lt;<span class="w
 <p>C'est assez complexe et il vaut mieux utiliser des alternatives plus robustes,
 mais s'il n'y a pas le choix...</p>
 <p>Exemple de plugin pour MyArteTV, qui fait appel à streamlink pour l'URL
-<a class="reference external" href="https://www.arte.tv/fr/live/arte-tv/">https://www.arte.tv/fr/live/arte-tv/</a></p>
+<em>https://www.arte.tv/fr/live/arte-tv/</em></p>
 </div>
 <div class="section" id="creer-le-repertoire-de-l-addon">
 <h2>4.1) Créer le répertoire de l'addon</h2>
-<div class="highlight"><pre><span></span>~/.kodi/addons/plugin.video.myartetv
-<span class="nb">cd</span><span class="w"> </span>~/.kodi/addons/plugin.video.myartetv
-</pre></div>
+<p>Créer le répertoire <em>plugin.video.myartetv</em> dans <em>~/.kodi/addons</em>.</p>
 </div>
 <div class="section" id="creer-le-fichier-addon-xml">
 <h2>4.2) Créer le fichier addon.xml</h2>
+<p>Le fichier est situé dans le répertoire qui vient d'être créé, nom complet :
+<em>~/.kodi/addons/plugin.video.myartetv/addon.xml</em></p>
 <p>Contenu du fichier :</p>
 <div class="highlight"><pre><span></span><span class="nt">&lt;addon</span><span class="w"> </span><span class="na">id=</span><span class="s">&quot;plugin.video.myartetv&quot;</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;My Arte avec streamlink&quot;</span><span class="w"> </span><span class="na">version=</span><span class="s">&quot;1.0.0&quot;</span><span class="w"> </span><span class="na">provider-name=</span><span class="s">&quot;local&quot;</span><span class="nt">&gt;</span>
 <span class="w">  </span><span class="nt">&lt;extension</span><span class="w"> </span><span class="na">point=</span><span class="s">&quot;xbmc.python.pluginsource&quot;</span><span class="w"> </span><span class="na">library=</span><span class="s">&quot;default.py&quot;</span><span class="nt">&gt;</span>
@@ -169,6 +171,8 @@ mais s'il n'y a pas le choix...</p>
 </div>
 <div class="section" id="creer-le-fichier-default-py">
 <h2>4.2) Créer le fichier default.py</h2>
+<p>Au même endroit que <em>addon.xml</em>, donc le nom complet est :
+<em>~/.kodi/addons/plugin.video.myartetv/default.py</em></p>
 <p>Contenu du fichier :</p>
 <div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">xbmc</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">subprocess</span>
@@ -204,11 +208,16 @@ mais s'il n'y a pas le choix...</p>
 <span class="k">else</span><span class="p">:</span>
     <span class="n">xbmc</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="s2">&quot;MYARTETV ERROR: streamlink not ready&quot;</span><span class="p">,</span> <span class="n">xbmc</span><span class="o">.</span><span class="n">LOGERROR</span><span class="p">)</span>
 </pre></div>
+<p>On a donc comme structure :</p>
+<div class="highlight"><pre><span></span>~/.kodi/addons/plugin.video.myartetv
+├──<span class="w"> </span>addon.xml
+└──<span class="w"> </span>default.py
+</pre></div>
 </div>
 <div class="section" id="activation">
 <h2>4.3 Activation</h2>
-<p>Au démarrage de kodi, kodi détecte ce nouvel addon et demande s'il faut
-l'activer. Répondre <em>Oui</em>.</p>
+<p>Lorsqu'il démarre, kodi détecte ce nouvel addon et demande s'il faut l'activer.
+Répondre <em>Oui</em>.</p>
 </div>
 
 <p class="subheader">Category: <a href="https://sebmillet.github.io/site/category/ti.html">TI</a>
