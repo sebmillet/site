@@ -142,6 +142,25 @@ patch<span class="w"> </span>artetv.py<span class="w"> </span>&lt;<span class="w
 <div class="highlight"><pre><span></span>streamlink<span class="w"> </span>https://www.arte.tv/fr/live/arte-tv/<span class="w"> </span>best
 </pre></div>
 </div>
+<div class="section" id="streamlink-sur-raspberry">
+<h2>3.1 streamlink sur raspberry</h2>
+<p>La version streamlink sur mon raspberry (bookworm = V12) est 5.2.1, trop
+ancienne en 2026.</p>
+<p>Exécuter :</p>
+<div class="highlight"><pre><span></span>apt-get<span class="w"> </span>install<span class="w"> </span>pipx
+pipx<span class="w"> </span>install<span class="w"> </span>streamlink
+</pre></div>
+<p>Ensuite il faut s'assurer que le streamlink lancé par défaut est bien celui qui
+se trouve dans le répertoire <em>~/.local/bin</em>. Cela nécessite de modifier la
+variable PATH, dans <em>~/.bashrc</em> typiquement (si le shell est bash évidemment).</p>
+<p>Au besoin, exécuter</p>
+<div class="highlight"><pre><span></span>pipx<span class="w"> </span>ensurepath
+</pre></div>
+<p>Et dans tous les cas, vérifier le résultat :</p>
+<div class="highlight"><pre><span></span>maisonadm@maison-rp:~<span class="w"> </span>$<span class="w"> </span>streamlink<span class="w"> </span>--version
+streamlink<span class="w"> </span><span class="m">8</span>.4.0
+</pre></div>
+</div>
 <div class="section" id="creer-un-addon-kodi-avec-streamlink">
 <h2>4) Créer un addon kodi avec streamlink</h2>
 <p>C'est assez complexe et il vaut mieux utiliser des alternatives plus robustes,
