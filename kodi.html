@@ -76,26 +76,33 @@ X-GNOME-Autostart-enabled=true
 <div class="section" id="configuration-de-kodi">
 <h2>Configuration de KODI</h2>
 </div>
+<div class="section" id="premier-demarrage">
+<h2>1) Premier démarrage</h2>
+<p>Activer <em>Inputstream FFmpeg Direct</em>
+Activer <em>IPTV Simple Client</em>
+Activer <em>Version Check</em></p>
+</div>
 <div class="section" id="langue">
-<h2>1) Langue</h2>
+<h2>2) Langue</h2>
 <ul class="simple">
-<li>Dans KODI, aller dans <em>Options -&gt; Interface -&gt; Regional</em>, champ <em>Language</em>, choisir <em>French</em></li>
-<li>Au même endroit, champ <em>Disposition du clavier virtuel</em>, choisir <em>French AZERTY</em></li>
+<li>Dans KODI, aller dans <em>Settings -&gt; Interface -&gt; Regional</em>, champ <em>Language</em>, choisir <em>French</em></li>
+<li>Au même endroit, champ <em>Dispositions du clavier virtuel</em>, choisir <em>French AZERTY</em></li>
+<li>Toujours au même endroit, champ <em>Format régional prédéfini</em>, choisir <em>France</em></li>
 </ul>
 </div>
 <div class="section" id="iptv">
-<h2>2) IPTV</h2>
+<h2>3) IPTV</h2>
 <p>IMPORTANT</p>
 <p><strong>iptv-org NE FONCTIONNE PAS, LES FLUX VIDÉOS SONT INEXPLOITABLES.</strong></p>
 <p><strong>Les informations ci-dessous sont conservées pour mémoire, aussi pour rappeler
 comment rendre l'addon &quot;IPTV Simple Client&quot; disponible.</strong></p>
 </div>
 <div class="section" id="installation">
-<h2>2.1) Installation</h2>
+<h2>3.1) Installation</h2>
 <p>Installer le paquet <em>kodi-pvr-iptvsimple</em>.</p>
 </div>
 <div class="section" id="urls">
-<h2>2.2 URLs</h2>
+<h2>3.2 URLs</h2>
 <p>IPTV Simple Client a besoin d'une URL pour l'IPTV proprement dite, et une URL
 optionnelle pour l'EPG (Electronic Program Guide).</p>
 <p>Liste M3U :
@@ -104,7 +111,7 @@ optionnelle pour l'EPG (Electronic Program Guide).</p>
 <a class="reference external" href="https://iptv-org.github.io/epg/guides/fr.xml">https://iptv-org.github.io/epg/guides/fr.xml</a></p>
 </div>
 <div class="section" id="lancer-un-flux-avec-streamlink">
-<h2>3) Lancer un flux avec streamlink</h2>
+<h2>4) Lancer un flux avec streamlink</h2>
 <p>Installer le paquet <em>streamlink</em>.</p>
 <p>streamlink fonctionne en ligne de commande, ce qui est pratique pour le tester.</p>
 <p>Exemple qui doit fonctionner sans modifier streamlink :</p>
@@ -139,12 +146,18 @@ Constaté le 2026-07-05.</p>
 <div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>/usr/lib/python3.14/site-packages/streamlink/plugins
 patch<span class="w"> </span>artetv.py<span class="w"> </span>&lt;<span class="w"> </span>~/artetv.py.patch
 </pre></div>
+<p>Attention si streamlink a été installé avec pipx (donc dans l'environnement
+utilisateur, dans <em>~/.local/bin</em>), dans ce cas le répertoire du plugin est
+différent :</p>
+<div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>~/.local/pipx/venvs/streamlink/lib/python3.11/site-packages/streamlink/plugins
+patch<span class="w"> </span>artetv.py<span class="w"> </span>&lt;<span class="w"> </span>~/artetv.py.patch
+</pre></div>
 <p>La commande streamlink doit désormais fonctionner pour Arte :</p>
 <div class="highlight"><pre><span></span>streamlink<span class="w"> </span>https://www.arte.tv/fr/live/arte-tv/<span class="w"> </span>best
 </pre></div>
 </div>
 <div class="section" id="streamlink-sur-raspberry">
-<h2>3.1 streamlink sur raspberry</h2>
+<h2>4.1 streamlink sur raspberry</h2>
 <p>La version streamlink sur mon raspberry (bookworm = V12) est 5.2.1, trop
 ancienne en 2026.</p>
 <p>Exécuter :</p>
@@ -163,18 +176,18 @@ streamlink<span class="w"> </span><span class="m">8</span>.4.0
 </pre></div>
 </div>
 <div class="section" id="creer-un-addon-kodi-avec-streamlink">
-<h2>4) Créer un addon kodi avec streamlink</h2>
+<h2>5) Créer un addon kodi avec streamlink</h2>
 <p>C'est assez complexe et il vaut mieux utiliser des alternatives plus robustes,
 mais s'il n'y a pas le choix...</p>
 <p>Exemple de plugin pour MyArteTV, qui fait appel à streamlink pour l'URL
 <em>https://www.arte.tv/fr/live/arte-tv/</em></p>
 </div>
 <div class="section" id="creer-le-repertoire-de-l-addon">
-<h2>4.1) Créer le répertoire de l'addon</h2>
+<h2>5.1) Créer le répertoire de l'addon</h2>
 <p>Créer le répertoire <em>plugin.video.myartetv</em> dans <em>~/.kodi/addons</em>.</p>
 </div>
 <div class="section" id="creer-le-fichier-addon-xml">
-<h2>4.2) Créer le fichier addon.xml</h2>
+<h2>5.2) Créer le fichier addon.xml</h2>
 <p>Le fichier est situé dans le répertoire qui vient d'être créé, nom complet :
 <em>~/.kodi/addons/plugin.video.myartetv/addon.xml</em></p>
 <p>Contenu du fichier :</p>
@@ -189,7 +202,7 @@ mais s'il n'y a pas le choix...</p>
 </pre></div>
 </div>
 <div class="section" id="creer-le-fichier-default-py">
-<h2>4.2) Créer le fichier default.py</h2>
+<h2>5.3) Créer le fichier default.py</h2>
 <p>Au même endroit que <em>addon.xml</em>, donc le nom complet est :
 <em>~/.kodi/addons/plugin.video.myartetv/default.py</em></p>
 <p>Contenu du fichier :</p>
@@ -212,7 +225,7 @@ mais s'il n'y a pas le choix...</p>
 
 <span class="n">subprocess</span><span class="o">.</span><span class="n">Popen</span><span class="p">(</span><span class="n">cmd</span><span class="p">)</span>
 
-<span class="k">def</span><span class="w"> </span><span class="nf">wait_port</span><span class="p">(</span><span class="n">host</span><span class="p">,</span> <span class="n">port</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="mf">5.0</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">wait_port</span><span class="p">(</span><span class="n">host</span><span class="p">,</span> <span class="n">port</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="mf">10.0</span><span class="p">):</span>
     <span class="n">start</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
     <span class="k">while</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span> <span class="o">-</span> <span class="n">start</span> <span class="o">&lt;</span> <span class="n">timeout</span><span class="p">:</span>
         <span class="k">try</span><span class="p">:</span>
@@ -232,11 +245,61 @@ mais s'il n'y a pas le choix...</p>
 ├──<span class="w"> </span>addon.xml
 └──<span class="w"> </span>default.py
 </pre></div>
+<p>Note</p>
+<p>Cette version de <em>default.py</em> risque de produire des zombies, chaque fois que
+streamlink s'arrête. J'ai fait quelques essais avec chatgpt pour améliorer le
+code, les résultats ne sont pas probants. De toute façon un tel addon est un
+plan B.</p>
 </div>
 <div class="section" id="activation">
-<h2>4.3 Activation</h2>
+<h2>5.4 Activation</h2>
 <p>Lorsqu'il démarre, kodi détecte ce nouvel addon et demande s'il faut l'activer.
 Répondre <em>Oui</em>.</p>
+</div>
+<div class="section" id="catch-up-tv-and-more">
+<h2>6) Catch-up TV and More</h2>
+<p>Cet addon kodi permet de regarder la plupart des chaînes, avec le replay.</p>
+<p>Sur raspberry, la version disponible par défaut est trop ancienne, il faut
+ajouter la source de l'addon à la main et l'installer depuis cette source.</p>
+<p>Dans <em>Paramètres -&gt; Système -&gt; Extensions</em>, cocher <em>Sources inconnues</em></p>
+<p>Dans <em>Paramètres -&gt; Gestionnaire de fichiers</em>, double-cliquer sur <em>Ajouter une source</em></p>
+<p>Double-cliquer sur <em>&lt;Aucun(e)&gt;</em></p>
+<p>Saisir l'URL : <a class="reference external" href="https://catch-up-tv-and-more.github.io/repo/">https://catch-up-tv-and-more.github.io/repo/</a></p>
+<p>Double-cliquer sur <em>repo</em> (nom de la source) et choisir par exemple :</p>
+<p>Catch-up TV &amp; More source</p>
+<p>Dans <em>Paramètres -&gt; Extensions</em>, cliquer sur <em>Installer d'un fichier Zip</em></p>
+<p>Cliquer sur le nom choisis, ici <em>Catch-up TV &amp; More source</em></p>
+<p>Cliquer sur <em>Stable_channel</em></p>
+<p>Cliquer sur <em>repository.catchuptvandmore.stable-0.0.6.zip</em></p>
+<p>Après un court délai, en haut à gauche s'affiche <em>Extension installée</em></p>
+<p>Dans <em>Paramètres -&gt; Extensions</em>, cliquer sur <em>Installer d'un dépôt</em></p>
+<p>Cliquer sur <em>Catch-up TV &amp; More Release repository</em></p>
+<p>Cliquer sur <em>Extensions Vidéos</em></p>
+<p>Cliquer sur Catch-up TV &amp; More</p>
+<p>Cliquer (en bas à droite) sur <em>Installer</em></p>
+<p>Une fenêtre s'affiche indiquant
+<em>Les extensions supplémentaires suivantes seront installées</em></p>
+<p>3 extensions sont listées dans cette fenêtre :</p>
+<ul class="simple">
+<li>InputStream Helper, min 0.3.3 =&gt; À installer 0.8.5</li>
+<li>youtube-dl Control, min 19.912.1 =&gt; À installer 25.11.30+matrix.1</li>
+<li>Catch-up TV &amp; More channel logos and artwork, min 1.0.0 =&gt; À installer 1.0.31</li>
+</ul>
+<p>Cliquer sur chacune des 3 extensions et dans la fenêtre qui s'affiche (page de
+l'extension), cliquer en bas à droite sur <em>Installer</em>.</p>
+<p>Ensuite cliquer sur &quot;OK&quot;.</p>
+<p>Depuis la fenêtre d'accueil, lancer l'extension Catch-up TV &amp; More</p>
+<p>Cliquer <em>TV en direct -&gt; France -&gt; France 2</em> (par exemple)</p>
+<p>Une fenêtre s'affiche indiquant <em>Widevine CDM est nécessaire</em></p>
+<p>Cliquer sur <em>Installer Widevine</em></p>
+<p>Cliquer <em>J'accepte</em> (licence EULA Widevine CDM)</p>
+<p>Une fenêtre d'information s'affiche, indiquant</p>
+<p>En raison des droits de distribution, Widevine CDM doit être extrait d'une image
+de récupération de Chrome OS. Ce processus nécessite au moins 1.5GiB d'espace
+disque disponible. Souhaitez-vous continuer ?</p>
+<p>Cliquer <em>Oui</em>.</p>
+<p>Le téléchargement prend beaucoup de temps et une fois terminé, la chaîne
+démarre.</p>
 </div>
 
 <p class="subheader">Category: <a href="https://sebmillet.github.io/site/category/ti.html">TI</a>
