@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="utf-8" />
+    <!-- Set the viewport width to device width for mobile -->
+    <meta name="viewport" content="width=device-width" />
+
+    <title>Site de Sébastien Millet - xbmc</title>
+
+    <link rel="stylesheet" href="https://sebmillet.github.io/site/theme/css/normalize.css" />
+    <link rel="stylesheet" href="https://sebmillet.github.io/site/theme/css/foundation.min.css" />
+    <link rel="stylesheet" href="https://sebmillet.github.io/site/theme/css/style.css" />
+    <link rel="stylesheet" href="https://sebmillet.github.io/site/theme/css/pygments.css" />	
+    <script src="https://sebmillet.github.io/site/theme/js/custom.modernizr.js"></script>
+
+    <!-- So Firefox can bookmark->"abo this site" -->
+
+</head>
+
+<body>
+
+<!-- Nav Bar -->
+<nav>
+<div class="top-bar">
+<div class="row">
+    <div class="large-9 large-centered columns">
+	    <h1><a href="https://sebmillet.github.io/site">Site de Sébastien Millet</a></h1>
+    </div>
+</div>
+</div>
+
+<!-- Show menu items and pages -->
+<div class="row">
+<div class="large-9 columns">
+    <ul class="button-group navigation">
+
+    </ul>
+</div>
+</div>
+</nav>
+<!-- End Nav -->
+
+
+<!-- Main Page Content and Sidebar -->
+<div class="row">
+
+    <!-- Main Blog Content -->
+    <div class="large-9 columns">
+        
+        
+
+            <article>
+                <a href="https://sebmillet.github.io/site/kodi.html"><h3 class="article-title">KODI</h3></a>
+<h6 class="subheader" title="2026-07-05T00:00:00+02:00">dim. 05 juillet 2026
+</h6>
+
+
+<!-- default-role rst directive described here: -->
+<!-- https://docutils.sourceforge.io/docs/ref/rst/directives.html#default-role -->
+<div class="section" id="installation-de-kodi-sur-raspbian">
+<h2>Installation de kodi sur raspbian</h2>
+<p>apt-get install kodi</p>
+</div>
+<div class="section" id="demarrage-de-kodi-automatiquement-sur-raspbian">
+<h2>Démarrage de kodi automatiquement sur raspbian</h2>
+<p>Exécuter</p>
+<div class="highlight"><pre><span></span>mkdir<span class="w"> </span>-p<span class="w"> </span>~/.config/autostart
+</pre></div>
+<p>Créer le fichier <em>~/.config/autostart/kodi.desktop</em></p>
+<p>Contenu :</p>
+<p>[Desktop Entry]
+Type=Application
+Name=Kodi
+Exec=kodi
+X-GNOME-Autostart-enabled=true</p>
+</div>
+<div class="section" id="configuration-de-kodi">
+<h2>Configuration de KODI</h2>
+</div>
+<div class="section" id="langue">
+<h2>1) Langue</h2>
+<ul class="simple">
+<li>Dans KODI, aller dans <em>Options -&gt; Interface -&gt; Regional</em>, champ <em>Language</em>, choisir <em>French</em></li>
+<li>Au même endroit, champ <em>Disposition du clavier virtuel</em>, choisir <em>French AZERTY</em></li>
+</ul>
+</div>
+<div class="section" id="iptv">
+<h2>2) IPTV</h2>
+<p>IMPORTANT</p>
+<p><strong>iptv-org NE FONCTIONNE PAS, LES FLUX VIDÉOS SONT INEXPLOITABLES.</strong></p>
+<p>Installer le paquet :</p>
+<p>kodi-pvr-iptvsimple</p>
+<p>Liste M3U :
+<a class="reference external" href="https://iptv-org.github.io/iptv/countries/fr.m3u">https://iptv-org.github.io/iptv/countries/fr.m3u</a></p>
+<p>EPG XMLTV :
+<a class="reference external" href="https://iptv-org.github.io/epg/guides/fr.xml">https://iptv-org.github.io/epg/guides/fr.xml</a></p>
+</div>
+<div class="section" id="lancer-un-flux-avec-streamlink">
+<h2>3) Lancer un flux avec streamlink</h2>
+<p>Installer le paquet</p>
+<p>streamlink</p>
+<p>Ensuite, exemple qui doit fonctionner sans modifier streamlink.</p>
+<div class="highlight"><pre><span></span>streamlink<span class="w"> </span>https://www.france.tv/france-5/direct.html<span class="w"> </span>best
+</pre></div>
+<p>Cet exemple ci-dessous ne fonctionne pas :</p>
+<div class="highlight"><pre><span></span>streamlink<span class="w"> </span>https://www.arte.tv/fr/live/arte-tv/<span class="w"> </span>best
+</pre></div>
+<p>Pour utiliser streamlink avec Arte, il faut modifier le plugin ArteTV.
+Constaté le 2026-07-05.</p>
+<p>Créer le fichier <em>~/artetv.py.patch</em></p>
+<p>Contenu du fichier :</p>
+<div class="highlight"><pre><span></span><span class="gd">--- artetv.py.orig  2026-05-06 23:00:46.000000000 +0200</span>
+<span class="gi">+++ artetv.py       2026-07-05 09:25:53.788643825 +0200</span>
+<span class="gu">@@ -34,7 +34,13 @@</span>
+<span class="w"> </span>    API_URL = &quot;https://api.arte.tv/api/player/v2/config/{language}/{id}&quot;
+
+<span class="w"> </span>    def _get_streams(self):
+<span class="gd">-        self.id = self.match[&quot;video_id&quot;] if self.matches[&quot;vod&quot;] else &quot;LIVE&quot;</span>
+<span class="gi">+        video_id = None</span>
+<span class="gi">+</span>
+<span class="gi">+        if hasattr(self.match, &quot;groupdict&quot;):</span>
+<span class="gi">+            video_id = self.match.groupdict().get(&quot;video_id&quot;)</span>
+<span class="gi">+</span>
+<span class="gi">+        self.id = video_id if video_id else &quot;LIVE&quot;</span>
+<span class="gi">+</span>
+
+<span class="w"> </span>        json_url = self.API_URL.format(
+<span class="w"> </span>            language=self.match[&quot;language&quot;],
+</pre></div>
+<p>Ensuite exécuter les commandes suivantes :</p>
+<div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>/usr/lib/python3.14/site-packages/streamlink/plugins
+patch<span class="w"> </span>artetv.py<span class="w"> </span>&lt;<span class="w"> </span>~/artetv.py.patch
+</pre></div>
+<p>La commande streamlink doit fonctionner pour Arte :</p>
+<div class="highlight"><pre><span></span>streamlink<span class="w"> </span>https://www.arte.tv/fr/live/arte-tv/<span class="w"> </span>best
+</pre></div>
+</div>
+<div class="section" id="creer-un-addon-kodi-avec-streamlink">
+<h2>4) Créer un addon kodi avec streamlink</h2>
+<p>C'est assez complexe et il vaut mieux utiliser des alternatives plus robustes,
+mais s'il n'y a pas le choix...</p>
+<p>Exemple de plugin pour MyArteTV, qui fait appel à streamlink pour l'URL
+<a class="reference external" href="https://www.arte.tv/fr/live/arte-tv/">https://www.arte.tv/fr/live/arte-tv/</a></p>
+</div>
+<div class="section" id="creer-le-repertoire-de-l-addon">
+<h2>4.1) Créer le répertoire de l'addon</h2>
+<div class="highlight"><pre><span></span>~/.kodi/addons/plugin.video.myartetv
+<span class="nb">cd</span><span class="w"> </span>~/.kodi/addons/plugin.video.myartetv
+</pre></div>
+</div>
+<div class="section" id="creer-le-fichier-addon-xml">
+<h2>4.2) Créer le fichier addon.xml</h2>
+<p>Contenu du fichier :</p>
+<div class="highlight"><pre><span></span><span class="nt">&lt;addon</span><span class="w"> </span><span class="na">id=</span><span class="s">&quot;plugin.video.myartetv&quot;</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;My Arte avec streamlink&quot;</span><span class="w"> </span><span class="na">version=</span><span class="s">&quot;1.0.0&quot;</span><span class="w"> </span><span class="na">provider-name=</span><span class="s">&quot;local&quot;</span><span class="nt">&gt;</span>
+<span class="w">  </span><span class="nt">&lt;extension</span><span class="w"> </span><span class="na">point=</span><span class="s">&quot;xbmc.python.pluginsource&quot;</span><span class="w"> </span><span class="na">library=</span><span class="s">&quot;default.py&quot;</span><span class="nt">&gt;</span>
+<span class="w">    </span><span class="nt">&lt;provides&gt;</span>video<span class="nt">&lt;/provides&gt;</span>
+<span class="w">  </span><span class="nt">&lt;/extension&gt;</span>
+<span class="w">  </span><span class="nt">&lt;requires&gt;</span>
+<span class="w">    </span><span class="nt">&lt;import</span><span class="w"> </span><span class="na">addon=</span><span class="s">&quot;xbmc.python&quot;</span><span class="w"> </span><span class="na">version=</span><span class="s">&quot;3.0.0&quot;</span><span class="nt">/&gt;</span>
+<span class="w">  </span><span class="nt">&lt;/requires&gt;</span>
+<span class="nt">&lt;/addon&gt;</span>
+</pre></div>
+</div>
+<div class="section" id="creer-le-fichier-default-py">
+<h2>4.2) Créer le fichier default.py</h2>
+<p>Contenu du fichier :</p>
+<div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">xbmc</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">subprocess</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">socket</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">time</span>
+
+<span class="n">url</span> <span class="o">=</span> <span class="s2">&quot;https://www.arte.tv/fr/live/arte-tv&quot;</span>
+<span class="n">port</span> <span class="o">=</span> <span class="mi">8765</span>
+
+<span class="n">cmd</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s2">&quot;streamlink&quot;</span><span class="p">,</span>
+    <span class="n">url</span><span class="p">,</span>
+    <span class="s2">&quot;best&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;--player-external-http&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;--player-external-http-port&quot;</span><span class="p">,</span>
+    <span class="nb">str</span><span class="p">(</span><span class="n">port</span><span class="p">)</span>
+<span class="p">]</span>
+
+<span class="n">subprocess</span><span class="o">.</span><span class="n">Popen</span><span class="p">(</span><span class="n">cmd</span><span class="p">)</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">wait_port</span><span class="p">(</span><span class="n">host</span><span class="p">,</span> <span class="n">port</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="mf">5.0</span><span class="p">):</span>
+    <span class="n">start</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+    <span class="k">while</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span> <span class="o">-</span> <span class="n">start</span> <span class="o">&lt;</span> <span class="n">timeout</span><span class="p">:</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">with</span> <span class="n">socket</span><span class="o">.</span><span class="n">create_connection</span><span class="p">((</span><span class="n">host</span><span class="p">,</span> <span class="n">port</span><span class="p">),</span> <span class="n">timeout</span><span class="o">=</span><span class="mf">0.2</span><span class="p">):</span>
+                <span class="k">return</span> <span class="kc">True</span>
+        <span class="k">except</span> <span class="ne">OSError</span><span class="p">:</span>
+            <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mf">0.05</span><span class="p">)</span>
+    <span class="k">return</span> <span class="kc">False</span>
+
+<span class="k">if</span> <span class="n">wait_port</span><span class="p">(</span><span class="s2">&quot;127.0.0.1&quot;</span><span class="p">,</span> <span class="n">port</span><span class="p">):</span>
+    <span class="n">xbmc</span><span class="o">.</span><span class="n">Player</span><span class="p">()</span><span class="o">.</span><span class="n">play</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;http://127.0.0.1:</span><span class="si">{</span><span class="n">port</span><span class="si">}</span><span class="s2">/&quot;</span><span class="p">)</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="n">xbmc</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="s2">&quot;MYARTETV ERROR: streamlink not ready&quot;</span><span class="p">,</span> <span class="n">xbmc</span><span class="o">.</span><span class="n">LOGERROR</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="section" id="activation">
+<h2>4.3 Activation</h2>
+<p>Au démarrage de kodi, kodi détecte ce nouvel addon et demande s'il faut
+l'activer. Répondre <em>Oui</em>.</p>
+</div>
+<p class="subheader">Category: <a href="https://sebmillet.github.io/site/category/ti.html">TI</a>
+
+    Tagged: 
+    <a href="https://sebmillet.github.io/site/tag/kodi.html">kodi </a>
+    <a href="https://sebmillet.github.io/site/tag/xbmc.html">xbmc </a>
+    <a href="https://sebmillet.github.io/site/tag/iptv.html">iptv </a>
+    <a href="https://sebmillet.github.io/site/tag/tv.html">tv </a>
+</p>
+
+
+
+            </article>
+
+<div class="pagination-centered">
+<h6 class="subheader">Page 1 of 1</h6>
+
+<p>
+
+</p>
+</div>
+
+
+
+            <!-- /#posts-list -->
+
+    </div>
+    <!-- End Main Content -->
+
+    <!-- Sidebar -->
+    <aside class="large-3 columns">
+        <h5 class="sidebar-title">Site</h5>
+        <ul class="side-nav">
+            <li><a href="https://sebmillet.github.io/site/archives.html">Archives</a>
+            <li><a href="https://sebmillet.github.io/site/tags.html">Tags</a>
+
+
+        </ul>
+
+		
+        <h5 class="sidebar-title">Categories</h5>
+        <ul class="side-nav">
+            <li><a href="https://sebmillet.github.io/site/category/lectures.html">Lectures</a></li>
+            <li><a href="https://sebmillet.github.io/site/category/origine.html">Origine</a></li>
+            <li><a href="https://sebmillet.github.io/site/category/partage.html">Partage</a></li>
+            <li><a href="https://sebmillet.github.io/site/category/programmes.html">Programmes</a></li>
+            <li><a href="https://sebmillet.github.io/site/category/recettes.html">Recettes</a></li>
+            <li><a href="https://sebmillet.github.io/site/category/ti.html">TI</a></li>
+   
+        </ul>
+
+        <h5 class="sidebar-title">Links</h5>
+        <ul class="side-nav">
+            <li><a href="https://sebmillet.github.io/site/ancien/index.html">Ancien Site</a></li>
+            <li><a href="http://getpelican.com/">Pelican</a></li>
+            <li><a href="http://python.org/">Python.org</a></li>
+            <li><a href="http://jinja.pocoo.org/">Jinja2</a></li>
+        </ul>
+		
+
+    </aside> <!-- End Sidebar -->
+
+</div> <!-- End Main Content and Sidebar -->
+
+
+<!-- Footer -->
+<footer class="row">
+    <div class="large-12 columns">
+        <hr />
+        <div class="row">
+            <div class="large-6 columns">
+                <p>Site de Sébastien Millet by Sébastien Millet</p>
+            </div>
+            </div>
+    </div>
+</footer>
