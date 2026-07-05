@@ -59,7 +59,8 @@
 <!-- https://docutils.sourceforge.io/docs/ref/rst/directives.html#default-role -->
 <div class="section" id="installation-de-kodi-sur-raspbian">
 <h2>Installation de kodi sur raspbian</h2>
-<p>apt-get install kodi</p>
+<div class="highlight"><pre><span></span>apt-get<span class="w"> </span>install<span class="w"> </span>kodi
+</pre></div>
 </div>
 <div class="section" id="demarrage-de-kodi-automatiquement-sur-raspbian">
 <h2>Démarrage de kodi automatiquement sur raspbian</h2>
@@ -68,11 +69,12 @@
 </pre></div>
 <p>Créer le fichier <em>~/.config/autostart/kodi.desktop</em></p>
 <p>Contenu :</p>
-<p>[Desktop Entry]
+<div class="highlight"><pre><span></span>[Desktop Entry]
 Type=Application
 Name=Kodi
 Exec=kodi
-X-GNOME-Autostart-enabled=true</p>
+X-GNOME-Autostart-enabled=true
+</pre></div>
 </div>
 <div class="section" id="configuration-de-kodi">
 <h2>Configuration de KODI</h2>
@@ -88,8 +90,12 @@ X-GNOME-Autostart-enabled=true</p>
 <h2>2) IPTV</h2>
 <p>IMPORTANT</p>
 <p><strong>iptv-org NE FONCTIONNE PAS, LES FLUX VIDÉOS SONT INEXPLOITABLES.</strong></p>
-<p>Installer le paquet :</p>
-<p>kodi-pvr-iptvsimple</p>
+<p>Les informations ci-dessous sont conservées pour mémoire, aussi pour rappeler
+comment activer iptvsimple.</p>
+<p>Pour commencer installer le paquet (sur raspbian) :</p>
+<div class="highlight"><pre><span></span>apt-get<span class="w"> </span>install<span class="w"> </span>kodi-pvr-iptvsimple
+</pre></div>
+<p>Ensuite configurer IPTV Simple Client avec par exemple :</p>
 <p>Liste M3U :
 <a class="reference external" href="https://iptv-org.github.io/iptv/countries/fr.m3u">https://iptv-org.github.io/iptv/countries/fr.m3u</a></p>
 <p>EPG XMLTV :
