@@ -49,122 +49,445 @@
         
 
             <article>
-                <a href="https://sebmillet.github.io/site/raspberry-gui-acces-distant.html"><h3 class="article-title">Raspberry gui accès distant</h3></a>
-<h6 class="subheader" title="2026-06-20T00:00:00+02:00">sam. 20 juin 2026
+                <a href="https://sebmillet.github.io/site/kodi.html"><h3 class="article-title">KODI</h3></a>
+<h6 class="subheader" title="2026-07-05T00:00:00+02:00">dim. 05 juillet 2026
 </h6>
 
 
 <!-- default-role rst directive described here: -->
 <!-- https://docutils.sourceforge.io/docs/ref/rst/directives.html#default-role -->
-<div class="section" id="configurer-le-clavier-en-francais-wayland">
-<h2>Configurer le clavier en français (wayland)</h2>
-<div class="highlight"><pre><span></span>localectl<span class="w"> </span>set-x11-keymap<span class="w"> </span>fr
+<div class="section" id="installation-de-kodi-sur-raspbian">
+<h2>Installation de kodi sur raspbian</h2>
+<p>Installer le paquet <em>kodi</em>.</p>
+</div>
+<div class="section" id="demarrage-de-kodi-automatiquement-sur-raspbian">
+<h2>Démarrage de kodi automatiquement sur raspbian</h2>
+<p>Créer le dossier <em>~/.config/autostart</em>.</p>
+<p>Y créer le fichier <em>kodi.desktop</em></p>
+<p>Contenu :</p>
+<div class="highlight"><pre><span></span>[Desktop Entry]
+Type=Application
+Name=Kodi
+Exec=kodi
+X-GNOME-Autostart-enabled=true
 </pre></div>
 </div>
-<div class="section" id="demarrer-automatiquement-le-mode-graphique">
-<h2>Démarrer automatiquement le mode graphique</h2>
+<div class="section" id="configuration-de-kodi">
+<h2>Configuration de KODI</h2>
+</div>
+<div class="section" id="premier-demarrage">
+<h2>1 Premier démarrage</h2>
+<p>Activer <em>Inputstream FFmpeg Direct</em>
+Activer <em>IPTV Simple Client</em>
+Activer <em>Version Check</em></p>
+</div>
+<div class="section" id="langue">
+<h2>2 Langue</h2>
 <ul class="simple">
-<li>Méthode 1</li>
+<li>Dans KODI, aller dans <em>Settings -&gt; Interface -&gt; Regional</em>, champ <em>Language</em>, choisir <em>French</em></li>
+<li>Au même endroit, champ <em>Dispositions du clavier virtuel</em>, choisir <em>French AZERTY</em></li>
+<li>Toujours au même endroit, champ <em>Format régional prédéfini</em>, choisir <em>France</em></li>
 </ul>
-<div class="highlight"><pre><span></span>systemctl<span class="w"> </span>set-default<span class="w"> </span>graphical.target
-<span class="c1"># Vérifier la config</span>
-systemctl<span class="w"> </span>get-default
+</div>
+<div class="section" id="iptv">
+<h2>3 IPTV</h2>
+<p>IMPORTANT</p>
+<p><strong>iptv-org NE FONCTIONNE PAS, LES FLUX VIDÉOS SONT INEXPLOITABLES.</strong></p>
+<p><strong>Les informations ci-dessous sont conservées pour mémoire, aussi pour rappeler
+comment rendre l'addon &quot;IPTV Simple Client&quot; disponible.</strong></p>
+</div>
+<div class="section" id="installation">
+<h2>3.1 Installation</h2>
+<p>Installer le paquet <em>kodi-pvr-iptvsimple</em>.</p>
+</div>
+<div class="section" id="urls">
+<h2>3.2 URLs</h2>
+<p>IPTV Simple Client a besoin d'une URL pour l'IPTV proprement dite, et une URL
+optionnelle pour l'EPG (Electronic Program Guide).</p>
+<p>Liste M3U :
+<a class="reference external" href="https://iptv-org.github.io/iptv/countries/fr.m3u">https://iptv-org.github.io/iptv/countries/fr.m3u</a></p>
+<p>EPG XMLTV :
+<a class="reference external" href="https://iptv-org.github.io/epg/guides/fr.xml">https://iptv-org.github.io/epg/guides/fr.xml</a></p>
+</div>
+<div class="section" id="lancer-un-flux-avec-streamlink">
+<h2>4 Lancer un flux avec streamlink</h2>
+<p>Installer le paquet <em>streamlink</em>.</p>
+<p>streamlink fonctionne en ligne de commande, ce qui est pratique pour le tester.</p>
+<p>Exemple qui doit fonctionner sans modifier streamlink :</p>
+<div class="highlight"><pre><span></span>streamlink<span class="w"> </span>https://www.france.tv/france-5/direct.html<span class="w"> </span>best
 </pre></div>
-<ul class="simple">
-<li>Méthode 2</li>
-</ul>
-<p>Exécuter <em>raspi-config</em>, <em>System Options</em> -&gt; <em>Boot</em>
-choisir <em>B2 Desktop Desktop GUI</em>.</p>
-</div>
-<div class="section" id="demarrer-automatiquement-une-session-utilisateur">
-<h2>Démarrer automatiquement une session utilisateur</h2>
-<ul class="simple">
-<li>Méthode 1</li>
-</ul>
-<p>Ajouter la ligne</p>
-<blockquote>
-autologin-user=maisonadm</blockquote>
-<p>au fichier <em>/etc/lightdm/lightdm.conf</em></p>
-<ul class="simple">
-<li>Méthode 2</li>
-</ul>
-<p>Exécuter <em>raspi-config</em>, <em>System Options</em> -&gt; <em>AutoLogin</em></p>
-</div>
-<div class="section" id="installer-et-configurer-wayvnc">
-<h2>Installer et configurer wayvnc</h2>
-<p>wayvnc côté serveur sera utilisé à travers un tunnel SSH.</p>
-<p>L'objectif ici est de démarrer wayvnc :</p>
-<ul class="simple">
-<li>Sur la session graphique utilisateur (surtout pas système)</li>
-<li>À l'écoute uniquement en local (127.0.0.1), du fait du tunnel SSH.</li>
-</ul>
-<ol class="arabic simple">
-<li>Installer le paquet <em>wayvnc</em>.</li>
-<li>Créer le dossier <em>~/.config/systemd/user</em>.</li>
-<li>Dans ce dossier, créer le fichier <em>wayvnc.service</em>.</li>
-</ol>
-<p>Le nom complet du fichier est donc</p>
-<p><em>~/.config/systemd/user/wayvnc.service</em></p>
-<ol class="arabic simple" start="4">
-<li>Contenu du fichier :</li>
-</ol>
-<div class="highlight"><pre><span></span>[Unit]
-Description=WayVNC (user session)
-After=graphical-session.target
-Wants=graphical-session.target
+<p>L'exemple ci-dessous ne fonctionne pas :</p>
+<div class="highlight"><pre><span></span>streamlink<span class="w"> </span>https://www.arte.tv/fr/live/arte-tv/<span class="w"> </span>best
+</pre></div>
+<p>Pour utiliser streamlink avec Arte, il faut modifier le plugin ArteTV.
+Constaté le 2026-07-05.</p>
+<p>Créer le fichier <em>~/artetv.py.patch</em></p>
+<p>Contenu du fichier :</p>
+<div class="highlight"><pre><span></span><span class="gd">--- artetv.py.orig  2026-05-06 23:00:46.000000000 +0200</span>
+<span class="gi">+++ artetv.py       2026-07-05 09:25:53.788643825 +0200</span>
+<span class="gu">@@ -34,7 +34,13 @@</span>
+<span class="w"> </span>    API_URL = &quot;https://api.arte.tv/api/player/v2/config/{language}/{id}&quot;
 
-[Service]
-ExecStart=/usr/bin/wayvnc 127.0.0.1
-Restart=on-failure
-RestartSec=2
+<span class="w"> </span>    def _get_streams(self):
+<span class="gd">-        self.id = self.match[&quot;video_id&quot;] if self.matches[&quot;vod&quot;] else &quot;LIVE&quot;</span>
+<span class="gi">+        video_id = None</span>
+<span class="gi">+</span>
+<span class="gi">+        if hasattr(self.match, &quot;groupdict&quot;):</span>
+<span class="gi">+            video_id = self.match.groupdict().get(&quot;video_id&quot;)</span>
+<span class="gi">+</span>
+<span class="gi">+        self.id = video_id if video_id else &quot;LIVE&quot;</span>
+<span class="gi">+</span>
 
-[Install]
-WantedBy=default.target
+<span class="w"> </span>        json_url = self.API_URL.format(
+<span class="w"> </span>            language=self.match[&quot;language&quot;],
 </pre></div>
-<ol class="arabic simple" start="5">
-<li>Lancer le service et le configurer pour démarrer automatiquement :</li>
-</ol>
-<div class="highlight"><pre><span></span>systemctl --user daemon-reload
-systemctl --user enable wayvnc.service
-systemctl --user start wayvnc.service
+<p>Ensuite exécuter les commandes suivantes :</p>
+<div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>/usr/lib/python3.14/site-packages/streamlink/plugins
+patch<span class="w"> </span>artetv.py<span class="w"> </span>&lt;<span class="w"> </span>~/artetv.py.patch
+</pre></div>
+<p>Attention si streamlink a été installé avec pipx (donc dans l'environnement
+utilisateur, dans <em>~/.local/bin</em>), dans ce cas le répertoire du plugin est
+différent :</p>
+<div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>~/.local/pipx/venvs/streamlink/lib/python3.11/site-packages/streamlink/plugins
+patch<span class="w"> </span>artetv.py<span class="w"> </span>&lt;<span class="w"> </span>~/artetv.py.patch
+</pre></div>
+<p>La commande streamlink doit désormais fonctionner pour Arte :</p>
+<div class="highlight"><pre><span></span>streamlink<span class="w"> </span>https://www.arte.tv/fr/live/arte-tv/<span class="w"> </span>best
+</pre></div>
+</div>
+<div class="section" id="streamlink-sur-raspberry">
+<h2>4.1 streamlink sur raspberry</h2>
+<p>La version streamlink sur mon raspberry (bookworm = V12) est 5.2.1, trop
+ancienne en 2026.</p>
+<p>Exécuter :</p>
+<div class="highlight"><pre><span></span>apt-get<span class="w"> </span>install<span class="w"> </span>pipx
+pipx<span class="w"> </span>install<span class="w"> </span>streamlink
+</pre></div>
+<p>Ensuite il faut s'assurer que le streamlink lancé par défaut est bien celui qui
+se trouve dans le répertoire <em>~/.local/bin</em>. Cela nécessite de modifier la
+variable PATH, dans <em>~/.bashrc</em> typiquement (si le shell est bash évidemment).</p>
+<p>Au besoin, exécuter</p>
+<div class="highlight"><pre><span></span>pipx<span class="w"> </span>ensurepath
+</pre></div>
+<p>Et dans tous les cas, vérifier le résultat :</p>
+<div class="highlight"><pre><span></span>maisonadm@maison-rp:~<span class="w"> </span>$<span class="w"> </span>streamlink<span class="w"> </span>--version
+streamlink<span class="w"> </span><span class="m">8</span>.4.0
+</pre></div>
+</div>
+<div class="section" id="creer-un-addon-kodi-avec-streamlink">
+<h2>5 Créer un addon kodi avec streamlink</h2>
+<p>C'est assez complexe et il vaut mieux utiliser des alternatives plus robustes,
+mais s'il n'y a pas le choix...</p>
+<p>Exemple de plugin pour MyArteTV, qui fait appel à streamlink pour l'URL
+<em>https://www.arte.tv/fr/live/arte-tv/</em></p>
+</div>
+<div class="section" id="creer-le-repertoire-de-l-addon">
+<h2>5.1 Créer le répertoire de l'addon</h2>
+<p>Créer le répertoire <em>plugin.video.myartetv</em> dans <em>~/.kodi/addons</em>.</p>
+</div>
+<div class="section" id="creer-le-fichier-addon-xml">
+<h2>5.2 Créer le fichier addon.xml</h2>
+<p>Le fichier est situé dans le répertoire qui vient d'être créé, nom complet :
+<em>~/.kodi/addons/plugin.video.myartetv/addon.xml</em></p>
+<p>Contenu du fichier :</p>
+<div class="highlight"><pre><span></span><span class="nt">&lt;addon</span><span class="w"> </span><span class="na">id=</span><span class="s">&quot;plugin.video.myartetv&quot;</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;My Arte avec streamlink&quot;</span><span class="w"> </span><span class="na">version=</span><span class="s">&quot;1.0.0&quot;</span><span class="w"> </span><span class="na">provider-name=</span><span class="s">&quot;local&quot;</span><span class="nt">&gt;</span>
+<span class="w">  </span><span class="nt">&lt;extension</span><span class="w"> </span><span class="na">point=</span><span class="s">&quot;xbmc.python.pluginsource&quot;</span><span class="w"> </span><span class="na">library=</span><span class="s">&quot;default.py&quot;</span><span class="nt">&gt;</span>
+<span class="w">    </span><span class="nt">&lt;provides&gt;</span>video<span class="nt">&lt;/provides&gt;</span>
+<span class="w">  </span><span class="nt">&lt;/extension&gt;</span>
+<span class="w">  </span><span class="nt">&lt;requires&gt;</span>
+<span class="w">    </span><span class="nt">&lt;import</span><span class="w"> </span><span class="na">addon=</span><span class="s">&quot;xbmc.python&quot;</span><span class="w"> </span><span class="na">version=</span><span class="s">&quot;3.0.0&quot;</span><span class="nt">/&gt;</span>
+<span class="w">  </span><span class="nt">&lt;/requires&gt;</span>
+<span class="nt">&lt;/addon&gt;</span>
+</pre></div>
+</div>
+<div class="section" id="creer-le-fichier-default-py">
+<h2>5.3 Créer le fichier default.py</h2>
+<p>Au même endroit que <em>addon.xml</em>, donc le nom complet est :
+<em>~/.kodi/addons/plugin.video.myartetv/default.py</em></p>
+<p>Contenu du fichier :</p>
+<div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">xbmc</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">subprocess</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">socket</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">time</span>
 
-# Vérifier le status
-systemctl --user status wayvnc.service
+<span class="n">url</span> <span class="o">=</span> <span class="s2">&quot;https://www.arte.tv/fr/live/arte-tv&quot;</span>
+<span class="n">port</span> <span class="o">=</span> <span class="mi">8765</span>
+
+<span class="n">cmd</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s2">&quot;streamlink&quot;</span><span class="p">,</span>
+    <span class="n">url</span><span class="p">,</span>
+    <span class="s2">&quot;best&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;--player-external-http&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;--player-external-http-port&quot;</span><span class="p">,</span>
+    <span class="nb">str</span><span class="p">(</span><span class="n">port</span><span class="p">)</span>
+<span class="p">]</span>
+
+<span class="n">subprocess</span><span class="o">.</span><span class="n">Popen</span><span class="p">(</span>
+    <span class="n">cmd</span><span class="p">,</span>
+    <span class="n">start_new_session</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">stdout</span><span class="o">=</span><span class="n">subprocess</span><span class="o">.</span><span class="n">DEVNULL</span><span class="p">,</span>
+    <span class="n">stderr</span><span class="o">=</span><span class="n">subprocess</span><span class="o">.</span><span class="n">DEVNULL</span>
+<span class="p">)</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">wait_port</span><span class="p">(</span><span class="n">host</span><span class="p">,</span> <span class="n">port</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="mf">10.0</span><span class="p">):</span>
+    <span class="n">start</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+    <span class="k">while</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span> <span class="o">-</span> <span class="n">start</span> <span class="o">&lt;</span> <span class="n">timeout</span><span class="p">:</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">with</span> <span class="n">socket</span><span class="o">.</span><span class="n">create_connection</span><span class="p">((</span><span class="n">host</span><span class="p">,</span> <span class="n">port</span><span class="p">),</span> <span class="n">timeout</span><span class="o">=</span><span class="mf">0.2</span><span class="p">):</span>
+                <span class="k">return</span> <span class="kc">True</span>
+        <span class="k">except</span> <span class="ne">OSError</span><span class="p">:</span>
+            <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mf">0.05</span><span class="p">)</span>
+    <span class="k">return</span> <span class="kc">False</span>
+
+<span class="k">if</span> <span class="n">wait_port</span><span class="p">(</span><span class="s2">&quot;127.0.0.1&quot;</span><span class="p">,</span> <span class="n">port</span><span class="p">):</span>
+    <span class="n">xbmc</span><span class="o">.</span><span class="n">Player</span><span class="p">()</span><span class="o">.</span><span class="n">play</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;http://127.0.0.1:</span><span class="si">{</span><span class="n">port</span><span class="si">}</span><span class="s2">/&quot;</span><span class="p">)</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="n">xbmc</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="s2">&quot;MYARTETV ERROR: streamlink not ready&quot;</span><span class="p">,</span> <span class="n">xbmc</span><span class="o">.</span><span class="n">LOGERROR</span><span class="p">)</span>
+</pre></div>
+<p>On a donc comme structure :</p>
+<div class="highlight"><pre><span></span>~/.kodi/addons/plugin.video.myartetv
+├──<span class="w"> </span>addon.xml
+└──<span class="w"> </span>default.py
+</pre></div>
+<p>Note</p>
+<p>Cette version de <em>default.py</em> risque de produire des zombies, chaque fois que
+streamlink s'arrête. J'ai fait quelques essais avec chatgpt pour améliorer le
+code, les résultats ne sont pas probants. De toute façon un tel addon est un
+plan B.</p>
+<p>Exemple pour TF1 (nécessite le login et mot de passe)</p>
+<p>Contenu du fichier :</p>
+<div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">xbmc</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">subprocess</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">socket</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">time</span>
+
+<span class="n">url</span> <span class="o">=</span> <span class="s2">&quot;https://www.tf1.fr/live&quot;</span>
+<span class="n">port</span> <span class="o">=</span> <span class="mi">8765</span>
+
+<span class="n">cmd</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s2">&quot;streamlink&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;--tf1-email&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;sebastien.millet@gmail.com&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;--tf1-password&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;****&quot;</span><span class="p">,</span>
+    <span class="n">url</span><span class="p">,</span>
+    <span class="s2">&quot;best&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;--player-external-http&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;--player-external-http-port&quot;</span><span class="p">,</span>
+    <span class="nb">str</span><span class="p">(</span><span class="n">port</span><span class="p">)</span>
+<span class="p">]</span>
+
+<span class="n">subprocess</span><span class="o">.</span><span class="n">Popen</span><span class="p">(</span>
+    <span class="n">cmd</span><span class="p">,</span>
+    <span class="n">start_new_session</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">stdout</span><span class="o">=</span><span class="n">subprocess</span><span class="o">.</span><span class="n">DEVNULL</span><span class="p">,</span>
+    <span class="n">stderr</span><span class="o">=</span><span class="n">subprocess</span><span class="o">.</span><span class="n">DEVNULL</span>
+<span class="p">)</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">wait_port</span><span class="p">(</span><span class="n">host</span><span class="p">,</span> <span class="n">port</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="mf">10.0</span><span class="p">):</span>
+    <span class="n">start</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+    <span class="k">while</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span> <span class="o">-</span> <span class="n">start</span> <span class="o">&lt;</span> <span class="n">timeout</span><span class="p">:</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">with</span> <span class="n">socket</span><span class="o">.</span><span class="n">create_connection</span><span class="p">((</span><span class="n">host</span><span class="p">,</span> <span class="n">port</span><span class="p">),</span> <span class="n">timeout</span><span class="o">=</span><span class="mf">0.2</span><span class="p">):</span>
+                <span class="k">return</span> <span class="kc">True</span>
+        <span class="k">except</span> <span class="ne">OSError</span><span class="p">:</span>
+            <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mf">0.05</span><span class="p">)</span>
+    <span class="k">return</span> <span class="kc">False</span>
+
+<span class="k">if</span> <span class="n">wait_port</span><span class="p">(</span><span class="s2">&quot;127.0.0.1&quot;</span><span class="p">,</span> <span class="n">port</span><span class="p">):</span>
+    <span class="n">xbmc</span><span class="o">.</span><span class="n">Player</span><span class="p">()</span><span class="o">.</span><span class="n">play</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;http://127.0.0.1:</span><span class="si">{</span><span class="n">port</span><span class="si">}</span><span class="s2">/&quot;</span><span class="p">)</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="n">xbmc</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="s2">&quot;MYARTETV ERROR: streamlink not ready&quot;</span><span class="p">,</span> <span class="n">xbmc</span><span class="o">.</span><span class="n">LOGERROR</span><span class="p">)</span>
 </pre></div>
 </div>
-<div class="section" id="installer-et-configurer-remmina">
-<h2>Installer et configurer remmina</h2>
-<p>Sous Arch, installer le paquet <em>remmina</em>.</p>
-<ol class="arabic simple">
-<li>Créer une entrée</li>
-<li><em>Protocole</em> : choisir <em>Greffon VNC pour Remmina</em></li>
-<li>Onglet <em>Basique</em>, champ <em>Serveur</em>, écrire :</li>
-</ol>
-<p>localhost:5900</p>
-<ol class="arabic simple" start="4">
-<li>Onglet <em>Tunnel SSH</em>, sélectionner <em>Personnalisée</em> et écrire :</li>
-</ol>
-<p>192.168.0.33:38000</p>
-<ol class="arabic simple" start="5">
-<li>Dans <em>Authentification SSH</em>, champ <em>Type d'authentification</em>, choisir</li>
-</ol>
-<p>Fichier d'identité SSH</p>
-<ol class="arabic simple" start="6">
-<li><em>Nom d'utilisateur</em>, écrire :</li>
-</ol>
-<p>maisonadm</p>
-<ol class="arabic simple" start="7">
-<li>Champ <em>Fichier contenant la clef SSH privée</em>, sélectionner :</li>
-</ol>
-<p><em>~/.ssh/maisonadm&#64;maison-rp_id_rsa</em></p>
+<div class="section" id="activation">
+<h2>5.4 Activation</h2>
+<p>Lorsqu'il démarre, kodi détecte ce nouvel addon et demande s'il faut l'activer.
+Répondre <em>Oui</em>.</p>
 </div>
-<div class="section" id="resolution-du-client-par-rapport-au-serveur">
-<h2>Résolution du client par rapport au serveur</h2>
-<p>Dans la fenêtre de session distante remmina, barre de gauche, cliquer sur</p>
-<p><em>Commuter la mise à jour dynamique de la définition</em>.</p>
-<p>pour adapter l'affichage local au distant, c'est-à-dire, éviter l'affichage
-d'ascenseurs si la résolution du serveur est supérieure.</p>
+<div class="section" id="catch-up-tv-and-more">
+<h2>6 Catch-up TV and More</h2>
+<p>Cet addon kodi permet de regarder la plupart des chaînes, avec le replay.</p>
+<p>La qualité est bonne,</p>
+<p>Sur raspberry, la version disponible par défaut est trop ancienne, il faut
+ajouter la source de l'addon à la main et l'installer depuis cette source.</p>
+<p>Dans <em>Paramètres -&gt; Système -&gt; Extensions</em>, cocher <em>Sources inconnues</em></p>
+<p>Dans <em>Paramètres -&gt; Gestionnaire de fichiers</em>, double-cliquer sur <em>Ajouter une source</em></p>
+<p>Double-cliquer sur <em>&lt;Aucun(e)&gt;</em></p>
+<p>Saisir l'URL : <a class="reference external" href="https://catch-up-tv-and-more.github.io/repo/">https://catch-up-tv-and-more.github.io/repo/</a></p>
+<p>Double-cliquer sur <em>repo</em> (nom de la source) et choisir par exemple :</p>
+<p>Catch-up TV &amp; More source</p>
+<p>Dans <em>Paramètres -&gt; Extensions</em>, cliquer sur <em>Installer d'un fichier Zip</em></p>
+<p>Cliquer sur le nom choisis, ici <em>Catch-up TV &amp; More source</em></p>
+<p>Cliquer sur <em>Stable_channel</em></p>
+<p>Cliquer sur <em>repository.catchuptvandmore.stable-0.0.6.zip</em></p>
+<p>Après un court délai, en haut à gauche s'affiche <em>Extension installée</em></p>
+<p>Dans <em>Paramètres -&gt; Extensions</em>, cliquer sur <em>Installer d'un dépôt</em></p>
+<p>Cliquer sur <em>Catch-up TV &amp; More Release repository</em></p>
+<p>Cliquer sur <em>Extensions Vidéos</em></p>
+<p>Cliquer sur <em>Catch-up TV &amp; More</em></p>
+<p>Cliquer (en bas à droite) sur <em>Installer</em></p>
+<p>Une fenêtre s'affiche indiquant
+<em>Les extensions supplémentaires suivantes seront installées</em></p>
+<p>3 extensions sont listées dans cette fenêtre :</p>
+<ul class="simple">
+<li>InputStream Helper, min 0.3.3 =&gt; À installer 0.8.5</li>
+<li>youtube-dl Control, min 19.912.1 =&gt; À installer 25.11.30+matrix.1</li>
+<li>Catch-up TV &amp; More channel logos and artwork, min 1.0.0 =&gt; À installer 1.0.31</li>
+</ul>
+<p>Cliquer sur chacune des 3 extensions et dans la fenêtre qui s'affiche (page de
+l'extension), cliquer en bas à droite sur <em>Installer</em>.</p>
+<p>Ensuite cliquer sur &quot;OK&quot;.</p>
+<p>Depuis la fenêtre d'accueil, lancer l'extension Catch-up TV &amp; More</p>
+<p>Cliquer <em>TV en direct -&gt; France -&gt; France 2</em> (par exemple)</p>
+<p>Une fenêtre s'affiche indiquant <em>Widevine CDM est nécessaire</em></p>
+<p>Cliquer sur <em>Installer Widevine</em></p>
+<p>Cliquer <em>J'accepte</em> (licence EULA Widevine CDM)</p>
+<p>Une fenêtre d'information s'affiche, indiquant</p>
+<p>En raison des droits de distribution, Widevine CDM doit être extrait d'une image
+de récupération de Chrome OS. Ce processus nécessite au moins 1.5GiB d'espace
+disque disponible. Souhaitez-vous continuer ?</p>
+<p>Cliquer <em>Oui</em>.</p>
+<p>Le téléchargement prend beaucoup de temps et une fois terminé, la chaîne
+démarre.</p>
 </div>
+<div class="section" id="comet-elementum">
+<h2>7 Comet / Elementum</h2>
+</div>
+<div class="section" id="comet">
+<h2>7.1 Comet</h2>
+<p>Instructions ici :</p>
+<p><a class="reference external" href="https://www.reddit.com/r/Addons4Kodi/comments/1r26041/release_comet_is_now_on_kodi">https://www.reddit.com/r/Addons4Kodi/comments/1r26041/release_comet_is_now_on_kodi</a></p>
+<p>En résumé :</p>
+<p>Tout se passe dans Kodi</p>
+<ul class="simple">
+<li>Dans <em>Paramètres -&gt; Gestionnaire de fichiers</em>, double-cliquer sur <em>Ajouter une source</em></li>
+</ul>
+<p>Saisir l'URL : <a class="reference external" href="https://g0ldyy.github.io/comet/">https://g0ldyy.github.io/comet/</a></p>
+<p>Double-cliquer sur <em>comet</em> (nom de la source) pour changer le nom éventuellement.</p>
+<p>Dans <em>Paramètres -&gt; Extensions</em>, cliquer sur <em>Installer d'un fichier Zip</em></p>
+<p>Cliquer sur <em>repository.comet/repository.comet-1.0.0.zip</em></p>
+<p>Dans <em>Paramètres -&gt; Extensions</em>, cliquer sur <em>Installer d'un dépôt</em></p>
+<p>Cliquer sur <em>Comet Repository</em></p>
+<p>Cliquer sur <em>Extensions Vidéos</em></p>
+<p>Cliquer sur <em>Comet</em></p>
+<p>Cliquer (en bas à droite) sur <em>Installer</em></p>
+</div>
+<div class="section" id="elementum">
+<h2>7.2 Elementum</h2>
+<p>Instructions ici :</p>
+<p><a class="reference external" href="https://elementumorg.github.io/getting-started/installation/">https://elementumorg.github.io/getting-started/installation/</a></p>
+<p>Dans <em>Paramètres -&gt; Service Settings</em>, <em>Contrôle</em>, activer l'option
+<em>Autoriser le contrôle à distance par des programmes sur ce système</em>
+(je n'ai pas eu à l'activer, c'était déjà le cas)</p>
+<p>L'URL ci-dessus demande de cocher l'option suivante,
+<em>Autoriser le contrôle à distance par des programmes sur d'autres systèmes</em></p>
+<p>JE NE L'AI PAS FAIT.</p>
+<p>Télécharger le fichier .zip de cette adresse :
+<a class="reference external" href="https://github.com/ElementumOrg/repository.elementumorg/releases/download/v0.0.7/repository.elementumorg-0.0.7.zip">https://github.com/ElementumOrg/repository.elementumorg/releases/download/v0.0.7/repository.elementumorg-0.0.7.zip</a></p>
+<p>Dans <em>Paramètres -&gt; Extensions</em>, cliquer sur <em>Installer d'un fichier Zip</em>.
+Choisir l'emplacement dand lequel le fichier .zip a été téléchargé, par exemple
+dans <em>Dossier personnel</em>.</p>
+<p>Dans <em>Paramètres -&gt; Extensions -&gt; Installer d'un dépôt</em>, cliquer sur
+<em>ElementumOrg repository -&gt; Extensions Vidéos -&gt; Elementum</em>.</p>
+</div>
+<div class="section" id="tf1">
+<h2>8 TF1</h2>
+<p>TF1 ne peut pas fonctionner avec Catch-up TV and More.</p>
+<p>Il faut faire appel à streamlink, commande qui fonctionne :</p>
+<div class="highlight"><pre><span></span>streamlink<span class="w"> </span>--tf1-email<span class="w"> </span><span class="s2">&quot;sebastien.millet@gmail.com&quot;</span><span class="w"> </span>--tf1-password<span class="w"> </span><span class="s1">&#39;****&#39;</span><span class="w"> </span>https://www.tf1.fr/live<span class="w"> </span>best
+</pre></div>
+<p>Voir les paragraphes 4 et 5 pour intégrer cette commande à Kodi, en tant
+qu'addon.</p>
+</div>
+<div class="section" id="windscribe">
+<h2>9 WINDSCRIBE</h2>
+</div>
+<div class="section" id="installation-de-windscribe">
+<h2>9.1 Installation de windscribe</h2>
+<p>N'est pas lié à Kodi mais pour lire des contenus 'problématiques', il est
+souhaitable d'avoir un VPN.</p>
+<p>Instructions ici :
+<a class="reference external" href="https://windscribe.com/fr/knowledge-base/articles/how-to-set-up-windscribe-on-linux">https://windscribe.com/fr/knowledge-base/articles/how-to-set-up-windscribe-on-linux</a></p>
+<p>Au 2026-07-18 :</p>
+<ul class="simple">
+<li>Téléchargé windscribe_2.23.11_arm64.deb</li>
+<li>Installé (sur rpi) avec <em>dpkg -i</em></li>
+</ul>
+<p>Erreur à l'installation :</p>
+<div class="highlight"><pre><span></span>sudo<span class="w"> </span>dpkg<span class="w"> </span>-i<span class="w"> </span>windscribe_2.23.11_arm64.deb
+<span class="o">[</span>sudo<span class="o">]</span><span class="w"> </span>password<span class="w"> </span><span class="k">for</span><span class="w"> </span>maisonadm:
+Selecting<span class="w"> </span>previously<span class="w"> </span>unselected<span class="w"> </span>package<span class="w"> </span>windscribe.
+<span class="o">(</span>Reading<span class="w"> </span>database<span class="w"> </span>...<span class="w"> </span><span class="m">182132</span><span class="w"> </span>files<span class="w"> </span>and<span class="w"> </span>directories<span class="w"> </span>currently<span class="w"> </span>installed.<span class="o">)</span>
+Preparing<span class="w"> </span>to<span class="w"> </span>unpack<span class="w"> </span>windscribe_2.23.11_arm64.deb<span class="w"> </span>...
+Finish<span class="w"> </span>pre-install<span class="w"> </span>script
+Unpacking<span class="w"> </span>windscribe<span class="w"> </span><span class="o">(</span><span class="m">2</span>.23.11<span class="o">)</span><span class="w"> </span>...
+dpkg:<span class="w"> </span>dependency<span class="w"> </span>problems<span class="w"> </span>prevent<span class="w"> </span>configuration<span class="w"> </span>of<span class="w"> </span>windscribe:
+<span class="w"> </span>windscribe<span class="w"> </span>depends<span class="w"> </span>on<span class="w"> </span>iptables<span class="p">;</span><span class="w"> </span>however:
+<span class="w">  </span>Package<span class="w"> </span>iptables<span class="w"> </span>is<span class="w"> </span>not<span class="w"> </span>installed.
+<span class="w"> </span>windscribe<span class="w"> </span>depends<span class="w"> </span>on<span class="w"> </span>libxcb-cursor0<span class="p">;</span><span class="w"> </span>however:
+<span class="w">  </span>Package<span class="w"> </span>libxcb-cursor0<span class="w"> </span>is<span class="w"> </span>not<span class="w"> </span>installed.
+
+dpkg:<span class="w"> </span>error<span class="w"> </span>processing<span class="w"> </span>package<span class="w"> </span>windscribe<span class="w"> </span><span class="o">(</span>--install<span class="o">)</span>:
+<span class="w"> </span>dependency<span class="w"> </span>problems<span class="w"> </span>-<span class="w"> </span>leaving<span class="w"> </span>unconfigured
+Processing<span class="w"> </span>triggers<span class="w"> </span><span class="k">for</span><span class="w"> </span>gnome-menus<span class="w"> </span><span class="o">(</span><span class="m">3</span>.36.0-1.1<span class="o">)</span><span class="w"> </span>...
+Processing<span class="w"> </span>triggers<span class="w"> </span><span class="k">for</span><span class="w"> </span>mailcap<span class="w"> </span><span class="o">(</span><span class="m">3</span>.70+nmu1<span class="o">)</span><span class="w"> </span>...
+Processing<span class="w"> </span>triggers<span class="w"> </span><span class="k">for</span><span class="w"> </span>desktop-file-utils<span class="w"> </span><span class="o">(</span><span class="m">0</span>.26-1<span class="o">)</span><span class="w"> </span>...
+Processing<span class="w"> </span>triggers<span class="w"> </span><span class="k">for</span><span class="w"> </span>hicolor-icon-theme<span class="w"> </span><span class="o">(</span><span class="m">0</span>.17-2<span class="o">)</span><span class="w"> </span>...
+Errors<span class="w"> </span>were<span class="w"> </span>encountered<span class="w"> </span><span class="k">while</span><span class="w"> </span>processing:
+<span class="w"> </span>windscribe
+</pre></div>
+<p>Installer les paquets <em>iptables</em> et <em>libxcb-cursor0</em>, ce qui compte tenu des
+dépendances, provoque l'installation de :</p>
+<p>iptables libip6tc2 libxcb-cursor0</p>
+</div>
+<div class="section" id="configuration-de-windscribe">
+<h2>9.2 Configuration de windscribe</h2>
+<ul class="simple">
+<li>Dans l'écran principal, quand le VPN est actif, vérifier que <em>FIREWALL</em> est
+coché.</li>
+<li>Dans les options <em>General</em>, vérifier que <em>Launch on Startup</em> est coché.
+Normalement c'est déjà le cas.</li>
+<li>Dans les options <em>Connection</em>, cocher <em>Allow LAN Traffic</em>.</li>
+</ul>
+<p><strong>ATTENTION À NE FAIRE QUE LORSQU'ON EST CERTAIN QUE C'EST OK</strong></p>
+<p>Le souci est que si le rpi n'est pas joignable au démarrage, ça se complique
+vite.</p>
+<ul class="simple">
+<li>Dans les options <em>Connection</em>, cocher <em>Auto-Connect</em>.</li>
+</ul>
+<p>PARKING</p>
+<p>Demande un service Debrid :
+<a class="reference external" href="https://comet.elfhosted.com/configure">https://comet.elfhosted.com/configure</a></p>
+<p>Ne le demande pas...
+<a class="reference external" href="https://comet.feels.legal/configure?utm_source=chatgpt.com">https://comet.feels.legal/configure?utm_source=chatgpt.com</a></p>
+</div>
+<p class="subheader">Category: <a href="https://sebmillet.github.io/site/category/ti.html">TI</a>
+
+    Tagged: 
+    <a href="https://sebmillet.github.io/site/tag/kodi.html">kodi </a>
+    <a href="https://sebmillet.github.io/site/tag/xbmc.html">xbmc </a>
+    <a href="https://sebmillet.github.io/site/tag/iptv.html">iptv </a>
+    <a href="https://sebmillet.github.io/site/tag/tv.html">tv </a>
+</p>
+
+
+
+            </article>
+
+
+                <hr  class="gradient"/>
+
+
+        
+
+
+            <article>
+                <a href="https://sebmillet.github.io/site/raspberry-gui-acces-distant.html"><h3 class="article-title">Raspberry gui accès distant</h3></a>
+<h6 class="subheader" title="2026-06-20T00:00:00+02:00">sam. 20 juin 2026
+</h6>
+
+
 <p class="subheader">Category: <a href="https://sebmillet.github.io/site/category/ti.html">TI</a>
 
     Tagged: 
@@ -175,11 +498,9 @@ d'ascenseurs si la résolution du serveur est supérieure.</p>
 
 
 
-            </article>
-
-
+                <a class="button radius secondary small right" href="https://sebmillet.github.io/site/raspberry-gui-acces-distant.html">Read More</a>
                 <hr  class="gradient"/>
-
+            </article>
 
         
 
