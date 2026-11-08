@@ -92,20 +92,20 @@ Disponible ici : <a class="reference external" href="https://gitlab.gnome.org/Ya
 <h3>pv</h3>
 <p>(D'après <a class="reference external" href="https://askubuntu.com/questions/17275/how-to-show-the-transfer-progress-and-speed-when-copying-files-with-cp">https://askubuntu.com/questions/17275/how-to-show-the-transfer-progress-and-speed-when-copying-files-with-cp</a>)</p>
 <p>Permet de suivre la progression des données dans un pipe. Exemples :</p>
-<div class="highlight"><pre><span></span><span class="w">   </span><span class="c1"># Pour suivre la progression de la copie d&#39;un fichier</span>
+<div class="highlight"><pre><span></span><span class="w">   </span><span class="c1"># Pour suivre la progression de la copie d'un fichier</span>
 pv<span class="w"> </span>fichier_orig<span class="w"> </span>&gt;<span class="w"> </span>fichier_dest
 
-<span class="w">   </span><span class="c1"># (D&#39;après le manuel de pv)</span>
-<span class="w">   </span><span class="c1"># Pour prendre l&#39;image d&#39;un disque, en ignorant les erreurs</span>
+<span class="w">   </span><span class="c1"># (D'après le manuel de pv)</span>
+<span class="w">   </span><span class="c1"># Pour prendre l'image d'un disque, en ignorant les erreurs</span>
 pv<span class="w"> </span>-EE<span class="w"> </span>/dev/sda<span class="w"> </span>&gt;<span class="w"> </span>disk-image.img
 
-<span class="w">   </span><span class="c1"># (D&#39;après le manuel de pv)</span>
-<span class="w">   </span><span class="c1"># Pour suivre la copie d&#39;un autre processus de numéro 1234,</span>
+<span class="w">   </span><span class="c1"># (D'après le manuel de pv)</span>
+<span class="w">   </span><span class="c1"># Pour suivre la copie d'un autre processus de numéro 1234,</span>
 <span class="w">   </span><span class="c1"># sur le descripteur de fichier 3.</span>
 pv<span class="w"> </span>-d<span class="w"> </span><span class="m">1234</span>:3
 
-<span class="w">   </span><span class="c1"># (D&#39;après le manuel de pv)</span>
-<span class="w">   </span><span class="c1"># Pour suivre la copie d&#39;un autre processus de numéro 1234,</span>
+<span class="w">   </span><span class="c1"># (D'après le manuel de pv)</span>
+<span class="w">   </span><span class="c1"># Pour suivre la copie d'un autre processus de numéro 1234,</span>
 <span class="w">   </span><span class="c1"># sur tous les descripteurs de fichier.</span>
 pv<span class="w"> </span>-d<span class="w"> </span><span class="m">1234</span>
 </pre></div>
@@ -126,7 +126,7 @@ pv<span class="w"> </span>-d<span class="w"> </span><span class="m">1234</span>
 <div class="highlight"><pre><span></span><span class="w">   </span><span class="c1"># Affiche la taille des logs</span>
 journalctl<span class="w"> </span>--disk-usage
 
-<span class="w">   </span><span class="c1"># Efface les anciennes informations de log jusqu&#39;à ne conserver</span>
+<span class="w">   </span><span class="c1"># Efface les anciennes informations de log jusqu'à ne conserver</span>
 <span class="w">   </span><span class="c1"># que 100 MO.</span>
 journalctl<span class="w"> </span>--vacuum-size<span class="o">=</span>100M
 
@@ -157,25 +157,25 @@ nc<span class="w"> </span>-zv<span class="w"> </span>hôte<span class="w"> </spa
 nc<span class="w"> </span>-zv<span class="w"> </span>maison-rp<span class="w"> </span><span class="m">80</span>
 
 <span class="w">   </span><span class="c1"># Teste si le port 53 est dispo en UDP</span>
-<span class="w">   </span><span class="c1"># À noter que le test réussit s&#39;il n&#39;y a pas de réponse. À garder</span>
-<span class="w">   </span><span class="c1"># à l&#39;esprit si la machine est derrière un pare-feu.</span>
+<span class="w">   </span><span class="c1"># À noter que le test réussit s'il n'y a pas de réponse. À garder</span>
+<span class="w">   </span><span class="c1"># à l'esprit si la machine est derrière un pare-feu.</span>
 nc<span class="w"> </span>-zuv<span class="w"> </span>maison-rp<span class="w"> </span><span class="m">53</span>
 
 <span class="w">   </span><span class="c1"># Teste la réponse HTTP</span>
-<span class="nb">printf</span><span class="w"> </span>--<span class="w"> </span><span class="s2">&quot;GET /ping HTTP/1.1\r\nHost: maison-rp\r\n\r\n&quot;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>nc<span class="w"> </span>maison-rp<span class="w"> </span><span class="m">80</span>
+<span class="nb">printf</span><span class="w"> </span>--<span class="w"> </span><span class="s2">"GET /ping HTTP/1.1\r\nHost: maison-rp\r\n\r\n"</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>nc<span class="w"> </span>maison-rp<span class="w"> </span><span class="m">80</span>
 
 <span class="w">   </span><span class="c1"># Teste la connexion HTTPS avec openssl</span>
-<span class="nb">printf</span><span class="w"> </span>--<span class="w"> </span><span class="s2">&quot;GET /index.html HTTP/1.1\r\nHost: maison-rp\r\n\r\n&quot;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>openssl<span class="w"> </span>s_client<span class="w"> </span>-connect<span class="w"> </span>maison-rp:443
+<span class="nb">printf</span><span class="w"> </span>--<span class="w"> </span><span class="s2">"GET /index.html HTTP/1.1\r\nHost: maison-rp\r\n\r\n"</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>openssl<span class="w"> </span>s_client<span class="w"> </span>-connect<span class="w"> </span>maison-rp:443
 
 <span class="w">   </span><span class="c1"># Établit une connexion interactive entre deux machines</span>
-<span class="w">   </span><span class="c1"># (d&#39;après la manuel utilisateur de Netcat version bsd)</span>
-<span class="w">   </span><span class="c1"># SE RAPPELER QU&#39;IL N&#39;Y A AUCUNE PROTECTION D&#39;AUCUNE SORTE, ni contrôle</span>
-<span class="w">   </span><span class="c1"># d&#39;accès, ni chiffrement de la connexion.</span>
+<span class="w">   </span><span class="c1"># (d'après la manuel utilisateur de Netcat version bsd)</span>
+<span class="w">   </span><span class="c1"># SE RAPPELER QU'IL N'Y A AUCUNE PROTECTION D'AUCUNE SORTE, ni contrôle</span>
+<span class="w">   </span><span class="c1"># d'accès, ni chiffrement de la connexion.</span>
 
-<span class="w">   </span><span class="c1"># Sur le &#39;serveur&#39;</span>
+<span class="w">   </span><span class="c1"># Sur le 'serveur'</span>
 rm<span class="w"> </span>-f<span class="w"> </span>/tmp/f<span class="p">;</span><span class="w"> </span>mkfifo<span class="w"> </span>/tmp/f
 cat<span class="w"> </span>/tmp/f<span class="w"> </span><span class="p">|</span><span class="w"> </span>/bin/sh<span class="w"> </span>-i<span class="w"> </span><span class="m">2</span>&gt;<span class="p">&amp;</span><span class="m">1</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>nc<span class="w"> </span>-l<span class="w"> </span><span class="m">127</span>.0.0.1<span class="w"> </span><span class="m">1234</span><span class="w"> </span>&gt;<span class="w"> </span>/tmp/f
-<span class="w">   </span><span class="c1"># Sur le &#39;client&#39;</span>
+<span class="w">   </span><span class="c1"># Sur le 'client'</span>
 nc<span class="w"> </span>host.example.com<span class="w"> </span><span class="m">1234</span>
 </pre></div>
 </div>
@@ -247,11 +247,11 @@ d'écouter.</p>
 <div class="section" id="systemctl">
 <h3>systemctl</h3>
 <p>(D'après <em>Linux Pratique numéro 125, mai-juin 2021</em>)</p>
-<div class="highlight"><pre><span></span><span class="w">  </span><span class="c1"># Lister l&#39;ensemble des unités</span>
+<div class="highlight"><pre><span></span><span class="w">  </span><span class="c1"># Lister l'ensemble des unités</span>
 systemctl<span class="w"> </span>list-units
 <span class="w">  </span><span class="c1"># Idem, mais avec moins de détails</span>
 systemctl<span class="w"> </span>list-unit-files
-<span class="w">  </span><span class="c1"># Unités d&#39;un type donné</span>
+<span class="w">  </span><span class="c1"># Unités d'un type donné</span>
 systemctl<span class="w"> </span>list-units<span class="w"> </span>--type<span class="w"> </span>service
 systemctl<span class="w"> </span>list-units<span class="w"> </span>--type<span class="w"> </span>mount
 <span class="w">  </span><span class="c1"># Statut</span>
@@ -292,7 +292,7 @@ systemd-bootchart
 <div class="section" id="quelques-commandes-utiles">
 <h3>Quelques commandes utiles</h3>
 <p>(<em>D'après Planète Linux numéro 122, août - septembre 2021</em>)</p>
-<div class="highlight"><pre><span></span><span class="w">  </span><span class="c1"># Affiche l&#39;adresse IP publique</span>
+<div class="highlight"><pre><span></span><span class="w">  </span><span class="c1"># Affiche l'adresse IP publique</span>
 curl<span class="w"> </span>ifconfig.co
 
 <span class="w">  </span><span class="c1"># Tester la vitesse de réponse du DNS</span>
@@ -308,13 +308,13 @@ lame<span class="w"> </span>fichier.wav<span class="w"> </span>fichier.mp3
 lsof<span class="w"> </span>-i<span class="w"> </span>tcp:631
 
 <span class="w">  </span><span class="c1"># Affichage des volumes montés, de manière plus pratique</span>
-<span class="w">  </span><span class="c1"># qu&#39;un simple &#39;mount&#39;</span>
+<span class="w">  </span><span class="c1"># qu'un simple 'mount'</span>
 findmnt
 
 <span class="w">  </span><span class="c1"># Disque dur : affiche des infos</span>
 <span class="w">  </span><span class="c1"># Arch : installer smartmontools</span>
 <span class="w">  </span><span class="c1">#   -i pour avoir des infos</span>
-<span class="w">  </span><span class="c1">#   -H pour avoir l&#39;état de santé</span>
+<span class="w">  </span><span class="c1">#   -H pour avoir l'état de santé</span>
 <span class="w">  </span><span class="c1">#   -t short pour lancer un test rapide</span>
 smartctl
 
@@ -330,7 +330,7 @@ upower<span class="w"> </span>-i<span class="w"> </span>/org/freedesktop/UPower/
 <span class="w">  </span><span class="c1"># Arch : installer acpi</span>
 acpi<span class="w"> </span>-V
 
-<span class="w">  </span><span class="c1"># Limiter le % d&#39;utilisation du processeur pour une tâche</span>
+<span class="w">  </span><span class="c1"># Limiter le % d'utilisation du processeur pour une tâche</span>
 <span class="w">  </span><span class="c1"># Arch : installer cpulimit</span>
 cpulimit
 </pre></div>
@@ -341,7 +341,7 @@ cpulimit
 <ol class="arabic simple">
 <li>Alignement des partitions, vérification avec blockdev</li>
 </ol>
-<div class="highlight"><pre><span></span><span class="w">  </span><span class="c1"># Vérifie l&#39;alignement des partitions. Affiche un zéro si tout est en</span>
+<div class="highlight"><pre><span></span><span class="w">  </span><span class="c1"># Vérifie l'alignement des partitions. Affiche un zéro si tout est en</span>
 <span class="w">  </span><span class="c1"># ordre.</span>
 sudo<span class="w"> </span>blockdev<span class="w"> </span>--getalignoff<span class="w"> </span>/dev/nvme0n1
 </pre></div>
@@ -406,9 +406,9 @@ pas sur une partition chiffrée. Il faut l'activer de manière explicite.</p>
 <li>Le point de départ</li>
 </ol>
 <p>L'exécution de fstrim produit une erreur.</p>
-<div class="highlight"><pre><span></span><span class="w">  </span><span class="c1"># Dans le doute, j&#39;enlève la localisation pour obtenir plus de résultats</span>
-<span class="w">  </span><span class="c1"># lors de la recherche du message d&#39;erreur sur Internet...</span>
-user@hostname<span class="w"> </span>$<span class="w"> </span><span class="nv">LANG</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="w"> </span>sudo<span class="w"> </span>fstrim<span class="w"> </span>-v<span class="w"> </span>/
+<div class="highlight"><pre><span></span><span class="w">  </span><span class="c1"># Dans le doute, j'enlève la localisation pour obtenir plus de résultats</span>
+<span class="w">  </span><span class="c1"># lors de la recherche du message d'erreur sur Internet...</span>
+user@hostname<span class="w"> </span>$<span class="w"> </span><span class="nv">LANG</span><span class="o">=</span><span class="s1">''</span><span class="w"> </span>sudo<span class="w"> </span>fstrim<span class="w"> </span>-v<span class="w"> </span>/
 fstrim:<span class="w"> </span>/:<span class="w"> </span>the<span class="w"> </span>discard<span class="w"> </span>operation<span class="w"> </span>is<span class="w"> </span>not<span class="w"> </span>supported
 </pre></div>
 <ol class="arabic simple" start="2">

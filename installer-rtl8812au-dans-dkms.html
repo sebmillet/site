@@ -87,9 +87,9 @@ le modifier. Pour information, voici ce fichier :</p>
 <span class="n">DEST_MODULE_LOCATION</span><span class="o">=/</span><span class="n">kernel</span><span class="o">/</span><span class="n">drivers</span><span class="o">/</span><span class="n">net</span><span class="o">/</span><span class="n">wireless</span>
 <span class="n">BUILT_MODULE_NAME</span><span class="o">=</span><span class="mh">8812</span><span class="n">au</span>
 
-<span class="n">MAKE</span><span class="o">=</span><span class="s">&quot;&#39;make&#39;  all&quot;</span>
-<span class="n">CLEAN</span><span class="o">=</span><span class="s">&quot;&#39;make&#39; clean&quot;</span>
-<span class="n">AUTOINSTALL</span><span class="o">=</span><span class="s">&quot;yes&quot;</span>
+<span class="n">MAKE</span><span class="o">=</span><span class="s">"'make'  all"</span>
+<span class="n">CLEAN</span><span class="o">=</span><span class="s">"'make' clean"</span>
+<span class="n">AUTOINSTALL</span><span class="o">=</span><span class="s">"yes"</span>
 </code></pre></div>
 
 <h2>3. Installation dans DKMS</h2>
@@ -108,7 +108,7 @@ le modifier. Pour information, voici ce fichier :</p>
 
 <span class="nv">Building</span><span class="w"> </span><span class="nv">module</span>:
 <span class="nv">cleaning</span><span class="w"> </span><span class="nv">build</span><span class="w"> </span><span class="nv">area</span>...
-<span class="s1">&#39;make&#39;</span><span class="w"> </span><span class="nv">all</span>.............
+<span class="s1">'make'</span><span class="w"> </span><span class="nv">all</span>.............
 <span class="nv">cleaning</span><span class="w"> </span><span class="nv">build</span><span class="w"> </span><span class="nv">area</span>...
 
 <span class="nv">DKMS</span>:<span class="w"> </span><span class="nv">build</span><span class="w"> </span><span class="nv">completed</span>.
@@ -280,14 +280,14 @@ habituel est affiché.</p>
 </li>
 </ul>
 <p>Dans le fichier <code>/usr/sbin/dkms</code> version 2.2.1.0, chercher la ligne qui contient</p>
-<div class="highlight"><pre><span></span><code>warn<span class="w"> </span>$<span class="s2">&quot;The </span><span class="nv">$1</span><span class="s2"> script is not executable.&quot;</span>
+<div class="highlight"><pre><span></span><code>warn<span class="w"> </span>$<span class="s2">"The </span><span class="nv">$1</span><span class="s2"> script is not executable."</span>
 </code></pre></div>
 
 <p>Et écrire à la place :</p>
 <div class="highlight"><pre><span></span><code><span class="k">if</span><span class="w"> </span><span class="o">[[</span><span class="w"> </span>-e<span class="w"> </span><span class="si">${</span><span class="nv">run</span><span class="p">%% *</span><span class="si">}</span><span class="w"> </span><span class="o">]]</span><span class="p">;</span><span class="w"> </span><span class="k">then</span>
-<span class="w">    </span>warn<span class="w"> </span>$<span class="s2">&quot;The </span><span class="nv">$1</span><span class="s2"> script is not executable.&quot;</span>
+<span class="w">    </span>warn<span class="w"> </span>$<span class="s2">"The </span><span class="nv">$1</span><span class="s2"> script is not executable."</span>
 <span class="k">else</span>
-<span class="w">    </span>warn<span class="w"> </span>$<span class="s2">&quot;The </span><span class="nv">$1</span><span class="s2"> script is not found, file: </span><span class="nv">$run</span><span class="s2">&quot;</span>
+<span class="w">    </span>warn<span class="w"> </span>$<span class="s2">"The </span><span class="nv">$1</span><span class="s2"> script is not found, file: </span><span class="nv">$run</span><span class="s2">"</span>
 <span class="k">fi</span>
 </code></pre></div>
 
@@ -313,7 +313,7 @@ Kernel preparation unnecessary for this kernel.  Skipping...
 
 Building module:
 cleaning build area...
-&#39;make&#39; all.............
+'make' all.............
 cleaning build area...
 
 DKMS: build completed.
@@ -346,8 +346,8 @@ DKMS: install completed.
 <h2>9. Post Scriptum</h2>
 <p>La compilation suite à l'installation d'un nouveau noyau ne fonctionne pas.</p>
 <p>Erreur qui s'est produite :</p>
-<div class="highlight"><pre><span></span><code><span class="mi">8812</span><span class="n">au</span><span class="p">:</span><span class="w"> </span><span class="n">version</span><span class="w"> </span><span class="n">magic</span><span class="w"> </span><span class="s1">&#39;4.13.0-37-generic SMP mod_unload &#39;</span><span class="w"> </span><span class="n">should</span><span class="w"> </span><span class="n">be</span>
-<span class="w">    </span><span class="s1">&#39;4.13.0-38-generic SMP mod_unload &#39;</span>
+<div class="highlight"><pre><span></span><code><span class="mi">8812</span><span class="n">au</span><span class="p">:</span><span class="w"> </span><span class="n">version</span><span class="w"> </span><span class="n">magic</span><span class="w"> </span><span class="s1">'4.13.0-37-generic SMP mod_unload '</span><span class="w"> </span><span class="n">should</span><span class="w"> </span><span class="n">be</span>
+<span class="w">    </span><span class="s1">'4.13.0-38-generic SMP mod_unload '</span>
 </code></pre></div>
 
 <p>Il semble donc que la compilation ait été faite en fonction du noyau actuel,

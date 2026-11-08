@@ -72,8 +72,8 @@
 </code></pre></div>
 
 <p><em>Entrées/sorties en UTF8</em></p>
-<div class="highlight"><pre><span></span><code><span class="c1"># Les entrées/sorties standard (ainsi que l&#39;erreur) se feront en UTF8</span>
-<span class="nb">binmode</span><span class="w"> </span><span class="nv">$_</span><span class="p">,</span><span class="w"> </span><span class="s">&#39;:utf8&#39;</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="o">\*</span><span class="bp">STDIN</span><span class="p">,</span><span class="w"> </span><span class="o">\*</span><span class="bp">STDOUT</span><span class="p">,</span><span class="w"> </span><span class="o">\*</span><span class="bp">STDERR</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="c1"># Les entrées/sorties standard (ainsi que l'erreur) se feront en UTF8</span>
+<span class="nb">binmode</span><span class="w"> </span><span class="nv">$_</span><span class="p">,</span><span class="w"> </span><span class="s">':utf8'</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="o">\*</span><span class="bp">STDIN</span><span class="p">,</span><span class="w"> </span><span class="o">\*</span><span class="bp">STDOUT</span><span class="p">,</span><span class="w"> </span><span class="o">\*</span><span class="bp">STDERR</span><span class="p">;</span>
 </code></pre></div>
 
 <p><em>Pour faire les deux ci-dessus simultanément</em></p>
@@ -119,7 +119,7 @@
 
 <p>À noter que cette méthode ne conserve pas l'ordre. </p>
 <p>Version qui conserve l'ordre :</p>
-<div class="highlight"><pre><span></span><code><span class="c1"># D&#39;après https://www.perlmonks.org/?node_id=280714</span>
+<div class="highlight"><pre><span></span><code><span class="c1"># D'après https://www.perlmonks.org/?node_id=280714</span>
 <span class="k">my</span><span class="w"> </span><span class="nv">%seen</span><span class="p">;</span>
 <span class="nv">@uniq</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">grep</span><span class="w"> </span><span class="o">!</span><span class="w"> </span><span class="nv">$seen</span><span class="p">{</span><span class="nv">$_</span><span class="p">}</span><span class="o">++</span><span class="p">,</span><span class="w"> </span><span class="nv">@list</span><span class="p">;</span>
 </code></pre></div>
@@ -135,14 +135,14 @@
 <li><strong><code>//=</code></strong></li>
 </ul>
 <p>Assigner seulement si lvalue est <code>undef</code>, exemple :</p>
-<div class="highlight"><pre><span></span><code><span class="nv">$v</span><span class="w"> </span><span class="sr">//</span><span class="o">=</span><span class="w"> </span><span class="s">&#39;&lt;no string provided&gt;&#39;</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="nv">$v</span><span class="w"> </span><span class="sr">//</span><span class="o">=</span><span class="w"> </span><span class="s">'&lt;no string provided&gt;'</span><span class="p">;</span>
 </code></pre></div>
 
 <ul>
 <li><strong><code>//</code></strong></li>
 </ul>
 <p>Vérifie si le terme à gauche est défini, exemple :</p>
-<div class="highlight"><pre><span></span><code><span class="k">sub</span><span class="w"> </span><span class="nf">f</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">my</span><span class="w"> </span><span class="nv">$str</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">shift</span><span class="w"> </span><span class="sr">//</span><span class="w"> </span><span class="s">&#39;&lt;no str provided!&gt;&#39;</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
+<div class="highlight"><pre><span></span><code><span class="k">sub</span><span class="w"> </span><span class="nf">f</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">my</span><span class="w"> </span><span class="nv">$str</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">shift</span><span class="w"> </span><span class="sr">//</span><span class="w"> </span><span class="s">'&lt;no str provided!&gt;'</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
 </code></pre></div>
 
 <ul>
@@ -160,7 +160,7 @@
 <ul>
 <li>Pour définir des dualvars</li>
 </ul>
-<div class="highlight"><pre><span></span><code><span class="nn">Scalar::</span><span class="n">Util</span><span class="w"> </span><span class="s">&#39;dualvar&#39;</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="nn">Scalar::</span><span class="n">Util</span><span class="w"> </span><span class="s">'dualvar'</span><span class="p">;</span>
 </code></pre></div>
 
 <hr>
@@ -209,16 +209,16 @@
 <ul>
 <li>Code trouvé ici et là</li>
 </ul>
-<div class="highlight"><pre><span></span><code><span class="k">my</span><span class="w"> </span><span class="nv">@files</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">grep</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="o">-</span><span class="n">f</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="nb">glob</span><span class="p">(</span><span class="w"> </span><span class="s">&quot;*&quot;</span><span class="w"> </span><span class="p">);</span>
+<div class="highlight"><pre><span></span><code><span class="k">my</span><span class="w"> </span><span class="nv">@files</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">grep</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="o">-</span><span class="n">f</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="nb">glob</span><span class="p">(</span><span class="w"> </span><span class="s">"*"</span><span class="w"> </span><span class="p">);</span>
 
 <span class="k">my</span><span class="w"> </span><span class="nv">$casefix</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">sub</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="nb">ucfirst</span><span class="w"> </span><span class="nb">lc</span><span class="w"> </span><span class="nv">$_</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="w"> </span><span class="p">};</span>
 
-<span class="k">use</span><span class="w"> </span><span class="nn">warnings</span><span class="w"> </span><span class="n">FATAL</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="s">&#39;all&#39;</span><span class="p">;</span>
+<span class="k">use</span><span class="w"> </span><span class="nn">warnings</span><span class="w"> </span><span class="n">FATAL</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="s">'all'</span><span class="p">;</span>
 
-<span class="k">my</span><span class="w"> </span><span class="nv">$s</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">eval</span><span class="w"> </span><span class="s">&quot;sub { $text }&quot;</span><span class="w"> </span><span class="p">;</span>
+<span class="k">my</span><span class="w"> </span><span class="nv">$s</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">eval</span><span class="w"> </span><span class="s">"sub { $text }"</span><span class="w"> </span><span class="p">;</span>
 
 <span class="k">use</span><span class="w"> </span><span class="nn">DB_File</span><span class="p">;</span>
-<span class="nb">tie</span><span class="w"> </span><span class="nv">%hash</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="s">&#39;DB_File&#39;</span><span class="p">,</span><span class="w"> </span><span class="nv">$file</span><span class="p">,</span><span class="w"> </span><span class="err">…</span>
+<span class="nb">tie</span><span class="w"> </span><span class="nv">%hash</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="s">'DB_File'</span><span class="p">,</span><span class="w"> </span><span class="nv">$file</span><span class="p">,</span><span class="w"> </span><span class="err">…</span>
 
 <span class="k">use</span><span class="w"> </span><span class="nn">Term::ANSIColor</span><span class="p">;</span>
 </code></pre></div>
@@ -230,52 +230,52 @@
 <h4>Télécharger le code des one-liners (perl1line.txt)</h4>
 <p><a href="http://www.catonmat.net/download/perl1line.txt">http://www.catonmat.net/download/perl1line.txt</a></p>
 <hr>
-<div class="highlight"><pre><span></span><code><span class="s">&quot;@{[ ... ]}&quot;</span><span class="w"> </span><span class="c1"># Pour exécuter un code dans une chaîne de caractères</span>
+<div class="highlight"><pre><span></span><code><span class="s">"@{[ ... ]}"</span><span class="w"> </span><span class="c1"># Pour exécuter un code dans une chaîne de caractères</span>
 
-<span class="n">perl</span><span class="w"> </span><span class="o">-</span><span class="ow">le</span><span class="w"> </span><span class="s">&#39;print map { (&quot;a&quot;..&quot;z&quot;)[rand 26] } 1..8&#39;</span><span class="c1"># Mot de passe</span>
-<span class="n">perl</span><span class="w"> </span><span class="o">-</span><span class="ow">le</span><span class="w"> </span><span class="s">&#39;print unpack(&quot;N&quot;, 127.0.0.1)&#39;</span><span class="w">          </span><span class="c1"># Convertit IP en entier</span>
-<span class="n">perl</span><span class="w"> </span><span class="o">-</span><span class="n">MSocket</span><span class="w"> </span><span class="o">-</span><span class="ow">le</span><span class="w"> </span><span class="s">&#39;print unpack(&quot;N&quot;, inet_aton(&quot;127.0.0.1&quot;))&#39;</span><span class="c1"># Sans vstring</span>
-<span class="n">perl</span><span class="w"> </span><span class="o">-</span><span class="n">MSocket</span><span class="w"> </span><span class="o">-</span><span class="ow">le</span><span class="w"> </span><span class="s">&#39;print inet_ntoa(pack(&quot;N&quot;, 2130706433))&#39;</span><span class="w">   </span><span class="c1"># Dans l&#39;autre sens</span>
-<span class="n">perl</span><span class="w"> </span><span class="o">-</span><span class="n">nE</span><span class="w"> </span><span class="s">&#39;say&#39;</span><span class="w"> </span><span class="n">file</span><span class="w">                               </span><span class="c1"># Ajoute lignes vides</span>
+<span class="n">perl</span><span class="w"> </span><span class="o">-</span><span class="ow">le</span><span class="w"> </span><span class="s">'print map { ("a".."z")[rand 26] } 1..8'</span><span class="c1"># Mot de passe</span>
+<span class="n">perl</span><span class="w"> </span><span class="o">-</span><span class="ow">le</span><span class="w"> </span><span class="s">'print unpack("N", 127.0.0.1)'</span><span class="w">          </span><span class="c1"># Convertit IP en entier</span>
+<span class="n">perl</span><span class="w"> </span><span class="o">-</span><span class="n">MSocket</span><span class="w"> </span><span class="o">-</span><span class="ow">le</span><span class="w"> </span><span class="s">'print unpack("N", inet_aton("127.0.0.1"))'</span><span class="c1"># Sans vstring</span>
+<span class="n">perl</span><span class="w"> </span><span class="o">-</span><span class="n">MSocket</span><span class="w"> </span><span class="o">-</span><span class="ow">le</span><span class="w"> </span><span class="s">'print inet_ntoa(pack("N", 2130706433))'</span><span class="w">   </span><span class="c1"># Dans l'autre sens</span>
+<span class="n">perl</span><span class="w"> </span><span class="o">-</span><span class="n">nE</span><span class="w"> </span><span class="s">'say'</span><span class="w"> </span><span class="n">file</span><span class="w">                               </span><span class="c1"># Ajoute lignes vides</span>
 <span class="n">perl</span><span class="w"> </span><span class="o">-</span><span class="mo">00</span><span class="n">pe0</span><span class="w">                                       </span><span class="c1"># Supp. lignes vides multiples</span>
-<span class="n">perl</span><span class="w"> </span><span class="o">-</span><span class="ow">ne</span><span class="w"> </span><span class="s">&#39;}{print $.&#39;</span><span class="w">                             </span><span class="c1"># wc -l</span>
+<span class="n">perl</span><span class="w"> </span><span class="o">-</span><span class="ow">ne</span><span class="w"> </span><span class="s">'}{print $.'</span><span class="w">                             </span><span class="c1"># wc -l</span>
 <span class="w">    </span><span class="c1"># Détermine si un entier est un nombre premier</span>
-<span class="n">perl</span><span class="w"> </span><span class="o">-</span><span class="n">lne</span><span class="w"> </span><span class="s">&#39;(1x$_) !~ /^1?$|^(11+?)\1+$/ &amp;&amp; print &quot;$_ is prime&quot;&#39;</span>
-<span class="n">perl</span><span class="w"> </span><span class="o">-</span><span class="n">Mbignum</span><span class="o">=</span><span class="n">bpi</span><span class="w"> </span><span class="o">-</span><span class="ow">le</span><span class="w"> </span><span class="s">&#39;print bpi(21)&#39;</span><span class="w">             </span><span class="c1"># Affiche 21 décimales de PI</span>
-<span class="n">perl</span><span class="w"> </span><span class="o">-</span><span class="ow">le</span><span class="w"> </span><span class="s">&#39;print scalar localtime&#39;</span><span class="w">                 </span><span class="c1"># Affiche date et heure</span>
-<span class="n">perl</span><span class="w"> </span><span class="o">-</span><span class="ow">le</span><span class="w"> </span><span class="s">&#39;print join &quot;:&quot;, (localtime)[2,1,0]&#39;</span><span class="w">     </span><span class="c1"># Affiche l&#39;heure locale</span>
+<span class="n">perl</span><span class="w"> </span><span class="o">-</span><span class="n">lne</span><span class="w"> </span><span class="s">'(1x$_) !~ /^1?$|^(11+?)\1+$/ &amp;&amp; print "$_ is prime"'</span>
+<span class="n">perl</span><span class="w"> </span><span class="o">-</span><span class="n">Mbignum</span><span class="o">=</span><span class="n">bpi</span><span class="w"> </span><span class="o">-</span><span class="ow">le</span><span class="w"> </span><span class="s">'print bpi(21)'</span><span class="w">             </span><span class="c1"># Affiche 21 décimales de PI</span>
+<span class="n">perl</span><span class="w"> </span><span class="o">-</span><span class="ow">le</span><span class="w"> </span><span class="s">'print scalar localtime'</span><span class="w">                 </span><span class="c1"># Affiche date et heure</span>
+<span class="n">perl</span><span class="w"> </span><span class="o">-</span><span class="ow">le</span><span class="w"> </span><span class="s">'print join ":", (localtime)[2,1,0]'</span><span class="w">     </span><span class="c1"># Affiche l'heure locale</span>
 <span class="w">    </span><span class="c1"># Calcule factorielle</span>
-<span class="n">perl</span><span class="w"> </span><span class="o">-</span><span class="nn">MMath::</span><span class="n">BigInt</span><span class="w"> </span><span class="o">-</span><span class="ow">le</span><span class="w"> </span><span class="s">&#39;print Math::BigInt-&gt;new(5)-&gt;bfac()&#39;</span>
+<span class="n">perl</span><span class="w"> </span><span class="o">-</span><span class="nn">MMath::</span><span class="n">BigInt</span><span class="w"> </span><span class="o">-</span><span class="ow">le</span><span class="w"> </span><span class="s">'print Math::BigInt-&gt;new(5)-&gt;bfac()'</span>
 <span class="w">    </span><span class="c1"># Permutations !</span>
-<span class="n">perl</span><span class="w"> </span><span class="o">-</span><span class="nn">MAlgorithm::</span><span class="n">Permute</span><span class="w"> </span><span class="o">-</span><span class="ow">le</span><span class="w"> </span><span class="s">&#39;</span>
+<span class="n">perl</span><span class="w"> </span><span class="o">-</span><span class="nn">MAlgorithm::</span><span class="n">Permute</span><span class="w"> </span><span class="o">-</span><span class="ow">le</span><span class="w"> </span><span class="s">'</span>
 <span class="s">@l = (1,2,3,4,5);</span>
-<span class="s">Algorithm::Permute::permute { print &quot;@l&quot; } @l</span>
-<span class="s">&#39;</span>
-<span class="k">use</span><span class="w"> </span><span class="nn">List::PowerSet</span><span class="w">                                </span><span class="c1"># Partitions d&#39;un ensemble</span>
-<span class="n">perl</span><span class="w"> </span><span class="o">-</span><span class="n">lpe</span><span class="w"> </span><span class="s">&#39;y/A-Za-z/N-ZA-Mn-za-m/&#39;</span><span class="w"> </span><span class="n">file</span><span class="w">           </span><span class="c1"># ROT13</span>
-<span class="n">perl</span><span class="w"> </span><span class="o">-</span><span class="nn">MMIME::</span><span class="n">Base64</span><span class="w"> </span><span class="o">-</span><span class="mo">0777</span><span class="w"> </span><span class="o">-</span><span class="ow">ne</span><span class="w"> </span><span class="s">&#39;print encode_base64($_)&#39;</span><span class="w"> </span><span class="n">file</span><span class="w">  </span><span class="c1"># Encode en BASE64</span>
-<span class="n">perl</span><span class="w"> </span><span class="o">-</span><span class="nn">MMIME::</span><span class="n">Base64</span><span class="w"> </span><span class="o">-</span><span class="mo">0777</span><span class="w"> </span><span class="o">-</span><span class="ow">ne</span><span class="w"> </span><span class="s">&#39;print decode_base64($_)&#39;</span><span class="w"> </span><span class="n">file</span><span class="w">  </span><span class="c1"># Decode de BASE64</span>
-<span class="n">perl</span><span class="w"> </span><span class="o">-</span><span class="nn">MURI::</span><span class="n">Escape</span><span class="w"> </span><span class="o">-</span><span class="ow">le</span><span class="w"> </span><span class="s">&#39;print uri_escape(&quot;http://example.fr&quot;)&#39;</span><span class="c1"># URL-escape</span>
-<span class="n">perl</span><span class="w"> </span><span class="o">-</span><span class="nn">MURI::</span><span class="n">Escape</span><span class="w"> </span><span class="o">-</span><span class="ow">le</span><span class="w"> </span><span class="s">&#39;print uri_unescape(&quot;http://example.com&quot;)&#39;</span><span class="w"> </span><span class="c1"># Inverse...</span>
-<span class="n">perl</span><span class="w"> </span><span class="o">-</span><span class="n">pe</span><span class="w"> </span><span class="s">&#39;s|\012|\015\012|&#39;</span><span class="w">                       </span><span class="c1"># Sauts de ligne UNIX -&gt; DOS</span>
-<span class="n">perl</span><span class="w"> </span><span class="o">-</span><span class="n">pe</span><span class="w"> </span><span class="s">&#39;s|\015\012|\012|&#39;</span><span class="w">                       </span><span class="c1"># Sauts de ligne DOS -&gt; UNIX</span>
+<span class="s">Algorithm::Permute::permute { print "@l" } @l</span>
+<span class="s">'</span>
+<span class="k">use</span><span class="w"> </span><span class="nn">List::PowerSet</span><span class="w">                                </span><span class="c1"># Partitions d'un ensemble</span>
+<span class="n">perl</span><span class="w"> </span><span class="o">-</span><span class="n">lpe</span><span class="w"> </span><span class="s">'y/A-Za-z/N-ZA-Mn-za-m/'</span><span class="w"> </span><span class="n">file</span><span class="w">           </span><span class="c1"># ROT13</span>
+<span class="n">perl</span><span class="w"> </span><span class="o">-</span><span class="nn">MMIME::</span><span class="n">Base64</span><span class="w"> </span><span class="o">-</span><span class="mo">0777</span><span class="w"> </span><span class="o">-</span><span class="ow">ne</span><span class="w"> </span><span class="s">'print encode_base64($_)'</span><span class="w"> </span><span class="n">file</span><span class="w">  </span><span class="c1"># Encode en BASE64</span>
+<span class="n">perl</span><span class="w"> </span><span class="o">-</span><span class="nn">MMIME::</span><span class="n">Base64</span><span class="w"> </span><span class="o">-</span><span class="mo">0777</span><span class="w"> </span><span class="o">-</span><span class="ow">ne</span><span class="w"> </span><span class="s">'print decode_base64($_)'</span><span class="w"> </span><span class="n">file</span><span class="w">  </span><span class="c1"># Decode de BASE64</span>
+<span class="n">perl</span><span class="w"> </span><span class="o">-</span><span class="nn">MURI::</span><span class="n">Escape</span><span class="w"> </span><span class="o">-</span><span class="ow">le</span><span class="w"> </span><span class="s">'print uri_escape("http://example.fr")'</span><span class="c1"># URL-escape</span>
+<span class="n">perl</span><span class="w"> </span><span class="o">-</span><span class="nn">MURI::</span><span class="n">Escape</span><span class="w"> </span><span class="o">-</span><span class="ow">le</span><span class="w"> </span><span class="s">'print uri_unescape("http://example.com")'</span><span class="w"> </span><span class="c1"># Inverse...</span>
+<span class="n">perl</span><span class="w"> </span><span class="o">-</span><span class="n">pe</span><span class="w"> </span><span class="s">'s|\012|\015\012|'</span><span class="w">                       </span><span class="c1"># Sauts de ligne UNIX -&gt; DOS</span>
+<span class="n">perl</span><span class="w"> </span><span class="o">-</span><span class="n">pe</span><span class="w"> </span><span class="s">'s|\015\012|\012|'</span><span class="w">                       </span><span class="c1"># Sauts de ligne DOS -&gt; UNIX</span>
 <span class="w">    </span><span class="c1"># Adresse IP</span>
 <span class="k">my</span><span class="w"> </span><span class="nv">$ip_part</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="sx">qr/[0-9]|[0-9][0-9]|1[0-9][0-9]|2[0-4][0-9]|25[0-5]/</span><span class="p">;</span>
 <span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nv">$ip</span><span class="w"> </span><span class="o">=~</span><span class="sr"> /^$ip_part\.$ip_part\.$ip_part\.$ip_part$/</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="k">print</span><span class="w"> </span><span class="s">&quot;valid ip\n&quot;</span><span class="p">;</span>
+<span class="w">    </span><span class="k">print</span><span class="w"> </span><span class="s">"valid ip\n"</span><span class="p">;</span>
 <span class="p">}</span>
 <span class="w">    </span><span class="c1"># ou bien</span>
 <span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nv">$ip</span><span class="w"> </span><span class="o">=~</span><span class="sr"> /^($ip_part\.){3}$ip_part$/</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="o">...</span><span class="w"> </span><span class="p">}</span>
-<span class="n">perl</span><span class="w"> </span><span class="o">-</span><span class="nn">MEmail::</span><span class="n">Valid</span><span class="w"> </span><span class="o">-</span><span class="ow">ne</span><span class="w"> </span><span class="s">&#39;print if Email::Valid-&gt;address($_)&#39;</span><span class="w"> </span><span class="c1"># Valide adr. mail</span>
-<span class="n">perl</span><span class="w"> </span><span class="o">-</span><span class="nn">MRegexp::</span><span class="n">Common</span><span class="w"> </span><span class="o">-</span><span class="ow">ne</span><span class="w"> </span><span class="s">&#39;print if /$RE{num}{real}/&#39;</span><span class="w">  </span><span class="c1"># Trouve un réel</span>
+<span class="n">perl</span><span class="w"> </span><span class="o">-</span><span class="nn">MEmail::</span><span class="n">Valid</span><span class="w"> </span><span class="o">-</span><span class="ow">ne</span><span class="w"> </span><span class="s">'print if Email::Valid-&gt;address($_)'</span><span class="w"> </span><span class="c1"># Valide adr. mail</span>
+<span class="n">perl</span><span class="w"> </span><span class="o">-</span><span class="nn">MRegexp::</span><span class="n">Common</span><span class="w"> </span><span class="o">-</span><span class="ow">ne</span><span class="w"> </span><span class="s">'print if /$RE{num}{real}/'</span><span class="w">  </span><span class="c1"># Trouve un réel</span>
 <span class="nv">$str</span><span class="w"> </span><span class="o">=~</span><span class="w"> </span><span class="sr">s/(\d+)/$1+1/ge</span><span class="w">                                </span><span class="c1"># Incrémente les entiers</span>
-<span class="n">perl</span><span class="w"> </span><span class="o">-</span><span class="nn">MRegexp::</span><span class="n">Common</span><span class="w"> </span><span class="o">-</span><span class="n">pe</span><span class="w"> </span><span class="s">&#39;s/($RE{num}{real})/$1+1/ge&#39;</span><span class="w"> </span><span class="c1"># Incrémente les réels</span>
+<span class="n">perl</span><span class="w"> </span><span class="o">-</span><span class="nn">MRegexp::</span><span class="n">Common</span><span class="w"> </span><span class="o">-</span><span class="n">pe</span><span class="w"> </span><span class="s">'s/($RE{num}{real})/$1+1/ge'</span><span class="w"> </span><span class="c1"># Incrémente les réels</span>
 <span class="k">my</span><span class="w"> </span><span class="nv">@nums</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">$text</span><span class="w"> </span><span class="o">=~</span><span class="sr"> /\d+/g</span><span class="p">;</span><span class="w">                            </span><span class="c1"># Extrais les nombres...</span>
-<span class="n">perl</span><span class="w"> </span><span class="o">-</span><span class="n">alne</span><span class="w"> </span><span class="s">&#39;print &quot;@{[grep { $_ eq reverse $_ } @F]}&quot;&#39;</span><span class="w"> </span><span class="c1"># Affiche les palindromes</span>
+<span class="n">perl</span><span class="w"> </span><span class="o">-</span><span class="n">alne</span><span class="w"> </span><span class="s">'print "@{[grep { $_ eq reverse $_ } @F]}"'</span><span class="w"> </span><span class="c1"># Affiche les palindromes</span>
 <span class="w">    </span><span class="c1"># Lit par paquets de 1024 octets :</span>
 <span class="vg">$/</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">\</span><span class="mi">1024</span>
 
-<span class="n">perl</span><span class="w"> </span><span class="o">-</span><span class="ow">le</span><span class="w"> </span><span class="s">&#39;print &quot;$_: $ENV{$_}&quot; for keys %ENV&#39;</span><span class="w">     </span><span class="c1"># Affiche l&#39;environnement</span>
+<span class="n">perl</span><span class="w"> </span><span class="o">-</span><span class="ow">le</span><span class="w"> </span><span class="s">'print "$_: $ENV{$_}" for keys %ENV'</span><span class="w">     </span><span class="c1"># Affiche l'environnement</span>
 </code></pre></div>
 
 <hr>
@@ -293,7 +293,7 @@
 <li>Afficher quelle version de Perl a intégré un module dans la librairie standard</li>
 </ul>
 <div class="highlight"><pre><span></span><code><span class="k">use</span><span class="w"> </span><span class="nn">Module::CoreList</span><span class="p">;</span>
-<span class="k">print</span><span class="w"> </span><span class="nn">Module::CoreList</span><span class="o">-&gt;</span><span class="n">first_release</span><span class="p">(</span><span class="w"> </span><span class="s">&#39;Module::Build&#39;</span><span class="w"> </span><span class="p">);</span>
+<span class="k">print</span><span class="w"> </span><span class="nn">Module::CoreList</span><span class="o">-&gt;</span><span class="n">first_release</span><span class="p">(</span><span class="w"> </span><span class="s">'Module::Build'</span><span class="w"> </span><span class="p">);</span>
 </code></pre></div>
 
 <ul>
@@ -313,7 +313,7 @@
 <ul>
 <li>Pour afficher @INC</li>
 </ul>
-<div class="highlight"><pre><span></span><code><span class="n">perl</span><span class="w"> </span><span class="o">-</span><span class="n">le</span><span class="w"> </span><span class="s1">&#39;print for @INC&#39;</span>
+<div class="highlight"><pre><span></span><code><span class="n">perl</span><span class="w"> </span><span class="o">-</span><span class="n">le</span><span class="w"> </span><span class="s1">'print for @INC'</span>
 </code></pre></div>
 
 <ul>
@@ -373,9 +373,9 @@ automatiser</li>
 <li>Éviter de répéter le nom d'un variable</li>
 </ul>
 <div class="highlight"><pre><span></span><code><span class="k">my</span><span class="w"> </span><span class="nv">$v</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">do</span><span class="w"> </span><span class="p">{</span>
-<span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="w"> </span><span class="o">...</span><span class="w"> </span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="s">&#39;value1&#39;</span><span class="w"> </span><span class="p">}</span>
-<span class="w">  </span><span class="k">elsif</span><span class="w"> </span><span class="p">(</span><span class="w"> </span><span class="o">...</span><span class="w"> </span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="s">&#39;value2&#39;</span><span class="w"> </span><span class="p">}</span>
-<span class="w">  </span><span class="k">else</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="s">&#39;value3&#39;</span><span class="w"> </span><span class="p">};</span>
+<span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="w"> </span><span class="o">...</span><span class="w"> </span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="s">'value1'</span><span class="w"> </span><span class="p">}</span>
+<span class="w">  </span><span class="k">elsif</span><span class="w"> </span><span class="p">(</span><span class="w"> </span><span class="o">...</span><span class="w"> </span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="s">'value2'</span><span class="w"> </span><span class="p">}</span>
+<span class="w">  </span><span class="k">else</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="s">'value3'</span><span class="w"> </span><span class="p">};</span>
 </code></pre></div>
 
 <ul>
@@ -397,14 +397,14 @@ automatiser</li>
 <ul>
 <li>Faire un grep en interceptant une mauvaise regex</li>
 </ul>
-<div class="highlight"><pre><span></span><code><span class="k">print</span><span class="w"> </span><span class="nb">grep</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nb">eval</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="sr">/$regex/</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="nb">glob</span><span class="p">(</span><span class="w"> </span><span class="s">&quot;.* *&quot;</span><span class="p">);</span>
+<div class="highlight"><pre><span></span><code><span class="k">print</span><span class="w"> </span><span class="nb">grep</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nb">eval</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="sr">/$regex/</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="nb">glob</span><span class="p">(</span><span class="w"> </span><span class="s">".* *"</span><span class="p">);</span>
 </code></pre></div>
 
 <ul>
 <li>Le sigil n'est pas forcément collé au nom de variable</li>
 </ul>
-<div class="highlight"><pre><span></span><code><span class="k">my</span><span class="w"> </span><span class="nv">$</span><span class="w"> </span><span class="nv">abc</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#39;youpi&#39;</span><span class="p">;</span>
-<span class="k">print</span><span class="w"> </span><span class="nv">$</span><span class="w"> </span><span class="nv">abc</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;\n&quot;</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="k">my</span><span class="w"> </span><span class="nv">$</span><span class="w"> </span><span class="nv">abc</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">'youpi'</span><span class="p">;</span>
+<span class="k">print</span><span class="w"> </span><span class="nv">$</span><span class="w"> </span><span class="nv">abc</span><span class="p">,</span><span class="w"> </span><span class="s">"\n"</span><span class="p">;</span>
 <span class="c1"># Idem avec @ ou %</span>
 <span class="c1"># Par contre, ne fonctionne pas dans une chaîne interpolée</span>
 </code></pre></div>
@@ -421,7 +421,7 @@ automatiser</li>
 <ul>
 <li>Pour savoir si une variable donnée est un hash au sens large</li>
 </ul>
-<div class="highlight"><pre><span></span><code><span class="c1"># Ne vérifie pas &quot;ce que c&#39;est&quot; avec un ref, plutôt, vérifie que &quot;ça&quot; peut se</span>
+<div class="highlight"><pre><span></span><code><span class="c1"># Ne vérifie pas "ce que c'est" avec un ref, plutôt, vérifie que "ça" peut se</span>
 <span class="c1"># comporter comme un hash, quoi que ce soit.</span>
 <span class="k">sub</span><span class="w"> </span><span class="nf">is_hash_ref</span><span class="w"> </span><span class="p">{</span>
 <span class="w">  </span><span class="k">my</span><span class="w"> </span><span class="nv">$hash_ref</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">shift</span><span class="p">;</span>
@@ -436,7 +436,7 @@ automatiser</li>
 <span class="nv">@$not_yet</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="w"> </span><span class="p">);</span>
 
 <span class="k">my</span><span class="w"> </span><span class="nv">$top</span><span class="p">;</span>
-<span class="nv">$top</span><span class="o">-&gt;</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">-&gt;</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#39;bla&#39;</span><span class="p">;</span>
+<span class="nv">$top</span><span class="o">-&gt;</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">-&gt;</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">'bla'</span><span class="p">;</span>
 </code></pre></div>
 
 <ul>
@@ -467,12 +467,12 @@ automatiser</li>
 
 <span class="c1"># ---&gt;&gt;&gt;</span>
 <span class="nv">@data1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span>
-<span class="w">  </span><span class="s">&#39;one&#39;</span><span class="p">,</span>
-<span class="w">  </span><span class="s">&#39;won&#39;</span><span class="p">,</span>
+<span class="w">  </span><span class="s">'one'</span><span class="p">,</span>
+<span class="w">  </span><span class="s">'won'</span><span class="p">,</span>
 <span class="w">  </span><span class="p">[</span>
-<span class="w">    </span><span class="s">&#39;two&#39;</span><span class="p">,</span>
-<span class="w">    </span><span class="s">&#39;too&#39;</span><span class="p">,</span>
-<span class="w">    </span><span class="s">&#39;to&#39;</span><span class="p">,</span>
+<span class="w">    </span><span class="s">'two'</span><span class="p">,</span>
+<span class="w">    </span><span class="s">'too'</span><span class="p">,</span>
+<span class="w">    </span><span class="s">'to'</span><span class="p">,</span>
 <span class="w">    </span><span class="o">\</span><span class="nv">@data1</span>
 <span class="w">  </span><span class="p">]</span>
 <span class="p">);</span>
@@ -531,14 +531,14 @@ fonctionne aussi bien avec une sub anonyme que régulière.</p>
 <ul>
 <li>Ouvrir un handle de fichier sur une chaîne</li>
 </ul>
-<div class="highlight"><pre><span></span><code><span class="nb">open</span><span class="w"> </span><span class="k">my</span><span class="w"> </span><span class="nv">$fh</span><span class="p">,</span><span class="w"> </span><span class="s">&#39;&gt;&#39;</span><span class="p">,</span><span class="w"> </span><span class="o">\</span><span class="w"> </span><span class="k">my</span><span class="w"> </span><span class="nv">$string</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="nb">open</span><span class="w"> </span><span class="k">my</span><span class="w"> </span><span class="nv">$fh</span><span class="p">,</span><span class="w"> </span><span class="s">'&gt;'</span><span class="p">,</span><span class="w"> </span><span class="o">\</span><span class="w"> </span><span class="k">my</span><span class="w"> </span><span class="nv">$string</span><span class="p">;</span>
 
 <span class="c1"># Autre exemple (rediriger STDOUT vers une chaîne)</span>
 <span class="p">{</span>
 <span class="w">  </span><span class="nb">local</span><span class="w"> </span><span class="o">*</span><span class="bp">STDOUT</span><span class="p">;</span>
-<span class="w">  </span><span class="nb">open</span><span class="w"> </span><span class="bp">STDOUT</span><span class="p">,</span><span class="w"> </span><span class="s">&#39;&gt;&#39;</span><span class="p">,</span><span class="w"> </span><span class="o">\</span><span class="w"> </span><span class="k">my</span><span class="w"> </span><span class="nv">$string</span><span class="p">;</span>
+<span class="w">  </span><span class="nb">open</span><span class="w"> </span><span class="bp">STDOUT</span><span class="p">,</span><span class="w"> </span><span class="s">'&gt;'</span><span class="p">,</span><span class="w"> </span><span class="o">\</span><span class="w"> </span><span class="k">my</span><span class="w"> </span><span class="nv">$string</span><span class="p">;</span>
 
-<span class="w">  </span><span class="k">print</span><span class="w"> </span><span class="s">&quot;hello...\n&quot;</span><span class="p">;</span>
+<span class="w">  </span><span class="k">print</span><span class="w"> </span><span class="s">"hello...\n"</span><span class="p">;</span>
 
 <span class="w">  </span><span class="nv">$some_obj</span><span class="o">-&gt;</span><span class="n">noisy_method</span><span class="p">();</span>
 <span class="p">}</span>
@@ -547,14 +547,14 @@ fonctionne aussi bien avec une sub anonyme que régulière.</p>
 <ul>
 <li>Module <em>IO::Handle</em></li>
 </ul>
-<div class="highlight"><pre><span></span><code><span class="c1"># Utilisation d&#39;un handle de fichier en mode objet</span>
+<div class="highlight"><pre><span></span><code><span class="c1"># Utilisation d'un handle de fichier en mode objet</span>
 <span class="c1"># La ligne</span>
 <span class="c1">#   use IO::Handle;</span>
 <span class="c1"># est optionnelle sur mon perl...</span>
 <span class="k">use</span><span class="w"> </span><span class="nn">IO::Handle</span><span class="p">;</span>
 
-<span class="nb">open</span><span class="w"> </span><span class="k">my</span><span class="w"> </span><span class="nv">$fh</span><span class="p">,</span><span class="w"> </span><span class="s">&#39;&gt;&#39;</span><span class="p">,</span><span class="w"> </span><span class="nv">$filename</span><span class="w"> </span><span class="ow">or</span><span class="w"> </span><span class="nb">die</span><span class="w"> </span><span class="s">&quot;Error: $!&quot;</span><span class="p">;</span>
-<span class="nv">$fh</span><span class="o">-&gt;</span><span class="k">print</span><span class="p">(</span><span class="w"> </span><span class="s">&quot;bonjour !\n&quot;</span><span class="w"> </span><span class="p">);</span>
+<span class="nb">open</span><span class="w"> </span><span class="k">my</span><span class="w"> </span><span class="nv">$fh</span><span class="p">,</span><span class="w"> </span><span class="s">'&gt;'</span><span class="p">,</span><span class="w"> </span><span class="nv">$filename</span><span class="w"> </span><span class="ow">or</span><span class="w"> </span><span class="nb">die</span><span class="w"> </span><span class="s">"Error: $!"</span><span class="p">;</span>
+<span class="nv">$fh</span><span class="o">-&gt;</span><span class="k">print</span><span class="p">(</span><span class="w"> </span><span class="s">"bonjour !\n"</span><span class="w"> </span><span class="p">);</span>
 <span class="nv">$fh</span><span class="o">-&gt;</span><span class="nb">close</span><span class="p">;</span>
 </code></pre></div>
 
@@ -563,10 +563,10 @@ fonctionne aussi bien avec une sub anonyme que régulière.</p>
 </ul>
 <div class="highlight"><pre><span></span><code><span class="k">use</span><span class="w"> </span><span class="nn">IO::File</span><span class="p">;</span>
 
-<span class="k">my</span><span class="w"> </span><span class="nv">$read_fh</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nn">IO::File</span><span class="o">-&gt;</span><span class="k">new</span><span class="p">(</span><span class="w"> </span><span class="s">&#39;myfile&#39;</span><span class="p">,</span><span class="w"> </span><span class="s">&#39;r&#39;</span><span class="w"> </span><span class="p">);</span>
-<span class="k">my</span><span class="w"> </span><span class="nv">$write_fh</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nn">IO::File</span><span class="o">-&gt;</span><span class="k">new</span><span class="p">(</span><span class="w"> </span><span class="s">&#39;myfile&#39;</span><span class="p">,</span><span class="w"> </span><span class="s">&#39;w&#39;</span><span class="w"> </span><span class="p">);</span>
+<span class="k">my</span><span class="w"> </span><span class="nv">$read_fh</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nn">IO::File</span><span class="o">-&gt;</span><span class="k">new</span><span class="p">(</span><span class="w"> </span><span class="s">'myfile'</span><span class="p">,</span><span class="w"> </span><span class="s">'r'</span><span class="w"> </span><span class="p">);</span>
+<span class="k">my</span><span class="w"> </span><span class="nv">$write_fh</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nn">IO::File</span><span class="o">-&gt;</span><span class="k">new</span><span class="p">(</span><span class="w"> </span><span class="s">'myfile'</span><span class="p">,</span><span class="w"> </span><span class="s">'w'</span><span class="w"> </span><span class="p">);</span>
 
-<span class="k">my</span><span class="w"> </span><span class="nv">$append_fh</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nn">IO::File</span><span class="o">-&gt;</span><span class="k">new</span><span class="p">(</span><span class="w"> </span><span class="s">&#39;myfile&#39;</span><span class="p">,</span><span class="w"> </span><span class="n">O_WRONLY</span><span class="o">|</span><span class="n">O_APPEND</span><span class="w"> </span><span class="p">);</span>
+<span class="k">my</span><span class="w"> </span><span class="nv">$append_fh</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nn">IO::File</span><span class="o">-&gt;</span><span class="k">new</span><span class="p">(</span><span class="w"> </span><span class="s">'myfile'</span><span class="p">,</span><span class="w"> </span><span class="n">O_WRONLY</span><span class="o">|</span><span class="n">O_APPEND</span><span class="w"> </span><span class="p">);</span>
 </code></pre></div>
 
 <ul>
@@ -592,26 +592,26 @@ fonctionne aussi bien avec une sub anonyme que régulière.</p>
 </ul>
 <p>Permet de récupérer le résultat d'une commande externe (ou bien, envoyer des
 données vers une commande externe), de manière plus propre qu'avec <code>open</code>.</p>
-<div class="highlight"><pre><span></span><code><span class="nb">open</span><span class="w"> </span><span class="k">my</span><span class="w"> </span><span class="nv">$pipe</span><span class="p">,</span><span class="w"> </span><span class="s">&#39;-|&#39;</span><span class="p">,</span><span class="w"> </span><span class="nv">$command</span><span class="w"> </span><span class="ow">or</span><span class="w"> </span><span class="nb">die</span><span class="w"> </span><span class="s">&quot;Could not open fh: $!&quot;</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="nb">open</span><span class="w"> </span><span class="k">my</span><span class="w"> </span><span class="nv">$pipe</span><span class="p">,</span><span class="w"> </span><span class="s">'-|'</span><span class="p">,</span><span class="w"> </span><span class="nv">$command</span><span class="w"> </span><span class="ow">or</span><span class="w"> </span><span class="nb">die</span><span class="w"> </span><span class="s">"Could not open fh: $!"</span><span class="p">;</span>
 
 <span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="sr">&lt;$pipe&gt;</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="k">print</span><span class="w"> </span><span class="s">&quot;Read: $_&quot;</span><span class="p">;</span>
+<span class="w">    </span><span class="k">print</span><span class="w"> </span><span class="s">"Read: $_"</span><span class="p">;</span>
 <span class="p">}</span>
 
 <span class="c1"># avec IO::Pipe</span>
 <span class="k">use</span><span class="w"> </span><span class="nn">IO::Pipe</span><span class="p">;</span>
 
 <span class="k">my</span><span class="w"> </span><span class="nv">$pipe</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nn">IO::Pipe</span><span class="o">-&gt;</span><span class="k">new</span><span class="p">;</span>
-<span class="nv">$pipe</span><span class="o">-&gt;</span><span class="n">reader</span><span class="p">(</span><span class="w"> </span><span class="s">&quot;$^X -V&quot;</span><span class="w"> </span><span class="p">);</span>
+<span class="nv">$pipe</span><span class="o">-&gt;</span><span class="n">reader</span><span class="p">(</span><span class="w"> </span><span class="s">"$^X -V"</span><span class="w"> </span><span class="p">);</span>
 
 <span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="sr">&lt;$pipe&gt;</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="k">print</span><span class="w"> </span><span class="s">&quot;Read: $_&quot;</span><span class="p">;</span>
+<span class="w">    </span><span class="k">print</span><span class="w"> </span><span class="s">"Read: $_"</span><span class="p">;</span>
 <span class="p">}</span>
 
-<span class="c1"># Dans le sens de l&#39;écriture</span>
+<span class="c1"># Dans le sens de l'écriture</span>
 
-<span class="nb">open</span><span class="w"> </span><span class="k">my</span><span class="w"> </span><span class="nv">$pipe</span><span class="p">,</span><span class="w"> </span><span class="s">&#39;| $command&#39;</span><span class="w"> </span><span class="ow">or</span><span class="w"> </span><span class="nb">die</span><span class="w"> </span><span class="s">&quot;Could not open fh: $!&quot;</span><span class="p">;</span>
-<span class="k">print</span><span class="w"> </span><span class="nv">$pipe</span><span class="w"> </span><span class="s">&quot;I can count to $_\n&quot;</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="o">..</span><span class="w"> </span><span class="mi">10</span><span class="p">;</span>
+<span class="nb">open</span><span class="w"> </span><span class="k">my</span><span class="w"> </span><span class="nv">$pipe</span><span class="p">,</span><span class="w"> </span><span class="s">'| $command'</span><span class="w"> </span><span class="ow">or</span><span class="w"> </span><span class="nb">die</span><span class="w"> </span><span class="s">"Could not open fh: $!"</span><span class="p">;</span>
+<span class="k">print</span><span class="w"> </span><span class="nv">$pipe</span><span class="w"> </span><span class="s">"I can count to $_\n"</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="o">..</span><span class="w"> </span><span class="mi">10</span><span class="p">;</span>
 
 <span class="c1"># Avec IO::Pipe</span>
 
@@ -620,7 +620,7 @@ données vers une commande externe), de manière plus propre qu'avec <code>open<
 <span class="k">my</span><span class="w"> </span><span class="nv">$pipe</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nn">IO::Pipe</span><span class="o">-&gt;</span><span class="k">new</span><span class="p">;</span>
 <span class="nv">$pipe</span><span class="o">-&gt;</span><span class="n">writer</span><span class="p">(</span><span class="w"> </span><span class="nv">$command</span><span class="w"> </span><span class="p">);</span>
 
-<span class="k">print</span><span class="w"> </span><span class="nv">$pipe</span><span class="w"> </span><span class="s">&quot;I can count to $_\n&quot;</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="o">..</span><span class="w"> </span><span class="mi">10</span><span class="p">;</span>
+<span class="k">print</span><span class="w"> </span><span class="nv">$pipe</span><span class="w"> </span><span class="s">"I can count to $_\n"</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="o">..</span><span class="w"> </span><span class="mi">10</span><span class="p">;</span>
 </code></pre></div>
 
 <p>Module <em>IO::Null</em></p>
@@ -631,13 +631,13 @@ données vers une commande externe), de manière plus propre qu'avec <code>open<
 <ul>
 <li>Module <em>IO::Interactive</em></li>
 </ul>
-<div class="highlight"><pre><span></span><code><span class="c1"># Le livre n&#39;indique pas d&#39;importer &#39;interactive&#39;, mais c&#39;est nécessaire.</span>
+<div class="highlight"><pre><span></span><code><span class="c1"># Le livre n'indique pas d'importer 'interactive', mais c'est nécessaire.</span>
 <span class="k">use</span><span class="w"> </span><span class="nn">IO::Interactive</span><span class="w"> </span><span class="sx">qw(interactive)</span><span class="p">;</span>
 
 <span class="c1"># Les accolades sont obligatoires, sans quoi la valeur retournée par la sub</span>
-<span class="c1"># interactive (par ex. &quot;GLOB(0x56154b5b5b00)&quot;) est affichée : en l&#39;absence</span>
-<span class="c1"># d&#39;accolades, print ne comprend pas que interactive est un handle de fichier.</span>
-<span class="k">print</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">interactive</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="s">&quot;youpi\n&quot;</span><span class="p">;</span>
+<span class="c1"># interactive (par ex. "GLOB(0x56154b5b5b00)") est affichée : en l'absence</span>
+<span class="c1"># d'accolades, print ne comprend pas que interactive est un handle de fichier.</span>
+<span class="k">print</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">interactive</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="s">"youpi\n"</span><span class="p">;</span>
 </code></pre></div>
 
 <ul>
@@ -645,7 +645,7 @@ données vers une commande externe), de manière plus propre qu'avec <code>open<
 </ul>
 <div class="highlight"><pre><span></span><code><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="o">&lt;&gt;</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="k">unless</span><span class="w"> </span><span class="p">(</span><span class="sr">/^([^:]+):/</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="nb">warn</span><span class="w"> </span><span class="s">&quot;ignoring the line with missing name: $_&quot;</span><span class="p">;</span>
+<span class="w">        </span><span class="nb">warn</span><span class="w"> </span><span class="s">"ignoring the line with missing name: $_"</span><span class="p">;</span>
 <span class="w">        </span><span class="k">next</span><span class="p">;</span>
 <span class="w">    </span><span class="p">}</span>
 <span class="w">    </span><span class="k">my</span><span class="w"> </span><span class="nv">$name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">lc</span><span class="w"> </span><span class="nv">$1</span><span class="p">;</span>
@@ -659,9 +659,9 @@ données vers une commande externe), de manière plus propre qu'avec <code>open<
 <li>Smart match pour tester plusieurs regex à la fois</li>
 </ul>
 <div class="highlight"><pre><span></span><code><span class="c1"># To avoid a warning about feature being experimental</span>
-<span class="k">no</span><span class="w"> </span><span class="nn">warnings</span><span class="w"> </span><span class="s">&#39;experimental&#39;</span><span class="p">;</span>
+<span class="k">no</span><span class="w"> </span><span class="nn">warnings</span><span class="w"> </span><span class="s">'experimental'</span><span class="p">;</span>
 
-<span class="c1"># To use &#39;any&#39;, in order to make smart match clearer</span>
+<span class="c1"># To use 'any', in order to make smart match clearer</span>
 <span class="k">use</span><span class="w"> </span><span class="nn">Smart::Match</span><span class="w"> </span><span class="sx">qw(any)</span><span class="p">;</span>
 
 <span class="k">my</span><span class="w"> </span><span class="nv">@patterns</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span>
@@ -670,12 +670,12 @@ données vers une commande externe), de manière plus propre qu'avec <code>open<
 <span class="w">    </span><span class="sx">qr/chou|ette/</span><span class="p">,</span>
 <span class="p">);</span>
 
-<span class="k">my</span><span class="w"> </span><span class="nv">$str</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#39;...&#39;</span><span class="p">;</span>
+<span class="k">my</span><span class="w"> </span><span class="nv">$str</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">'...'</span><span class="p">;</span>
 
-<span class="n">say</span><span class="w"> </span><span class="s">&quot;Match!&quot;</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="nv">$str</span><span class="w"> </span><span class="o">~~</span><span class="w"> </span><span class="nv">@patterns</span><span class="p">;</span>
+<span class="n">say</span><span class="w"> </span><span class="s">"Match!"</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="nv">$str</span><span class="w"> </span><span class="o">~~</span><span class="w"> </span><span class="nv">@patterns</span><span class="p">;</span>
 <span class="c1"># Or, along with</span>
 <span class="c1">#   use Smart::Match qw(any);</span>
-<span class="n">say</span><span class="w"> </span><span class="s">&quot;Match!&quot;</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="nv">$str</span><span class="w"> </span><span class="o">~~</span><span class="w"> </span><span class="n">any</span><span class="p">(</span><span class="nv">@patterns</span><span class="p">);</span>
+<span class="n">say</span><span class="w"> </span><span class="s">"Match!"</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="nv">$str</span><span class="w"> </span><span class="o">~~</span><span class="w"> </span><span class="n">any</span><span class="p">(</span><span class="nv">@patterns</span><span class="p">);</span>
 </code></pre></div>
 
 <ul>
@@ -684,7 +684,7 @@ données vers une commande externe), de manière plus propre qu'avec <code>open<
 <div class="highlight"><pre><span></span><code><span class="c1"># @- pour le début, @+ pour la fin</span>
 <span class="c1"># $-[0] est pour le match entier, $+[0] également</span>
 <span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nv">$str</span><span class="w"> </span><span class="o">=~</span><span class="sr"> /$regex/</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="k">print</span><span class="w"> </span><span class="s">&quot;Trouvé depuis la position $-[0] à la position $+[0]\n&quot;</span><span class="p">;</span>
+<span class="w">    </span><span class="k">print</span><span class="w"> </span><span class="s">"Trouvé depuis la position $-[0] à la position $+[0]\n"</span><span class="p">;</span>
 <span class="p">}</span>
 </code></pre></div>
 
@@ -693,7 +693,7 @@ données vers une commande externe), de manière plus propre qu'avec <code>open<
 </ul>
 <div class="highlight"><pre><span></span><code><span class="k">use</span><span class="w"> </span><span class="nn">Regexp::Common</span><span class="w"> </span><span class="sx">qw(URI)</span><span class="p">;</span>
 <span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="o">&lt;&gt;</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="k">print</span><span class="w"> </span><span class="s">&quot;Ok\n&quot;</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="sr">/$RE{URI}{HTTP}/</span><span class="p">;</span>
+<span class="w">    </span><span class="k">print</span><span class="w"> </span><span class="s">"Ok\n"</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="sr">/$RE{URI}{HTTP}/</span><span class="p">;</span>
 <span class="p">}</span>
 
 <span class="c1"># Voir aussi :</span>
@@ -709,8 +709,8 @@ données vers une commande externe), de manière plus propre qu'avec <code>open<
 <div class="highlight"><pre><span></span><code><span class="k">use</span><span class="w"> </span><span class="nn">Regexp::Assemble</span><span class="p">;</span>
 
 <span class="k">my</span><span class="w"> </span><span class="nv">$regex</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nn">Regexp::Assemble</span><span class="o">-&gt;</span><span class="k">new</span><span class="p">;</span>
-<span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="s">&#39;ici&#39;</span><span class="p">,</span><span class="w"> </span><span class="s">&#39;illico&#39;</span><span class="p">,</span><span class="w"> </span><span class="s">&#39;là-bas&#39;</span><span class="p">,</span><span class="w"> </span><span class="s">&#39;il fait beau&#39;</span><span class="p">,</span><span class="w"> </span><span class="s">&#39;là-dessus&#39;</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="nv">$regex</span><span class="o">-&gt;</span><span class="n">add</span><span class="p">(</span><span class="w"> </span><span class="s">&quot;\Q$_&quot;</span><span class="w"> </span><span class="p">);</span>
+<span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="s">'ici'</span><span class="p">,</span><span class="w"> </span><span class="s">'illico'</span><span class="p">,</span><span class="w"> </span><span class="s">'là-bas'</span><span class="p">,</span><span class="w"> </span><span class="s">'il fait beau'</span><span class="p">,</span><span class="w"> </span><span class="s">'là-dessus'</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nv">$regex</span><span class="o">-&gt;</span><span class="n">add</span><span class="p">(</span><span class="w"> </span><span class="s">"\Q$_"</span><span class="w"> </span><span class="p">);</span>
 <span class="p">}</span>
 <span class="n">say</span><span class="w"> </span><span class="nv">$regex</span><span class="o">-&gt;</span><span class="n">re</span><span class="p">;</span>
 
@@ -720,19 +720,19 @@ données vers une commande externe), de manière plus propre qu'avec <code>open<
 <ul>
 <li>Lire des expressions régulières depuis un fichier et les tester</li>
 </ul>
-<div class="highlight"><pre><span></span><code><span class="nb">open</span><span class="w"> </span><span class="k">my</span><span class="w"> </span><span class="nv">$fh</span><span class="p">,</span><span class="w"> </span><span class="s">&#39;&lt;&#39;</span><span class="p">,</span><span class="w"> </span><span class="s">&#39;patterns.txt&#39;</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="nb">open</span><span class="w"> </span><span class="k">my</span><span class="w"> </span><span class="nv">$fh</span><span class="p">,</span><span class="w"> </span><span class="s">'&lt;'</span><span class="p">,</span><span class="w"> </span><span class="s">'patterns.txt'</span><span class="p">;</span>
 
 <span class="k">my</span><span class="w"> </span><span class="nv">@patterns</span><span class="p">;</span>
 
 <span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="sr">&lt;$fh&gt;</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="nb">chomp</span><span class="p">;</span>
 <span class="w">    </span><span class="k">my</span><span class="w"> </span><span class="nv">$pattern</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">eval</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="sx">qr/$_/</span><span class="w"> </span><span class="p">}</span>
-<span class="w">        </span><span class="ow">or</span><span class="w"> </span><span class="k">do</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nb">warn</span><span class="w"> </span><span class="s">&quot;Invalid pattern: $@&quot;</span><span class="p">;</span><span class="w"> </span><span class="k">next</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
+<span class="w">        </span><span class="ow">or</span><span class="w"> </span><span class="k">do</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nb">warn</span><span class="w"> </span><span class="s">"Invalid pattern: $@"</span><span class="p">;</span><span class="w"> </span><span class="k">next</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
 <span class="w">    </span><span class="nb">push</span><span class="w"> </span><span class="nv">@patterns</span><span class="p">,</span><span class="w"> </span><span class="nv">$pattern</span><span class="p">;</span>
 <span class="p">}</span>
 <span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="o">&lt;&gt;</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="k">foreach</span><span class="w"> </span><span class="k">my</span><span class="w"> </span><span class="nv">$pattern</span><span class="w"> </span><span class="p">(</span><span class="w"> </span><span class="nv">@patterns</span><span class="w"> </span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="k">print</span><span class="w"> </span><span class="s">&quot;Match of [$pattern] at line $.: $_&quot;</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="sr">/$pattern/</span><span class="p">;</span>
+<span class="w">        </span><span class="k">print</span><span class="w"> </span><span class="s">"Match of [$pattern] at line $.: $_"</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="sr">/$pattern/</span><span class="p">;</span>
 <span class="w">    </span><span class="p">}</span>
 <span class="p">}</span>
 </code></pre></div>
@@ -740,7 +740,7 @@ données vers une commande externe), de manière plus propre qu'avec <code>open<
 <ul>
 <li>Tri stable</li>
 </ul>
-<div class="highlight"><pre><span></span><code><span class="k">use</span><span class="w"> </span><span class="nn">sort</span><span class="w"> </span><span class="s">&quot;stable&quot;</span><span class="p">;</span><span class="w"> </span><span class="c1"># Pour avoir des tris stables</span>
+<div class="highlight"><pre><span></span><code><span class="k">use</span><span class="w"> </span><span class="nn">sort</span><span class="w"> </span><span class="s">"stable"</span><span class="p">;</span><span class="w"> </span><span class="c1"># Pour avoir des tris stables</span>
 </code></pre></div>
 
 <ul>
@@ -748,7 +748,7 @@ données vers une commande externe), de manière plus propre qu'avec <code>open<
 </ul>
 <div class="highlight"><pre><span></span><code><span class="k">use</span><span class="w"> </span><span class="nn">Benchmark</span><span class="w"> </span><span class="sx">qw(:all)</span><span class="p">;</span>
 
-<span class="c1"># Si $count est négatif, il s&#39;agit d&#39;un nombre de secondes</span>
+<span class="c1"># Si $count est négatif, il s'agit d'un nombre de secondes</span>
 <span class="n">timethese</span><span class="p">(</span><span class="w"> </span><span class="nv">$count</span><span class="p">,</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">key1</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">sub1</span><span class="p">,</span><span class="w"> </span><span class="n">key2</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">sub2</span><span class="p">,</span><span class="w"> </span><span class="o">...</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="p">);</span>
 <span class="n">cmpthese</span><span class="p">(</span><span class="w"> </span><span class="nv">$count</span><span class="p">,</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">key1</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">sub1</span><span class="p">,</span><span class="w"> </span><span class="n">key2</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">sub2</span><span class="p">,</span><span class="w"> </span><span class="o">...</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="p">);</span>
 </code></pre></div>
@@ -756,13 +756,13 @@ données vers une commande externe), de manière plus propre qu'avec <code>open<
 <ul>
 <li>Transformation de chaînes pour la comparaison</li>
 </ul>
-<div class="highlight"><pre><span></span><code><span class="nv">$string</span><span class="w"> </span><span class="o">=~</span><span class="w"> </span><span class="nb">tr</span><span class="sr">/a-z/</span><span class="o">/</span><span class="n">cd</span><span class="w">      </span><span class="c1"># Supprime tout caractère qui n&#39;est pas une lettre</span>
-<span class="nv">$string</span><span class="w"> </span><span class="o">=~</span><span class="w"> </span><span class="sr">s/\P{Letter}//g</span><span class="w"> </span><span class="c1"># Supprime tout caractère qui n&#39;est pas une lettre</span>
+<div class="highlight"><pre><span></span><code><span class="nv">$string</span><span class="w"> </span><span class="o">=~</span><span class="w"> </span><span class="nb">tr</span><span class="sr">/a-z/</span><span class="o">/</span><span class="n">cd</span><span class="w">      </span><span class="c1"># Supprime tout caractère qui n'est pas une lettre</span>
+<span class="nv">$string</span><span class="w"> </span><span class="o">=~</span><span class="w"> </span><span class="sr">s/\P{Letter}//g</span><span class="w"> </span><span class="c1"># Supprime tout caractère qui n'est pas une lettre</span>
 <span class="w">                           </span><span class="c1"># Mieux que tr, car critère compatible Unicode.</span>
 <span class="nv">$string</span><span class="w"> </span><span class="o">=~</span><span class="w"> </span><span class="nb">tr</span><span class="sr">/A-Z/</span><span class="n">a</span><span class="o">-</span><span class="n">z</span><span class="o">/</span><span class="p">;</span><span class="w">    </span><span class="c1"># Force à passer en minuscule</span>
 <span class="nv">$string</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">fc</span><span class="w"> </span><span class="p">(</span><span class="w"> </span><span class="nv">$string</span><span class="w"> </span><span class="p">)</span><span class="w">   </span><span class="c1"># À partir de 5.16 ; plus propre que lc ou uc</span>
 
-<span class="c1"># D&#39;après le livre, la bonne méthode est de passer par</span>
+<span class="c1"># D'après le livre, la bonne méthode est de passer par</span>
 <span class="c1">#   Unicode::Collate</span>
 <span class="c1"># (non décrit par le livre)</span>
 </code></pre></div>
@@ -841,7 +841,7 @@ données vers une commande externe), de manière plus propre qu'avec <code>open<
 <ul>
 <li>Instructions pour <code>Module::Build</code></li>
 </ul>
-<div class="highlight"><pre><span></span><code><span class="n">module-starter</span> --<span class="n">mb</span> --<span class="n">module</span>=<span class="s">&quot;MyModule&quot;</span>
+<div class="highlight"><pre><span></span><code><span class="n">module-starter</span> --<span class="n">mb</span> --<span class="n">module</span>=<span class="s">"MyModule"</span>
 <span class="c1"># Build.PL peut être modifié en fonction des besoins...</span>
 <span class="nb">perl</span> <span class="n">Build</span>.<span class="n">PL</span>
 ./<span class="n">Build</span>
@@ -853,7 +853,7 @@ données vers une commande externe), de manière plus propre qu'avec <code>open<
 <ul>
 <li>Instructions pour <code>ExtUtils::Makemaker</code></li>
 </ul>
-<div class="highlight"><pre><span></span><code><span class="n">module</span><span class="o">-</span><span class="n">starter</span><span class="w"> </span><span class="o">--</span><span class="n">builder</span><span class="o">=</span><span class="s">&quot;ExtUtils::Makemaker&quot;</span><span class="w"> </span><span class="o">--</span><span class="n">module</span><span class="o">=</span><span class="s">&quot;MyModule&quot;</span>
+<div class="highlight"><pre><span></span><code><span class="n">module</span><span class="o">-</span><span class="n">starter</span><span class="w"> </span><span class="o">--</span><span class="n">builder</span><span class="o">=</span><span class="s">"ExtUtils::Makemaker"</span><span class="w"> </span><span class="o">--</span><span class="n">module</span><span class="o">=</span><span class="s">"MyModule"</span>
 <span class="c1"># Makefile.PL peut être modifié en fonction des besoins...</span>
 <span class="n">perl</span><span class="w"> </span><span class="n">Makefile</span><span class="o">.</span><span class="n">PL</span>
 <span class="n">make</span>
@@ -865,7 +865,7 @@ données vers une commande externe), de manière plus propre qu'avec <code>open<
 <ul>
 <li>Au sujet de <code>@ISA</code></li>
 </ul>
-<div class="highlight"><pre><span></span><code><span class="c1"># Pour qu&#39;une classe hérite d&#39;une classe parente, les trois possibilités</span>
+<div class="highlight"><pre><span></span><code><span class="c1"># Pour qu'une classe hérite d'une classe parente, les trois possibilités</span>
 <span class="c1"># ci-dessous sont équivalentes.</span>
 
 <span class="c1"># 1 (without using the parent class)</span>
@@ -892,7 +892,7 @@ données vers une commande externe), de manière plus propre qu'avec <code>open<
 <li>Redéfinition (surcharge ?) de méthodes</li>
 </ul>
 <div class="highlight"><pre><span></span><code><span class="c1"># PAS BON !</span>
-<span class="c1"># Pas de recherche de la bonne méthode dans la hiérarchie d&#39;héritage.</span>
+<span class="c1"># Pas de recherche de la bonne méthode dans la hiérarchie d'héritage.</span>
 <span class="k">sub</span><span class="w"> </span><span class="nf">speak</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="k">my</span><span class="w"> </span><span class="nv">$class</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">shift</span><span class="p">;</span>
 <span class="w">    </span><span class="nn">Animal::</span><span class="n">speak</span><span class="p">(</span><span class="nv">$class</span><span class="p">);</span>
@@ -900,7 +900,7 @@ données vers une commande externe), de manière plus propre qu'avec <code>open<
 <span class="p">}</span>
 
 <span class="c1"># OK !</span>
-<span class="c1"># Mais, il y a mieux - d&#39;ailleurs, en cas d&#39;héritage multiple, il faudrait</span>
+<span class="c1"># Mais, il y a mieux - d'ailleurs, en cas d'héritage multiple, il faudrait</span>
 <span class="c1"># savoir où chercher la méthode qui nous intéresse.</span>
 <span class="k">sub</span><span class="w"> </span><span class="nf">speak</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="k">my</span><span class="w"> </span><span class="nv">$class</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">shift</span><span class="p">;</span>
@@ -941,12 +941,12 @@ répertoire <code>cover_db</code>.</p>
 <p>Pour restreindre une méthode à être exécutée sur une instance :</p>
 <div class="highlight"><pre><span></span><code><span class="c1"># Uniquement objet</span>
 <span class="k">sub</span><span class="w"> </span><span class="nf">met_only_for_obj</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="nb">ref</span><span class="p">(</span><span class="k">my</span><span class="w"> </span><span class="nv">$self</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">shift</span><span class="p">)</span><span class="w"> </span><span class="ow">or</span><span class="w"> </span><span class="n">croak</span><span class="w"> </span><span class="s">&quot;...&quot;</span><span class="p">;</span>
+<span class="w">    </span><span class="nb">ref</span><span class="p">(</span><span class="k">my</span><span class="w"> </span><span class="nv">$self</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">shift</span><span class="p">)</span><span class="w"> </span><span class="ow">or</span><span class="w"> </span><span class="n">croak</span><span class="w"> </span><span class="s">"..."</span><span class="p">;</span>
 <span class="p">}</span>
 
 <span class="c1"># Uniquement classe</span>
 <span class="k">sub</span><span class="w"> </span><span class="nf">met_only_for_class</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="nb">ref</span><span class="p">(</span><span class="k">my</span><span class="w"> </span><span class="nv">$class</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">shift</span><span class="p">)</span><span class="w"> </span><span class="ow">and</span><span class="w"> </span><span class="n">croak</span><span class="w"> </span><span class="s">&quot;...&quot;</span><span class="p">;</span>
+<span class="w">    </span><span class="nb">ref</span><span class="p">(</span><span class="k">my</span><span class="w"> </span><span class="nv">$class</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">shift</span><span class="p">)</span><span class="w"> </span><span class="ow">and</span><span class="w"> </span><span class="n">croak</span><span class="w"> </span><span class="s">"..."</span><span class="p">;</span>
 <span class="p">}</span>
 </code></pre></div>
 
@@ -956,7 +956,7 @@ répertoire <code>cover_db</code>.</p>
 <p>Tous les objets dérivent de cette classe.
 Ainsi une méthode telle que</p>
 <div class="highlight"><pre><span></span><code><span class="k">sub</span><span class="w"> </span><span class="nf">UNIVERSAL</span><span class="p">::youpi {</span>
-<span class="w">    </span><span class="n">say</span><span class="w"> </span><span class="nb">shift</span><span class="p">,</span><span class="w"> </span><span class="s">&quot; est content&quot;</span><span class="p">;</span>
+<span class="w">    </span><span class="n">say</span><span class="w"> </span><span class="nb">shift</span><span class="p">,</span><span class="w"> </span><span class="s">" est content"</span><span class="p">;</span>
 <span class="p">}</span>
 </code></pre></div>
 
@@ -1032,8 +1032,8 @@ texte analysé se trouve dans <code>$_</code>.</p>
 <div class="highlight"><pre><span></span><code><span class="k">my</span><span class="w"> </span><span class="nv">@matches</span><span class="p">;</span>
 <span class="sr">m/</span>
 <span class="sr">(?(DEFINE)</span>
-<span class="sr">    (?&lt;QUOTE_MARK&gt; [&#39;&quot;])</span>
-<span class="sr">    (?&lt;NOT_QUOTE_MARK&gt; [^&#39;&quot;])</span>
+<span class="sr">    (?&lt;QUOTE_MARK&gt; ['"])</span>
+<span class="sr">    (?&lt;NOT_QUOTE_MARK&gt; [^'"])</span>
 <span class="sr">)</span>
 <span class="sr">(?&lt;said&gt;</span>
 <span class="sr">(?&lt;quote&gt;(?&amp;QUOTE_MARK))</span>
@@ -1046,7 +1046,7 @@ texte analysé se trouve dans <code>$_</code>.</p>
 <span class="sr">)</span>
 <span class="sr">(?{ push @matches, $^N })</span>
 <span class="sr">/x</span><span class="p">;</span>
-<span class="n">say</span><span class="w"> </span><span class="nb">join</span><span class="w"> </span><span class="s">&quot;\n&quot;</span><span class="p">,</span><span class="w"> </span><span class="nv">@matches</span><span class="p">;</span>
+<span class="n">say</span><span class="w"> </span><span class="nb">join</span><span class="w"> </span><span class="s">"\n"</span><span class="p">,</span><span class="w"> </span><span class="nv">@matches</span><span class="p">;</span>
 </code></pre></div>
 
 <p>Le livre mentionne ensuite l'utilisation de $^R pour accumuler les résultats
@@ -1057,7 +1057,7 @@ trouvés et les copier (à la fin) dans @matches.</p>
 <p><code>perl -Dr</code> active le débogage des expressions régulières, mais perl doit avoir
 été compilé avec -DDEBUGGING, ce qui n'est pas le cas sur mon Arch Linux.</p>
 <p>Plus simple : utiliser le pragma <code>re</code> :</p>
-<div class="highlight"><pre><span></span><code><span class="k">use</span><span class="w"> </span><span class="nn">re</span><span class="w"> </span><span class="s">&#39;debug&#39;</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="k">use</span><span class="w"> </span><span class="nn">re</span><span class="w"> </span><span class="s">'debug'</span><span class="p">;</span>
 </code></pre></div>
 
 <p>Il est également possible d'activer ce pragma sans modifier le programme, en
@@ -1143,12 +1143,12 @@ Vim::Debug (non testé)
 <span class="w">    </span><span class="k">sub</span><span class="w"> </span><span class="nf">DB</span><span class="w"> </span><span class="p">{</span>
 <span class="w">        </span><span class="k">my</span><span class="w"> </span><span class="p">(</span><span class="nv">$file</span><span class="p">,</span><span class="w"> </span><span class="nv">$line</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="nb">caller</span><span class="p">)[</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">];</span>
 <span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="k">unless</span><span class="w"> </span><span class="nv">$file</span><span class="w"> </span><span class="ow">eq</span><span class="w"> </span><span class="nv">$0</span><span class="p">;</span>
-<span class="w">        </span><span class="k">print</span><span class="w"> </span><span class="s">&#39;  &#39;</span><span class="p">,</span><span class="w"> </span><span class="nb">substr</span><span class="p">(</span><span class="s">&#39;-\|/&#39;</span><span class="p">,</span><span class="w"> </span><span class="nv">$count</span><span class="o">++</span><span class="w"> </span><span class="nv">%</span><span class="w"> </span><span class="nv">4</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">),</span><span class="w"> </span><span class="s">&quot;\r&quot;</span><span class="p">;</span>
+<span class="w">        </span><span class="k">print</span><span class="w"> </span><span class="s">'  '</span><span class="p">,</span><span class="w"> </span><span class="nb">substr</span><span class="p">(</span><span class="s">'-\|/'</span><span class="p">,</span><span class="w"> </span><span class="nv">$count</span><span class="o">++</span><span class="w"> </span><span class="nv">%</span><span class="w"> </span><span class="nv">4</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">),</span><span class="w"> </span><span class="s">"\r"</span><span class="p">;</span>
 <span class="w">        </span><span class="bp">STDOUT</span><span class="o">-&gt;</span><span class="n">flush</span><span class="p">();</span>
 <span class="w">    </span><span class="p">}</span>
 
 <span class="w">    </span><span class="k">END</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="k">print</span><span class="w"> </span><span class="s">&quot;Mydbg result: $count instructions executed\n&quot;</span><span class="p">;</span>
+<span class="w">        </span><span class="k">print</span><span class="w"> </span><span class="s">"Mydbg result: $count instructions executed\n"</span><span class="p">;</span>
 <span class="w">    </span><span class="p">}</span>
 <span class="p">}</span>
 
@@ -1189,7 +1189,7 @@ avec les variables lexicales). C'est-à-dire que <code>\$var</code>, <code>\@var
 <code>\&amp;var</code>, assignées à une lvalue de type <code>*aliasname</code> ne provoqueront l'aliasing
 que de la valeur scalar, array, hash et code, respectivement.</p>
 <div class="highlight"><pre><span></span><code><span class="k">use</span><span class="w"> </span><span class="nn">vars</span><span class="w"> </span><span class="sx">qw($al)</span><span class="p">;</span>
-<span class="k">my</span><span class="w"> </span><span class="nv">$v</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#39;bla&#39;</span><span class="p">;</span>
+<span class="k">my</span><span class="w"> </span><span class="nv">$v</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">'bla'</span><span class="p">;</span>
 <span class="o">*</span><span class="n">al</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">\</span><span class="nv">$v</span><span class="p">;</span>
 <span class="c1"># $al et $v pointent sur la même valeur</span>
 </code></pre></div>

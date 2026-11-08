@@ -556,7 +556,7 @@ manager. On Ubuntu, you got to execute the command below:</p>
 <span class="gi">+++ sbsigntool-0.6-hash/src/sbsign.c    2017-12-16 10:31:34.781884149 +0100</span>
 <span class="gu">@@ -57,6 +57,8 @@</span>
 
-<span class="w"> </span>static const char *toolname = &quot;sbsign&quot;;
+<span class="w"> </span>static const char *toolname = "sbsign";
 
 <span class="gi">+static int only_print_hash = 0;</span>
 <span class="gi">+</span>
@@ -564,21 +564,21 @@ manager. On Ubuntu, you got to execute the command below:</p>
 <span class="w"> </span>   struct image *image;
 <span class="w"> </span>   const char *infilename;
 <span class="gu">@@ -70,6 +72,7 @@</span>
-<span class="w"> </span>   { &quot;cert&quot;, required_argument, NULL, &#39;c&#39; },
-<span class="w"> </span>   { &quot;key&quot;, required_argument, NULL, &#39;k&#39; },
-<span class="w"> </span>   { &quot;detached&quot;, no_argument, NULL, &#39;d&#39; },
-<span class="gi">+   { &quot;hash&quot;, no_argument, NULL, &#39;H&#39; },</span>
-<span class="w"> </span>   { &quot;verbose&quot;, no_argument, NULL, &#39;v&#39; },
-<span class="w"> </span>   { &quot;help&quot;, no_argument, NULL, &#39;h&#39; },
-<span class="w"> </span>   { &quot;version&quot;, no_argument, NULL, &#39;V&#39; },
+<span class="w"> </span>   { "cert", required_argument, NULL, 'c' },
+<span class="w"> </span>   { "key", required_argument, NULL, 'k' },
+<span class="w"> </span>   { "detached", no_argument, NULL, 'd' },
+<span class="gi">+   { "hash", no_argument, NULL, 'H' },</span>
+<span class="w"> </span>   { "verbose", no_argument, NULL, 'v' },
+<span class="w"> </span>   { "help", no_argument, NULL, 'h' },
+<span class="w"> </span>   { "version", no_argument, NULL, 'V' },
 <span class="gu">@@ -90,7 +93,9 @@</span>
-<span class="w"> </span>       &quot;\t--output &lt;file&gt;    write signed data to &lt;file&gt;\n&quot;
-<span class="w"> </span>       &quot;\t                    (default &lt;efi-boot-image&gt;.signed,\n&quot;
-<span class="w"> </span>       &quot;\t                    or &lt;efi-boot-image&gt;.pk7 for detached\n&quot;
-<span class="gd">-       &quot;\t                    signatures)\n&quot;,</span>
-<span class="gi">+       &quot;\t                    signatures)\n&quot;</span>
-<span class="gi">+       &quot;\t--hash             output the SHA256 sum that would be signed\n&quot;</span>
-<span class="gi">+        &quot;\t                    and exit (don&#39;t sign)\n&quot;,</span>
+<span class="w"> </span>       "\t--output &lt;file&gt;    write signed data to &lt;file&gt;\n"
+<span class="w"> </span>       "\t                    (default &lt;efi-boot-image&gt;.signed,\n"
+<span class="w"> </span>       "\t                    or &lt;efi-boot-image&gt;.pk7 for detached\n"
+<span class="gd">-       "\t                    signatures)\n",</span>
+<span class="gi">+       "\t                    signatures)\n"</span>
+<span class="gi">+       "\t--hash             output the SHA256 sum that would be signed\n"</span>
+<span class="gi">+        "\t                    and exit (don't sign)\n",</span>
 <span class="w"> </span>       toolname);
 <span class="w"> </span>}
 
@@ -586,19 +586,19 @@ manager. On Ubuntu, you got to execute the command below:</p>
 
 <span class="w"> </span>   for (;;) {
 <span class="w"> </span>       int idx;
-<span class="gd">-       c = getopt_long(argc, argv, &quot;o:c:k:dvVh&quot;, options, &amp;idx);</span>
-<span class="gi">+       c = getopt_long(argc, argv, &quot;o:c:k:dvVhH&quot;, options, &amp;idx);</span>
+<span class="gd">-       c = getopt_long(argc, argv, "o:c:k:dvVh", options, &amp;idx);</span>
+<span class="gi">+       c = getopt_long(argc, argv, "o:c:k:dvVhH", options, &amp;idx);</span>
 <span class="w"> </span>       if (c == -1)
 <span class="w"> </span>           break;
 
 <span class="gu">@@ -140,6 +145,9 @@</span>
-<span class="w"> </span>       case &#39;d&#39;:
+<span class="w"> </span>       case 'd':
 <span class="w"> </span>           ctx-&gt;detached = 1;
 <span class="w"> </span>           break;
-<span class="gi">+       case &#39;H&#39;:</span>
+<span class="gi">+       case 'H':</span>
 <span class="gi">+           only_print_hash = 1;</span>
 <span class="gi">+           break;</span>
-<span class="w"> </span>       case &#39;v&#39;:
+<span class="w"> </span>       case 'v':
 <span class="w"> </span>           ctx-&gt;verbose = 1;
 <span class="w"> </span>           break;
 <span class="gu">@@ -161,13 +169,13 @@</span>
@@ -608,14 +608,14 @@ manager. On Ubuntu, you got to execute the command below:</p>
 <span class="gd">-   if (!certfilename) {</span>
 <span class="gi">+   if (!only_print_hash &amp;&amp; !certfilename) {</span>
 <span class="w"> </span>       fprintf(stderr,
-<span class="w"> </span>           &quot;error: No certificate specified (with --cert)\n&quot;);
+<span class="w"> </span>           "error: No certificate specified (with --cert)\n");
 <span class="w"> </span>       usage();
 <span class="w"> </span>       return EXIT_FAILURE;
 <span class="w"> </span>   }
 <span class="gd">-   if (!keyfilename) {</span>
 <span class="gi">+   if (!only_print_hash &amp;&amp; !keyfilename) {</span>
 <span class="w"> </span>       fprintf(stderr,
-<span class="w"> </span>           &quot;error: No key specified (with --key)\n&quot;);
+<span class="w"> </span>           "error: No key specified (with --key)\n");
 <span class="w"> </span>       usage();
 <span class="gu">@@ -184,6 +192,16 @@</span>
 <span class="w"> </span>   OpenSSL_add_all_digests();
@@ -625,9 +625,9 @@ manager. On Ubuntu, you got to execute the command below:</p>
 <span class="gi">+        uint8_t sha[SHA256_DIGEST_LENGTH];</span>
 <span class="gi">+        image_hash_sha256(ctx-&gt;image, sha);</span>
 <span class="gi">+        for (int i = 0; i &lt; SHA256_DIGEST_LENGTH; i++) {</span>
-<span class="gi">+            printf(&quot;%02x&quot;, sha[i]);</span>
+<span class="gi">+            printf("%02x", sha[i]);</span>
 <span class="gi">+        }</span>
-<span class="gi">+        printf(&quot;\n&quot;);</span>
+<span class="gi">+        printf("\n");</span>
 <span class="gi">+        return EXIT_SUCCESS;</span>
 <span class="gi">+    }</span>
 <span class="gi">+</span>

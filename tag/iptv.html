@@ -126,20 +126,20 @@ Constaté le 2026-07-05.</p>
 <div class="highlight"><pre><span></span><span class="gd">--- artetv.py.orig  2026-05-06 23:00:46.000000000 +0200</span>
 <span class="gi">+++ artetv.py       2026-07-05 09:25:53.788643825 +0200</span>
 <span class="gu">@@ -34,7 +34,13 @@</span>
-<span class="w"> </span>    API_URL = &quot;https://api.arte.tv/api/player/v2/config/{language}/{id}&quot;
+<span class="w"> </span>    API_URL = "https://api.arte.tv/api/player/v2/config/{language}/{id}"
 
 <span class="w"> </span>    def _get_streams(self):
-<span class="gd">-        self.id = self.match[&quot;video_id&quot;] if self.matches[&quot;vod&quot;] else &quot;LIVE&quot;</span>
+<span class="gd">-        self.id = self.match["video_id"] if self.matches["vod"] else "LIVE"</span>
 <span class="gi">+        video_id = None</span>
 <span class="gi">+</span>
-<span class="gi">+        if hasattr(self.match, &quot;groupdict&quot;):</span>
-<span class="gi">+            video_id = self.match.groupdict().get(&quot;video_id&quot;)</span>
+<span class="gi">+        if hasattr(self.match, "groupdict"):</span>
+<span class="gi">+            video_id = self.match.groupdict().get("video_id")</span>
 <span class="gi">+</span>
-<span class="gi">+        self.id = video_id if video_id else &quot;LIVE&quot;</span>
+<span class="gi">+        self.id = video_id if video_id else "LIVE"</span>
 <span class="gi">+</span>
 
 <span class="w"> </span>        json_url = self.API_URL.format(
-<span class="w"> </span>            language=self.match[&quot;language&quot;],
+<span class="w"> </span>            language=self.match["language"],
 </pre></div>
 <p>Ensuite exécuter les commandes suivantes :</p>
 <div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>/usr/lib/python3.14/site-packages/streamlink/plugins
@@ -190,12 +190,12 @@ mais s'il n'y a pas le choix...</p>
 <p>Le fichier est situé dans le répertoire qui vient d'être créé, nom complet :
 <em>~/.kodi/addons/plugin.video.myartetv/addon.xml</em></p>
 <p>Contenu du fichier :</p>
-<div class="highlight"><pre><span></span><span class="nt">&lt;addon</span><span class="w"> </span><span class="na">id=</span><span class="s">&quot;plugin.video.myartetv&quot;</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;My Arte avec streamlink&quot;</span><span class="w"> </span><span class="na">version=</span><span class="s">&quot;1.0.0&quot;</span><span class="w"> </span><span class="na">provider-name=</span><span class="s">&quot;local&quot;</span><span class="nt">&gt;</span>
-<span class="w">  </span><span class="nt">&lt;extension</span><span class="w"> </span><span class="na">point=</span><span class="s">&quot;xbmc.python.pluginsource&quot;</span><span class="w"> </span><span class="na">library=</span><span class="s">&quot;default.py&quot;</span><span class="nt">&gt;</span>
+<div class="highlight"><pre><span></span><span class="nt">&lt;addon</span><span class="w"> </span><span class="na">id=</span><span class="s">"plugin.video.myartetv"</span><span class="w"> </span><span class="na">name=</span><span class="s">"My Arte avec streamlink"</span><span class="w"> </span><span class="na">version=</span><span class="s">"1.0.0"</span><span class="w"> </span><span class="na">provider-name=</span><span class="s">"local"</span><span class="nt">&gt;</span>
+<span class="w">  </span><span class="nt">&lt;extension</span><span class="w"> </span><span class="na">point=</span><span class="s">"xbmc.python.pluginsource"</span><span class="w"> </span><span class="na">library=</span><span class="s">"default.py"</span><span class="nt">&gt;</span>
 <span class="w">    </span><span class="nt">&lt;provides&gt;</span>video<span class="nt">&lt;/provides&gt;</span>
 <span class="w">  </span><span class="nt">&lt;/extension&gt;</span>
 <span class="w">  </span><span class="nt">&lt;requires&gt;</span>
-<span class="w">    </span><span class="nt">&lt;import</span><span class="w"> </span><span class="na">addon=</span><span class="s">&quot;xbmc.python&quot;</span><span class="w"> </span><span class="na">version=</span><span class="s">&quot;3.0.0&quot;</span><span class="nt">/&gt;</span>
+<span class="w">    </span><span class="nt">&lt;import</span><span class="w"> </span><span class="na">addon=</span><span class="s">"xbmc.python"</span><span class="w"> </span><span class="na">version=</span><span class="s">"3.0.0"</span><span class="nt">/&gt;</span>
 <span class="w">  </span><span class="nt">&lt;/requires&gt;</span>
 <span class="nt">&lt;/addon&gt;</span>
 </pre></div>
@@ -210,15 +210,15 @@ mais s'il n'y a pas le choix...</p>
 <span class="kn">import</span><span class="w"> </span><span class="nn">socket</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">time</span>
 
-<span class="n">url</span> <span class="o">=</span> <span class="s2">&quot;https://www.arte.tv/fr/live/arte-tv&quot;</span>
+<span class="n">url</span> <span class="o">=</span> <span class="s2">"https://www.arte.tv/fr/live/arte-tv"</span>
 <span class="n">port</span> <span class="o">=</span> <span class="mi">8765</span>
 
 <span class="n">cmd</span> <span class="o">=</span> <span class="p">[</span>
-    <span class="s2">&quot;streamlink&quot;</span><span class="p">,</span>
+    <span class="s2">"streamlink"</span><span class="p">,</span>
     <span class="n">url</span><span class="p">,</span>
-    <span class="s2">&quot;best&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;--player-external-http&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;--player-external-http-port&quot;</span><span class="p">,</span>
+    <span class="s2">"best"</span><span class="p">,</span>
+    <span class="s2">"--player-external-http"</span><span class="p">,</span>
+    <span class="s2">"--player-external-http-port"</span><span class="p">,</span>
     <span class="nb">str</span><span class="p">(</span><span class="n">port</span><span class="p">)</span>
 <span class="p">]</span>
 
@@ -239,10 +239,10 @@ mais s'il n'y a pas le choix...</p>
             <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mf">0.05</span><span class="p">)</span>
     <span class="k">return</span> <span class="kc">False</span>
 
-<span class="k">if</span> <span class="n">wait_port</span><span class="p">(</span><span class="s2">&quot;127.0.0.1&quot;</span><span class="p">,</span> <span class="n">port</span><span class="p">):</span>
-    <span class="n">xbmc</span><span class="o">.</span><span class="n">Player</span><span class="p">()</span><span class="o">.</span><span class="n">play</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;http://127.0.0.1:</span><span class="si">{</span><span class="n">port</span><span class="si">}</span><span class="s2">/&quot;</span><span class="p">)</span>
+<span class="k">if</span> <span class="n">wait_port</span><span class="p">(</span><span class="s2">"127.0.0.1"</span><span class="p">,</span> <span class="n">port</span><span class="p">):</span>
+    <span class="n">xbmc</span><span class="o">.</span><span class="n">Player</span><span class="p">()</span><span class="o">.</span><span class="n">play</span><span class="p">(</span><span class="sa">f</span><span class="s2">"http://127.0.0.1:</span><span class="si">{</span><span class="n">port</span><span class="si">}</span><span class="s2">/"</span><span class="p">)</span>
 <span class="k">else</span><span class="p">:</span>
-    <span class="n">xbmc</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="s2">&quot;MYARTETV ERROR: streamlink not ready&quot;</span><span class="p">,</span> <span class="n">xbmc</span><span class="o">.</span><span class="n">LOGERROR</span><span class="p">)</span>
+    <span class="n">xbmc</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="s2">"MYARTETV ERROR: streamlink not ready"</span><span class="p">,</span> <span class="n">xbmc</span><span class="o">.</span><span class="n">LOGERROR</span><span class="p">)</span>
 </pre></div>
 <p>On a donc comme structure :</p>
 <div class="highlight"><pre><span></span>~/.kodi/addons/plugin.video.myartetv
@@ -261,19 +261,19 @@ plan B.</p>
 <span class="kn">import</span><span class="w"> </span><span class="nn">socket</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">time</span>
 
-<span class="n">url</span> <span class="o">=</span> <span class="s2">&quot;https://www.tf1.fr/live&quot;</span>
+<span class="n">url</span> <span class="o">=</span> <span class="s2">"https://www.tf1.fr/live"</span>
 <span class="n">port</span> <span class="o">=</span> <span class="mi">8765</span>
 
 <span class="n">cmd</span> <span class="o">=</span> <span class="p">[</span>
-    <span class="s2">&quot;streamlink&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;--tf1-email&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;sebastien.millet@gmail.com&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;--tf1-password&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;****&quot;</span><span class="p">,</span>
+    <span class="s2">"streamlink"</span><span class="p">,</span>
+    <span class="s2">"--tf1-email"</span><span class="p">,</span>
+    <span class="s2">"sebastien.millet@gmail.com"</span><span class="p">,</span>
+    <span class="s2">"--tf1-password"</span><span class="p">,</span>
+    <span class="s2">"****"</span><span class="p">,</span>
     <span class="n">url</span><span class="p">,</span>
-    <span class="s2">&quot;best&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;--player-external-http&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;--player-external-http-port&quot;</span><span class="p">,</span>
+    <span class="s2">"best"</span><span class="p">,</span>
+    <span class="s2">"--player-external-http"</span><span class="p">,</span>
+    <span class="s2">"--player-external-http-port"</span><span class="p">,</span>
     <span class="nb">str</span><span class="p">(</span><span class="n">port</span><span class="p">)</span>
 <span class="p">]</span>
 
@@ -294,10 +294,10 @@ plan B.</p>
             <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mf">0.05</span><span class="p">)</span>
     <span class="k">return</span> <span class="kc">False</span>
 
-<span class="k">if</span> <span class="n">wait_port</span><span class="p">(</span><span class="s2">&quot;127.0.0.1&quot;</span><span class="p">,</span> <span class="n">port</span><span class="p">):</span>
-    <span class="n">xbmc</span><span class="o">.</span><span class="n">Player</span><span class="p">()</span><span class="o">.</span><span class="n">play</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;http://127.0.0.1:</span><span class="si">{</span><span class="n">port</span><span class="si">}</span><span class="s2">/&quot;</span><span class="p">)</span>
+<span class="k">if</span> <span class="n">wait_port</span><span class="p">(</span><span class="s2">"127.0.0.1"</span><span class="p">,</span> <span class="n">port</span><span class="p">):</span>
+    <span class="n">xbmc</span><span class="o">.</span><span class="n">Player</span><span class="p">()</span><span class="o">.</span><span class="n">play</span><span class="p">(</span><span class="sa">f</span><span class="s2">"http://127.0.0.1:</span><span class="si">{</span><span class="n">port</span><span class="si">}</span><span class="s2">/"</span><span class="p">)</span>
 <span class="k">else</span><span class="p">:</span>
-    <span class="n">xbmc</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="s2">&quot;MYARTETV ERROR: streamlink not ready&quot;</span><span class="p">,</span> <span class="n">xbmc</span><span class="o">.</span><span class="n">LOGERROR</span><span class="p">)</span>
+    <span class="n">xbmc</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="s2">"MYARTETV ERROR: streamlink not ready"</span><span class="p">,</span> <span class="n">xbmc</span><span class="o">.</span><span class="n">LOGERROR</span><span class="p">)</span>
 </pre></div>
 </div>
 <div class="section" id="activation">
@@ -395,7 +395,7 @@ dans <em>Dossier personnel</em>.</p>
 <h2>8 TF1</h2>
 <p>TF1 ne peut pas fonctionner avec Catch-up TV and More.</p>
 <p>Il faut faire appel à streamlink, commande qui fonctionne :</p>
-<div class="highlight"><pre><span></span>streamlink<span class="w"> </span>--tf1-email<span class="w"> </span><span class="s2">&quot;sebastien.millet@gmail.com&quot;</span><span class="w"> </span>--tf1-password<span class="w"> </span><span class="s1">&#39;****&#39;</span><span class="w"> </span>https://www.tf1.fr/live<span class="w"> </span>best
+<div class="highlight"><pre><span></span>streamlink<span class="w"> </span>--tf1-email<span class="w"> </span><span class="s2">"sebastien.millet@gmail.com"</span><span class="w"> </span>--tf1-password<span class="w"> </span><span class="s1">'****'</span><span class="w"> </span>https://www.tf1.fr/live<span class="w"> </span>best
 </pre></div>
 <p>Voir les paragraphes 4 et 5 pour intégrer cette commande à Kodi, en tant
 qu'addon.</p>

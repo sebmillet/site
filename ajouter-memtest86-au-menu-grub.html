@@ -79,8 +79,8 @@ ci-dessous. Il faut être root, ou bien, tout préfixer avec <em>sudo</em>.</li>
 <span class="go">Disque /dev/loop0 : 1 GiB, 1073741824 octets, 2097152 secteurs</span>
 <span class="go">Unités : secteur de 1 × 512 = 512 octets</span>
 <span class="go">Taille de secteur (logique / physique) : 512 octets / 512 octets</span>
-<span class="go">taille d&#39;E/S (minimale / optimale) : 512 octets / 512 octets</span>
-<span class="go">Type d&#39;étiquette de disque : gpt</span>
+<span class="go">taille d'E/S (minimale / optimale) : 512 octets / 512 octets</span>
+<span class="go">Type d'étiquette de disque : gpt</span>
 <span class="go">Identifiant de disque : E2BF71FD-A275-4D88-AC0B-8A6CB119584E</span>
 
 <span class="go">Périphérique   Début     Fin Secteurs Taille Type</span>
@@ -115,9 +115,9 @@ ci-dessous. Il faut être root, ou bien, tout préfixer avec <em>sudo</em>.</li>
 <span class="gp">#   </span>https://www.yosoygames.com.ar/wp/2020/03/installing-memtest86-on-uefi-grub2-ubuntu/
 <span class="gp"># </span>This<span class="w"> </span>file<span class="w"> </span>provides<span class="w"> </span>an<span class="w"> </span>easy<span class="w"> </span>way<span class="w"> </span>to<span class="w"> </span>add<span class="w"> </span>custom<span class="w"> </span>menu<span class="w"> </span>entries.<span class="w">  </span>Simply<span class="w"> </span><span class="nb">type</span><span class="w"> </span>the
 <span class="gp"># </span>menu<span class="w"> </span>entries<span class="w"> </span>you<span class="w"> </span>want<span class="w"> </span>to<span class="w"> </span>add<span class="w"> </span>after<span class="w"> </span>this<span class="w"> </span>comment.<span class="w">  </span>Be<span class="w"> </span>careful<span class="w"> </span>not<span class="w"> </span>to<span class="w"> </span>change
-<span class="gp"># </span>the<span class="w"> </span><span class="s1">&#39;exec tail&#39;</span><span class="w"> </span>line<span class="w"> </span>above.
+<span class="gp"># </span>the<span class="w"> </span><span class="s1">'exec tail'</span><span class="w"> </span>line<span class="w"> </span>above.
 
-<span class="go">menuentry &#39;memtest86&#39; {</span>
+<span class="go">menuentry 'memtest86' {</span>
 <span class="go">    insmod part_gpt</span>
 <span class="go">    insmod fat</span>
 <span class="go">    search --no-floppy --fs-uuid --set=root CBB6-0A32</span>
@@ -131,8 +131,8 @@ Pour ce faire :</p>
 <span class="go">Modèle de disque : INTEL SSDPEKKW256G7</span>
 <span class="go">Unités : secteur de 1 × 512 = 512 octets</span>
 <span class="go">Taille de secteur (logique / physique) : 512 octets / 512 octets</span>
-<span class="go">taille d&#39;E/S (minimale / optimale) : 512 octets / 512 octets</span>
-<span class="go">Type d&#39;étiquette de disque : gpt</span>
+<span class="go">taille d'E/S (minimale / optimale) : 512 octets / 512 octets</span>
+<span class="go">Type d'étiquette de disque : gpt</span>
 <span class="go">Identifiant de disque : 1C6AE4C0-69B3-4FDF-9D86-91C41904AFA3</span>
 
 <span class="go">Périphérique       Début       Fin  Secteurs Taille Type</span>
@@ -140,10 +140,10 @@ Pour ce faire :</p>
 <span class="go">/dev/nvme0n1p2   2099200  63539199  61440000  29,3G Système de fichiers Linux</span>
 <span class="go">/dev/nvme0n1p3 359450624 359483391     32768    16M Réservé Microsoft</span>
 <span class="go">/dev/nvme0n1p4 359483392 500117503 140634112  67,1G Données de base Microsoft</span>
-<span class="go">/dev/nvme0n1p5 357449728 359450623   2000896   977M Partition d&#39;échange Linux</span>
+<span class="go">/dev/nvme0n1p5 357449728 359450623   2000896   977M Partition d'échange Linux</span>
 <span class="go">/dev/nvme0n1p6 173377536 357449727 184072192  87,8G Système de fichiers Linux</span>
 
-<span class="go">Les entrées de la table de partitions ne sont pas dans l&#39;ordre du disque.</span>
+<span class="go">Les entrées de la table de partitions ne sont pas dans l'ordre du disque.</span>
 <span class="gp">maison:/etc/grub.d# </span>ls<span class="w"> </span>-al<span class="w"> </span>/dev/disk/by-uuid
 <span class="go">total 0</span>
 <span class="go">drwxr-xr-x 2 root root 320 17 déc.  14:09 .</span>
